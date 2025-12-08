@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from "vue";
-import logoBlanco from "../../assets/img/logo-blanco.webp";
+import logoBlanco from "@/assets/img/logo-blanco.webp";
 
 const isMenuOpen = ref(false);
 const isScrolled = ref(false);

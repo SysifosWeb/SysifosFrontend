@@ -3,6 +3,16 @@ export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
     devtools: { enabled: true },
 
+    runtimeConfig: {
+        // Variables privadas (solo servidor)
+        // apiSecret: '',
+
+        // Variables públicas (cliente y servidor)
+        public: {
+            apiUrl: process.env.API_URL || 'http://127.0.0.1:8000/api/'
+        }
+    },
+
     modules: [
         '@nuxtjs/tailwindcss',
         '@nuxtjs/google-fonts',

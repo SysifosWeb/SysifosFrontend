@@ -1,5 +1,107 @@
 <script setup>
+import { ref, reactive } from 'vue'
 
+// Acceder a la configuración runtime (variables de entorno)
+const config = useRuntimeConfig()
+
+// Estado del formulario
+const form = reactive({
+  name: '',
+  email: '',
+  phone: '',
+  company: '',
+  subject: '',
+  message: ''
+})
+
+// Estados de UI
+const isSubmitting = ref(false)
+const showSuccess = ref(false)
+const showError = ref(false)
+const errorMessage = ref('')
+
+// Función para enviar el formulario
+const submitForm = async (event) => {
+  event.preventDefault()
+  
+  // Validación básica
+  if (!form.name || !form.email || !form.subject || !form.message) {
+    errorMessage.value = 'Por favor completa todos los campos requeridos (*)'
+    showError.value = true
+    setTimeout(() => {
+      showError.value = false
+    }, 5000)
+    return
+  }
+
+  // Validación de email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(form.email)) {
+    errorMessage.value = 'Por favor ingresa un email válido'
+    showError.value = true
+    setTimeout(() => {
+      showError.value = false
+    }, 5000)
+    return
+  }
+
+  isSubmitting.value = true
+  showError.value = false
+
+  try {
+    const response = await fetch(config.public.apiUrl + 'contact/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: form.name,
+        email: form.email,
+        phone: form.phone || null,
+        company: form.company || null,
+        subject: form.subject,
+        message: form.message
+      })
+    })
+
+    const data = await response.json()
+    console.log(data)
+    if (response.ok) {
+      // Éxito
+      showSuccess.value = true
+      
+      // Limpiar formulario
+      form.name = ''
+      form.email = ''
+      form.phone = ''
+      form.company = ''
+      form.subject = ''
+      form.message = ''
+
+      // Ocultar mensaje de éxito después de 5 segundos
+      setTimeout(() => {
+        showSuccess.value = false
+      }, 5000)
+    } else {
+      // Error del servidor
+      errorMessage.value = data.message || 'Hubo un error al enviar el mensaje. Por favor intenta nuevamente.'
+      showError.value = true
+      setTimeout(() => {
+        showError.value = false
+      }, 5000)
+    }
+  } catch (error) {
+    console.error('Error al enviar formulario:', error)
+    errorMessage.value = 'No se pudo conectar con el servidor. Por favor verifica tu conexión e intenta nuevamente.'
+    showError.value = true
+    setTimeout(() => {
+      showError.value = false
+    }, 5000)
+  } finally {
+    isSubmitting.value = false
+  }
+}
 </script>
 <template>
   <div>
@@ -8,7 +110,8 @@
       <Meta name="description" content="Contáctanos para cotizar tu proyecto de desarrollo web o software. Estamos listos para ayudarte." />
     </Head>
 
-        <!-- <div v-if="showSuccess || $page.props.flash?.success" class="bg-green-50 border-l-4 border-green-400 p-4 fixed top-20 left-4 right-4 z-50 shadow-lg rounded-r-lg">
+        <!-- Alerta de Éxito -->
+        <div v-if="showSuccess" class="bg-green-50 border-l-4 border-green-400 p-4 fixed top-20 left-4 right-4 z-50 shadow-lg rounded-r-lg">
             <div class="flex items-center justify-between">
                 <div class="flex">
                     <div class="flex-shrink-0">
@@ -18,11 +121,11 @@
                     </div>
                     <div class="ml-3">
                         <p class="text-sm text-green-700 font-medium">
-                            {{ $page.props.flash?.success || '¡Mensaje enviado exitosamente! Te contactaremos pronto.' }}
+                            ¡Mensaje enviado exitosamente! Te contactaremos pronto.
                         </p>
                     </div>
                 </div>
-                <button @click="closeAlert" class="text-green-400 hover:text-green-600">
+                <button @click="showSuccess = false" class="text-green-400 hover:text-green-600">
                     <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                     </svg>
@@ -30,21 +133,28 @@
             </div>
         </div>
 
-        
-        <div v-if="$page.props.flash?.success" class="bg-green-50 border-l-4 border-green-400 p-4 fixed top-20 left-4 right-4 z-50 shadow-lg rounded-r-lg">
+        <!-- Alerta de Error -->
+        <div v-if="showError" class="bg-red-50 border-l-4 border-red-400 p-4 fixed top-20 left-4 right-4 z-50 shadow-lg rounded-r-lg">
             <div class="flex items-center justify-between">
                 <div class="flex">
                     <div class="flex-shrink-0">
-                        <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                         </svg>
                     </div>
                     <div class="ml-3">
-                        <p class="text-sm text-green-700 font-medium">{{ $page.props.flash.success }}</p>
+                        <p class="text-sm text-red-700 font-medium">
+                            {{ errorMessage }}
+                        </p>
                     </div>
                 </div>
+                <button @click="showError = false" class="text-red-400 hover:text-red-600">
+                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
             </div>
-        </div> -->
+        </div>
     <Hero
       title="Contáctanos"
       description="Estamos listos para ayudarte a hacer realidad tu proyecto"    
@@ -62,7 +172,7 @@
                             <p class="text-lg text-gray-600">Completa el formulario y te contactaremos en menos de 24 horas</p>
                         </div>
                         
-                        <form class="space-y-6">
+                        <form @submit="submitForm" class="space-y-6">
                             <!-- Name and Email Row -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
@@ -70,9 +180,12 @@
                                         Nombre completo *
                                     </label>
                                     <input 
+                                        v-model="form.name"
                                         type="text" 
                                         id="name"                                       
                                         placeholder="Tu nombre"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                        required
                                     />
                                     <!-- <p v-if="$page.props.errors?.name" class="mt-1 text-sm text-red-600">{{ $page.props.errors.name }}</p> -->
                                 </div>
@@ -82,9 +195,12 @@
                                         Email *
                                     </label>
                                     <input 
+                                        v-model="form.email"
                                         type="email" 
                                         id="email"                                        
                                         placeholder="tu@email.com"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                        required
                                     />
                                 </div>
                             </div>
@@ -96,9 +212,11 @@
                                         Teléfono
                                     </label>
                                     <input 
+                                        v-model="form.phone"
                                         type="tel" 
                                         id="phone"                                        
                                         placeholder="+56 9 4910 9970"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                     />
                                 </div>
                                 
@@ -107,9 +225,11 @@
                                         Empresa
                                     </label>
                                     <input 
+                                        v-model="form.company"
                                         type="text" 
                                         id="company"                                        
                                         placeholder="Nombre de tu empresa"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                                     />
                                 </div>
                             </div>
@@ -120,9 +240,12 @@
                                     Asunto *
                                 </label>
                                 <input 
+                                    v-model="form.subject"
                                     type="text"
                                     id="subject"                                    
                                     placeholder="¿En qué podemos ayudarte?"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                    required
                                 />
                             </div>
 
@@ -132,41 +255,30 @@
                                     Describe tu proyecto *
                                 </label>
                                 <textarea 
+                                    v-model="form.message"
                                     id="message"
                                     rows="6"                                    
                                     placeholder="Cuéntanos sobre tu proyecto, objetivos, funcionalidades que necesitas, etc."
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                                    required
                                 ></textarea>
                             </div>
-
-                            <!-- Terms and Conditions -->
-                            <!-- <div class="flex items-start">
-                                <div class="flex items-center h-5">
-                                    <input 
-                                        v-model="form.acceptTerms"
-                                        id="acceptTerms"
-                                        type="checkbox"
-                                      
-                                    />
-                                </div>
-                                <div class="ml-3 text-sm">
-                                    <label for="acceptTerms" class="text-gray-700">
-                                        Acepto los 
-                                        <a href="#" class="text-blue-600 hover:text-blue-500">términos y condiciones</a> 
-                                        y la 
-                                        <a href="#" class="text-blue-600 hover:text-blue-500">política de privacidad</a> *
-                                    </label>
-                                    <p v-if="$page.props.errors?.acceptTerms" class="mt-1 text-red-600">{{ $page.props.errors.acceptTerms }}</p>
-                                </div>
-                            </div> -->
 
                             <!-- Submit Button -->
                             <div class="flex justify-center">
                                 <button 
                                     type="submit"
-                                   
+                                    :disabled="isSubmitting"
+                                    class="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                                 >
-                                    Enviar Mensaje
-                                   
+                                    <span v-if="!isSubmitting">Enviar Mensaje</span>
+                                    <span v-else class="flex items-center">
+                                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Enviando...
+                                    </span>
                                 </button>
                             </div>
                         </form>
@@ -343,20 +455,7 @@
                                     <span class="text-xs font-medium text-gray-700">Flutter</span>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Call to Action -->
-                        <!-- <div class="border-t border-blue-200 pt-6 mt-6">
-                            <a 
-                                href="/portfolio"
-                                class="flex items-center justify-center p-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 transform hover:scale-105"
-                            >
-                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                                </svg>
-                                <span class="font-medium">Ver Nuestros Proyectos</span>
-                            </a>
-                        </div> -->
+                        </div>                       
                     </div>
                 </div>
             </div>
