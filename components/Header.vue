@@ -1,12 +1,56 @@
+<script setup>
+import { ref, onMounted, onUnmounted } from "vue";
+import logoBlanco from "../../assets/img/logo-blanco.webp";
+
+const isMenuOpen = ref(false);
+const isScrolled = ref(false);
+
+const toggleMenu = () => {
+    isMenuOpen.value = !isMenuOpen.value;
+};
+
+const closeMenu = () => {
+    isMenuOpen.value = false;
+};
+
+const handleScroll = () => {
+    // Detectar si el usuario ha hecho scroll más allá del banner (aproximadamente 400px)
+    isScrolled.value = window.scrollY > 200;
+};
+
+onMounted(() => {
+    window.addEventListener('scroll', handleScroll);
+    // Verificar el scroll inicial
+    handleScroll();
+});
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll);
+});
+
+const mobileMenuOpen = ref(false)
+
+const navigation = [
+  { name: 'Inicio', path: '/' },
+  { name: 'Nosotros', path: '/nosotros' },
+  { name: 'Servicios', path: '/servicios' },
+  { name: 'Portfolio', path: '/portfolio' },
+  // { name: 'Blog', path: '/blog' },
+  // { name: 'Contacto', path: '/contacto' }
+]
+</script>
 <template>
-  <header class="sticky top-0 z-50 bg-white shadow-md">
-    <nav class="container-custom">
-      <div class="flex items-center justify-between h-20">
+  <header  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+        :class="[
+            isScrolled
+                ? 'bg-blue-900/95 backdrop-blur-md shadow-lg'
+                : 'bg-transparent'
+        ]">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center space-x-2">
-          <div class="text-2xl font-display font-bold gradient-text">
-            SysifosWeb
-          </div>
+        <NuxtLink to="/"  class="flex items-center space-x-3 flex-shrink-0">
+          <img :src="logoBlanco" alt="SysifosWeb Logo" class="h-8 w-auto drop-shadow-lg" />
         </NuxtLink>
 
         <!-- Desktop Navigation -->
@@ -15,13 +59,13 @@
             v-for="item in navigation" 
             :key="item.path"
             :to="item.path"
-            class="text-dark-700 hover:text-primary-600 font-medium transition-colors duration-200"
+            class="text-dark-700 hover:text-primary-600 font-medium transition-colors duration-200 text-white"
             active-class="text-primary-600"
           >
             {{ item.name }}
           </NuxtLink>
-          <NuxtLink to="/contacto" class="btn-primary">
-            Cotizar Proyecto
+          <NuxtLink to="/contacto" class="px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-lg bg-cyan-400 text-blue-900 hover:bg-cyan-300 hover:scale-105">
+            Contacto
           </NuxtLink>
         </div>
 
@@ -75,17 +119,3 @@
   </header>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-
-const mobileMenuOpen = ref(false)
-
-const navigation = [
-  { name: 'Inicio', path: '/' },
-  { name: 'Nosotros', path: '/nosotros' },
-  { name: 'Servicios', path: '/servicios' },
-  { name: 'Portfolio', path: '/portfolio' },
-  { name: 'Blog', path: '/blog' },
-  { name: 'Contacto', path: '/contacto' }
-]
-</script>
