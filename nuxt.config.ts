@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 
         // Variables públicas (cliente y servidor)
         public: {
-            apiUrl: process.env.API_URL || 'https://sysifosweb.cl/api/'
+            apiUrl: process.env.API_URL
         }
     },
 
@@ -56,6 +56,12 @@ export default defineNuxtConfig({
     // Configuración de Sitemap
     site: {
         url: 'https://sysifosweb.cl'
+    },
+
+    // Desactivar sourcemaps para ahorrar memoria en el build
+    sourcemap: {
+        server: false,
+        client: false
     }
 })
 
