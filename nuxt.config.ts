@@ -9,14 +9,15 @@ export default defineNuxtConfig({
 
         // Variables públicas (cliente y servidor)
         public: {
-            apiUrl: process.env.API_URL || 'http://127.0.0.1:8000/api/'
+            apiUrl: process.env.API_URL || 'https://sysifosweb.cl/api/'
         }
     },
 
     modules: [
         '@nuxtjs/tailwindcss',
         '@nuxtjs/google-fonts',
-        '@nuxt/image'
+        '@nuxt/image',
+        '@nuxtjs/sitemap'
     ],
 
     app: {
@@ -25,7 +26,15 @@ export default defineNuxtConfig({
             viewport: 'width=device-width, initial-scale=1',
             htmlAttrs: {
                 lang: 'es'
-            }
+            },
+            titleTemplate: '%s | SysifosWeb',
+            meta: [
+                { name: 'format-detection', content: 'telephone=no' },
+                { name: 'theme-color', content: '#1e40af' }
+            ],
+            link: [
+                { rel: 'icon', type: 'image/x-icon', href: '/logo_min.ico' }
+            ]
         }
     },
 
@@ -42,5 +51,11 @@ export default defineNuxtConfig({
     tailwindcss: {
         cssPath: '~/assets/css/main.css',
         configPath: 'tailwind.config.js'
+    },
+
+    // Configuración de Sitemap
+    site: {
+        url: 'https://sysifosweb.cl'
     }
 })
+

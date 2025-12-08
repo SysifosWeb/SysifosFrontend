@@ -12,29 +12,27 @@
   import design from "@/assets/img/design.png";
   import development from "@/assets/img/development.png";
   import delivery from "@/assets/img/delivery.png";
-const technologies = [
-  { name: 'Laravel', icon: '🔴' },
-  { name: 'Vue.js', icon: '💚' },
-  { name: 'React', icon: '⚛️' },
-  { name: 'Node.js', icon: '🟢' },
-  { name: 'Python', icon: '🐍' },
-  { name: 'PHP', icon: '🐘' },
-  { name: 'MySQL', icon: '🐬' },
-  { name: 'MongoDB', icon: '🍃' },
-  { name: 'Docker', icon: '🐳' },
-  { name: 'AWS', icon: '☁️' },
-  { name: 'Git', icon: '📦' },
-  { name: 'Tailwind', icon: '🎨' }
-]
+
+// SEO Configuration
+const { setMeta, setSchema } = useSEO()
+
+setMeta({
+  title: 'Desarrollo Web y Software a Medida en Chile',
+  description: 'Especialistas en desarrollo de software, páginas web, tiendas online y aplicaciones móviles en Chile. Laravel, Vue.js, React, Flutter. Cotiza tu proyecto gratis. Coquimbo, Chile.',
+  keywords: 'desarrollo web, Desarrollo Web, desarrollo de software, Desarrollo De Software, desarrollo web chile, desarrollo web Chile, desarrollo web coquimbo, Desarrollo Web Coquimbo, páginas web, paginas web, Páginas Web, sitios web, Sitios Web, tienda online, Tienda Online, tiendas online, e-commerce, ecommerce, E-Commerce, aplicaciones web, Aplicaciones Web, desarrollo de aplicaciones, software a medida, Software A Medida, landing pages, Landing Pages, wordpress, WordPress, mantenimiento web, Mantenimiento Web, laravel chile, Laravel Chile, vue.js chile, Vue.js Chile, react chile, React Chile, flutter chile, Flutter Chile, node.js chile, Node.js Chile, programación web, programacion web, Programación Web, desarrollo frontend, desarrollo backend, full stack, Full Stack, desarrollo móvil, desarrollo movil, aplicaciones móviles, aplicaciones moviles, diseño web, Diseño Web, diseño ux ui, UX UI, soluciones digitales, Soluciones Digitales, transformación digital, Transformación Digital, agencia desarrollo web, Agencia Desarrollo Web, empresa desarrollo software, Empresa Desarrollo Software, servicios ti, Servicios TI, tecnología chile, tecnologia chile',
+  image: '/img/og-home.jpg'
+})
+
+setSchema({
+  type: 'WebPage',
+  data: {
+    name: 'SysifosWeb - Desarrollo Web y Software en Chile',
+    description: 'Empresa de desarrollo de software, páginas web y aplicaciones móviles en Chile'
+  }
+})
 </script>
 <template>
   <div>
-    <!-- SEO -->
-    <Head>
-      <Title>Páginas Web, Tiendas Online y Software a Medida en Chile | SysifosWeb</Title>
-      <Meta name="description" content="Especialistas en desarrollo de software, aplicaciones web y soluciones digitales en Chile. Laravel, Vue.js, React y más. Cotiza tu proyecto gratis." />
-      <Meta name="keywords" content="desarrollo de software Chile, desarrollo web, aplicaciones web, Laravel, Vue.js, React, desarrollo frontend, desarrollo backend, soluciones digitales" />
-    </Head>
 
     <!-- Hero Section -->
     <section class="relative bg-gradient-to-br from-blue-900 via-blue-800 to-cyan-600 text-white overflow-hidden pt-16">

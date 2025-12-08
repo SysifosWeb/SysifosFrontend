@@ -7,15 +7,28 @@ import vue from "@/assets/img/vue.js.png";
 import laravel from "@/assets/img/laravel.png";
 import node from "@/assets/img/Node.js.png";
 import flutter from "@/assets/img/flutter.png";
+
+// SEO Configuration
+const { setMeta, setSchema } = useSEO()
+
+setMeta({
+  title: 'Portfolio - Proyectos de Desarrollo Web y Software Realizados',
+  description: 'Explora nuestro portfolio de proyectos exitosos: Ansar Automotriz, Carmotor\'s, Faremin. Desarrollo web, e-commerce, software a medida y aplicaciones móviles en Chile. Casos de éxito reales.',
+  keywords: 'portfolio desarrollo web, portafolio proyectos, casos de éxito, proyectos realizados, trabajos desarrollo web, ejemplos desarrollo web, proyectos software, portfolio programación, ansar automotriz, carmotors, faremin, proyectos vue laravel, proyectos react, proyectos flutter, desarrollo automotriz, plataforma venta autos, cotizador vehículos, e-commerce automotriz, proyectos chile, clientes sysifosweb',
+  image: '/img/og-portfolio.jpg'
+})
+
+setSchema({
+  type: 'WebPage',
+  data: {
+    name: 'Portfolio - SysifosWeb',
+    description: 'Portfolio de proyectos de desarrollo web y software realizados por SysifosWeb'
+  }
+})
 </script>
 
 <template>
   <div>
-    <!-- SEO -->
-    <Head>
-      <Title>Portfolio - Proyectos Realizados | SysifosWeb</Title>
-      <Meta name="description" content="Explora nuestro portfolio de proyectos de desarrollo web, aplicaciones móviles y software a medida. Casos de éxito y soluciones digitales innovadoras." />
-    </Head>
 
     <!-- Hero -->
     <Hero
