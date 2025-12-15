@@ -1,8 +1,6 @@
 # Nuxt
 .nuxt
-.output
 .env
-dist
 
 # Node
 node_modules
