@@ -46,7 +46,11 @@ if (!fs.existsSync(outputPath)) {
     console.log('Loading Nuxt from:', outputPath);
     console.log('NODE_PATH:', process.env.NODE_PATH);
 
-    import(outputPath)
+    // Convert path to file:// URL for proper ES module import on Windows
+    const { pathToFileURL } = require('url');
+    const moduleUrl = pathToFileURL(outputPath).href;
+
+    import(moduleUrl)
         .then(() => {
             console.log('✅ Nuxt app loaded successfully');
         })
