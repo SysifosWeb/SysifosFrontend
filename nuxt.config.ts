@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 
         // Variables públicas (cliente y servidor)
         public: {
-            apiUrl: process.env.API_URL
+            apiUrl: 'https://olimpo.sysifosweb.cl/api/'
         }
     },
 
@@ -17,9 +17,12 @@ export default defineNuxtConfig({
         '@nuxtjs/tailwindcss',
         '@nuxtjs/google-fonts',
         '@nuxt/image',
-        '@nuxtjs/sitemap'
+        '@nuxtjs/sitemap',
+        'nuxt-gtag'
     ],
-
+    gtag: {
+        id: 'G-3BJ0HZ6RSH'
+    },
     app: {
         head: {
             charset: 'utf-8',
@@ -57,11 +60,5 @@ export default defineNuxtConfig({
     site: {
         url: 'https://sysifosweb.cl'
     },
-
-    // Desactivar sourcemaps para ahorrar memoria en el build
-    sourcemap: {
-        server: false,
-        client: false
-    }
 })
 

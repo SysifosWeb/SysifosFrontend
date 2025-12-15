@@ -20,7 +20,7 @@ setMeta({
   title: 'Desarrollo Web y Software a Medida en Chile',
   description: 'Especialistas en desarrollo de software, páginas web, tiendas online y aplicaciones móviles en Chile. Laravel, Vue.js, React, Flutter. Cotiza tu proyecto gratis. Coquimbo, Chile.',
   keywords: 'desarrollo web, Desarrollo Web, desarrollo de software, Desarrollo De Software, desarrollo web chile, desarrollo web Chile, desarrollo web coquimbo, Desarrollo Web Coquimbo, páginas web, paginas web, Páginas Web, sitios web, Sitios Web, tienda online, Tienda Online, tiendas online, e-commerce, ecommerce, E-Commerce, aplicaciones web, Aplicaciones Web, desarrollo de aplicaciones, software a medida, Software A Medida, landing pages, Landing Pages, wordpress, WordPress, mantenimiento web, Mantenimiento Web, laravel chile, Laravel Chile, vue.js chile, Vue.js Chile, react chile, React Chile, flutter chile, Flutter Chile, node.js chile, Node.js Chile, programación web, programacion web, Programación Web, desarrollo frontend, desarrollo backend, full stack, Full Stack, desarrollo móvil, desarrollo movil, aplicaciones móviles, aplicaciones moviles, diseño web, Diseño Web, diseño ux ui, UX UI, soluciones digitales, Soluciones Digitales, transformación digital, Transformación Digital, agencia desarrollo web, Agencia Desarrollo Web, empresa desarrollo software, Empresa Desarrollo Software, servicios ti, Servicios TI, tecnología chile, tecnologia chile',
-  image: '/img/og-home.jpg'
+  image: '/img/og-home.png'
 })
 
 setSchema({
