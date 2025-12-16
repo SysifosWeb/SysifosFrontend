@@ -18,7 +18,10 @@ export default defineNuxtConfig({
         '@nuxtjs/google-fonts',
         '@nuxt/image',
         '@nuxtjs/sitemap',
-        'nuxt-gtag'
+        'nuxt-gtag',
+        ['@zadigetvoltaire/nuxt-gtm', {
+            id: 'GTM-TWB2W6T9'
+        }]
     ],
     gtag: {
         id: 'G-3BJ0HZ6RSH'
