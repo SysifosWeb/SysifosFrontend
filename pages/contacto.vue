@@ -118,7 +118,7 @@ const { setMeta, setSchema } = useSEO()
 setMeta({
   title: 'Contacto - Cotiza tu Proyecto de Desarrollo Web',
   description: 'Contáctanos para cotizar tu proyecto de desarrollo web, tienda online, aplicación móvil o software a medida. Respuesta en menos de 24 horas. WhatsApp, email y formulario. Coquimbo, Chile.',
-  keywords: 'contacto desarrollo web, cotizar desarrollo web, cotización página web, presupuesto desarrollo web, contacto sysifosweb, solicitar cotización, pedir presupuesto, contactar desarrolladores, contratar desarrollo web, contratar programadores, formulario contacto, whatsapp desarrollo web, email desarrollo web, consulta desarrollo web, asesoría desarrollo web, contacto coquimbo, contacto chile',
+  keywords: 'contacto desarrollo web, cotizar desarrollo web, cotización página web, presupuesto desarrollo web',
   image: '/img/og-contacto.jpg'
 })
 

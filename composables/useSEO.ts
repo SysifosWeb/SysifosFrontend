@@ -51,7 +51,7 @@ export const useSEO = () => {
         // Meta tags básicos
         const metaTags: any[] = [
             { name: 'description', content: description },
-            { name: 'author', content: author || 'SysifosWeb' },
+            { name: 'author', content: author || 'Sysifos Web' },
 
             // Open Graph (Facebook, LinkedIn)
             { property: 'og:title', content: title },
@@ -59,7 +59,7 @@ export const useSEO = () => {
             { property: 'og:type', content: type },
             { property: 'og:url', content: fullUrl },
             { property: 'og:image', content: fullImage },
-            { property: 'og:site_name', content: 'SysifosWeb' },
+            { property: 'og:site_name', content: 'Sysifos Web' },
             { property: 'og:locale', content: 'es_CL' },
             { property: 'fb:app_id', content: '1215450019494398' },
 
@@ -122,7 +122,7 @@ export const useSEO = () => {
         const organizationSchema = {
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'SysifosWeb',
+            name: 'Sysifos Web',
             url: siteUrl,
             logo: `${siteUrl}/img/logo.png`,
             description: 'Empresa de desarrollo de software, aplicaciones web y soluciones digitales en Chile',
@@ -168,17 +168,17 @@ export const useSEO = () => {
                 pageSchema = {
                     '@context': 'https://schema.org',
                     '@type': 'Service',
-                    name: data.name || 'Desarrollo de Software',
+                    name: data.name || 'Desarrolladores de Software',
                     description: data.description || '',
                     provider: {
                         '@type': 'Organization',
-                        name: 'SysifosWeb'
+                        name: 'Sysifos Web'
                     },
                     areaServed: {
                         '@type': 'Country',
                         name: 'Chile'
                     },
-                    serviceType: data.serviceType || 'Desarrollo Web'
+                    serviceType: data.serviceType || 'Desarrolladores de Software'
                 }
                 break
 

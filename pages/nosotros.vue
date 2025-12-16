@@ -12,15 +12,15 @@ const { setMeta, setSchema } = useSEO()
 
 setMeta({
   title: 'Nosotros - Equipo de Desarrollo de Software en Chile',
-  description: 'Conoce al equipo de SysifosWeb. Especialistas en desarrollo de software, aplicaciones web y soluciones digitales con años de experiencia en Chile. Diego, Karen y Osman - Full Stack Developers.',
-  keywords: 'equipo desarrollo software, equipo desarrollo web, empresa desarrollo software chile, empresa desarrollo web chile, desarrolladores chile, programadores chile, equipo programación, team desarrollo, agencia digital chile, nosotros sysifosweb, sobre nosotros, quienes somos, equipo tecnología, profesionales desarrollo, expertos desarrollo web, full stack developers chile, scrum chile, metodología ágil, agile development',
+  description: 'Conoce al equipo de Sysifos Web. Especialistas en desarrollo de software, aplicaciones web y soluciones digitales con años de experiencia en Chile. Diego, Karen y Osman - Full Stack Developers.',
+  keywords: 'equipo desarrollo software, equipo desarrollo web, empresa desarrollo software chile, empresa desarrollo web chile',
   image: '/img/og-nosotros.jpg'
 })
 
 setSchema({
   type: 'WebPage',
   data: {
-    name: 'Nosotros - SysifosWeb',
+    name: 'Nosotros - Sysifos Web',
     description: 'Equipo de desarrollo de software especializado en soluciones digitales en Chile'
   }
 })
@@ -30,7 +30,7 @@ setSchema({
 
     <!-- Hero -->
     <Hero
-      title="Conoce a SysifosWeb"
+      title="Conoce a Sysifos Web"
       description="Somos un equipo apasionado por la tecnología, dedicado a transformar ideas en soluciones digitales innovadoras"
     >      
     </Hero>

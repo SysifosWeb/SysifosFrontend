@@ -22,7 +22,7 @@ const { setMeta, setSchema } = useSEO()
 setMeta({
   title: 'Servicios de Desarrollo Web, E-commerce y Software a Medida',
   description: 'Servicios profesionales de desarrollo web, tiendas online, landing pages, WordPress, software a medida y mantenimiento web en Chile. Laravel, Vue.js, React, Flutter. Cotiza gratis.',
-  keywords: 'servicios desarrollo web, servicios desarrollo software, landing pages chile, landing page, diseño landing page, tienda online chile, tiendas online, crear tienda online, e-commerce chile, ecommerce, desarrollo ecommerce, wordpress chile, sitio wordpress, página wordpress, software a medida, software personalizado, desarrollo software personalizado, mantenimiento web, mantenimiento sitios web, soporte web, servicios programación, servicios ti chile, desarrollo aplicaciones, aplicaciones móviles, apps móviles, desarrollo apps, cotizar página web, cotizar desarrollo web, presupuesto web, precio desarrollo web',
+  keywords: 'servicios desarrollo web, servicios desarrollo software, landing pages chile',
   image: '/img/og-servicios.jpg'
 })
 
