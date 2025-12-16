@@ -7,6 +7,15 @@
   import development from "@/assets/img/development.png";
   import delivery from "@/assets/img/delivery.png";
 
+  const { gtag } = useGtag()
+// Ejecutar cuando alguien ve la página
+onMounted(() => {
+  gtag('event', 'conversion', {
+    'send_to': 'AW-17809723983/Xs8DCL2-sNIbEM-kq6xc',
+    'value': 1.0,
+    'currency': 'CLP'
+  })
+})
 // SEO Configuration
 const { setMeta, setSchema } = useSEO()
 

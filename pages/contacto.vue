@@ -1,6 +1,15 @@
 <script setup>
 import { ref, reactive } from 'vue'
 
+const { gtag } = useGtag()
+// Ejecutar cuando alguien ve la página
+onMounted(() => {
+  gtag('event', 'conversion', {
+    'send_to': 'AW-17809723983/Xs8DCL2-sNIbEM-kq6xc',
+    'value': 1.0,
+    'currency': 'CLP'
+  })
+})
 // Acceder a la configuración runtime (variables de entorno)
 const config = useRuntimeConfig()
 
