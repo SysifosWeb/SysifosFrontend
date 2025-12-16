@@ -61,6 +61,7 @@ export const useSEO = () => {
             { property: 'og:image', content: fullImage },
             { property: 'og:site_name', content: 'SysifosWeb' },
             { property: 'og:locale', content: 'es_CL' },
+            { property: 'fb:app_id', content: '1215450019494398' },
 
             // Twitter Cards
             { name: 'twitter:card', content: 'summary_large_image' },
