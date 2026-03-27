@@ -1,304 +1,88 @@
-# 🚀 SysifosWeb - Landing Page + Blog + Admin Panel
+# Sysifosweb Clone - Nuxt 3
 
-**Sistema completo de landing page empresarial con blog integrado y panel de administración robusto.**
+Clone del sitio web oficial de Sysifosweb (https://sysifosweb.cl/) desarrollado con Nuxt 3.
 
-## ✨ Características Principales
+## 🚀 Tecnologías
 
-### 🌐 Landing Page Empresarial
+- **Nuxt 3** - Framework Vue.js para aplicaciones web
+- **Tailwind CSS** - Framework de CSS utility-first
+- **Google Fonts** - Inter y Poppins
+- **Nuxt Icon** - Iconos para la interfaz
+- **Nuxt Image** - Optimización de imágenes
 
--   **Diseño moderno y responsive** con Tailwind CSS
--   **Header transparente/azul** que cambia con el scroll
--   **Secciones optimizadas**: Home, Nosotros, Servicios, Portfolio, Contacto
--   **Formulario de contacto funcional** con validación
--   **SEO optimizada** con meta tags dinámicos
-
-### 📝 Blog Integrado
-
--   **Sistema de posts** con categorías y etiquetas
--   **Editor de contenido** con soporte HTML
--   **Posts destacados** y sistema de vistas
--   **Categorización avanzada** con colores personalizados
--   **URLs amigables** (SEO friendly)
--   **Paginación automática**
-
-### 🔐 Panel de Administración Seguro
-
--   **Login robusto** con protección anti-fuerza bruta
--   **Dashboard completo** con estadísticas en tiempo real
--   **Gestión de posts** (crear, editar, publicar, destacar)
--   **Gestión de categorías** con activación/desactivación
--   **Gestión de contactos** con estados y acciones en lote
--   **Sistema de roles** (Admin/Editor)
--   **Logging de seguridad** completo
-
-## 🛠️ Tecnologías Utilizadas
-
-### Backend
-
--   **Laravel 11** - Framework PHP moderno
--   **Inertia.js** - Puente entre Laravel y Vue.js
--   **SQLite** - Base de datos (desarrollo)
--   **Eloquent ORM** - Manejo de base de datos
-
-### Frontend
-
--   **Vue.js 3** - Framework JavaScript reactivo
--   **Tailwind CSS** - Framework CSS utility-first
--   **Vite** - Build tool y servidor de desarrollo
--   **Heroicons** - Iconografía
-
-### Herramientas
-
--   **pnpm** - Gestor de paquetes frontend
--   **Composer** - Gestor de dependencias PHP
--   **Artisan** - CLI de Laravel
-
-## 🚀 Instalación y Configuración
-
-### Prerrequisitos
-
--   PHP 8.2 o superior
--   Node.js 18 o superior
--   pnpm (recomendado) o npm
--   Composer
-
-### Instalación
-
-1. **Clonar el repositorio**
+## 📦 Instalación
 
 ```bash
-git clone <repository-url>
-cd landingPage
+# Instalar dependencias
+npm install
+
+# Iniciar servidor de desarrollo
+npm run dev
+
+# Compilar para producción
+npm run build
+
+# Vista previa de producción
+npm run preview
 ```
 
-2. **Instalar dependencias PHP**
-
-```bash
-composer install
-```
-
-3. **Instalar dependencias Node.js**
-
-```bash
-pnpm install
-```
-
-4. **Configurar entorno**
-
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
-5. **Configurar base de datos**
-
-```bash
-php artisan migrate --seed
-```
-
-6. **Crear usuario administrador**
-
-```bash
-php artisan admin:create-user
-```
-
-### Desarrollo
-
-**Terminal 1 - Laravel:**
-
-```bash
-php artisan serve
-```
-
-**Terminal 2 - Vite:**
-
-```bash
-pnpm run dev
-```
-
-**Acceso:**
-
--   **Sitio web**: http://localhost:8000
--   **Panel admin**: http://localhost:8000/admin
--   **Login**: http://localhost:8000/login
-
-## 🔐 Credenciales por Defecto
-
-### Administrador
-
--   **Email**: admin@sysifosweb.cl
--   **Contraseña**: admin123
--   **Permisos**: Completos (crear, editar, eliminar)
-
-### Editor
-
--   **Email**: editor@sysifosweb.cl
--   **Contraseña**: editor123
--   **Permisos**: Gestión de contenido (sin eliminar)
-
-## 📊 Características de Seguridad
-
-### 🛡️ Protección de Login
-
--   **Rate Limiting**: Máximo 5 intentos por IP cada 5 minutos
--   **Bloqueo de cuentas**: Automático tras 5 intentos fallidos (30 min)
--   **Logging completo**: Registro de todos los intentos de acceso
--   **Verificación de estado**: Cuentas activas y desbloqueadas
--   **Sesiones seguras**: Regeneración de tokens
-
-### 👥 Sistema de Roles
-
--   **Admin**: Acceso completo al sistema
--   **Editor**: Gestión de contenido sin permisos de eliminación
--   **Middleware**: Protección de rutas administrativas
-
-## 📁 Estructura del Proyecto
+## 🏗️ Estructura del Proyecto
 
 ```
-landingPage/
-├── app/
-│   ├── Http/Controllers/
-│   │   ├── Admin/           # Controladores del panel admin
-│   │   ├── Auth/            # Autenticación
-│   │   └── ...
-│   ├── Models/              # Modelos Eloquent
-│   └── Console/Commands/    # Comandos artisan personalizados
-├── resources/
-│   ├── js/Pages/
-│   │   ├── Admin/           # Componentes Vue del admin
-│   │   ├── Auth/            # Login
-│   │   ├── Component/       # Componentes reutilizables
-│   │   └── ...              # Páginas públicas
+FrontEnd/
+├── assets/
 │   └── css/
-├── routes/
-│   └── web.php              # Definición de rutas
-└── database/
-    ├── migrations/          # Migraciones de BD
-    └── seeders/             # Datos de prueba
+│       └── main.css          # Estilos globales y Tailwind
+├── components/
+│   ├── Header.vue            # Navegación principal
+│   ├── Footer.vue            # Pie de página
+│   ├── Hero.vue              # Sección hero reutilizable
+│   ├── ServiceCard.vue       # Tarjeta de servicio
+│   ├── PortfolioCard.vue     # Tarjeta de proyecto
+│   ├── BlogCard.vue          # Tarjeta de blog
+│   └── ContactForm.vue       # Formulario de contacto
+├── layouts/
+│   └── default.vue           # Layout principal
+├── pages/
+│   ├── index.vue             # Página de inicio
+│   ├── nosotros.vue          # Página "Nosotros"
+│   ├── servicios.vue         # Página de servicios
+│   ├── portfolio.vue         # Página de portfolio
+│   ├── blog.vue              # Página de blog
+│   └── contacto.vue          # Página de contacto
+├── public/                   # Archivos estáticos
+├── nuxt.config.ts            # Configuración de Nuxt
+├── tailwind.config.js        # Configuración de Tailwind
+└── package.json              # Dependencias del proyecto
 ```
 
-## 🎯 Funcionalidades Implementadas
+## 🎨 Características
 
-### ✅ Landing Page
+- ✅ Diseño responsive para todos los dispositivos
+- ✅ Optimización SEO con meta tags
+- ✅ Animaciones suaves y transiciones
+- ✅ Navegación intuitiva
+- ✅ Formulario de contacto con validación
+- ✅ Carga optimizada de imágenes
+- ✅ Tipografía moderna (Inter y Poppins)
 
--   [x] Header transparente/azul con scroll
--   [x] Secciones responsivas (Home, About, Services, Portfolio, Contact)
--   [x] Formulario de contacto funcional
--   [x] Footer informativo
--   [x] Navegación fluida
+## 📄 Páginas
 
-### ✅ Blog
+1. **Home (/)** - Página principal con hero, servicios y portfolio destacado
+2. **Nosotros (/nosotros)** - Información sobre la empresa
+3. **Servicios (/servicios)** - Listado detallado de servicios
+4. **Portfolio (/portfolio)** - Proyectos realizados
+5. **Blog (/blog)** - Artículos y publicaciones
+6. **Contacto (/contacto)** - Formulario de contacto e información
 
--   [x] Lista de posts con paginación
--   [x] Vista individual de posts
--   [x] Categorías con filtrado
--   [x] Posts destacados
--   [x] Contador de vistas
--   [x] SEO optimizado
+## 🔧 Desarrollo
 
-### ✅ Panel de Administración
+El proyecto está configurado con:
+- Hot Module Replacement (HMR) para desarrollo rápido
+- TypeScript para type safety
+- ESLint para calidad de código
+- Tailwind CSS para estilos consistentes
 
--   [x] Dashboard con estadísticas
--   [x] Gestión completa de posts
--   [x] Gestión de categorías
--   [x] Gestión de contactos
--   [x] Sistema de autenticación robusto
--   [x] Roles y permisos
+## 📝 Licencia
 
-## 🔧 Comandos Útiles
-
-### Desarrollo
-
-```bash
-# Servidor de desarrollo
-php artisan serve
-
-# Compilar assets (desarrollo)
-pnpm run dev
-
-# Compilar assets (producción)
-pnpm run build
-
-# Migraciones
-php artisan migrate
-php artisan migrate:fresh --seed
-```
-
-### Administración
-
-```bash
-# Crear usuario admin
-php artisan admin:create-user
-
-# Limpiar cache
-php artisan cache:clear
-php artisan config:clear
-php artisan view:clear
-
-# Ver rutas
-php artisan route:list
-```
-
-### Base de Datos
-
-```bash
-# Crear migración
-php artisan make:migration nombre_migracion
-
-# Crear modelo con migración
-php artisan make:model NombreModelo -m
-
-# Crear seeder
-php artisan make:seeder NombreSeeder
-```
-
-## 📈 Próximas Mejoras Sugeridas
-
-### 🎨 UX/UI
-
--   [ ] Animaciones avanzadas con GSAP
--   [ ] Modo oscuro/claro
--   [ ] Mejoras en accesibilidad (WCAG)
-
-### 📝 Blog
-
--   [ ] Sistema de comentarios
--   [ ] Tags/etiquetas para posts
--   [ ] Búsqueda avanzada
--   [ ] Newsletter/suscripciones
-
-### 🔐 Seguridad
-
--   [ ] Autenticación de dos factores (2FA)
--   [ ] Logs de auditoría avanzados
--   [ ] Backup automático de BD
-
-### 📊 Analytics
-
--   [ ] Integración con Google Analytics
--   [ ] Dashboard de métricas avanzado
--   [ ] Reportes automáticos
-
-## 🤝 Contribución
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
-
-## 📞 Contacto
-
-**SysifosWeb** - Desarrollo Web Profesional
-
--   📧 Email: contacto@sysifosweb.cl
--   🌐 Web: https://sysifosweb.cl
--   📱 WhatsApp: +56 9 XXXX XXXX
-
----
-
-⭐ **¡Dale una estrella si te gusta el proyecto!** ⭐
+Este proyecto es un clon educativo del sitio web de Sysifosweb.
