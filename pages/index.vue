@@ -1,10 +1,10 @@
 <script setup>
   import heroImage from '@/assets/img/home_image2.png'
-  import react from "@/assets/img/react.png";
-  import vue from "@/assets/img/vue.js.png";
-  import laravel from "@/assets/img/laravel.png";
+  import react from "@/assets/img/React.png";
+  import vue from "@/assets/img/Vue.js.png";
+  import laravel from "@/assets/img/Laravel.png";
   import node from "@/assets/img/Node.js.png";
-  import flutter from "@/assets/img/flutter.png";
+  import flutter from "@/assets/img/Flutter.png";
   import pc from "@/assets/img/pc.png";
   import iphone from "@/assets/img/iphone.png";
   import building from "@/assets/img/building.png";
