@@ -16,13 +16,37 @@ const form = ref({
     remember: false
 });
 
+const config = useRuntimeConfig();
+const errorMessage = ref('');
+
 // Manejo del Login
 const handleLogin = async () => {
     loading.value = true;
-    setTimeout(() => {
-        loading.value = false;
+    errorMessage.value = '';
+
+    try {
+        // NOTA: Ajusta la ruta 'login' según tu API exacta
+        const response = await $fetch(`${config.public.apiUrl}auth/login`, {
+            method: 'POST',
+            body: {
+                email: form.value.email,
+                password: form.value.password,
+            }
+        });
+
+        // Guardar token en cookie (asume que la API devuelve un 'token' directamente o en 'data')
+        const maxAge = form.value.remember ? 60 * 60 * 24 * 7 : 60 * 60 * 24; // 7 días o 1 día
+        const tokenCookie = useCookie('auth_token', { maxAge });
+        tokenCookie.value = response.token || response?.data?.token || response?.access_token;
+
+        // Redirigir al área de admin
         router.push('/admin');
-    }, 1500);
+    } catch (error) {
+        console.error('Error de login:', error);
+        errorMessage.value = error.response?._data?.message || error.data?.message || 'Credenciales inválidas o error de conexión.';
+    } finally {
+        loading.value = false;
+    }
 };
 
 // Manejo del Modo Oscuro
@@ -94,6 +118,12 @@ onMounted(() => {
                 </div>
 
                 <form class="space-y-6 relative z-10" @submit.prevent="handleLogin">
+                    <!-- Mensaje de error -->
+                    <div v-if="errorMessage"
+                        class="p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 rounded-lg text-sm text-center transition-all duration-300">
+                        {{ errorMessage }}
+                    </div>
+
                     <div>
                         <label for="email"
                             class="block text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors duration-300">
