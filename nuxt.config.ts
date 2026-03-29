@@ -9,7 +9,7 @@ export default defineNuxtConfig({
 
         // Variables públicas (cliente y servidor)
         public: {
-            apiUrl: 'https://olimpo.sysifosweb.cl/api/'
+            apiUrl: 'http://localhost:8000/api/'
         }
     },
 
