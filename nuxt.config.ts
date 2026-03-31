@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     ssr: true,
     compatibilityDate: '2024-11-01',
-    devtools: { enabled: true },
+    devtools: { enabled: false },
 
     runtimeConfig: {
         // Variables privadas (solo servidor)
@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 
         // Variables públicas (cliente y servidor)
         public: {
-            apiUrl: 'https://www.sysifosweb.cl/api/'
+            apiUrl: 'https://olimpo.sysifosweb.cl/api/'
         }
     },
 
