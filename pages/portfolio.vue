@@ -2,11 +2,11 @@
 import ansar from '@/assets/img/ansar.gif';
 import carmotors from '@/assets/img/car.gif';
 import faremin from '@/assets/img/faremin.gif';
-import react from "@/assets/img/react.png";
-import vue from "@/assets/img/vue.js.png";
-import laravel from "@/assets/img/laravel.png";
+import react from "@/assets/img/React.png";
+import vue from "@/assets/img/Vue.js.png";
+import laravel from "@/assets/img/Laravel.png";
 import node from "@/assets/img/Node.js.png";
-import flutter from "@/assets/img/flutter.png";
+import flutter from "@/assets/img/Flutter.png";
 
 // SEO Configuration
 const { setMeta, setSchema } = useSEO()

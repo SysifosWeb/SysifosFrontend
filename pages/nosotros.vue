@@ -1,7 +1,7 @@
 <script setup>
-import diego from "@/assets/img/diego.png";
-import karen from "@/assets/img/karen.png";
-import osman from "@/assets/img/osman.png";
+import diego from "@/assets/img/Diego.png";
+import karen from "@/assets/img/Karen.png";
+import osman from "@/assets/img/Osman.png";
 import team from "@/assets/img/team.jpg";
 import mision from "@/assets/img/mision.png";
 import vision from "@/assets/img/vision.png";
