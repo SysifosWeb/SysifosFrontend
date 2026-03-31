@@ -18,8 +18,8 @@
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
   
   # Opción 2: Redirigir non-www a www (comentar la opción 1 si usas esta)
-  # RewriteCond %{HTTP_HOST} !^www\. [NC]
-  # RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+  RewriteCond %{HTTP_HOST} !^www\. [NC]
+  RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
 
   # Manejo de rutas SPA (Single Page Application)
   # Redirigir todas las peticiones al index.html excepto archivos existentes

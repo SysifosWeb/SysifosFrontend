@@ -1,7 +1,6 @@
 # Nuxt
 .nuxt
 .env
-
 # Node
 node_modules
 *.log*

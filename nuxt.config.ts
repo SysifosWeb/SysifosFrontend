@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    ssr: false,
+    ssr: true,
     compatibilityDate: '2024-11-01',
     devtools: { enabled: true },
 
@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 
         // Variables públicas (cliente y servidor)
         public: {
-            apiUrl: 'http://localhost:8000/api/'
+            apiUrl: 'https://www.sysifosweb.cl/api/'
         }
     },
 
