@@ -11,12 +11,17 @@ const route = useRoute()
 
 const postId = route.query.id
 
-const { data: postResponse, pending: postPending } = await useFetch(() => `${config.public.apiUrl}blog/${postId}`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
+const { data: postResponse, pending: postPending, refresh: refreshPost } = await useFetch(
+    () => `${config.public.apiUrl}blog/${postId}`,
+    {
+        key: `post-edit-${postId}`,
+        headers: {
+            Authorization: `Bearer ${token.value}`,
+            Accept: 'application/json'
+        },
+        getCachedData: () => null   // deshabilitar caché, siempre fetch fresco
     }
-})
+)
 
 const { data: categoriesResponse } = await useFetch(() => `${config.public.apiUrl}category`, {
     headers: {
@@ -52,7 +57,7 @@ watch(post, (newPost) => {
         form.slug = newPost.slug || '';
         form.excerpt = newPost.excerpt || '';
         form.content = newPost.content || '';
-        form.category_id = newPost.category_id || '';
+        form.category_id = newPost.category_id ? Number(newPost.category_id) : '';
         form.featured_image_url = newPost.featured_image_url || '';
         form.meta_title = newPost.meta_title || '';
         form.meta_description = newPost.meta_description || '';
@@ -98,7 +103,11 @@ const submit = async () => {
             },
             body: {
                 ...form,
-                featured: form.featured ? 1 : 0
+                category_id: form.category_id ? Number(form.category_id) : null,
+                featured: form.featured ? 1 : 0,
+                meta_keywords: form.meta_keywords
+                    ? form.meta_keywords.split(',').map(k => k.trim()).filter(k => k)
+                    : []
             }
         });
 

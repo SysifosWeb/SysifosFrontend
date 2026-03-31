@@ -17,7 +17,7 @@ const { data: postResponse, pending } = await useFetch(() => `${config.public.ap
 })
 
 const post = computed(() => postResponse.value?.data || postResponse.value || {})
-
+console.log(post.value)
 const statusClass = computed(() => {
     return post.value.status === 'published'
         ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
@@ -29,7 +29,7 @@ const statusText = computed(() => {
 });
 
 const formatDate = (date) => {
-    if(!date) return '-';
+    if (!date) return '-';
     return new Date(date).toLocaleDateString("es-CL", {
         year: "numeric",
         month: "long",
@@ -67,7 +67,8 @@ const formatDate = (date) => {
             </div>
 
             <div v-if="pending" class="flex justify-center my-12">
-                <svg class="animate-spin h-8 w-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg class="animate-spin h-8 w-8 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor"
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
@@ -84,7 +85,8 @@ const formatDate = (date) => {
                     </div>
 
                     <!-- Contenido principal -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
                         <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
                             <h3 class="text-lg font-medium text-gray-900 dark:text-white">
                                 Contenido del Post
@@ -130,7 +132,9 @@ const formatDate = (date) => {
                                     Palabras Clave
                                 </label>
                                 <div class="flex flex-wrap gap-2">
-                                    <span v-for="keyword in (Array.isArray(post.meta_keywords) ? post.meta_keywords : post.meta_keywords.split(','))" :key="keyword"
+                                    <span
+                                        v-for="keyword in (Array.isArray(post.meta_keywords) ? post.meta_keywords : post.meta_keywords.split(','))"
+                                        :key="keyword"
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
                                         {{ keyword.trim() }}
                                     </span>
@@ -142,7 +146,8 @@ const formatDate = (date) => {
 
                 <div class="space-y-6">
                     <!-- Información del post -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
                         <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
                             <h3 class="text-lg font-medium text-gray-900 dark:text-white">
                                 Información
@@ -163,8 +168,7 @@ const formatDate = (date) => {
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                     Categoría
                                 </label>
-                                <span
-                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
                                     :style="{
                                         backgroundColor: post.category.color ? post.category.color + '20' : '#e5e7eb',
                                         color: post.category.color || '#374151',
@@ -184,7 +188,8 @@ const formatDate = (date) => {
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                     Slug
                                 </label>
-                                <code class="px-2 py-1 bg-gray-100 dark:bg-slate-900 rounded text-sm dark:text-gray-300">
+                                <code
+                                    class="px-2 py-1 bg-gray-100 dark:bg-slate-900 rounded text-sm dark:text-gray-300">
                                     /blog/{{ post.slug }}
                                 </code>
                             </div>
@@ -200,7 +205,8 @@ const formatDate = (date) => {
                     </div>
 
                     <!-- Estadísticas -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
                         <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
                             <h3 class="text-lg font-medium text-gray-900 dark:text-white">
                                 Estadísticas
@@ -220,27 +226,31 @@ const formatDate = (date) => {
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                     Creado
                                 </label>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ formatDate(post.created_at) }}</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ formatDate(post.created_at) }}
+                                </p>
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                     Actualizado
                                 </label>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ formatDate(post.updated_at) }}</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ formatDate(post.updated_at) }}
+                                </p>
                             </div>
 
                             <div v-if="post.published_at">
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                     Publicado
                                 </label>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ formatDate(post.published_at) }}</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ formatDate(post.published_at) }}
+                                </p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Acciones rápidas -->
-                    <div class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
                         <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
                             <h3 class="text-lg font-medium text-gray-900 dark:text-white">
                                 Acciones

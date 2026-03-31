@@ -13,7 +13,7 @@ const router = useRouter()
 const filters = reactive({
     search: "",
     status: "",
-    category: "",
+    category_id: "",
     featured: "",
     page: 1
 });
@@ -22,7 +22,7 @@ const queryParams = computed(() => {
     const q = { page: filters.page };
     if (filters.search) q.search = filters.search;
     if (filters.status) q.status = filters.status;
-    if (filters.category) q.category = filters.category;
+    if (filters.category_id) q.category_id = filters.category_id;
     if (filters.featured) q.featured = filters.featured;
     return q;
 })
@@ -59,7 +59,7 @@ const search = () => {
 const clearFilters = () => {
     filters.search = "";
     filters.status = "";
-    filters.category = "";
+    filters.category_id = "";
     filters.featured = "";
     filters.page = 1;
     refresh();
@@ -245,7 +245,7 @@ const goToPage = (url) => {
                     <!-- Categoría -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Categoría</label>
-                        <select v-model="filters.category" @change="autoFilter"
+                        <select v-model="filters.category_id" @change="autoFilter"
                             class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500">
                             <option value="">Todas las categorías</option>
                             <option v-for="category in categories" :key="category.id" :value="category.id">
@@ -492,7 +492,7 @@ const goToPage = (url) => {
                         <div>
                             <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
                                 <template v-for="(link, index) in posts.links" :key="index">
-                                    <button v-if="link.url" @click="goToPage(link.url)" :class="[
+                                    <button v-if="link && link.url" @click="goToPage(link.url)" :class="[
                                         'relative inline-flex items-center px-4 py-2 border text-sm font-medium',
                                         link.active
                                             ? 'z-10 bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-600 dark:text-blue-400'
@@ -501,7 +501,7 @@ const goToPage = (url) => {
                                         index === posts.links.length - 1 ? 'rounded-r-md' : '',
                                     ]" v-html="link.label">
                                     </button>
-                                    <span v-else :class="[
+                                    <span v-else-if="link" :class="[
                                         'relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-sm font-medium text-gray-500',
                                         index === 0 ? 'rounded-l-md' : '',
                                         index === posts.links.length - 1 ? 'rounded-r-md' : '',

@@ -29,7 +29,8 @@ const { data: categoriesResponse, pending, refresh } = await useFetch(() => `${c
         Accept: 'application/json'
     },
     query: queryParams,
-    watch: false // We will handle refresh manually or watch filters tightly
+    watch: false,
+    getCachedData: () => null   // siempre fetch fresco
 })
 
 // Since useFetch with unref query might auto-fetch, let's just use it declaratively
@@ -65,24 +66,28 @@ const toggleActive = async (category) => {
 
 const deleteCategory = async (category) => {
     if (category.blog_posts_count > 0) {
-        alert("No se puede eliminar una categoría que tiene posts asociados.");
+        alert(`No se puede eliminar "${category.name}" porque tiene ${category.blog_posts_count} post(s) asociados.`);
         return;
     }
 
-    if (confirm("¿Estás seguro de que quieres eliminar esta categoría?")) {
-        try {
-            await $fetch(`${config.public.apiUrl}category/${category.id}/delete`, {
-                method: 'DELETE',
-                headers: {
-                    Authorization: `Bearer ${token.value}`,
-                    Accept: 'application/json'
-                }
-            })
-            refresh()
-        } catch (e) {
-            console.error('Error deleting category', e)
-            alert('Ocurrió un error al eliminar la categoría.')
+    if (!confirm(`¿Estás seguro de que quieres eliminar "${category.name}"?`)) return;
+
+    try {
+        await $fetch(`${config.public.apiUrl}category/${category.id}/delete`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token.value}`,
+                Accept: 'application/json'
+            }
+        })
+
+        // Eliminar la categoría del array local inmediatamente (actualización reactiva)
+        if (categoriesResponse.value?.data) {
+            categoriesResponse.value.data = categoriesResponse.value.data.filter(c => c.id !== category.id)
         }
+    } catch (e) {
+        console.error('[deleteCategory] Error:', e)
+        alert(`Error al eliminar la categoría: ${e.response?._data?.message || e.message}`)
     }
 }
 
@@ -320,7 +325,7 @@ const goToPage = (url) => {
                         <div>
                             <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
                                 <template v-for="(link, index) in categories.links" :key="index">
-                                    <button v-if="link.url" @click="goToPage(link.url)" :class="[
+                                    <button v-if="link && link.url" @click="goToPage(link.url)" :class="[
                                         'relative inline-flex items-center px-4 py-2 border text-sm font-medium',
                                         link.active
                                             ? 'z-10 bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-600 dark:text-blue-400'
@@ -329,7 +334,7 @@ const goToPage = (url) => {
                                         index === categories.links.length - 1 ? 'rounded-r-md' : '',
                                     ]" v-html="link.label">
                                     </button>
-                                    <span v-else :class="[
+                                    <span v-else-if="link" :class="[
                                         'relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-sm font-medium text-gray-500 dark:text-gray-500',
                                         index === 0 ? 'rounded-l-md' : '',
                                         index === categories.links.length - 1 ? 'rounded-r-md' : '',
