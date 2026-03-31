@@ -30,7 +30,7 @@ const { data: contactsResponse, pending, refresh } = await useFetch(() => `${con
     watch: false
 })
 
-const contacts = computed(() => contactsResponse.value || { data: [], links: [], from: 0, to: 0, total: 0 })
+const contacts = computed(() => contactsResponse.value?.data ? contactsResponse.value : { data: [], links: [], from: 0, to: 0, total: 0 })
 
 const clearFilters = () => {
     filters.search = "";

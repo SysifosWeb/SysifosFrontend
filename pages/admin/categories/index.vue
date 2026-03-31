@@ -34,7 +34,7 @@ const { data: categoriesResponse, pending, refresh } = await useFetch(() => `${c
 })
 
 // Since useFetch with unref query might auto-fetch, let's just use it declaratively
-const categories = computed(() => categoriesResponse.value || { data: [], links: [], from: 0, to: 0, total: 0 })
+const categories = computed(() => categoriesResponse.value?.data ? categoriesResponse.value : { data: [], links: [], from: 0, to: 0, total: 0 })
 
 const search = () => {
     filters.page = 1
@@ -223,7 +223,7 @@ const goToPage = (url) => {
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-2">
                             <!-- Ver -->
-                            <NuxtLink :to="'/admin/categories/' + category.id"
+                            <NuxtLink v-if="category.id" :to="'/admin/categories/' + category.id"
                                 class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300"
                                 title="Ver categoría">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -235,7 +235,7 @@ const goToPage = (url) => {
                             </NuxtLink>
 
                             <!-- Editar -->
-                            <NuxtLink :to="'/admin/categories/edit?id=' + category.id"
+                            <NuxtLink v-if="category.id" :to="'/admin/categories/edit?id=' + category.id"
                                 class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300"
                                 title="Editar categoría">
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

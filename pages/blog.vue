@@ -1,20 +1,34 @@
 <script setup>
-  const searchQuery = ref('');
+const searchQuery = ref('');
 const selectedCategory = ref('all');
 
-// Categorías combinadas (del backend + opción "Todos")
+// Posts y categorías del backend
+const config = useRuntimeConfig();
+
+const { data: postsResponse } = await useFetch(() => `${config.public.apiUrl}blog`, {
+    query: {
+        per_page: 100, // Ajustar según necesidad
+        status: 'published'
+    }
+});
+
+const { data: categoriesResponse } = await useFetch(() => `${config.public.apiUrl}category`);
+
+const posts = computed(() => postsResponse.value?.data ? postsResponse.value : { data: [], links: [] });
+const categories = computed(() => categoriesResponse.value || []);
+
 const allCategories = computed(() => {
-    if (!props.categories || !Array.isArray(props.categories)) {
+    if (!categories.value || !Array.isArray(categories.value)) {
         return [{ id: 'all', name: 'Todos', count: 0 }];
     }
 
-    const backendCategories = props.categories.map(cat => ({
+    const backendCategories = categories.value.map(cat => ({
         id: cat.slug,
         name: cat.name,
         count: cat.posts_count || 0
     }));
 
-    const totalCount = props.posts?.total || (props.posts?.data ? props.posts.data.length : 0);
+    const totalCount = posts.value?.total || (posts.value?.data ? posts.value.data.length : 0);
 
     return [
         { id: 'all', name: 'Todos', count: totalCount },
@@ -24,36 +38,38 @@ const allCategories = computed(() => {
 
 // Posts del backend
 const allPosts = computed(() => {
-    if (!props.posts) return [];
-    return props.posts.data || props.posts || [];
+    if (!posts.value) return [];
+    return posts.value.data || posts.value || [];
 });
 
 const filteredPosts = computed(() => {
-    let posts = allPosts.value;
+    let blogPosts = allPosts.value;
 
     // Filter by category
     if (selectedCategory.value !== 'all') {
-        posts = posts.filter(post => post.category?.slug === selectedCategory.value);
+        blogPosts = blogPosts.filter(post => post.category?.slug === selectedCategory.value);
     }
 
     // Filter by search query
     if (searchQuery.value) {
         const query = searchQuery.value.toLowerCase();
-        posts = posts.filter(post =>
+        blogPosts = blogPosts.filter(post =>
             post.title.toLowerCase().includes(query) ||
             post.excerpt.toLowerCase().includes(query) ||
             (post.content && post.content.toLowerCase().includes(query))
         );
     }
 
-    return posts;
+    return blogPosts;
 });
 
+const featuredPosts = computed(() => allPosts.value.filter(p => p.featured));
+
 const featuredPost = computed(() => {
-    if (!props.featuredPosts || !Array.isArray(props.featuredPosts) || props.featuredPosts.length === 0) {
+    if (!featuredPosts.value || featuredPosts.value.length === 0) {
         return null;
     }
-    return props.featuredPosts[0];
+    return featuredPosts.value[0];
 });
 
 const setCategory = (categoryId) => {
@@ -244,9 +260,9 @@ const getImageUrl = (post) => {
                 </div>
 
                 <!-- Pagination Laravel -->
-                <div v-if="props.posts && props.posts.links && props.posts.links.length > 3" class="flex justify-center">
+                <div v-if="posts && posts.links && posts.links.length > 3" class="flex justify-center">
                     <nav class="flex items-center space-x-1">
-                        <template v-for="(link, index) in props.posts.links" :key="index">
+                        <template v-for="(link, index) in posts.links" :key="index">
                             <a
                                 v-if="link.url"
                                 :href="link.url"

@@ -68,7 +68,7 @@ const statusText = computed(() => {
                         </p>
                     </div>
                     <div class="flex items-center space-x-3">
-                        <NuxtLink :to="'/admin/categories/edit?id=' + category.id"
+                        <NuxtLink v-if="category.id" :to="'/admin/categories/edit?id=' + category.id"
                             class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                             Editar
                         </NuxtLink>
@@ -175,7 +175,7 @@ const statusText = computed(() => {
                             </h3>
                         </div>
                         <div class="p-6 space-y-3">
-                            <NuxtLink :to="{ path: '', query: { category: category.id } }"
+                            <NuxtLink v-if="category.id" :to="{ path: '', query: { category: category.id } }"
                                 class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                 Crear Post aquí
                             </NuxtLink>

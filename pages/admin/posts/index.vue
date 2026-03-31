@@ -43,7 +43,7 @@ const { data: categoriesResponse } = await useFetch(() => `${config.public.apiUr
     }
 })
 
-const posts = computed(() => postsResponse.value || { data: [], links: [], from: 0, to: 0, total: 0 })
+const posts = computed(() => postsResponse.value?.data ? postsResponse.value : { data: [], links: [], from: 0, to: 0, total: 0 })
 const categories = computed(() => categoriesResponse.value?.data || [])
 
 // Detectar si hay filtros activos
@@ -393,7 +393,7 @@ const goToPage = (url) => {
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end space-x-2">
                                     <!-- Ver -->
-                                    <NuxtLink :to="'/admin/posts/' + post.id"
+                                    <NuxtLink v-if="post.id" :to="'/admin/posts/' + post.id"
                                         class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300"
                                         title="Ver post">
                                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -405,7 +405,7 @@ const goToPage = (url) => {
                                     </NuxtLink>
 
                                     <!-- Editar -->
-                                    <NuxtLink :to="'/admin/posts/edit?id=' + post.id"
+                                    <NuxtLink v-if="post.id" :to="'/admin/posts/edit?id=' + post.id"
                                         class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300"
                                         title="Editar post">
                                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

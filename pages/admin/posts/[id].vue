@@ -54,7 +54,7 @@ const formatDate = (date) => {
                         </p>
                     </div>
                     <div class="flex items-center space-x-3">
-                        <NuxtLink :to="`/admin/posts/edit?id=${post.id}`"
+                        <NuxtLink v-if="post.id" :to="`/admin/posts/edit?id=${post.id}`"
                             class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700">
                             Editar
                         </NuxtLink>
@@ -257,7 +257,7 @@ const formatDate = (date) => {
                             </h3>
                         </div>
                         <div class="p-6 space-y-3">
-                            <a :href="`/blog/${post.slug}`" target="_blank"
+                            <a v-if="post.slug" :href="`/blog/${post.slug}`" target="_blank"
                                 class="w-full inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                                 Ver en el sitio
                                 <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

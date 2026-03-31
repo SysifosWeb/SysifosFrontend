@@ -147,7 +147,7 @@ const isPublished = computed(() => form.status === 'published');
                         </p>
                     </div>
                     <div class="flex items-center space-x-3">
-                        <NuxtLink :to="`/admin/posts/${postId}`"
+                        <NuxtLink v-if="postId" :to="`/admin/posts/${postId}`"
                             class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
                             Ver Post
                         </NuxtLink>
