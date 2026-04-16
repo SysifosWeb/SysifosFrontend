@@ -11,37 +11,25 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: {
-                    DEFAULT: '#4F46E5',
-                    light: '#6366F1',
-                    dark: '#4338CA',
-                    50: '#eef2ff',
-                    100: '#e0e7ff',
-                    200: '#c7d2fe',
-                    300: '#a5b4fc',
-                    400: '#818cf8',
-                    500: '#4F46E5', // Matches DEFAULT
-                    600: '#4338CA', // Matches dark
-                    700: '#3730a3',
-                    800: '#312e81',
-                    900: '#1e1b4b',
-                    950: '#0f172a',
+                accent: 'var(--accent)',
+                secondary: 'var(--secondary)',
+                primary: 'var(--primary)',
+                detail: {
+                    primary: 'var(--detail-primary)',
+                    secondary: 'var(--detail-secondary)',
+                    dark: 'var(--detail-dark)',
+                    quaternary: 'var(--detail-quaternary)',
                 },
-                secondary: {
-                    DEFAULT: '#EC4899',
-                    light: '#f472b6',
-                    dark: '#db2777',
-                    50: '#fdf2f8',
-                    100: '#fce7f3',
-                    200: '#fbcfe8',
-                    300: '#f9a8d4',
-                    400: '#f472b6',
-                    500: '#EC4899', // Matches DEFAULT
-                    600: '#db2777',
-                    700: '#be185d',
-                    800: '#9d174d',
-                    900: '#831843',
-                    950: '#500724',
+                background: {
+                    light: 'var(--background-light)',
+                    medium: 'var(--background-medium)',
+                    dark: 'var(--background-dark)',
+                },
+                text: {
+                    light: 'var(--text-light)',
+                    medium: 'var(--text-medium)',
+                    dark: 'var(--text-dark)',
+                    muted: 'var(--text-muted)'
                 },
                 dark: {
                     50: '#f8fafc',
@@ -60,6 +48,7 @@ export default {
             fontFamily: {
                 sans: ['Inter', 'sans-serif'],
                 display: ['Poppins', 'sans-serif'],
+                tech: ['"Space Grotesk"', 'sans-serif'],
             },
             animation: {
                 'fade-in': 'fadeIn 0.5s ease-in-out',
