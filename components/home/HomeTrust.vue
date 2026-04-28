@@ -5,7 +5,7 @@
         
         <!-- Bloque de Texto Izquierda -->
         <div class="w-full lg:w-[450px] shrink-0 pl-[4%] lg:pl-[8%] mb-16 lg:mb-0 z-30 bg-[#05070a]/80 backdrop-blur-sm py-4">
-          <h4 class="text-[9px] font-bold text-gray-500 uppercase tracking-[0.8em] font-mono mb-6">STACK _ TECNOLÓGICO</h4>
+          <h4 class="text-[15px] font-bold text-gray-300 uppercase tracking-[0.8em] font-mono mb-6">STACK _ TECNOLÓGICO</h4>
           <div class="flex flex-col leading-none">
             <span class="text-white text-3xl lg:text-4xl font-medium uppercase tracking-tighter font-tech mb-2">DOMINIO DE</span>
             <span class="text-accent text-4xl lg:text-5xl font-medium uppercase tracking-tighter font-tech">VANGUARDIA DIGITAL</span>
@@ -26,7 +26,7 @@
                        :alt="tech.name" 
                        class="tech-logo h-12 lg:h-16 w-auto object-contain transition-all duration-300" />
                   
-                  <div class="tech-name absolute -bottom-12 left-1/2 -translate-x-1/2 text-[10px] font-bold text-accent opacity-0 transition-opacity tracking-[0.4em] font-mono text-center whitespace-nowrap uppercase">
+                  <div class="tech-name absolute -bottom-12 left-1/2 -translate-x-1/2 text-[14px] font-bold text-accent opacity-0 transition-opacity tracking-[0.4em] font-mono text-center whitespace-nowrap uppercase">
                     {{ tech.name }}
                   </div>
                </div>

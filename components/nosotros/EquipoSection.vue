@@ -3,17 +3,20 @@ import { TerminalSquare, Database, Smartphone } from 'lucide-vue-next'
 import diego from '@/assets/img/Diego.png'
 import karen from '@/assets/img/Karen.png'
 import osman from '@/assets/img/Osman.png'
+import CircuitBackground from '@/components/CircuitBackground.vue'
 </script>
 
 <template>
   <section class="relative bg-[#0a0e17] py-32 overflow-hidden border-b border-white/5">
+    <!-- Fondo de Circuito -->
+    <CircuitBackground />
     
     <!-- HUD BACKGROUND ELEMENTS (Para llenar el espacio vacío) -->
     <div class="absolute inset-0 z-0 pointer-events-none opacity-20 select-none">
-        <div class="absolute top-20 left-10 font-mono text-[10px] text-[#00f2ff]/30 leading-none">
+        <div class="absolute top-20 left-10 font-mono text-[14px] text-[#00f2ff]/30 leading-none">
             LAT: 23.5921<br/>LONG: -46.6642<br/>STATUS: SYNCED
         </div>
-        <div class="absolute bottom-20 right-10 font-mono text-[10px] text-[#00f2ff]/30 text-right leading-none">
+        <div class="absolute bottom-20 right-10 font-mono text-[14px] text-[#00f2ff]/30 text-right leading-none">
             KERNEL_REV: 8.2.1<br/>Uptime: 1024:12:05<br/>Node: SY_ALPHA
         </div>
         <!-- Líneas horizontales de barrido -->
@@ -25,10 +28,10 @@ import osman from '@/assets/img/Osman.png'
     <div class="relative z-20 text-center mb-20 flex flex-col items-center">
         <div class="flex items-center gap-4 mb-4">
           <span class="w-1.5 h-1.5 bg-[#4a4a4a]"></span>
-          <span class="text-[10px] uppercase tracking-[0.5em] font-mono text-gray-400">SYS_UNIT // ROSTER OPERATIVO</span>
+          <span class="text-[14px] uppercase tracking-[0.5em] font-mono text-gray-300">SYS_UNIT // ROSTER OPERATIVO</span>
         </div>
-        <h2 class="text-4xl md:text-5xl font-bold font-sans text-white uppercase tracking-tighter drop-shadow-md">
-          Nuestro <span class="text-[#00f2ff]">Equipo.</span>
+        <h2 class="text-4xl md:text-5xl font-bold font-tech text-white uppercase tracking-tighter mb-4">
+          Nuestro <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">Equipo.</span>
         </h2>
     </div>
 
@@ -45,7 +48,7 @@ import osman from '@/assets/img/Osman.png'
                 <div class="absolute inset-x-0 bottom-0 top-[120px] lg:top-[150px] bg-[#0a0e17]/80 backdrop-blur-[6px] border border-white/[0.03] group-hover:bg-[#0c121e]/90 group-hover:border-[#00f2ff]/30 shadow-2xl transition-all duration-700 ease-out p-6 lg:p-8 flex flex-col justify-end">
                     
                     <!-- HUD Background Element -->
-                    <div class="absolute top-4 right-4 text-[10px] font-mono text-[#00f2ff]/20">[ S_UNIT_01 ]</div>
+                    <div class="absolute top-4 right-4 text-[14px] font-mono text-[#00f2ff]/20">[ S_UNIT_01 ]</div>
                     <!-- Línea decorativa superior -->
                     <div class="absolute top-0 left-0 w-1/3 h-[2px] bg-gradient-to-r from-[#00f2ff] to-transparent opacity-40 group-hover:w-1/2 group-hover:opacity-100 transition-all duration-700"></div>
 
@@ -59,11 +62,11 @@ import osman from '@/assets/img/Osman.png'
                         <!-- Rol -->
                         <div class="inline-flex items-center gap-2 mb-4">
                             <TerminalSquare class="w-3.5 h-3.5 text-[#00f2ff]" />
-                            <span class="text-[11px] lg:text-[12px] font-mono text-[#00f2ff] font-bold tracking-wider">> FULL_STACK_DEV</span>
+                            <span class="text-[15px] lg:text-[14px] font-mono text-[#00f2ff] font-bold tracking-wider">> FULL_STACK_DEV</span>
                         </div>
                         
                         <!-- Párrafo -->
-                        <p class="text-gray-400 font-mono text-[13px] lg:text-[14px] leading-relaxed line-clamp-3">
+                        <p class="text-gray-300 font-mono text-[15px] lg:text-[14px] leading-relaxed line-clamp-3">
                             Desarrollador matriz especializado en estructurar y diseñar módulos escalables para aplicaciones web integrales.
                         </p>
                     </div>
@@ -81,7 +84,7 @@ import osman from '@/assets/img/Osman.png'
                 
                 <div class="absolute inset-x-0 bottom-[-30px] top-[90px] lg:top-[120px] bg-[#0a0e17]/80 backdrop-blur-[6px] border border-white/[0.03] group-hover:bg-[#0c121e]/90 group-hover:border-[#00f2ff]/30 shadow-2xl transition-all duration-700 ease-out p-6 lg:p-8 flex flex-col justify-end">
                     
-                    <div class="absolute top-4 right-4 text-[10px] font-mono text-[#00f2ff]/20">[ S_UNIT_02 ]</div>
+                    <div class="absolute top-4 right-4 text-[14px] font-mono text-[#00f2ff]/20">[ S_UNIT_02 ]</div>
                     <!-- Línea decorativa superior central es simétrica -->
                     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-[2px] bg-gradient-to-r from-transparent via-[#00f2ff] to-transparent opacity-40 group-hover:w-full group-hover:opacity-100 transition-all duration-700"></div>
 
@@ -92,10 +95,10 @@ import osman from '@/assets/img/Osman.png'
                         
                         <div class="inline-flex items-center gap-2 mb-4">
                             <Database class="w-3.5 h-3.5 text-[#00f2ff]" />
-                            <span class="text-[11px] lg:text-[12px] font-mono text-[#00f2ff] font-bold tracking-wider">> DBA_FRONTEND_OPT</span>
+                            <span class="text-[15px] lg:text-[14px] font-mono text-[#00f2ff] font-bold tracking-wider">> DBA_FRONTEND_OPT</span>
                         </div>
                         
-                        <p class="text-gray-400 font-mono text-[13px] lg:text-[14px] leading-relaxed line-clamp-3">
+                        <p class="text-gray-300 font-mono text-[15px] lg:text-[14px] leading-relaxed line-clamp-3">
                             Control estructural enfocado en optimización de bases de datos relacionales con eficiencia visual ininterrumpida.
                         </p>
                     </div>
@@ -111,7 +114,7 @@ import osman from '@/assets/img/Osman.png'
                 
                 <div class="absolute inset-x-0 bottom-0 top-[120px] lg:top-[150px] bg-[#0a0e17]/80 backdrop-blur-[6px] border border-white/[0.03] group-hover:bg-[#0c121e]/90 group-hover:border-[#00f2ff]/30 shadow-2xl transition-all duration-700 ease-out p-6 lg:p-8 flex flex-col justify-end">
                     
-                    <div class="absolute top-4 right-4 text-[10px] font-mono text-[#00f2ff]/20">[ S_UNIT_03 ]</div>
+                    <div class="absolute top-4 right-4 text-[14px] font-mono text-[#00f2ff]/20">[ S_UNIT_03 ]</div>
                     <!-- Línea decorativa superior invertida a la derecha -->
                     <div class="absolute top-0 right-0 w-1/3 h-[2px] bg-gradient-to-l from-[#00f2ff] to-transparent opacity-40 group-hover:w-1/2 group-hover:opacity-100 transition-all duration-700"></div>
 
@@ -122,10 +125,10 @@ import osman from '@/assets/img/Osman.png'
                         
                         <div class="inline-flex items-center gap-2 mb-4">
                             <Smartphone class="w-3.5 h-3.5 text-[#00f2ff]" />
-                            <span class="text-[11px] lg:text-[12px] font-mono text-[#00f2ff] font-bold tracking-wider">> WEB_MOBILE_DEV</span>
+                            <span class="text-[15px] lg:text-[14px] font-mono text-[#00f2ff] font-bold tracking-wider">> WEB_MOBILE_DEV</span>
                         </div>
                         
-                        <p class="text-gray-400 font-mono text-[13px] lg:text-[14px] leading-relaxed line-clamp-3">
+                        <p class="text-gray-300 font-mono text-[15px] lg:text-[14px] leading-relaxed line-clamp-3">
                             Gestión fluida en compilación cross-platform. Especialista arquitectónico en ecosistemas híbridos Flutter.
                         </p>
                     </div>

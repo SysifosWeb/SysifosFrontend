@@ -118,7 +118,7 @@ const goToPage = (url) => {
         <div class="mb-6 flex items-center justify-between">
             <div>
                 <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Categorías</h1>
-                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                     Organiza tus posts por categorías
                 </p>
             </div>
@@ -206,15 +206,15 @@ const goToPage = (url) => {
                     </div>
 
                     <!-- Descripción -->
-                    <p v-if="category.description" class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                    <p v-if="category.description" class="text-sm text-gray-300 dark:text-gray-300 mb-4 line-clamp-2">
                         {{ category.description }}
                     </p>
-                    <p v-else class="text-sm text-gray-400 dark:text-gray-500 italic mb-4">
+                    <p v-else class="text-sm text-gray-300 dark:text-gray-300 italic mb-4">
                         Sin descripción
                     </p>
 
                     <!-- Estadísticas -->
-                    <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 mb-4">
+                    <div class="flex items-center justify-between text-sm text-gray-300 dark:text-gray-300 mb-4">
                         <span>{{ category.blog_posts_count || 0 }} posts</span>
                         <span>Orden: {{ category.sort_order }}</span>
                     </div>
@@ -279,14 +279,14 @@ const goToPage = (url) => {
 
         <div v-else
             class="bg-white dark:bg-slate-800 text-center p-12 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-            <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor"
+            <svg class="mx-auto h-12 w-12 text-gray-300 dark:text-gray-300" fill="none" stroke="currentColor"
                 viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
                 </path>
             </svg>
             <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No hay categorías</h3>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Comienza creando una nueva categoría.</p>
+            <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">Comienza creando una nueva categoría.</p>
             <div class="mt-6">
                 <NuxtLink to="/admin/categories/create"
                     class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
@@ -312,7 +312,7 @@ const goToPage = (url) => {
                     </div>
                     <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                         <div>
-                            <p class="text-sm text-gray-700 dark:text-gray-400">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">
                                 Mostrando
                                 <span class="font-medium text-gray-900 dark:text-white">{{ categories.from }}</span>
                                 a
@@ -329,13 +329,13 @@ const goToPage = (url) => {
                                         'relative inline-flex items-center px-4 py-2 border text-sm font-medium',
                                         link.active
                                             ? 'z-10 bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-600 dark:text-blue-400'
-                                            : 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700',
+                                            : 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 text-gray-300 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700',
                                         index === 0 ? 'rounded-l-md' : '',
                                         index === categories.links.length - 1 ? 'rounded-r-md' : '',
                                     ]" v-html="link.label">
                                     </button>
                                     <span v-else-if="link" :class="[
-                                        'relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-sm font-medium text-gray-500 dark:text-gray-500',
+                                        'relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-sm font-medium text-gray-300 dark:text-gray-300',
                                         index === 0 ? 'rounded-l-md' : '',
                                         index === categories.links.length - 1 ? 'rounded-r-md' : '',
                                     ]" v-html="link.label">

@@ -104,7 +104,7 @@ const submit = async () => {
                 <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
                     Editar Categoría
                 </h1>
-                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                     Modifica los campos que necesites actualizar
                 </p>
             </div>
@@ -142,7 +142,7 @@ const submit = async () => {
                     <input v-model="form.slug" type="text" required
                         class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.slug }" />
-                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Se usará en la URL: /blog/categoria/{slug}
+                    <p class="mt-1 text-xs text-gray-300 dark:text-gray-300">Se usará en la URL: /blog/categoria/{slug}
                     </p>
                     <p v-if="errors.slug" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors.slug[0] }}</p>
                 </div>
@@ -165,7 +165,7 @@ const submit = async () => {
                         <div class="flex items-center space-x-3">
                             <input v-model="form.color" type="color"
                                 class="h-10 w-20 rounded border border-gray-300 dark:border-slate-600 cursor-pointer p-0" />
-                            <span class="text-sm font-mono text-gray-600 dark:text-gray-400">{{ form.color }}</span>
+                            <span class="text-sm font-mono text-gray-300 dark:text-gray-300">{{ form.color }}</span>
                         </div>
                         <p v-if="errors.color" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors.color[0] }}
                         </p>

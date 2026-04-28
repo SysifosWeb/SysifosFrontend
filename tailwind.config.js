@@ -50,6 +50,13 @@ export default {
                 display: ['Poppins', 'sans-serif'],
                 tech: ['"Space Grotesk"', 'sans-serif'],
             },
+            fontSize: {
+                'sys-micro': ['9px', { letterSpacing: '0.1em', lineHeight: '1.2' }],
+                'sys-badge': ['10px', { letterSpacing: '0.2em', lineHeight: '1.2' }],
+                'sys-label': ['11px', { letterSpacing: '0.15em', lineHeight: '1.4' }],
+                'sys-body-sm': ['12px', { lineHeight: '1.6' }],
+                'sys-body': ['13px', { lineHeight: '1.6' }],
+            },
             animation: {
                 'fade-in': 'fadeIn 0.5s ease-in-out',
                 'slide-up': 'slideUp 0.5s ease-out',

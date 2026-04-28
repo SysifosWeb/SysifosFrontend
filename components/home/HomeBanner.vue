@@ -18,20 +18,20 @@
     </div>
 
     <div class="max-w-[1400px] w-[92%] mx-auto relative z-10 text-center">
-      <h2 class="text-2xl md:text-5xl font-medium text-white uppercase tracking-[0.2em] leading-tight max-w-5xl mx-auto font-tech mb-20 whitespace-pre-line">
-        ¿LISTO PARA ELEVAR SU <span class="text-accent italic">INFRAESTRUCTURA</span> AL SIGUIENTE NIVEL?
+      <h2 class="text-2xl md:text-5xl font-bold text-white uppercase tracking-tighter leading-tight max-w-5xl mx-auto font-tech mb-20 whitespace-pre-line">
+        ¿LISTO PARA ELEVAR SU <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">INFRAESTRUCTURA</span> AL SIGUIENTE NIVEL?
       </h2>
 
       <div class="flex items-center justify-center gap-6 md:gap-12">
         <!-- Control de Interfaz: Ejecutar -->
-        <span class="hidden md:block text-[9px] font-mono text-gray-600 tracking-[0.4em] uppercase select-none">
+        <span class="hidden md:block text-[15px] font-mono text-gray-300 tracking-[0.4em] uppercase select-none">
           [ EJECUTAR ]
         </span>
 
         <!-- Botón Prohibido Principal -->
         <NuxtLink to="/contacto" 
                   class="relative px-12 py-5 border border-accent/40 rounded-sm overflow-hidden group/btn hover:border-accent hover:shadow-[0_0_20px_rgba(0,242,255,0.2)] transition-all duration-500">
-          <span class="relative z-10 text-[10px] md:text-[11px] font-mono text-accent uppercase tracking-[0.6em] transition-all">
+          <span class="relative z-10 text-[14px] md:text-[15px] font-mono text-accent uppercase tracking-[0.6em] transition-all">
             Iniciar Protocolo de Evaluación
           </span>
           <!-- Efecto de Barrido Interno -->
@@ -39,7 +39,7 @@
         </NuxtLink>
 
         <!-- Control de Interfaz: Cancelar -->
-        <span class="hidden md:block text-[9px] font-mono text-gray-600 tracking-[0.4em] uppercase select-none">
+        <span class="hidden md:block text-[15px] font-mono text-gray-300 tracking-[0.4em] uppercase select-none">
           [ CANCELAR ]
         </span>
       </div>

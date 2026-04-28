@@ -24,9 +24,9 @@ const statusClass = computed(() => {
         'new': 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
         'read': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
         'replied': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-        'archived': 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400'
+        'archived': 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300'
     };
-    return statusClasses[contact.value.status] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400';
+    return statusClasses[contact.value.status] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300';
 });
 
 const statusText = computed(() => {
@@ -125,7 +125,7 @@ const deleteContact = async () => {
                 <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
-                            <NuxtLink to="/admin/contacts" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                            <NuxtLink to="/admin/contacts" class="text-gray-300 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-300">
                                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 19l-7-7 7-7" />
@@ -135,7 +135,7 @@ const deleteContact = async () => {
                                 <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
                                     {{ contact.name }}
                                 </h1>
-                                <p class="text-sm text-gray-600 dark:text-gray-400">
+                                <p class="text-sm text-gray-300 dark:text-gray-300">
                                     Contacto recibido el {{ formatDate(contact.created_at) }}
                                 </p>
                             </div>
@@ -218,11 +218,11 @@ const deleteContact = async () => {
                         </div>
                         <div class="px-6 py-4">
                             <div class="mb-4">
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Asunto</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300 mb-1">Asunto</h3>
                                 <p class="text-sm text-gray-900 dark:text-gray-100">{{ contact.subject }}</p>
                             </div>
                             <div>
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Mensaje</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300 mb-2">Mensaje</h3>
                                 <div class="prose dark:prose-invert max-w-none">
                                     <p class="text-sm text-gray-900 dark:text-gray-100 whitespace-pre-wrap">{{ contact.message }}</p>
                                 </div>
@@ -240,11 +240,11 @@ const deleteContact = async () => {
                         </div>
                         <div class="px-6 py-4 space-y-4">
                             <div>
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Nombre</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300">Nombre</h3>
                                 <p class="text-sm text-gray-900 dark:text-gray-100">{{ contact.name }}</p>
                             </div>
                             <div>
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Email</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300">Email</h3>
                                 <p class="text-sm text-gray-900 dark:text-gray-100">
                                     <a :href="`mailto:${contact.email}`" class="text-blue-600 hover:text-blue-800 dark:text-blue-400">
                                         {{ contact.email }}
@@ -252,7 +252,7 @@ const deleteContact = async () => {
                                 </p>
                             </div>
                             <div v-if="contact.phone">
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Teléfono</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300">Teléfono</h3>
                                 <p class="text-sm text-gray-900 dark:text-gray-100">
                                     <a :href="`tel:${contact.phone}`" class="text-blue-600 hover:text-blue-800 dark:text-blue-400">
                                         {{ contact.phone }}
@@ -260,7 +260,7 @@ const deleteContact = async () => {
                                 </p>
                             </div>
                             <div v-if="contact.company">
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Empresa</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300">Empresa</h3>
                                 <p class="text-sm text-gray-900 dark:text-gray-100">{{ contact.company }}</p>
                             </div>
                         </div>
@@ -273,30 +273,30 @@ const deleteContact = async () => {
                         </div>
                         <div class="px-6 py-4 space-y-4">
                             <div>
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Estado</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300">Estado</h3>
                                 <span
                                     :class="['inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium', statusClass]">
                                     {{ statusText }}
                                 </span>
                             </div>
                             <div>
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Fecha de Contacto</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300">Fecha de Contacto</h3>
                                 <p class="text-sm text-gray-900 dark:text-gray-100">{{ formatDate(contact.created_at) }}</p>
                             </div>
                             <div v-if="contact.read_at">
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Leído el</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300">Leído el</h3>
                                 <p class="text-sm text-gray-900 dark:text-gray-100">{{ formatDate(contact.read_at) }}</p>
                             </div>
                             <div v-if="contact.replied_at">
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Respondido el</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300">Respondido el</h3>
                                 <p class="text-sm text-gray-900 dark:text-gray-100">{{ formatDate(contact.replied_at) }}</p>
                             </div>
                             <div v-if="contact.ip_address">
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Dirección IP</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300">Dirección IP</h3>
                                 <p class="text-sm text-gray-900 dark:text-gray-100 font-mono">{{ contact.ip_address }}</p>
                             </div>
                             <div v-if="contact.user_agent">
-                                <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Navegador</h3>
+                                <h3 class="text-sm font-medium text-gray-300 dark:text-gray-300">Navegador</h3>
                                 <p class="text-xs text-gray-900 dark:text-gray-100 break-all">{{ contact.user_agent }}</p>
                             </div>
                         </div>

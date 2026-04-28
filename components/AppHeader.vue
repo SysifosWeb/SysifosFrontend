@@ -4,8 +4,8 @@
       
       <!-- Immersive Background Mesh & Particles -->
       <div class="absolute inset-0 pointer-events-none">
-         
          <!-- Floating Particles Layer -->
+         <div class="absolute inset-0 fine-dotted-grid opacity-40"></div>
          <div class="absolute inset-0 overflow-hidden">
             <div v-for="n in 12" :key="'p-'+n" class="floating-point" :style="generateRandomPos(n)"></div>
          </div>
@@ -45,16 +45,16 @@
           para tu <span class="text-accent italic text-shadow-glow">Negocio.</span>
         </h1>
 
-        <p class="text-xs md:text-sm text-gray-500 uppercase tracking-[0.5em] font-medium mb-20 opacity-80 max-w-2xl leading-relaxed mx-auto">
+        <p class="text-xs md:text-sm text-gray-300 uppercase tracking-[0.5em] font-medium mb-20 opacity-80 max-w-2xl leading-relaxed mx-auto">
           Análisis riguroso para una presencia digital escalable.
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-16 lg:gap-24">
-          <NuxtLink to="/contacto" class="group relative px-12 py-5 bg-white/5 border border-accent/30 text-white font-bold uppercase tracking-[0.3em] text-[10px] overflow-hidden transition-all hover:bg-accent hover:text-[#0a0e17] hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] font-tech">
+          <NuxtLink to="/contacto" class="group relative px-12 py-5 bg-white/5 border border-accent/30 text-white font-bold uppercase tracking-[0.3em] text-[14px] overflow-hidden transition-all hover:bg-accent hover:text-[#0a0e17] hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] font-tech">
             <span class="relative z-10">Iniciar Proyecto</span>
             <div class="absolute inset-0 bg-accent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
           </NuxtLink>
-          <NuxtLink to="/servicios" class="relative py-2 text-white/50 font-bold uppercase tracking-[0.3em] text-[10px] hover:text-white transition-all font-tech group">
+          <NuxtLink to="/servicios" class="relative py-2 text-white/50 font-bold uppercase tracking-[0.3em] text-[14px] hover:text-white transition-all font-tech group">
             Explorar Soluciones
             <div class="absolute -bottom-1 left-0 w-8 h-[1px] bg-accent transition-all group-hover:w-full"></div>
           </NuxtLink>

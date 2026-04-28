@@ -13,7 +13,7 @@ import logoBlanco from "@/assets/img/logo-blanco.webp";
               <img :src="logoBlanco" alt="SysifosWeb Logo" class="h-20 md:h-28 w-auto object-contain" />
             </NuxtLink>
           </div>
-          <p class="font-mono text-[#e1e1e1] text-[13px] md:text-sm tracking-widest mb-10 mt-0 uppercase w-full">
+          <p class="font-mono text-[#e1e1e1] text-[15px] md:text-sm tracking-widest mb-10 mt-0 uppercase w-full">
             Ingeniería digital para tu negocio.
           </p>
           
@@ -100,7 +100,7 @@ import logoBlanco from "@/assets/img/logo-blanco.webp";
 
       <!-- Pie de Página / Copyright -->
       <div class="mt-28 w-full flex justify-start">
-        <p class="text-[13px] md:text-sm text-gray-400 font-sans tracking-wide">
+        <p class="text-[15px] md:text-sm text-gray-300 font-sans tracking-wide">
           © {{ new Date().getFullYear() }} SysifosWeb. Todos los derechos reservados.
         </p>
       </div>

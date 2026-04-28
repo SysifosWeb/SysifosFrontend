@@ -48,14 +48,14 @@ onMounted(() => {
             ]" :key="item.to">
               <NuxtLink
                 :to="item.to"
-                class="nav-link text-[11px] tracking-widest font-bold text-gray-400 hover:text-white transition-all font-tech uppercase"
+                class="nav-link text-[15px] tracking-widest font-bold text-gray-300 hover:text-white transition-all font-tech uppercase"
                 :class="{ 'text-accent': currentRoute === item.to }"
               >
                 {{ item.label }}
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/contacto" class="ml-6 px-8 py-3 bg-accent text-[#0a0e17] font-bold text-[11px] uppercase tracking-widest rounded-xl hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,242,255,0.3)]">
+              <NuxtLink to="/contacto" class="ml-6 px-8 py-3 bg-accent text-[#0a0e17] font-bold text-[15px] uppercase tracking-widest rounded-xl hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,242,255,0.3)]">
                 Contacto
               </NuxtLink>
             </li>

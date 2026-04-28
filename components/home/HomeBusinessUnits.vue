@@ -1,5 +1,6 @@
 <template>
   <section id="servicios" class="relative py-16 lg:py-24 bg-[#050810] overflow-hidden">
+    <CircuitBackground />
     
     <div class="max-w-[1400px] w-[92%] mx-auto relative z-10">
       
@@ -19,10 +20,10 @@
 
       <!-- Header Seccion -->
       <div class="text-center mb-24">
-        <h2 class="text-3xl md:text-5xl font-bold text-white uppercase tracking-[0.2em] font-tech mb-6">
-          Nuestros Servicios
+        <h2 class="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter font-tech mb-6">
+          Nuestros <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">Servicios.</span>
         </h2>
-        <p class="text-[10px] md:text-xs text-gray-500 uppercase tracking-[0.4em] font-medium max-w-xl mx-auto opacity-70">
+        <p class="text-[14px] md:text-xs text-gray-300 uppercase tracking-[0.4em] font-medium max-w-xl mx-auto opacity-70">
           Módulos de ingeniería digital diseñados para escalar.
         </p>
       </div>
@@ -41,19 +42,19 @@
             {{ service.title }}
           </h3>
 
-          <p class="text-xs text-gray-400 leading-relaxed mb-8 opacity-60 group-hover:opacity-100 transition-opacity">
+          <p class="text-xs text-gray-300 leading-relaxed mb-8 opacity-60 group-hover:opacity-100 transition-opacity">
             {{ service.description }}
           </p>
 
           <ul class="space-y-3 mb-12">
-            <li v-for="(feature, idx) in service.features" :key="idx" class="flex items-center gap-3 text-[9px] text-gray-500 uppercase tracking-widest font-tech">
+            <li v-for="(feature, idx) in service.features" :key="idx" class="flex items-center gap-3 text-[15px] text-gray-300 uppercase tracking-widest font-tech">
               <span class="w-1 h-1 rounded-full bg-accent opacity-40"></span>
               {{ feature }}
             </li>
           </ul>
 
           <div class="pt-8 border-t border-white/[0.05]">
-            <NuxtLink :to="'/contacto'" class="inline-flex items-center gap-2 text-[9px] font-bold text-accent uppercase tracking-widest hover:text-white transition-colors group/btn">
+            <NuxtLink :to="'/contacto'" class="inline-flex items-center gap-2 text-[15px] font-bold text-accent uppercase tracking-widest hover:text-white transition-colors group/btn">
               <span>Solicitar Cotización</span>
               <div class="w-4 h-[1px] bg-accent group-hover/btn:w-8 transition-all"></div>
             </NuxtLink>
@@ -63,7 +64,7 @@
 
       <!-- Boton Final (Estilo Header) -->
       <div class="mt-24 text-center">
-        <NuxtLink to="/servicios" class="group relative inline-block px-12 py-5 bg-white/5 border border-accent/30 text-white font-bold uppercase tracking-[0.3em] text-[10px] overflow-hidden transition-all hover:bg-accent hover:text-[#0a0e17] hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] font-tech">
+        <NuxtLink to="/servicios" class="group relative inline-block px-12 py-5 bg-white/5 border border-accent/30 text-white font-bold uppercase tracking-[0.3em] text-[14px] overflow-hidden transition-all hover:bg-accent hover:text-[#0a0e17] hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] font-tech">
           <span class="relative z-10">Ver Todos Nuestros Servicios</span>
           <div class="absolute inset-0 bg-accent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
         </NuxtLink>

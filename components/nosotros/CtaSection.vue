@@ -32,22 +32,22 @@ import { ChevronRight } from 'lucide-vue-next';
         <!-- Etiqueta táctica superior -->
         <div class="flex items-center gap-4 mb-8">
           <span class="w-1.5 h-1.5 bg-[#4a4a4a]"></span>
-          <span class="text-[9px] uppercase tracking-[0.5em] font-tech text-[#4a4a4a]">INICIAR_SECUENCIA_DE_CONTACTO</span>
+          <span class="text-[15px] uppercase tracking-[0.5em] font-tech text-[#4a4a4a]">INICIAR_SECUENCIA_DE_CONTACTO</span>
         </div>
 
         <h2 class="text-4xl md:text-5xl lg:text-7xl font-bold font-tech text-white uppercase tracking-tighter mb-8 leading-none">
             ¿Preparado para <br/> 
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-600 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">Escalar?</span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">Escalar?</span>
         </h2>
         
-        <p class="text-gray-400 font-mono text-base md:text-lg mb-14 max-w-2xl mx-auto border-x border-white/10 px-8 py-2 relative">
+        <p class="text-gray-300 font-mono text-base md:text-lg mb-14 max-w-2xl mx-auto border-x border-white/10 px-8 py-2 relative">
             <span class="absolute top-0 -left-[1px] w-[2px] h-4 bg-accent/50"></span>
             <span class="absolute bottom-0 -right-[1px] w-[2px] h-4 bg-accent/50"></span>
             Integremos sistemas. Conversemos sobre las especificaciones de tu proyecto y descubramos cómo nuestra arquitectura técnica puede resolver tus desafíos.
         </p>
         
         <!-- Botón de Acción Principal -->
-        <NuxtLink to="/contacto" class="group relative inline-flex items-center gap-4 px-12 py-5 bg-white/5 border border-accent/30 text-white font-bold uppercase tracking-[0.3em] text-[11px] lg:text-[12px] overflow-hidden transition-all hover:bg-accent hover:text-[#0a0e17] hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] font-tech">
+        <NuxtLink to="/contacto" class="group relative inline-flex items-center gap-4 px-12 py-5 bg-white/5 border border-accent/30 text-white font-bold uppercase tracking-[0.3em] text-[15px] lg:text-[14px] overflow-hidden transition-all hover:bg-accent hover:text-[#0a0e17] hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] font-tech">
             <span class="relative z-10 flex items-center gap-2">
                 Acordar Reunión Técnica <ChevronRight class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </span>

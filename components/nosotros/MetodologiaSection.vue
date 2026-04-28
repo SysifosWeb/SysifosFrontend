@@ -20,12 +20,12 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
       <div class="text-center mb-20 w-full">
         <div class="flex items-center justify-center gap-4 mb-4">
           <span class="w-1.5 h-1.5 bg-[#4a4a4a]"></span>
-          <span class="text-[9px] uppercase tracking-[0.5em] font-tech text-[#4a4a4a]">SYS_WORKFLOW // PIPELINES</span>
+          <span class="text-[15px] uppercase tracking-[0.5em] font-tech text-[#4a4a4a]">SYS_WORKFLOW // PIPELINES</span>
         </div>
         <h2 class="text-3xl md:text-5xl font-bold font-tech text-white uppercase tracking-tighter mb-4">
           Operativa <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">Metodológica.</span>
         </h2>
-        <p class="text-gray-400 font-mono text-sm max-w-2xl mx-auto">
+        <p class="text-gray-300 font-mono text-sm max-w-2xl mx-auto">
           Ejecución estandarizada mediante protocolos ágiles, garantizando precisión funcional, tiempos de entrega predecibles y un código altamente mantenible.
         </p>
       </div>
@@ -37,7 +37,7 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
         <div class="flex flex-col gap-10">
             <h3 class="font-tech text-xl text-white uppercase tracking-widest border-b border-white/10 pb-4 mb-2 flex justify-between items-end">
                 <span>Protocolos de Desarrollo</span>
-                <span class="text-[10px] text-accent/50 tracking-widest">[ METODOLOGÍA ÁGIL ]</span>
+                <span class="text-[14px] text-accent/50 tracking-widest">[ METODOLOGÍA ÁGIL ]</span>
             </h3>
 
             <!-- Item 1 -->
@@ -45,13 +45,13 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
                 <div class="absolute -left-12 top-6 w-8 h-[1px] bg-accent/30 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
                 <div class="relative w-14 h-14 bg-[#05070a] border border-white/10 flex-shrink-0 flex items-center justify-center overflow-hidden transition-colors duration-500 group-hover:border-accent/50">
                     <div class="absolute inset-0 bg-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-                    <Box class="w-6 h-6 text-gray-500 group-hover:text-accent relative z-10 transition-colors duration-500" />
+                    <Box class="w-6 h-6 text-gray-300 group-hover:text-accent relative z-10 transition-colors duration-500" />
                 </div>
                 <div>
                     <h4 class="text-lg font-bold font-tech text-white uppercase tracking-wider mb-2 flex items-center gap-3">
                         <span class="text-accent text-sm">01.</span> Scrum Framework
                     </h4>
-                    <p class="text-gray-400 text-[15px] font-sans leading-relaxed group-hover:text-gray-300 transition-colors">
+                    <p class="text-gray-300 text-[15px] font-sans leading-relaxed group-hover:text-gray-300 transition-colors">
                         Sprints delimitados en iteraciones de 2 semanas con métricas de entrega incrementales y ventanas de feedback continuo.
                     </p>
                 </div>
@@ -62,13 +62,13 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
                 <div class="absolute -left-12 top-6 w-8 h-[1px] bg-accent/30 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
                 <div class="relative w-14 h-14 bg-[#05070a] border border-white/10 flex-shrink-0 flex items-center justify-center overflow-hidden transition-colors duration-500 group-hover:border-accent/50">
                     <div class="absolute inset-0 bg-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-                    <Radio class="w-6 h-6 text-gray-500 group-hover:text-accent relative z-10 transition-colors duration-500" />
+                    <Radio class="w-6 h-6 text-gray-300 group-hover:text-accent relative z-10 transition-colors duration-500" />
                 </div>
                 <div>
                     <h4 class="text-lg font-bold font-tech text-white uppercase tracking-wider mb-2 flex items-center gap-3">
                         <span class="text-accent text-sm">02.</span> Telemetría Transparente
                     </h4>
-                    <p class="text-gray-400 text-[15px] font-sans leading-relaxed group-hover:text-gray-300 transition-colors">
+                    <p class="text-gray-300 text-[15px] font-sans leading-relaxed group-hover:text-gray-300 transition-colors">
                         Sincronización mediante stand-ups diarios, demos de avance y retrospectivas para mantener una alineación estratégica y táctica.
                     </p>
                 </div>
@@ -79,13 +79,13 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
                 <div class="absolute -left-12 top-6 w-8 h-[1px] bg-accent/30 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
                 <div class="relative w-14 h-14 bg-[#05070a] border border-white/10 flex-shrink-0 flex items-center justify-center overflow-hidden transition-colors duration-500 group-hover:border-accent/50">
                     <div class="absolute inset-0 bg-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-                    <ShieldCheck class="w-6 h-6 text-gray-500 group-hover:text-accent relative z-10 transition-colors duration-500" />
+                    <ShieldCheck class="w-6 h-6 text-gray-300 group-hover:text-accent relative z-10 transition-colors duration-500" />
                 </div>
                 <div>
                     <h4 class="text-lg font-bold font-tech text-white uppercase tracking-wider mb-2 flex items-center gap-3">
                         <span class="text-accent text-sm">03.</span> QA & Estabilidad
                     </h4>
-                    <p class="text-gray-400 text-[15px] font-sans leading-relaxed group-hover:text-gray-300 transition-colors">
+                    <p class="text-gray-300 text-[15px] font-sans leading-relaxed group-hover:text-gray-300 transition-colors">
                         Testing unitario, code reviews estrictos y asimilación de clean-code para garantizar arquitecturas limpias antes del deploy a producción.
                     </p>
                 </div>
@@ -98,7 +98,7 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
                 
                 <h3 class="font-tech text-xl text-white uppercase tracking-widest border-b border-accent/20 pb-4 flex justify-between items-end flex-row-reverse">
                     <span>Stack Tecnológico</span>
-                    <span class="text-[9px] text-[#4a4a4a] tracking-widest">[ CAPACIDAD_SYS ]</span>
+                    <span class="text-[15px] text-[#4a4a4a] tracking-widest">[ CAPACIDAD_SYS ]</span>
                 </h3>
 
                 <div class="space-y-10">
@@ -108,7 +108,7 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
                             <span class="text-white font-tech uppercase tracking-wider text-sm flex items-center gap-2 flex-row-reverse">
                                 <span class="w-1 h-1 bg-accent/50 group-hover/bar:bg-accent transition-colors"></span> Frontend_Core
                             </span>
-                            <span class="text-[11px] font-mono text-gray-500 group-hover/bar:text-gray-400 transition-colors">Vue.js / Nuxt / React / Angular</span>
+                            <span class="text-[15px] font-mono text-gray-300 group-hover/bar:text-gray-300 transition-colors">Vue.js / Nuxt / React / Angular</span>
                         </div>
                         <div class="w-full bg-transparent border-b border-white/10 h-3 overflow-hidden flex justify-end">
                             <div class="bg-gradient-to-l from-accent to-transparent h-[1px] w-[95%] mt-auto group-hover/bar:shadow-[0_-5px_15px_rgba(0,242,255,0.4)] transition-all duration-700"></div>
@@ -121,7 +121,7 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
                             <span class="text-white font-tech uppercase tracking-wider text-sm flex items-center gap-2 flex-row-reverse">
                                 <span class="w-1 h-1 bg-blue-500/50 group-hover/bar:bg-blue-500 transition-colors"></span> Backend_Core
                             </span>
-                            <span class="text-[11px] font-mono text-gray-500 group-hover/bar:text-gray-400 transition-colors">Laravel / Node.js / Python</span>
+                            <span class="text-[15px] font-mono text-gray-300 group-hover/bar:text-gray-300 transition-colors">Laravel / Node.js / Python</span>
                         </div>
                         <div class="w-full bg-transparent border-b border-white/10 h-3 overflow-hidden flex justify-end">
                             <div class="bg-gradient-to-l from-blue-500 to-transparent h-[1px] w-[90%] mt-auto group-hover/bar:shadow-[0_-5px_15px_rgba(59,130,246,0.4)] transition-all duration-700"></div>
@@ -134,7 +134,7 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
                             <span class="text-white font-tech uppercase tracking-wider text-sm flex items-center gap-2 flex-row-reverse">
                                 <span class="w-1 h-1 bg-purple-500/50 group-hover/bar:bg-purple-500 transition-colors"></span> Mobile_Core
                             </span>
-                            <span class="text-[11px] font-mono text-gray-500 group-hover/bar:text-gray-400 transition-colors">Flutter / React Native</span>
+                            <span class="text-[15px] font-mono text-gray-300 group-hover/bar:text-gray-300 transition-colors">Flutter / React Native</span>
                         </div>
                         <div class="w-full bg-transparent border-b border-white/10 h-3 overflow-hidden flex justify-end">
                             <div class="bg-gradient-to-l from-purple-500 to-transparent h-[1px] w-[85%] mt-auto group-hover/bar:shadow-[0_-5px_15px_rgba(168,85,247,0.4)] transition-all duration-700"></div>

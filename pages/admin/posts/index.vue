@@ -153,7 +153,7 @@ const getStatusClass = (status) => {
         {
             draft: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
             published: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
-        }[status] || "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400"
+        }[status] || "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300"
     );
 };
 
@@ -207,7 +207,7 @@ const goToPage = (url) => {
                 <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
                     Posts del Blog
                 </h1>
-                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                     Gestiona todos los posts de tu blog
                 </p>
             </div>
@@ -287,7 +287,7 @@ const goToPage = (url) => {
                         </div>
 
                         <!-- Estadísticas de filtros -->
-                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                        <div class="text-sm text-gray-300 dark:text-gray-300">
                             <span class="font-medium dark:text-white">{{ posts.total }}</span>
                             {{ posts.total === 1 ? 'post encontrado' : 'posts encontrados' }}
                             <span v-if="hasActiveFilters" class="ml-2 text-blue-600 dark:text-blue-400">
@@ -318,27 +318,27 @@ const goToPage = (url) => {
                     <thead class="bg-gray-50 dark:bg-slate-900/50">
                         <tr>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
                                 Post
                             </th>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
                                 Categoría
                             </th>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
                                 Estado
                             </th>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
                                 Vistas
                             </th>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
                                 Fecha
                             </th>
                             <th
-                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-6 py-3 text-right text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
                                 Acciones
                             </th>
                         </tr>
@@ -356,7 +356,7 @@ const goToPage = (url) => {
                                         <div class="text-sm font-medium text-gray-900 dark:text-white">
                                             {{ post.title }}
                                         </div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">
+                                        <div class="text-sm text-gray-300 dark:text-gray-300">
                                             por
                                             {{ post.user?.name || "Usuario" }}
                                         </div>
@@ -376,7 +376,7 @@ const goToPage = (url) => {
                                     }">
                                     {{ post.category.name }}
                                 </span>
-                                <span v-else class="text-gray-400 dark:text-gray-500">Sin categoría</span>
+                                <span v-else class="text-gray-300 dark:text-gray-300">Sin categoría</span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
@@ -387,7 +387,7 @@ const goToPage = (url) => {
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">
                                 {{ formatNumber(post.views) }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 dark:text-gray-300">
                                 {{ formatDate(post.created_at) }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -417,7 +417,7 @@ const goToPage = (url) => {
                                     <!-- Toggle Destacado -->
                                     <button @click="toggleFeatured(post)" :class="post.featured
                                         ? 'text-yellow-600 dark:text-yellow-400 hover:text-yellow-900 dark:hover:text-yellow-300'
-                                        : 'text-gray-400 dark:text-gray-500 hover:text-yellow-600 dark:hover:text-yellow-400'
+                                        : 'text-gray-300 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400'
                                         " :title="post.featured
                                             ? 'Quitar de destacados'
                                             : 'Marcar como destacado'
@@ -479,7 +479,7 @@ const goToPage = (url) => {
                     </div>
                     <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                         <div>
-                            <p class="text-sm text-gray-700 dark:text-gray-400">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">
                                 Mostrando
                                 <span class="font-medium dark:text-white">{{ posts.from }}</span>
                                 a
@@ -496,13 +496,13 @@ const goToPage = (url) => {
                                         'relative inline-flex items-center px-4 py-2 border text-sm font-medium',
                                         link.active
                                             ? 'z-10 bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-600 dark:text-blue-400'
-                                            : 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700',
+                                            : 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 text-gray-300 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700',
                                         index === 0 ? 'rounded-l-md' : '',
                                         index === posts.links.length - 1 ? 'rounded-r-md' : '',
                                     ]" v-html="link.label">
                                     </button>
                                     <span v-else-if="link" :class="[
-                                        'relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-sm font-medium text-gray-500',
+                                        'relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-sm font-medium text-gray-300',
                                         index === 0 ? 'rounded-l-md' : '',
                                         index === posts.links.length - 1 ? 'rounded-r-md' : '',
                                     ]" v-html="link.label">

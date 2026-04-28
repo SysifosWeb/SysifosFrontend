@@ -3,10 +3,10 @@
     
     <div class="max-w-[1400px] w-[92%] mx-auto relative z-10">
       <div class="text-center mb-24">
-        <h2 class="text-3xl md:text-5xl font-bold text-white uppercase tracking-[0.2em] font-tech mb-6">
-          Nuestro Proceso Operativo
+        <h2 class="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter font-tech mb-6">
+          Nuestro Proceso <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">Operativo.</span>
         </h2>
-        <p class="text-[10px] md:text-xs text-gray-500 uppercase tracking-[0.4em] font-medium max-w-xl mx-auto opacity-70">
+        <p class="text-[14px] md:text-xs text-gray-300 uppercase tracking-[0.4em] font-medium max-w-xl mx-auto opacity-70">
           Metodología de ingeniería para despliegues de alta precisión.
         </p>
       </div>
@@ -20,7 +20,7 @@
             <div class="flex flex-col items-center text-center">
               <div class="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-10 transition-all duration-500 group-hover:neon-border group-hover:bg-accent/10 relative z-10">
                 <component :is="step.icon" class="w-8 h-8 text-accent transition-transform group-hover:scale-110" />
-                <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#05070a] border border-white/10 flex items-center justify-center text-[10px] font-bold text-accent font-tech">
+                <div class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-[#05070a] border border-white/10 flex items-center justify-center text-[14px] font-bold text-accent font-tech">
                   0{{ index + 1 }}
                 </div>
               </div>

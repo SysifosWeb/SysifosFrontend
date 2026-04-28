@@ -17,15 +17,15 @@ import { Target, Eye, ShieldCheck } from 'lucide-vue-next'
         <div class="lg:col-span-6 flex flex-col z-20">
           <div class="flex items-center gap-4 mb-6">
             <span class="w-1.5 h-1.5 bg-[#4a4a4a]"></span>
-            <span class="text-[9px] uppercase tracking-[0.4em] font-mono text-gray-400">SYSWEB // KERNEL CORE PROTOCOL</span>
+            <span class="text-[15px] uppercase tracking-[0.4em] font-mono text-gray-300">SYSWEB // KERNEL CORE PROTOCOL</span>
           </div>
 
           <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold font-tech text-white uppercase tracking-tighter mb-10 leading-none">
             Nuestra <br />
-            <span class="text-[#00f2ff] drop-shadow-[0_0_15px_rgba(0,242,255,0.4)]">Historia.</span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">Historia.</span>
           </h2>
           
-          <div class="space-y-6 text-gray-400 font-sans text-base md:text-[17px] leading-relaxed border-l-2 border-white/10 pl-6 lg:pl-10 relative">
+          <div class="space-y-6 text-gray-300 font-sans text-base md:text-[17px] leading-relaxed border-l-2 border-white/10 pl-6 lg:pl-10 relative">
             <div class="absolute top-0 -left-[2px] w-[2px] h-10 bg-[#00f2ff] shadow-[0_0_10px_#00f2ff] animate-[scan_4s_ease-in-out_infinite]"></div>
 
             <p class="font-mono text-gray-300">
@@ -50,7 +50,7 @@ import { Target, Eye, ShieldCheck } from 'lucide-vue-next'
                <div class="w-6 h-1 bg-[#00f2ff]/40"></div>
             </div>
             
-            <div class="absolute bottom-4 right-4 z-20 text-[9px] font-mono text-[#00f2ff]/90 tracking-widest bg-[#0a0e17]/80 px-2 py-1 border border-[#00f2ff]/40 backdrop-blur-md">
+            <div class="absolute bottom-4 right-4 z-20 text-[15px] font-mono text-[#00f2ff]/90 tracking-widest bg-[#0a0e17]/80 px-2 py-1 border border-[#00f2ff]/40 backdrop-blur-md">
                NODE_ARCHITECT_SYS.JPG
             </div>
 
@@ -86,7 +86,7 @@ import { Target, Eye, ShieldCheck } from 'lucide-vue-next'
                     <!-- Separador de código / Línea Cyan -->
                     <div class="w-8 h-[1px] bg-[#00f2ff]/60 mb-5 group-hover:w-full transition-all duration-1000 ease-out shadow-[0_0_5px_#00f2ff]"></div>
 
-                    <p class="text-gray-400 font-mono text-[14px] lg:text-[15px] leading-relaxed text-left">
+                    <p class="text-gray-300 font-mono text-[14px] lg:text-[15px] leading-relaxed text-left">
                         Empoderar corporaciones mediante arquitecturas tecnológicas robustas e innovadoras que aceleren su crecimiento y maximicen su índice de competitividad.
                     </p>
                 </div>
@@ -105,7 +105,7 @@ import { Target, Eye, ShieldCheck } from 'lucide-vue-next'
                     
                     <div class="w-8 h-[1px] bg-[#00f2ff]/60 mb-5 group-hover:w-full transition-all duration-1000 ease-out shadow-[0_0_5px_#00f2ff]"></div>
 
-                    <p class="text-gray-400 font-mono text-[14px] lg:text-[15px] leading-relaxed text-left">
+                    <p class="text-gray-300 font-mono text-[14px] lg:text-[15px] leading-relaxed text-left">
                         Funcionar como el clúster de desarrollo de software más confiable de la región, distinguidos por nuestra excelencia técnica inquebrantable.
                     </p>
                 </div>
@@ -124,7 +124,7 @@ import { Target, Eye, ShieldCheck } from 'lucide-vue-next'
                     
                     <div class="w-8 h-[1px] bg-[#00f2ff]/60 mb-5 group-hover:w-full transition-all duration-1000 ease-out shadow-[0_0_5px_#00f2ff]"></div>
 
-                    <p class="text-gray-400 font-mono text-[14px] lg:text-[15px] leading-relaxed text-left">
+                    <p class="text-gray-300 font-mono text-[14px] lg:text-[15px] leading-relaxed text-left">
                         Innovación pragmática, calidad sistemática y transparencia operacional. Nuestra base asume que la ingeniería sólida crea futuros sustentables.
                     </p>
                 </div>
