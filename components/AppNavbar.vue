@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import logoBlanco from "@/assets/img/logo-blanco.webp"
 
@@ -25,6 +25,11 @@ const closeMenu = () => {
 onMounted(() => {
   isMounted.value = true
   window.addEventListener('scroll', handleScroll)
+})
+
+// Cerrar el menú automáticamente al cambiar de ruta
+watch(() => route.fullPath, () => {
+  closeMenu()
 })
 </script>
 
@@ -55,7 +60,7 @@ onMounted(() => {
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/contacto" class="ml-6 px-8 py-3 bg-accent text-[#0a0e17] font-bold text-[15px] uppercase tracking-widest rounded-xl hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,242,255,0.3)]">
+              <NuxtLink to="/contacto" class="ml-6 px-8 py-3 bg-accent text-black font-bold text-[15px] uppercase tracking-widest hover:bg-transparent hover:text-accent border border-accent transition-all font-tech">
                 Contacto
               </NuxtLink>
             </li>
@@ -77,10 +82,10 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- MENÚ MÓVIL (remains similar) -->
+    <!-- MENÚ MÓVIL -->
     <Transition name="fade">
-      <div v-if="isMounted && isMenuOpen" class="fixed inset-0 z-[2000] bg-[#05070a] flex flex-col p-10 overflow-hidden">
-        <div class="absolute inset-0 technical-grid opacity-5"></div>
+      <div v-if="isMenuOpen" class="fixed inset-0 z-[2000] bg-[#05070a] flex flex-col p-10 overflow-hidden">
+        <div class="absolute inset-0 technical-grid opacity-5 pointer-events-none"></div>
         <div class="flex items-center justify-between mb-24">
            <NuxtLink to="/" @click="closeMenu" class="flex items-center">
              <img :src="logoBlanco" alt="SysifosWeb Logo" class="h-8 w-auto object-contain" />
@@ -99,7 +104,7 @@ onMounted(() => {
             { to: '/portfolio', label: 'Portfolio' },
             { to: '/contacto', label: 'Contacto' }
           ]" :key="item.to">
-            <NuxtLink :to="item.to" class="text-2xl font-bold tracking-widest text-white font-tech uppercase" @click="closeMenu">{{ item.label }}</NuxtLink>
+            <NuxtLink :to="item.to" class="text-2xl font-bold tracking-widest text-white font-tech uppercase transition-colors hover:text-accent">{{ item.label }}</NuxtLink>
           </li>
         </ul>
       </div>

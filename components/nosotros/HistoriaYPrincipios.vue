@@ -17,7 +17,7 @@ import { Target, Eye, ShieldCheck } from 'lucide-vue-next'
         <div class="lg:col-span-6 flex flex-col z-20">
           <div class="flex items-center gap-4 mb-6">
             <span class="w-1.5 h-1.5 bg-[#4a4a4a]"></span>
-            <span class="text-[15px] uppercase tracking-[0.4em] font-mono text-gray-300">SYSWEB // KERNEL CORE PROTOCOL</span>
+            <span class="text-[10px] lg:text-[15px] uppercase tracking-[0.4em] font-mono text-gray-300">SYSWEB // KERNEL CORE PROTOCOL</span>
           </div>
 
           <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold font-tech text-white uppercase tracking-tighter mb-10 leading-none">
@@ -57,7 +57,7 @@ import { Target, Eye, ShieldCheck } from 'lucide-vue-next'
             <!-- Overlay azul monocromático constante -->
             <div class="absolute inset-0 bg-[#001428] mix-blend-color opacity-60 z-20 pointer-events-none"></div>
 
-            <img :src="team" alt="SysifosWeb Arquitecto" class="w-full h-[350px] md:h-[450px] lg:h-[500px] object-cover filter brightness-[0.8] contrast-125 z-0" />
+            <img :src="team" alt="SysifosWeb Arquitecto" class="w-full h-[350px] md:h-[450px] lg:h-[500px] object-cover filter brightness-[0.8] contrast-125 z-0" loading="lazy" />
           </div>
           
           <!-- EL ORIGEN DEL PIPELINE: Nace de la esquina inferior derecha -->

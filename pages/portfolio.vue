@@ -3,9 +3,9 @@
 const { setMeta, setSchema } = useSEO()
 
 setMeta({
-  title: 'Portfolio - Proyectos de Desarrollo Web y Software Realizados',
-  description: 'Explora nuestro portfolio de proyectos exitosos: Ansar Automotriz, Carmotor\'s, Faremin. Desarrollo web, e-commerce, software a medida y aplicaciones móviles en Chile. Casos de éxito reales.',
-  keywords: 'portfolio desarrollo web, portafolio proyectos, casos de éxito, proyectos realizados',
+  title: 'Portfolio de Proyectos | Desarrollo Web y Casos de Éxito',
+  description: 'Explora nuestros desarrollos: Ansar Automotriz, Maestranza Faremin, StahlForm y Carmotor\'s. Ingeniería de software aplicada a soluciones reales de negocio en Chile y el mundo.',
+  keywords: 'portafolio desarrollo web, casos de éxito software, ejemplos desarrollo web chile, soluciones digitales empresas',
   image: '/img/og-portfolio.jpg'
 })
 
@@ -26,7 +26,6 @@ definePageMeta({
 <template>
   <div class="bg-[#0a0e17] min-h-screen">
     <PortfolioHeroSection />
-    <PortfolioDestacadoSection />
     <PortfolioGridSection />
     <PortfolioStatsSection />
     <NosotrosCtaSection />

@@ -21,7 +21,6 @@ const generateTerrainPath = (i) => {
     <header class="secondary-header-container relative overflow-hidden flex items-center bg-[#0a0e17] font-sans border-b border-white/5">
         <!-- Abstract Technical Background -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 technical-bg-layer opacity-20"></div>
             <div class="tech-rays opacity-30"></div>
             <!-- Efecto de Lineas (Terrain Grid) -->
              <div class="absolute inset-0 flex items-center justify-center opacity-80 pointer-events-none">
@@ -48,7 +47,7 @@ const generateTerrainPath = (i) => {
         <div class="w-full relative z-10 custom-container flex items-center">
             <!-- Left Text Block -->
             <div class="border-l-2 border-[#00f2ff] pl-10 py-4 max-w-4xl">
-                <h5 class="text-[15px] font-bold uppercase tracking-[0.6em] text-[#00f2ff]/60 mb-4 font-tech">
+                <h5 class="text-[10px] lg:text-[15px] font-bold uppercase tracking-[0.6em] text-[#00f2ff]/60 mb-4 font-tech">
                     SYSIFOSWEB | PROTOCOLOS DE INGENIERÍA
                 </h5>
                 <h1 class="text-3xl md:text-6xl font-bold text-white uppercase tracking-tighter leading-none font-tech">

@@ -47,7 +47,7 @@ import { ChevronRight } from 'lucide-vue-next';
         </p>
         
         <!-- Botón de Acción Principal -->
-        <NuxtLink to="/contacto" class="group relative inline-flex items-center gap-4 px-12 py-5 bg-white/5 border border-accent/30 text-white font-bold uppercase tracking-[0.3em] text-[15px] lg:text-[14px] overflow-hidden transition-all hover:bg-accent hover:text-[#0a0e17] hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] font-tech">
+        <NuxtLink to="/contacto" class="group relative inline-flex items-center gap-4 px-12 py-5 bg-white/5 border border-accent/30 text-white font-bold uppercase tracking-[0.3em] text-[15px] lg:text-[14px] overflow-hidden transition-all hover:bg-accent hover:text-black hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] font-tech">
             <span class="relative z-10 flex items-center gap-2">
                 Acordar Reunión Técnica <ChevronRight class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </span>

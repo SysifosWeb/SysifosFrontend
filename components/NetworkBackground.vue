@@ -2,9 +2,10 @@
   <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden">
     <!-- Imagen de fondo de conectividad (plexus/red) -->
     <img 
-      src="@/assets/img/network-bg.png" 
+      :src="bgImage" 
       alt="" 
-      class="w-full h-full object-cover opacity-40 mix-blend-screen"
+      class="w-full h-full object-cover opacity-20 mix-blend-screen"
+      loading="lazy"
     />
     <!-- Overlay de color para oscurecer y fusionar con la paleta oscura -->
     <div class="absolute inset-0 bg-[#0a0e17]/80 backdrop-blur-sm"></div>
@@ -16,5 +17,6 @@
 </template>
 
 <script setup>
+import bgImage from '@/assets/img/network-bg.png'
 // Componente de fondo de red/conectividad (Plexus style)
 </script>

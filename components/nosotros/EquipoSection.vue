@@ -75,7 +75,7 @@ import CircuitBackground from '@/components/CircuitBackground.vue'
                 <!-- THE BREAKOUT PHOTO -->
                 <!-- Anclada por encima de la caja, difuminada por debajo -->
                 <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[220px] lg:w-[260px] h-[340px] pointer-events-none z-10 transition-transform duration-[1s] group-hover:-translate-y-4">
-                    <img :src="diego" alt="Diego Araya" class="w-full h-full object-cover object-[center_top] filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 [mask-image:linear-gradient(to_top,transparent_0%,black_30%,black_100%)]" />
+                    <img :src="diego" alt="Diego Araya" class="w-full h-full object-cover object-[center_top] filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 [mask-image:linear-gradient(to_top,transparent_0%,black_30%,black_100%)]" loading="lazy" />
                 </div>
             </div>
 
@@ -105,7 +105,7 @@ import CircuitBackground from '@/components/CircuitBackground.vue'
                 </div>
 
                 <div class="absolute top-[-30px] left-1/2 -translate-x-1/2 w-[220px] lg:w-[260px] h-[340px] pointer-events-none z-10 transition-transform duration-[1s] group-hover:-translate-y-4">
-                    <img :src="karen" alt="Karen Godoy" class="w-full h-full object-cover object-[center_top] filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 [mask-image:linear-gradient(to_top,transparent_0%,black_30%,black_100%)]" />
+                    <img :src="karen" alt="Karen Godoy" class="w-full h-full object-cover object-[center_top] filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 [mask-image:linear-gradient(to_top,transparent_0%,black_30%,black_100%)]" loading="lazy" />
                 </div>
             </div>
 
@@ -135,7 +135,7 @@ import CircuitBackground from '@/components/CircuitBackground.vue'
                 </div>
 
                 <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[220px] lg:w-[260px] h-[340px] pointer-events-none z-10 transition-transform duration-[1s] group-hover:-translate-y-4">
-                    <img :src="osman" alt="Osman Ahumada" class="w-full h-full object-cover object-[center_top] filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 [mask-image:linear-gradient(to_top,transparent_0%,black_30%,black_100%)]" />
+                    <img :src="osman" alt="Osman Ahumada" class="w-full h-full object-cover object-[center_top] filter grayscale opacity-90 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 [mask-image:linear-gradient(to_top,transparent_0%,black_30%,black_100%)]" loading="lazy" />
                 </div>
             </div>
 

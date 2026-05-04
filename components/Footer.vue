@@ -10,7 +10,7 @@ import logoBlanco from "@/assets/img/logo-blanco.webp";
         <div class="lg:col-span-5 flex flex-col items-start justify-start">
           <div class="mb-0">
             <NuxtLink to="/">
-              <img :src="logoBlanco" alt="SysifosWeb Logo" class="h-20 md:h-28 w-auto object-contain" />
+              <NuxtImg :src="logoBlanco" alt="SysifosWeb Logo" class="h-20 md:h-28 w-auto object-contain" format="webp" />
             </NuxtLink>
           </div>
           <p class="font-mono text-[#e1e1e1] text-[15px] md:text-sm tracking-widest mb-10 mt-0 uppercase w-full">

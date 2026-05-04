@@ -62,11 +62,6 @@ setSchema({
 
 <template>
   <div class="bg-[#0a0e17] min-h-screen">
-    <Head>
-      <Title>Contacto - Cotiza tu Proyecto | SysifosWeb</Title>
-      <Meta name="description" content="Contáctanos para cotizar tu proyecto de desarrollo web o software. Estamos listos para ayudarte." />
-    </Head>
-
     <ContactoHeroSection />
     <ContactoContactFormSection />
   </div>

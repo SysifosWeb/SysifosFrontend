@@ -37,7 +37,10 @@ export default defineNuxtConfig({
             titleTemplate: '%s | SysifosWeb',
             meta: [
                 { name: 'format-detection', content: 'telephone=no' },
-                { name: 'theme-color', content: '#1e40af' }
+                { name: 'theme-color', content: '#1e40af' },
+                { name: 'author', content: 'Sysifos Web' },
+                { property: 'og:site_name', content: 'Sysifos Web' },
+                { property: 'og:locale', content: 'es_CL' }
             ],
             link: [
                 { rel: 'icon', type: 'image/x-icon', href: '/logo_min.ico' }

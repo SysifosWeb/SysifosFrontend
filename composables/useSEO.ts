@@ -208,7 +208,21 @@ export const useSEO = () => {
                 ...(Object.keys(pageSchema).length > 0 ? [{
                     type: 'application/ld+json',
                     innerHTML: JSON.stringify(pageSchema)
-                }] : [])
+                }] : []),
+                {
+                    type: 'application/ld+json',
+                    innerHTML: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'WebSite',
+                        name: 'Sysifos Web',
+                        url: siteUrl,
+                        potentialAction: {
+                            '@type': 'SearchAction',
+                            target: `${siteUrl}/servicios?q={search_term_string}`,
+                            'query-input': 'required name=search_term_string'
+                        }
+                    })
+                }
             ]
         })
     }

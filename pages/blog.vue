@@ -89,15 +89,28 @@ const getPostUrl = (post) => {
 const getImageUrl = (post) => {
     return post.featured_image || '/img/blog-default.jpg';
 };
+
+// SEO Configuration
+const { setMeta, setSchema } = useSEO()
+
+setMeta({
+  title: 'Blog - Artículos sobre Desarrollo Web y Tecnología',
+  description: 'Lee nuestros artículos sobre desarrollo web, programación, inteligencia artificial y las últimas tendencias tecnológicas. Consejos de expertos para tu negocio.',
+  keywords: 'blog tecnología, desarrollo web chile, programación, software industrial, inteligencia artificial',
+  image: '/img/og-blog.jpg'
+})
+
+setSchema({
+  type: 'WebPage',
+  data: {
+    name: 'Blog - SysifosWeb',
+    description: 'Artículos sobre desarrollo web y tecnología'
+  }
+})
 </script>
 
 <template>
   <div class="bg-[#0a0e17] min-h-screen">
-    <Head>
-      <Title>Blog - Artículos sobre Desarrollo Web | SysifosWeb</Title>
-      <Meta name="description" content="Lee nuestros artículos sobre desarrollo web, programación y tecnología." />
-    </Head>
-
     <BlogHeroSection />
 
     <!-- Search and Filters -->

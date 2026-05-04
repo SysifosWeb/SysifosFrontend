@@ -44,6 +44,24 @@
       shadow: 'hover:shadow-[0_0_15px_rgba(0,242,255,0.2)]'
     },
   ]
+
+  // SEO Configuration
+  const { setMeta, setSchema } = useSEO()
+
+  setMeta({
+    title: 'Sinapsys - Enlaces y Recursos | SysifosWeb',
+    description: 'Accede a todos nuestros recursos, redes sociales y contacto directo. El nodo central de SysifosWeb.',
+    keywords: 'enlaces sysifosweb, contacto sysifos, redes sociales sysifosweb',
+    image: '/img/og-sinapsys.jpg'
+  })
+
+  setSchema({
+    type: 'WebPage',
+    data: {
+      name: 'Sinapsys - SysifosWeb',
+      description: 'Nodo central de enlaces de SysifosWeb'
+    }
+  })
 </script>
 
 <template>

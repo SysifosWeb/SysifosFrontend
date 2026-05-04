@@ -22,9 +22,11 @@
                     :key="index + '-' + set" 
                     class="tech-item relative shrink-0 flex flex-col items-center justify-center w-[160px] lg:w-[240px] transition-all duration-300">
                   
-                  <img :src="tech.logo" 
+                  <NuxtImg :src="tech.logo" 
                        :alt="tech.name" 
-                       class="tech-logo h-12 lg:h-16 w-auto object-contain transition-all duration-300" />
+                       class="tech-logo h-12 lg:h-16 w-auto object-contain transition-all duration-300" 
+                       format="webp"
+                       loading="lazy" />
                   
                   <div class="tech-name absolute -bottom-12 left-1/2 -translate-x-1/2 text-[14px] font-bold text-accent opacity-0 transition-opacity tracking-[0.4em] font-mono text-center whitespace-nowrap uppercase">
                     {{ tech.name }}

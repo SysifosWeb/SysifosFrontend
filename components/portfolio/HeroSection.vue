@@ -2,27 +2,43 @@
 </script>
 
 <template>
-  <section class="relative bg-[#0a0e17] pt-40 pb-20 lg:pt-48 lg:pb-32 overflow-hidden border-b border-white/5">
-    <div class="absolute inset-0 z-0 pointer-events-none opacity-20 select-none">
-        <div class="absolute top-20 left-10 font-mono text-[14px] text-[#00f2ff]/30 leading-none">
-            SYS_INIT: OK<br/>MODULE: PORTFOLIO<br/>STATUS: RENDERED
-        </div>
-        <div class="absolute top-[40%] right-0 w-1/2 h-[1px] bg-gradient-to-l from-[#00f2ff]/10 to-transparent"></div>
+  <section class="relative bg-[#05080a] pt-32 pb-16 lg:pt-40 lg:pb-24 overflow-hidden border-b border-white/5">
+    <!-- ESTRUCTURA HUD DE FONDO -->
+    <div class="absolute inset-0 z-0 pointer-events-none select-none">
+        <!-- Rejilla de perspectiva 3D -->
+        <div class="absolute inset-0 perspective-grid opacity-10"></div>
     </div>
     
-    <div class="relative z-20 text-center flex flex-col items-center max-w-4xl mx-auto px-4">
-        <div class="flex items-center gap-4 mb-6">
-          <span class="w-1.5 h-1.5 bg-[#4a4a4a]"></span>
-          <span class="text-[14px] uppercase tracking-[0.5em] font-mono text-gray-300">SYS_UNIT // HISTORIAL_OPERATIVO</span>
+    <div class="relative z-20 text-center flex flex-col items-center max-w-5xl mx-auto px-4">
+        <div class="flex items-center gap-6 mb-6">
+          <div class="h-[1px] w-12 bg-accent/30"></div>
+          <span class="text-[11px] uppercase tracking-[0.8em] font-mono text-accent font-bold">Historial de Ejecución</span>
+          <div class="h-[1px] w-12 bg-accent/30"></div>
         </div>
-        <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold font-sans text-white uppercase tracking-tighter drop-shadow-md mb-8">
-          Casos de <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00f2ff] to-[#0088ff] drop-shadow-[0_0_15px_rgba(0,242,255,0.3)]">Éxito.</span>
+
+        <h1 class="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-8 leading-none">
+          Casos de <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-600">Éxito.</span>
         </h1>
-        <p class="text-gray-300 font-mono text-sm md:text-base leading-relaxed border-x border-white/10 px-8 py-4 relative bg-white/[0.01]">
-            <span class="absolute top-0 -left-[1px] w-[2px] h-4 bg-[#00f2ff]/50"></span>
-            <span class="absolute bottom-0 -right-[1px] w-[2px] h-4 bg-[#00f2ff]/50"></span>
-            Archivo de proyectos ejecutados. Soluciones escalables que demuestran nuestra capacidad técnica y metodológica.
-        </p>
+
+        <div class="relative max-w-xl bg-[#0a0e17]/60 backdrop-blur-md border border-white/10 p-6 lg:p-8">
+            <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-accent"></div>
+            <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-accent"></div>
+            
+            <p class="text-gray-400 font-mono text-xs md:text-sm leading-relaxed relative z-10">
+                Matriz de soluciones implementadas. Cada nodo representa un hito en ingeniería de software y arquitectura escalable.
+            </p>
+        </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+.perspective-grid {
+    background-image: linear-gradient(rgba(0, 242, 255, 0.1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0, 242, 255, 0.1) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform: perspective(1000px) rotateX(60deg) translateY(-100px);
+    mask-image: linear-gradient(to bottom, transparent, black);
+}
+</style>
+

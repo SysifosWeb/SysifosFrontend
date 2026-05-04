@@ -50,9 +50,8 @@
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-16 lg:gap-24">
-          <NuxtLink to="/contacto" class="group relative px-12 py-5 bg-white/5 border border-accent/30 text-white font-bold uppercase tracking-[0.3em] text-[14px] overflow-hidden transition-all hover:bg-accent hover:text-[#0a0e17] hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] font-tech">
+          <NuxtLink to="/contacto" class="group relative px-12 py-5 bg-accent text-black border border-accent font-bold uppercase tracking-[0.3em] text-[14px] overflow-hidden transition-all hover:bg-transparent hover:text-accent font-tech">
             <span class="relative z-10">Iniciar Proyecto</span>
-            <div class="absolute inset-0 bg-accent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
           </NuxtLink>
           <NuxtLink to="/servicios" class="relative py-2 text-white/50 font-bold uppercase tracking-[0.3em] text-[14px] hover:text-white transition-all font-tech group">
             Explorar Soluciones
