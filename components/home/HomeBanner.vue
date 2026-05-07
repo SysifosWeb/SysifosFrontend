@@ -1,5 +1,5 @@
 <template>
-  <section class="relative w-full py-32 flex items-center justify-center overflow-hidden bg-[#0a0e17] border-t border-white/5 group/banner">
+  <section class="relative w-full py-32 flex items-center justify-center overflow-hidden group/banner bg-section-dark">
     
     <!-- Visualización "Data Portal" (Fondo Tenue) -->
     <div class="absolute inset-0 pointer-events-none z-0">
@@ -18,30 +18,24 @@
     </div>
 
     <div class="max-w-[1400px] w-[92%] mx-auto relative z-10 text-center">
-      <h2 class="text-2xl md:text-5xl font-bold text-white uppercase tracking-tighter leading-tight max-w-5xl mx-auto font-tech mb-20 whitespace-pre-line">
-        ¿LISTO PARA ELEVAR SU <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">INFRAESTRUCTURA</span> AL SIGUIENTE NIVEL?
+      <p class="text-sm font-medium mb-4" style="color: var(--text-muted);">Empieza hoy</p>
+      <h2 class="text-3xl md:text-5xl font-bold leading-tight max-w-3xl mx-auto mb-6" style="color: var(--text-main); letter-spacing: -0.025em;">
+        ¿Listo para hacer crecer<br class="hidden md:block"/> tu negocio?
       </h2>
+      <p class="text-lg mb-12 max-w-xl mx-auto" style="color: var(--text-secondary);">
+        Agenda una llamada de 30 minutos sin costo. Te escuchamos y te decimos honestamente cómo podemos ayudarte.
+      </p>
 
-      <div class="flex items-center justify-center gap-6 md:gap-12">
-        <!-- Control de Interfaz: Ejecutar -->
-        <span class="hidden md:block text-[15px] font-mono text-gray-300 tracking-[0.4em] uppercase select-none">
-          [ EJECUTAR ]
-        </span>
-
-        <!-- Botón Prohibido Principal -->
+      <div class="flex flex-col items-center gap-5">
         <NuxtLink to="/contacto" 
-                  class="relative px-12 py-5 border border-accent/40 rounded-sm overflow-hidden group/btn hover:border-accent hover:shadow-[0_0_20px_rgba(0,242,255,0.2)] transition-all duration-500">
-          <span class="relative z-10 text-[14px] md:text-[15px] font-mono text-accent uppercase tracking-[0.6em] transition-all">
-            Iniciar Protocolo de Evaluación
-          </span>
-          <!-- Efecto de Barrido Interno -->
-          <div class="absolute inset-0 bg-accent/5 -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-500"></div>
+                  class="inline-flex items-center gap-2 px-10 py-4 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
+                  style="background: var(--accent); color: #0b0f1c; box-shadow: 0 0 24px rgba(56,189,248,0.2);">
+          Agenda tu asesoría gratuita
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
         </NuxtLink>
-
-        <!-- Control de Interfaz: Cancelar -->
-        <span class="hidden md:block text-[15px] font-mono text-gray-300 tracking-[0.4em] uppercase select-none">
-          [ CANCELAR ]
-        </span>
+        <p class="text-xs" style="color: var(--text-muted);">Sin compromisos &middot; Sin contratos largos &middot; Respuesta en 24 horas</p>
       </div>
     </div>
   </section>

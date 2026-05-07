@@ -1,14 +1,17 @@
 <template>
-  <section class="py-24 bg-[#05070a] border-y border-white/5 overflow-hidden relative">
-    <div class="w-full relative z-20">
-      <div class="flex flex-col lg:flex-row items-center">
+  <section class="py-16 overflow-hidden relative bg-section-dark">
+    <!-- Glow purple sutil -->
+    <div class="absolute top-1/2 left-0 w-[300px] h-[300px] -translate-y-1/2 rounded-full pointer-events-none" style="background: var(--purple); opacity: 0.07; filter: blur(120px);"></div>
+    <div class="w-[88%] max-w-[1340px] mx-auto relative z-20">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
         
         <!-- Bloque de Texto Izquierda -->
-        <div class="w-full lg:w-[450px] shrink-0 pl-[4%] lg:pl-[8%] mb-16 lg:mb-0 z-30 bg-[#05070a]/80 backdrop-blur-sm py-4">
-          <h4 class="text-[15px] font-bold text-gray-300 uppercase tracking-[0.8em] font-mono mb-6">STACK _ TECNOLÓGICO</h4>
-          <div class="flex flex-col leading-none">
-            <span class="text-white text-3xl lg:text-4xl font-medium uppercase tracking-tighter font-tech mb-2">DOMINIO DE</span>
-            <span class="text-accent text-4xl lg:text-5xl font-medium uppercase tracking-tighter font-tech">VANGUARDIA DIGITAL</span>
+        <div class="w-full lg:w-[380px] shrink-0 mb-12 lg:mb-0">
+          <p class="section-eyebrow section-eyebrow--purple mb-4">Stack tecnológico</p>
+          <div class="flex flex-col leading-tight">
+            <span class="text-3xl lg:text-4xl font-bold" style="color: var(--text-main); letter-spacing: -0.025em; font-family: 'Inter', sans-serif;">Tecnología de</span>
+            <span class="text-3xl lg:text-4xl font-bold" style="color: var(--accent); letter-spacing: -0.025em; font-family: 'Inter', sans-serif;">vanguardia.</span>
+            <p class="mt-4 text-sm leading-relaxed max-w-[280px]" style="color: var(--text-secondary);">Construimos con las herramientas que usan las mejores empresas del mundo.</p>
           </div>
         </div>
 
@@ -36,7 +39,7 @@
           </div>
           
           <!-- Degradados laterales para inmersión (Solo el derecho, el izquierdo lo tapa el texto) -->
-          <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#05070a] to-transparent z-10 pointer-events-none"></div>
+          <div class="absolute inset-y-0 right-0 w-32 to-transparent z-10 pointer-events-none" style="background: linear-gradient(to left, var(--bg-dark), transparent);"></div>
         </div>
 
       </div>

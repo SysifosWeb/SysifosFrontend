@@ -2,48 +2,51 @@
 </script>
 
 <template>
-  <section class="relative bg-[#0a0e17] py-24 overflow-hidden border-b border-white/5">
-    <CircuitBackground />
-    <div class="relative z-20 text-center mb-20 flex flex-col items-center">
-        <div class="flex items-center gap-4 mb-4">
-          <span class="w-1.5 h-1.5 bg-[#4a4a4a]"></span>
-          <span class="text-[14px] uppercase tracking-[0.5em] font-mono text-gray-300">SYS_UNIT // TECH_STACK_MATRIX</span>
+  <section class="relative bg-section-surface py-20 lg:py-28 overflow-hidden border-b border-white/5">
+    
+    <!-- Glows -->
+    <div class="section-glow-cyan glow-center"></div>
+
+    <div class="section-container relative z-20 text-center mb-16 flex flex-col items-center">
+        <div class="eyebrow-badge mx-auto mb-6">
+          <span class="eyebrow-badge__dot"></span>
+          <span class="eyebrow-badge__text">Tech Stack</span>
         </div>
-        <h2 class="text-3xl md:text-5xl font-bold font-tech text-white uppercase tracking-tighter mb-4">
-          Arsenal <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">Tecnológico.</span>
+        <h2 class="section-title text-3xl md:text-5xl mb-4">
+          Arsenal <span class="text-accent">Tecnológico.</span>
         </h2>
     </div>
 
-    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 relative z-10">
+    <div class="section-container grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 relative z-10">
         
         <!-- Frontend -->
         <div>
-            <h3 class="text-white font-mono text-[14px] uppercase tracking-widest mb-8 flex items-center gap-3">
-                <span class="text-[#00f2ff] animate-pulse">■</span> FRONT_END_MODULES
+            <h3 class="text-sm uppercase tracking-widest mb-6 flex items-center gap-3 font-semibold text-main">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent"></span> FRONTEND
             </h3>
             <div class="space-y-4">
-                <div class="bg-white/[0.02] border border-white/[0.05] p-5 flex justify-between items-center group hover:border-[#00f2ff]/30 transition-all duration-500">
-                    <span class="text-gray-300 font-mono text-[15px]">Vue.js / Nuxt.js</span>
-                    <div class="w-32 lg:w-48 h-[2px] bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full bg-[#00f2ff] w-[95%] shadow-[0_0_8px_#00f2ff]"></div>
+                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-accent/30 transition-colors">
+                    <span class="card-title text-sm m-0">Vue.js / Nuxt</span>
+                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full rounded-full bg-accent w-[95%]"></div>
                     </div>
                 </div>
-                <div class="bg-white/[0.02] border border-white/[0.05] p-5 flex justify-between items-center group hover:border-[#00f2ff]/30 transition-all duration-500">
-                    <span class="text-gray-300 font-mono text-[15px]">React / Next.js</span>
-                    <div class="w-32 lg:w-48 h-[2px] bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full bg-[#00f2ff] w-[85%] shadow-[0_0_8px_#00f2ff]"></div>
+                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-accent/30 transition-colors">
+                    <span class="card-title text-sm m-0">React / Next.js</span>
+                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full rounded-full bg-accent w-[85%]"></div>
                     </div>
                 </div>
-                <div class="bg-white/[0.02] border border-white/[0.05] p-5 flex justify-between items-center group hover:border-[#00f2ff]/30 transition-all duration-500">
-                    <span class="text-gray-300 font-mono text-[15px]">TypeScript</span>
-                    <div class="w-32 lg:w-48 h-[2px] bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full bg-[#00f2ff] w-[90%] shadow-[0_0_8px_#00f2ff]"></div>
+                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-accent/30 transition-colors">
+                    <span class="card-title text-sm m-0">TypeScript</span>
+                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full rounded-full bg-accent w-[90%]"></div>
                     </div>
                 </div>
-                <div class="bg-white/[0.02] border border-white/[0.05] p-5 flex justify-between items-center group hover:border-[#00f2ff]/30 transition-all duration-500">
-                    <span class="text-gray-300 font-mono text-[15px]">TailwindCSS</span>
-                    <div class="w-32 lg:w-48 h-[2px] bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full bg-[#00f2ff] w-[98%] shadow-[0_0_8px_#00f2ff]"></div>
+                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-accent/30 transition-colors">
+                    <span class="card-title text-sm m-0">TailwindCSS</span>
+                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full rounded-full bg-accent w-[98%]"></div>
                     </div>
                 </div>
             </div>
@@ -51,32 +54,32 @@
 
         <!-- Backend -->
         <div>
-            <h3 class="text-white font-mono text-[14px] uppercase tracking-widest mb-8 flex items-center gap-3">
-                <span class="text-[#00f2ff] animate-pulse">■</span> BACK_END_MODULES
+            <h3 class="text-sm uppercase tracking-widest mb-6 flex items-center gap-3 font-semibold text-main">
+                <span class="w-1.5 h-1.5 rounded-full bg-purple"></span> BACKEND
             </h3>
             <div class="space-y-4">
-                <div class="bg-white/[0.02] border border-white/[0.05] p-5 flex justify-between items-center group hover:border-[#00f2ff]/30 transition-all duration-500">
-                    <span class="text-gray-300 font-mono text-[15px]">Laravel / PHP</span>
-                    <div class="w-32 lg:w-48 h-[2px] bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full bg-[#00f2ff] w-[95%] shadow-[0_0_8px_#00f2ff]"></div>
+                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-purple/30 transition-colors">
+                    <span class="card-title text-sm m-0">Laravel / PHP</span>
+                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full rounded-full bg-purple w-[95%]"></div>
                     </div>
                 </div>
-                <div class="bg-white/[0.02] border border-white/[0.05] p-5 flex justify-between items-center group hover:border-[#00f2ff]/30 transition-all duration-500">
-                    <span class="text-gray-300 font-mono text-[15px]">Node.js</span>
-                    <div class="w-32 lg:w-48 h-[2px] bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full bg-[#00f2ff] w-[80%] shadow-[0_0_8px_#00f2ff]"></div>
+                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-purple/30 transition-colors">
+                    <span class="card-title text-sm m-0">Node.js</span>
+                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full rounded-full bg-purple w-[80%]"></div>
                     </div>
                 </div>
-                <div class="bg-white/[0.02] border border-white/[0.05] p-5 flex justify-between items-center group hover:border-[#00f2ff]/30 transition-all duration-500">
-                    <span class="text-gray-300 font-mono text-[15px]">PostgreSQL / MySQL</span>
-                    <div class="w-32 lg:w-48 h-[2px] bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full bg-[#00f2ff] w-[90%] shadow-[0_0_8px_#00f2ff]"></div>
+                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-purple/30 transition-colors">
+                    <span class="card-title text-sm m-0">PostgreSQL / MySQL</span>
+                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full rounded-full bg-purple w-[90%]"></div>
                     </div>
                 </div>
-                <div class="bg-white/[0.02] border border-white/[0.05] p-5 flex justify-between items-center group hover:border-[#00f2ff]/30 transition-all duration-500">
-                    <span class="text-gray-300 font-mono text-[15px]">REST API / GraphQL</span>
-                    <div class="w-32 lg:w-48 h-[2px] bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full bg-[#00f2ff] w-[85%] shadow-[0_0_8px_#00f2ff]"></div>
+                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-purple/30 transition-colors">
+                    <span class="card-title text-sm m-0">REST API / GraphQL</span>
+                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full rounded-full bg-purple w-[85%]"></div>
                     </div>
                 </div>
             </div>
@@ -85,3 +88,27 @@
     </div>
   </section>
 </template>
+
+<style scoped>
+.section-container {
+  position: relative;
+  z-index: 10;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.glow-center {
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.05;
+}
+
+.text-main { color: var(--text-main); }
+.bg-purple { background-color: var(--purple); }
+.text-purple { color: var(--purple); }
+.hover\:border-purple\/30:hover { border-color: rgba(99, 102, 241, 0.3); }
+</style>

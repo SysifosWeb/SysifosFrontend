@@ -25,7 +25,7 @@ setSchema({
 })
 </script>
 <template>
-  <div>
+  <div class="bg-section-dark min-h-screen">
     <NosotrosHistoriaYPrincipios />
     <NosotrosEquipoSection />
     <NosotrosMetodologiaSection />

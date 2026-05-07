@@ -3,146 +3,110 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 </script>
 
 <template>
-  <section class="relative bg-[#05080a] pt-24 pb-32 lg:pt-32 lg:pb-40 border-b border-white/5 overflow-hidden">
-    <!-- Grid de fondo abstracto -->
-    <div class="absolute inset-0 pointer-events-none opacity-30 select-none">
-        <div class="w-full h-[1px] absolute top-1/4 left-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
-        <div class="w-full h-[1px] absolute top-3/4 left-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
-        <div class="w-[1px] h-full absolute top-0 left-1/4 bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
-        <div class="w-[1px] h-full absolute top-0 left-3/4 bg-gradient-to-b from-transparent via-white/5 to-transparent"></div>
-        <!-- Luz suave central -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/5 blur-[120px] rounded-full pointer-events-none"></div>
-    </div>
+  <section class="relative bg-section-surface pt-20 pb-28 lg:pt-28 lg:pb-32 overflow-hidden border-t border-b border-white/5">
+    
+    <!-- Glow -->
+    <div class="section-glow-purple glow-center"></div>
 
-    <div class="max-w-[1400px] w-[92%] mx-auto relative z-10 flex flex-col items-center">
+    <div class="section-container relative z-10 flex flex-col items-center">
       
-      <!-- Encabezado de Sección -->
+      <!-- Encabezado -->
       <div class="text-center mb-20 w-full">
-        <div class="flex items-center justify-center gap-4 mb-4">
-          <span class="w-1.5 h-1.5 bg-[#4a4a4a]"></span>
-          <span class="text-[15px] uppercase tracking-[0.5em] font-tech text-[#4a4a4a]">SYS_WORKFLOW // PIPELINES</span>
+        <div class="eyebrow-badge mx-auto mb-6">
+          <span class="eyebrow-badge__dot"></span>
+          <span class="eyebrow-badge__text">Metodología de trabajo</span>
         </div>
-        <h2 class="text-3xl md:text-5xl font-bold font-tech text-white uppercase tracking-tighter mb-4">
-          Operativa <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">Metodológica.</span>
+        <h2 class="section-title text-3xl md:text-5xl mb-4">
+          Operativa <span class="text-accent">Estandarizada.</span>
         </h2>
-        <p class="text-gray-300 font-mono text-sm max-w-2xl mx-auto">
-          Ejecución estandarizada mediante protocolos ágiles, garantizando precisión funcional, tiempos de entrega predecibles y un código altamente mantenible.
+        <p class="section-subtitle max-w-2xl mx-auto">
+          Ejecución eficiente mediante protocolos ágiles, garantizando precisión funcional, tiempos de entrega predecibles y un código mantenible.
         </p>
       </div>
 
       <!-- Contenedor Principal en 2 Columnas -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 w-full">
         
-        <!-- Bloque Izquierdo: Metodología Agil -->
+        <!-- Izquierda: Metodología -->
         <div class="flex flex-col gap-10">
-            <h3 class="font-tech text-xl text-white uppercase tracking-widest border-b border-white/10 pb-4 mb-2 flex justify-between items-end">
-                <span>Protocolos de Desarrollo</span>
-                <span class="text-[14px] text-accent/50 tracking-widest">[ METODOLOGÍA ÁGIL ]</span>
+            <h3 class="card-title text-xl border-b border-white/10 pb-4 flex justify-between items-end">
+                Protocolos de Desarrollo
             </h3>
 
             <!-- Item 1 -->
-            <div class="group flex items-start gap-6 relative">
-                <div class="absolute -left-12 top-6 w-8 h-[1px] bg-accent/30 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
-                <div class="relative w-14 h-14 bg-[#05070a] border border-white/10 flex-shrink-0 flex items-center justify-center overflow-hidden transition-colors duration-500 group-hover:border-accent/50">
-                    <div class="absolute inset-0 bg-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-                    <Box class="w-6 h-6 text-gray-300 group-hover:text-accent relative z-10 transition-colors duration-500" />
+            <div class="flex items-start gap-6">
+                <div class="w-14 h-14 bg-section-dark border border-white/10 flex-shrink-0 flex items-center justify-center rounded-xl">
+                    <Box class="w-6 h-6 text-accent" />
                 </div>
                 <div>
-                    <h4 class="text-lg font-bold font-tech text-white uppercase tracking-wider mb-2 flex items-center gap-3">
-                        <span class="text-accent text-sm">01.</span> Scrum Framework
-                    </h4>
-                    <p class="text-gray-300 text-[15px] font-sans leading-relaxed group-hover:text-gray-300 transition-colors">
+                    <h4 class="card-title text-lg mb-2">Scrum Framework</h4>
+                    <p class="card-text text-sm leading-relaxed">
                         Sprints delimitados en iteraciones de 2 semanas con métricas de entrega incrementales y ventanas de feedback continuo.
                     </p>
                 </div>
             </div>
 
             <!-- Item 2 -->
-            <div class="group flex items-start gap-6 relative">
-                <div class="absolute -left-12 top-6 w-8 h-[1px] bg-accent/30 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
-                <div class="relative w-14 h-14 bg-[#05070a] border border-white/10 flex-shrink-0 flex items-center justify-center overflow-hidden transition-colors duration-500 group-hover:border-accent/50">
-                    <div class="absolute inset-0 bg-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-                    <Radio class="w-6 h-6 text-gray-300 group-hover:text-accent relative z-10 transition-colors duration-500" />
+            <div class="flex items-start gap-6">
+                <div class="w-14 h-14 bg-section-dark border border-white/10 flex-shrink-0 flex items-center justify-center rounded-xl">
+                    <Radio class="w-6 h-6 text-purple" />
                 </div>
                 <div>
-                    <h4 class="text-lg font-bold font-tech text-white uppercase tracking-wider mb-2 flex items-center gap-3">
-                        <span class="text-accent text-sm">02.</span> Telemetría Transparente
-                    </h4>
-                    <p class="text-gray-300 text-[15px] font-sans leading-relaxed group-hover:text-gray-300 transition-colors">
-                        Sincronización mediante stand-ups diarios, demos de avance y retrospectivas para mantener una alineación estratégica y táctica.
+                    <h4 class="card-title text-lg mb-2">Sincronización Continua</h4>
+                    <p class="card-text text-sm leading-relaxed">
+                        Mantenemos alineación estratégica mediante stand-ups diarios, demostraciones de avance y comunicación transparente.
                     </p>
                 </div>
             </div>
 
             <!-- Item 3 -->
-            <div class="group flex items-start gap-6 relative">
-                <div class="absolute -left-12 top-6 w-8 h-[1px] bg-accent/30 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
-                <div class="relative w-14 h-14 bg-[#05070a] border border-white/10 flex-shrink-0 flex items-center justify-center overflow-hidden transition-colors duration-500 group-hover:border-accent/50">
-                    <div class="absolute inset-0 bg-accent/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
-                    <ShieldCheck class="w-6 h-6 text-gray-300 group-hover:text-accent relative z-10 transition-colors duration-500" />
+            <div class="flex items-start gap-6">
+                <div class="w-14 h-14 bg-section-dark border border-white/10 flex-shrink-0 flex items-center justify-center rounded-xl">
+                    <ShieldCheck class="w-6 h-6 text-accent" />
                 </div>
                 <div>
-                    <h4 class="text-lg font-bold font-tech text-white uppercase tracking-wider mb-2 flex items-center gap-3">
-                        <span class="text-accent text-sm">03.</span> QA & Estabilidad
-                    </h4>
-                    <p class="text-gray-300 text-[15px] font-sans leading-relaxed group-hover:text-gray-300 transition-colors">
-                        Testing unitario, code reviews estrictos y asimilación de clean-code para garantizar arquitecturas limpias antes del deploy a producción.
+                    <h4 class="card-title text-lg mb-2">QA & Estabilidad</h4>
+                    <p class="card-text text-sm leading-relaxed">
+                        Testing unitario, code reviews estrictos y asimilación de clean-code para garantizar arquitecturas sólidas en producción.
                     </p>
                 </div>
             </div>
         </div>
 
-        <!-- Bloque Derecho: Stack Tecnológico (Orgánico y Alineado a la Derecha) -->
-        <div class="relative p-0 pt-0 group flex flex-col justify-end text-right h-full border-r border-white/5 pr-8">
-            <div class="relative z-10 lg:mt-auto space-y-12 w-full max-w-sm ml-auto">
-                
-                <h3 class="font-tech text-xl text-white uppercase tracking-widest border-b border-accent/20 pb-4 flex justify-between items-end flex-row-reverse">
-                    <span>Stack Tecnológico</span>
-                    <span class="text-[15px] text-[#4a4a4a] tracking-widest">[ CAPACIDAD_SYS ]</span>
-                </h3>
+        <!-- Derecha: Stack Tecnológico -->
+        <div class="flex flex-col gap-10">
+            <h3 class="card-title text-xl border-b border-white/10 pb-4">
+                Stack Tecnológico
+            </h3>
 
-                <div class="space-y-10">
-                    <!-- Frontend -->
-                    <div class="group/bar">
-                        <div class="flex flex-col items-end mb-3 gap-1">
-                            <span class="text-white font-tech uppercase tracking-wider text-sm flex items-center gap-2 flex-row-reverse">
-                                <span class="w-1 h-1 bg-accent/50 group-hover/bar:bg-accent transition-colors"></span> Frontend_Core
-                            </span>
-                            <span class="text-[15px] font-mono text-gray-300 group-hover/bar:text-gray-300 transition-colors">Vue.js / Nuxt / React / Angular</span>
-                        </div>
-                        <div class="w-full bg-transparent border-b border-white/10 h-3 overflow-hidden flex justify-end">
-                            <div class="bg-gradient-to-l from-accent to-transparent h-[1px] w-[95%] mt-auto group-hover/bar:shadow-[0_-5px_15px_rgba(0,242,255,0.4)] transition-all duration-700"></div>
-                        </div>
+            <div class="space-y-8">
+                <!-- Frontend -->
+                <div class="card-elevated p-6 flex items-center justify-between group">
+                    <div>
+                        <h4 class="card-title text-base mb-1">Frontend Core</h4>
+                        <p class="text-xs text-muted">Interfaces de alto rendimiento</p>
                     </div>
+                    <span class="text-sm font-semibold text-accent">Vue.js / Nuxt / React</span>
+                </div>
 
-                    <!-- Backend -->
-                    <div class="group/bar">
-                        <div class="flex flex-col items-end mb-3 gap-1">
-                            <span class="text-white font-tech uppercase tracking-wider text-sm flex items-center gap-2 flex-row-reverse">
-                                <span class="w-1 h-1 bg-blue-500/50 group-hover/bar:bg-blue-500 transition-colors"></span> Backend_Core
-                            </span>
-                            <span class="text-[15px] font-mono text-gray-300 group-hover/bar:text-gray-300 transition-colors">Laravel / Node.js / Python</span>
-                        </div>
-                        <div class="w-full bg-transparent border-b border-white/10 h-3 overflow-hidden flex justify-end">
-                            <div class="bg-gradient-to-l from-blue-500 to-transparent h-[1px] w-[90%] mt-auto group-hover/bar:shadow-[0_-5px_15px_rgba(59,130,246,0.4)] transition-all duration-700"></div>
-                        </div>
+                <!-- Backend -->
+                <div class="card-elevated p-6 flex items-center justify-between group">
+                    <div>
+                        <h4 class="card-title text-base mb-1">Backend Core</h4>
+                        <p class="text-xs text-muted">Lógica y bases de datos</p>
                     </div>
+                    <span class="text-sm font-semibold text-purple">Laravel / Node.js</span>
+                </div>
 
-                    <!-- Mobile -->
-                    <div class="group/bar">
-                        <div class="flex flex-col items-end mb-3 gap-1">
-                            <span class="text-white font-tech uppercase tracking-wider text-sm flex items-center gap-2 flex-row-reverse">
-                                <span class="w-1 h-1 bg-purple-500/50 group-hover/bar:bg-purple-500 transition-colors"></span> Mobile_Core
-                            </span>
-                            <span class="text-[15px] font-mono text-gray-300 group-hover/bar:text-gray-300 transition-colors">Flutter / React Native</span>
-                        </div>
-                        <div class="w-full bg-transparent border-b border-white/10 h-3 overflow-hidden flex justify-end">
-                            <div class="bg-gradient-to-l from-purple-500 to-transparent h-[1px] w-[85%] mt-auto group-hover/bar:shadow-[0_-5px_15px_rgba(168,85,247,0.4)] transition-all duration-700"></div>
-                        </div>
+                <!-- Mobile -->
+                <div class="card-elevated p-6 flex items-center justify-between group">
+                    <div>
+                        <h4 class="card-title text-base mb-1">Mobile Core</h4>
+                        <p class="text-xs text-muted">Desarrollo multiplataforma</p>
                     </div>
+                    <span class="text-sm font-semibold text-accent">Flutter / React Native</span>
                 </div>
             </div>
-            
         </div>
 
       </div>
@@ -151,7 +115,20 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 </template>
 
 <style scoped>
-.font-tech {
-    font-family: var(--font-tech);
+.section-container {
+  position: relative;
+  z-index: 10;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.glow-center {
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.05;
 }
 </style>

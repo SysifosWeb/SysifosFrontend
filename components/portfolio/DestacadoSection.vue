@@ -1,103 +1,93 @@
 <script setup>
-import { ExternalLink, Database, Cpu, ShieldCheck } from 'lucide-vue-next'
+import { ExternalLink, Database, Cpu } from 'lucide-vue-next'
 import ansar from '@/assets/img/ansar.gif';
 </script>
 
 <template>
-  <section class="relative bg-[#05080a] py-32 overflow-hidden border-b border-white/5">
-    <div class="max-w-[1400px] w-[92%] mx-auto relative z-10">
+  <section class="relative bg-section-surface py-20 lg:py-28 overflow-hidden border-b border-white/5">
+    
+    <div class="section-glow-purple glow-center-left"></div>
+
+    <div class="section-container relative z-10">
       
       <!-- Encabezado de Sección -->
-      <div class="mb-20 flex flex-col items-start relative">
-          <div class="flex items-center gap-3 mb-4 font-mono text-accent text-sm tracking-[0.3em]">
-              <span class="w-8 h-[1px] bg-accent"></span>
-              CASE_STUDY // PROJECT_FEATURED_01
+      <div class="mb-16 flex flex-col items-start">
+          <div class="eyebrow-badge mb-4">
+            <span class="eyebrow-badge__dot"></span>
+            <span class="eyebrow-badge__text">Proyecto Destacado</span>
           </div>
-          <h2 class="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter">
-            Ansar <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">Automotriz.</span>
+          <h2 class="section-title text-4xl md:text-5xl lg:text-6xl">
+            Ansar <span class="text-accent">Automotriz.</span>
           </h2>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
+          
           <!-- PANEL DE ANÁLISIS (Izquierda) -->
-          <div class="lg:col-span-5 flex flex-col space-y-8">
+          <div class="lg:col-span-5 flex flex-col gap-6">
               
               <!-- Desafío Module -->
-              <div class="relative p-8 bg-[#0a0e17]/40 border border-white/5 backdrop-blur-sm group hover:border-accent/30 transition-all duration-500">
-                  <div class="absolute top-0 right-0 p-2 font-mono text-[10px] text-accent/20 group-hover:text-accent/50 transition-colors">ERR_PROB: 0%</div>
-                  <h3 class="text-accent font-mono text-[12px] uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
-                      <Database class="w-4 h-4" /> 01_DESAFÍO_TÉCNICO
+              <div class="card-border bg-section-dark p-8 flex flex-col group transition-colors hover:border-accent/20">
+                  <h3 class="text-xs font-semibold uppercase tracking-widest mb-4 flex items-center gap-2 text-muted">
+                      <Database class="w-4 h-4 text-accent" /> DESAFÍO TÉCNICO
                   </h3>
-                  <p class="text-gray-300 font-mono text-sm leading-relaxed">
+                  <p class="card-text text-sm leading-relaxed">
                       Sincronización masiva de inventario en tiempo real con motor de tasación algorítmico integrado para el mercado automotriz premium.
                   </p>
               </div>
 
               <!-- Solución Module -->
-              <div class="relative p-8 bg-[#0a0e17]/40 border border-white/5 backdrop-blur-sm group hover:border-accent/30 transition-all duration-500">
-                  <h3 class="text-accent font-mono text-[12px] uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
-                      <Cpu class="w-4 h-4" /> 02_SOLUCIÓN_INGENIERÍA
+              <div class="card-border bg-section-dark p-8 flex flex-col group transition-colors hover:border-accent/20">
+                  <h3 class="text-xs font-semibold uppercase tracking-widest mb-4 flex items-center gap-2 text-muted">
+                      <Cpu class="w-4 h-4 text-accent" /> SOLUCIÓN INGENIERÍA
                   </h3>
-                  <p class="text-gray-300 font-mono text-sm leading-relaxed">
+                  <p class="card-text text-sm leading-relaxed">
                       Desarrollo de una arquitectura Cloud-Native con balanceo de carga dinámico y un CMS Headless optimizado para la gestión de activos multimedia de alta resolución.
                   </p>
               </div>
 
               <!-- Stats Matrix -->
-              <div class="grid grid-cols-3 gap-1 bg-[#0a0e17]/80 border border-white/5 p-1">
-                  <div class="bg-[#05080a] p-6 text-center">
+              <div class="grid grid-cols-3 gap-4 mt-2">
+                  <div class="card-border bg-section-dark p-5 flex flex-col items-center justify-center text-center">
                       <div class="text-2xl font-bold text-white mb-1">98<span class="text-accent">%</span></div>
-                      <div class="text-[9px] font-mono text-gray-500 uppercase tracking-widest">Perf_Score</div>
+                      <div class="text-[10px] font-semibold text-muted uppercase tracking-wider">Performance</div>
                   </div>
-                  <div class="bg-[#05080a] p-6 text-center">
+                  <div class="card-border bg-section-dark p-5 flex flex-col items-center justify-center text-center">
                       <div class="text-2xl font-bold text-white mb-1">50<span class="text-accent">+</span></div>
-                      <div class="text-[9px] font-mono text-gray-500 uppercase tracking-widest">Nodes_Sync</div>
+                      <div class="text-[10px] font-semibold text-muted uppercase tracking-wider">Nodos Sync</div>
                   </div>
-                  <div class="bg-[#05080a] p-6 text-center">
+                  <div class="card-border bg-section-dark p-5 flex flex-col items-center justify-center text-center">
                       <div class="text-2xl font-bold text-white mb-1">30<span class="text-accent">%</span></div>
-                      <div class="text-[9px] font-mono text-gray-500 uppercase tracking-widest">Conv_Rate</div>
+                      <div class="text-[10px] font-semibold text-muted uppercase tracking-wider">Conversión</div>
                   </div>
               </div>
               
               <!-- CTA -->
-              <a href="https://ansarautomotriz.com/" target="_blank" class="flex items-center justify-center gap-4 py-4 border border-accent/20 text-accent font-mono text-sm uppercase tracking-[0.4em] hover:bg-accent hover:text-[#05080a] transition-all group">
-                  EXPLORAR_DESPLIEGUE_ACTIVO <ExternalLink class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+              <div class="mt-4">
+                  <a href="https://ansarautomotriz.com/" target="_blank" class="cta-primary-btn w-full justify-center">
+                      Explorar Proyecto <ExternalLink class="w-4 h-4" />
+                  </a>
+              </div>
           </div>
 
           <!-- PROYECCIÓN VISUAL (Derecha) -->
-          <div class="lg:col-span-7 relative group">
-              <!-- HUD Overlays -->
-              <div class="absolute inset-0 z-20 pointer-events-none border border-accent/20 group-hover:border-accent/50 transition-colors">
-                  <!-- Crosshairs -->
-                  <div class="absolute top-4 left-4 w-10 h-10 border-t border-l border-accent/40"></div>
-                  <div class="absolute top-4 right-4 w-10 h-10 border-t border-r border-accent/40"></div>
-                  <div class="absolute bottom-4 left-4 w-10 h-10 border-b border-l border-accent/40"></div>
-                  <div class="absolute bottom-4 right-4 w-10 h-10 border-b border-r border-accent/40"></div>
+          <div class="lg:col-span-7 relative group flex flex-col">
+              
+              <!-- Main Visual -->
+              <div class="relative overflow-hidden h-full min-h-[400px] rounded-2xl border border-white/10 shadow-2xl bg-section-dark">
+                  <NuxtImg :src="ansar" alt="Demostración Ansar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
                   
-                  <!-- Scanning Beam -->
-                  <div class="absolute top-0 left-0 w-full h-[1px] bg-accent/40 shadow-[0_0_15px_#00f2ff] animate-[scan_4s_ease-in-out_infinite]"></div>
-                  
-                  <!-- Data Readout -->
-                  <div class="absolute top-10 left-10 font-mono text-[9px] text-accent/60 uppercase">
-                      Stream_Live: OK<br/>FPS: 60.0<br/>BITRATE: 4500kbps
+                  <!-- Gradient Overlay Bottom -->
+                  <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0a0e17] via-[#0a0e17]/40 to-transparent opacity-90"></div>
+
+                  <!-- Tech Stack Floating inside image -->
+                  <div class="absolute bottom-6 left-6 flex flex-wrap gap-2 z-30">
+                      <span class="px-3 py-1.5 rounded-lg bg-accent text-[#0a0e17] text-[11px] font-bold uppercase tracking-wider">Laravel</span>
+                      <span class="px-3 py-1.5 rounded-lg bg-[#0a0e17] text-white border border-white/10 text-[11px] font-semibold uppercase tracking-wider">Vue.js</span>
+                      <span class="px-3 py-1.5 rounded-lg bg-[#0a0e17] text-white border border-white/10 text-[11px] font-semibold uppercase tracking-wider">MySQL</span>
                   </div>
               </div>
-
-              <!-- Main Visual -->
-              <div class="relative overflow-hidden h-full min-h-[400px] bg-[#0a0e17] border border-white/5">
-                  <NuxtImg :src="ansar" alt="Demostración Ansar" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000" loading="lazy" />
-                  
-                  <!-- Gradient Overlay -->
-                  <div class="absolute inset-0 bg-gradient-to-t from-[#05080a] via-transparent to-transparent opacity-80"></div>
-              </div>
-
-              <!-- Tech Stack Floating -->
-              <div class="absolute -bottom-4 -left-4 flex gap-2 z-30">
-                  <span class="px-4 py-1 bg-accent text-[#05080a] font-mono text-[10px] font-bold uppercase shadow-[4px_4px_0px_#0088ff]">Laravel</span>
-                  <span class="px-4 py-1 bg-[#0a0e17] text-white border border-white/10 font-mono text-[10px] uppercase">Vue.js</span>
-                  <span class="px-4 py-1 bg-[#0a0e17] text-white border border-white/10 font-mono text-[10px] uppercase">MySQL</span>
-              </div>
+              
           </div>
       </div>
     </div>
@@ -105,11 +95,19 @@ import ansar from '@/assets/img/ansar.gif';
 </template>
 
 <style scoped>
-@keyframes scan {
-  0%, 100% { transform: translateY(0); opacity: 0; }
-  20% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { transform: translateY(100%); opacity: 0; }
+.section-container {
+  position: relative;
+  z-index: 10;
+  width: 90%;
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+.glow-center-left {
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: -200px;
+  transform: translateY(-50%);
 }
 </style>
-

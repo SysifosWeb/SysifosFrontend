@@ -24,7 +24,7 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="bg-[#0a0e17] min-h-screen">
+  <div class="bg-section-dark min-h-screen">
     <PortfolioHeroSection />
     <PortfolioGridSection />
     <PortfolioStatsSection />

@@ -1,144 +1,174 @@
 <template>
-  <section id="servicios" class="relative py-16 lg:py-24 bg-[#050810] overflow-hidden">
-    <CircuitBackground />
-    
-    <div class="max-w-[1400px] w-[92%] mx-auto relative z-10">
-      
-      <!-- Background Complementario (Diferente al Header) -->
-      <div class="absolute inset-0 pointer-events-none -z-10 opacity-10">
-         <svg viewBox="0 0 800 600" class="w-full h-full transform scale-150 rotate-12">
-            <g class="circuit-anim">
-               <path v-for="n in 8" :key="'c-'+n" 
-                     :d="generateCircuitPath(n)" 
-                     fill="none" 
-                     stroke="#00f2ff" 
-                     stroke-width="0.5" 
-                     class="circuit-line" />
-            </g>
-         </svg>
-      </div>
+  <section id="servicios" class="services-section bg-section-dark">
 
-      <!-- Header Seccion -->
-      <div class="text-center mb-24">
-        <h2 class="text-3xl md:text-5xl font-bold text-white uppercase tracking-tighter font-tech mb-6">
-          Nuestros <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500">Servicios.</span>
+    <!-- Glow morado sutil -->
+    <div class="section-glow-purple glow-right-center"></div>
+
+    <div class="section-container">
+
+      <!-- Header -->
+      <div class="mb-12 max-w-xl">
+        <div class="eyebrow-badge mx-auto mb-6">
+          <span class="eyebrow-badge__dot"></span>
+          <span class="eyebrow-badge__text">Lo que podemos hacer por ti</span>
+        </div>
+        <h2 class="section-title text-3xl md:text-4xl">
+          Soluciones digitales que impulsan tu negocio.
         </h2>
-        <p class="text-[14px] md:text-xs text-gray-300 uppercase tracking-[0.4em] font-medium max-w-xl mx-auto opacity-70">
-          Módulos de ingeniería digital diseñados para escalar.
-        </p>
       </div>
 
       <!-- Grid de Servicios -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div v-for="(service, index) in services" :key="index" 
-             class="group relative p-12 bg-[#0b101d]/60 backdrop-blur-sm border border-white/[0.03] rounded-3xl transition-all duration-500 hover:border-accent/40 hover:shadow-[0_0_30px_rgba(0,242,255,0.05)]">
-          
-          <!-- Icono Diagrama -->
-          <div class="mb-12">
-             <component :is="service.icon" class="w-10 h-10 text-accent opacity-80" stroke-width="1" />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div v-for="(service, index) in services" :key="index"
+             class="service-card group relative flex flex-col p-8 rounded-2xl cursor-default bg-section-surface"
+             :class="`service-card--${service.variant}`">
+
+          <!-- Línea top accent al hover -->
+          <div class="service-top-line absolute top-0 left-8 right-8 h-px rounded-full"></div>
+
+          <!-- Ícono -->
+          <div class="service-icon mb-7 w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300">
+            <component :is="service.icon" class="w-5 h-5" :stroke-width="1.8"/>
           </div>
 
-          <h3 class="text-xl font-bold text-white mb-6 font-tech uppercase tracking-wide">
-            {{ service.title }}
-          </h3>
+          <!-- Título -->
+          <h3 class="card-title mb-3">{{ service.title }}</h3>
 
-          <p class="text-xs text-gray-300 leading-relaxed mb-8 opacity-60 group-hover:opacity-100 transition-opacity">
-            {{ service.description }}
-          </p>
+          <!-- Descripción -->
+          <p class="card-text mb-8 flex-1">{{ service.description }}</p>
 
-          <ul class="space-y-3 mb-12">
-            <li v-for="(feature, idx) in service.features" :key="idx" class="flex items-center gap-3 text-[15px] text-gray-300 uppercase tracking-widest font-tech">
-              <span class="w-1 h-1 rounded-full bg-accent opacity-40"></span>
-              {{ feature }}
-            </li>
-          </ul>
+          <!-- Feature pills -->
+          <div class="flex flex-wrap gap-2 mb-8">
+            <span v-for="feat in service.features" :key="feat" class="feature-pill">
+              {{ feat }}
+            </span>
+          </div>
 
-          <div class="pt-8 border-t border-white/[0.05]">
-            <NuxtLink :to="'/contacto'" class="inline-flex items-center gap-2 text-[15px] font-bold text-accent uppercase tracking-widest hover:text-white transition-colors group/btn">
-              <span>Solicitar Cotización</span>
-              <div class="w-4 h-[1px] bg-accent group-hover/btn:w-8 transition-all"></div>
+          <!-- CTA interno -->
+          <div class="service-cta-wrap pt-5">
+            <NuxtLink to="/contacto" class="service-cta group/link inline-flex items-center gap-1.5 text-sm font-medium transition-all duration-200">
+              Hablemos de tu proyecto
+              <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
             </NuxtLink>
           </div>
         </div>
       </div>
 
-      <!-- Boton Final (Estilo Header) -->
-      <div class="mt-24 text-center">
-        <NuxtLink to="/servicios" class="group relative inline-block px-12 py-5 bg-white/5 border border-accent/30 text-white font-bold uppercase tracking-[0.3em] text-[14px] overflow-hidden transition-all hover:bg-accent hover:text-[#0a0e17] hover:shadow-[0_0_30px_rgba(0,242,255,0.4)] font-tech">
-          <span class="relative z-10">Ver Todos Nuestros Servicios</span>
-          <div class="absolute inset-0 bg-accent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+      <!-- CTA final -->
+      <div class="mt-10 flex justify-end">
+        <NuxtLink to="/servicios" class="cta-ghost">
+          Ver todos los servicios
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
         </NuxtLink>
       </div>
-    </div>
 
+    </div>
   </section>
 </template>
 
 <script setup>
-import { 
-  Zap,
-  ShoppingCart,
-  Layout
-} from 'lucide-vue-next'
+import { Globe, ShoppingBag, Cpu } from 'lucide-vue-next'
 
 const services = [
   {
-    title: 'Landing de Conversión',
-    description: 'Arquitecturas de una sola página optimizadas para maximizar el ratio de captura de leads y conversión inmediata.',
-    icon: Zap,
-    features: ['Optimización Conversiva', 'Integración CRM/API', 'Estructura SEO Base']
+    title: 'Páginas web que convierten visitantes en clientes',
+    description: 'Diseñamos sitios rápidos, modernos y estratégicamente construidos para llevar a cada visitante hacia la acción que necesitas. Sin plantillas, sin atajos.',
+    icon: Globe,
+    features: ['Diseño a medida', 'SEO desde el inicio', 'Optimizado para móvil'],
+    variant: 'cyan',
   },
   {
-    title: 'E-Commerce Modular',
-    description: 'Desarrollo de ecosistemas transaccionales con pasarelas de pago blindadas y gestión automatizada de activos.',
-    icon: ShoppingCart,
-    features: ['Payment Gateways', 'Stock Tracking', 'Logística Integrada']
+    title: 'Tu tienda online lista para vender las 24 horas',
+    description: 'Creamos plataformas de venta seguras, fáciles de administrar y preparadas para escalar cuando tu negocio lo necesite.',
+    icon: ShoppingBag,
+    features: ['Pagos seguros', 'Gestión de inventario', 'Experiencia de compra fluida'],
+    variant: 'purple',
   },
   {
-    title: 'Ecosistema Corporativo',
-    description: 'Infraestructura web para organizaciones que requieren una presencia sólida, administrable y escalable globalmente.',
-    icon: Layout,
-    features: ['CMS Customizado', 'Core Responsive', 'Escalabilidad Multi-Nodo']
+    title: 'Software hecho exactamente para tu empresa',
+    description: 'Cuando las herramientas genéricas no son suficientes, construimos la solución exacta que tu negocio necesita para crecer sin fricciones.',
+    icon: Cpu,
+    features: ['Automatización de procesos', 'Integración con sistemas actuales', 'Soporte continuo'],
+    variant: 'green',
   }
 ]
-
-const generateCircuitPath = (n) => {
-  const yBase = 100 + (n * 60);
-  let path = `M 0 ${yBase} `;
-  path += `L ${100 + n * 20} ${yBase} `;
-  path += `L ${150 + n * 20} ${yBase - 50} `;
-  path += `L ${400 + n * 10} ${yBase - 50} `;
-  path += `L ${450 + n * 10} ${yBase} `;
-  path += `L 800 ${yBase} `;
-  return path;
-}
 </script>
 
 <style scoped>
-.font-tech {
-  font-family: 'Space Grotesk', sans-serif;
+/* ── Layout ─────────────────────────────── */
+.services-section {
+  position: relative;
+  padding: 4rem 0 5rem;
+  overflow: hidden;
 }
 
-.circuit-line {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: circuit-draw 15s linear infinite;
-  opacity: 0.3;
+.section-container {
+  position: relative;
+  z-index: 10;
+  width: 88%;
+  max-width: 1340px;
+  margin: 0 auto;
 }
 
-@keyframes circuit-draw {
-  0% { stroke-dashoffset: 1000; opacity: 0; }
-  20% { opacity: 0.5; }
-  80% { opacity: 0.5; }
-  100% { stroke-dashoffset: 0; opacity: 0; }
+/* ── Glow ────────────────────────────────── */
+.glow-right-center {
+  width: 350px;
+  height: 350px;
+  top: 50%;
+  right: -80px;
+  transform: translateY(-50%);
 }
 
-.circuit-anim {
-  animation: circuit-float 30s ease-in-out infinite;
+/* ── Service Card ────────────────────────── */
+.service-card {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes circuit-float {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-20px, 20px); }
+.service-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.13);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Línea top de acento ─────────────────── */
+.service-top-line {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.service-card:hover .service-top-line { opacity: 1; }
+
+/* ── Variantes de color por servicio ─────── */
+.service-card--cyan  .service-icon { background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.18); color: #38BDF8; }
+.service-card--cyan  .service-top-line { background: #38BDF8; }
+.service-card--cyan  .service-cta { color: #38BDF8; }
+
+.service-card--purple .service-icon { background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.18); color: #6366F1; }
+.service-card--purple .service-top-line { background: #6366F1; }
+.service-card--purple .service-cta { color: #6366F1; }
+
+.service-card--green  .service-icon { background: rgba(52, 211, 153, 0.08); border: 1px solid rgba(52, 211, 153, 0.18); color: #34D399; }
+.service-card--green  .service-top-line { background: #34D399; }
+.service-card--green  .service-cta { color: #34D399; }
+
+/* ── Feature pills ───────────────────────── */
+.feature-pill {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  padding: 0.2rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* ── CTA interno ─────────────────────────── */
+.service-cta-wrap {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 </style>

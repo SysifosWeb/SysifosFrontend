@@ -4,69 +4,328 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ==============================
-   ELEMENTOS DECORATIVOS
-================================ */
-.bg-detail-primary {
-  background-color: var(--detail-primary);
-}
-.text-detail-primary {
-  color: var(--detail-primary);
+/* ============================================
+   RESET & BASE
+============================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.bg-dark-primary {
-  background-color: var(--background-dark);
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-family);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
-:root {
-  --color-primary: 14 165 233;
-  --color-secondary: 217 70 239;
-  --color-dark: 15 23 42;
 
-  --font-family: 'Inter', sans-serif;
-  --font-tech: 'Space Grotesk', sans-serif;
+input, textarea, select {
+  font-family: var(--font-family);
+}
 
-  /* Hyper-Premium Corporate Tech Palette */
-  --primary: #00f2ff;       /* Electric Cyan */
-  --primary-glow: rgba(0, 242, 255, 0.4);
-  --secondary: #0f172a;     /* Deep Navy */
-  --bg-dark: #05070a;       /* Absolute Dark */
-  --surface: rgba(15, 23, 42, 0.7);
-  --accent: #00f2ff;
-  
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+/* ============================================
+   TIPOGRAFÍA GLOBAL — Sistema unificado
+   Usar en lugar de style="" en los componentes
+============================================ */
 
-  /* Legacy Mappings */
-  --detail-primary: var(--accent);
-  --detail-secondary: var(--secondary);
-  --detail-dark: var(--bg-dark);
-  --background-light: #f8fafc;
-  --background-medium: var(--secondary);
-  --background-dark: var(--bg-dark);
-  --text-light: #f8fafc;
-  --text-medium: #94a3b8;
-  --text-dark: #020617;
-  
-  --radius-lg: 24px;
+/* Eyebrow: etiqueta pequeña sobre los títulos */
+.section-eyebrow {
+  font-family: var(--font-family);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
-.background-light {
-  background-color: var(--background-light);
+
+/* H2 principal de cada sección */
+.section-title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--text-main);
 }
-.background-medium {
-  background-color: var(--background-medium);
+
+/* Párrafo descriptivo bajo el título de sección */
+.section-subtitle {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
 }
-.background-secondary {
-  background-color: rgba(
-    117,
-    117,
-    117,
-    0.7
-  ); /* --detail-quaternary con 70% opacidad */
+
+/* Título dentro de cards */
+.card-title {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-main);
 }
-.text-light {
-  color: var(--background-light);
+
+/* Texto descriptivo dentro de cards */
+.card-text {
+  font-family: var(--font-family);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
 }
-/* Línea decorativa bajo títulos */
+
+/* ============================================
+   FONDOS DE SECCIÓN
+============================================ */
+
+.bg-section-dark    { background-color: var(--bg-dark); }
+.bg-section-surface { background-color: var(--bg-surface); }
+.bg-card            { background-color: var(--bg-elevated); }
+.bg-secondary       { background-color: var(--bg-surface) !important; }
+
+/* ============================================
+   COLORES DE TEXTO
+============================================ */
+
+.text-accent   { color: var(--accent) !important; }
+.text-muted    { color: var(--text-muted); }
+.text-main     { color: var(--text-main); }
+.text-secondary-color { color: var(--text-secondary); }
+
+/* ============================================
+   GLOWS DECORATIVOS DE SECCIÓN
+============================================ */
+
+.section-glow-cyan {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: var(--accent);
+  opacity: 0.07;
+  filter: blur(140px);
+}
+
+.section-glow-purple {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: var(--purple);
+  opacity: 0.07;
+  filter: blur(140px);
+}
+
+/* ============================================
+   DECORADORES INLINE (BADGE / PILL / LÍNEAS)
+============================================ */
+
+/* Línea vertical decorativa en top-center */
+.section-line-top {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 5rem;
+  opacity: 0.3;
+  background: linear-gradient(to bottom, transparent, var(--accent));
+}
+
+/* Badge tipo eyebrow con fondo accent sutil */
+.eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 1rem;
+  border-radius: 9999px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.eyebrow-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.eyebrow-badge__text {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ── Eyebrow variante púrpura ────────────── */
+.section-eyebrow--purple {
+  color: var(--purple);
+}
+
+/* ============================================
+   CARDS — Bordes y superficies
+============================================ */
+
+/* Card con borde estándar */
+.card-border {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+/* Card con fondo elevado */
+.card-elevated {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+/* Número de paso / índice */
+.step-badge {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+}
+
+/* Pill de solución / resultado */
+.solution-pill {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.625rem 1.25rem;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.solution-pill__text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+
+/* Hover glow overlay en cards */
+.card-hover-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  background: linear-gradient(to right, rgba(56,189,248,0.03), transparent);
+}
+.group:hover .card-hover-glow { opacity: 1; }
+
+/* ============================================
+   BOTONES GLOBALES
+============================================ */
+
+/* CTA Ghost — fondo elevado con borde */
+.cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  font-size: 0.875rem;
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  transition: all 0.2s ease;
+}
+.cta-ghost:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-accent);
+}
+
+/* CTA Primary — accent sólido */
+.cta-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  font-size: 0.875rem;
+  background: var(--accent);
+  color: #07101F;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.16,1,0.3,1);
+}
+.cta-primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(56,189,248,0.25);
+}
+
+
+/* ============================================
+   COMPONENTES GLOBALES
+============================================ */
+
+/* Glass Card — estilo Vercel/Linear */
+.glass-panel {
+  background: var(--surface);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+}
+
+/* Gradiente de texto */
+.text-gradient {
+  background: linear-gradient(135deg, var(--text-main) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Borde de acento sutil */
+.accent-border {
+  border: 1px solid var(--border-accent);
+}
+
+/* Fuente técnica */
+.font-tech {
+  font-family: var(--font-family);
+  letter-spacing: -0.02em;
+}
+
+/* Contenedor máximo global */
+.custom-container {
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* ============================================
+   UTILIDADES HEREDADAS (compatibilidad)
+============================================ */
+
+.bg-detail-primary   { background-color: var(--detail-primary); }
+.text-detail-primary { color: var(--detail-primary); }
+.bg-dark-primary     { background-color: var(--background-dark); }
+.background-light    { background-color: var(--background-light); }
+.background-medium   { background-color: var(--background-medium); }
+
+.text-light  { color: var(--text-light); }
+.text-medium { color: var(--text-medium); }
+.text-dark   { color: var(--text-dark); }
+
 .title-accent {
   width: 120px;
   height: 4px;
@@ -81,100 +340,17 @@
   border-radius: 2px;
 }
 
-.title-accent--special {
-  width: 100px;
-  height: 4px;
-  background-color: var(--accent);
-  margin-top: 0.5rem;
-  border-radius: 2px;
-}
+/* ============================================
+   BOTONES GLOBALES
+============================================ */
 
-.text-light {
-  color: var(--text-light);
-}
-.text-medium {
-  color: var(--text-medium);
-}
-.text-dark {
-  color: var(--text-dark);
-}
-
-.text-red {
-  color: var(--text-red);
-}
-
-/* Aplicar variables en clases */
-.font-light {
-  font-weight: var(--font-light);
-}
-.font-medium {
-  font-weight: var(--font-medium);
-}
-.font-bold {
-  font-weight: var(--font-bold);
-}
-/* ==============================
-   EFECTOS VISUALES
-================================ */
-
-/* Sombra de texto (hero / banners) */
-.text-shadow {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* ==============================
-   CONTENEDORES
-================================ */
-
-/* ==============================
-   ESTILOS PREMIUM STAHLFORM
-   ============================== */
-
-/* Gradiente industrial */
-.bg-industrial {
-  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
-}
-
-/* Efecto Vidrio (Glassmorphism) */
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-}
-
-/* Acentos Inclinados (Dossier Style) */
-.slanted-accent {
-  position: relative;
-  overflow: hidden;
-}
-
-.slanted-accent::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100px;
-  width: 200px;
-  height: 100%;
-  background: var(--accent);
-  transform: skewX(-20deg);
-  opacity: 0.1;
-  z-index: 0;
-}
-
-/* Texto Neón / Brillante */
-.text-neon {
-  color: var(--accent);
-  text-shadow: 0 0 10px rgba(217, 224, 33, 0.5);
-}
-
-/* Botón Stahl */
 .btn-stahl {
   background: var(--accent);
   color: var(--secondary);
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius-sm);
-  font-weight: var(--font-bold);
+  font-weight: 700;
+  font-family: var(--font-family);
   transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
@@ -189,15 +365,3 @@
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
-
-/* Contenedor máximo global */
-.custom-container {
-  width: 100%;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-

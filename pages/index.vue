@@ -20,6 +20,8 @@ setSchema({
 
 <template>
   <HomeValue />
+  <HomeProblems />
+  <HomeProposition />
   <HomeBusinessUnits />
   <HomeTrust />
   <HomeTestimonials />
