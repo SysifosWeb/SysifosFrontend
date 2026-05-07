@@ -110,23 +110,20 @@ setSchema({
 </script>
 
 <template>
-  <div class="bg-[#0a0e17] min-h-screen">
+  <div class="bg-section-dark min-h-screen">
     <BlogHeroSection />
 
     <!-- Search and Filters -->
-    <section class="py-8 bg-[#0a0e17] border-b border-white/5 relative z-10">
+    <section class="py-8 bg-section-surface border-b border-white/5 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row gap-6 items-center justify-between">
                 <!-- Search Bar -->
                 <div class="relative flex-1 max-w-md w-full">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <span class="text-[#00f2ff] font-mono">></span>
-                    </div>
                     <input
                         v-model="searchQuery"
                         type="text"
-                        placeholder="BUSCAR_REGISTRO..."
-                        class="block w-full pl-8 pr-3 py-3 bg-[#0c121e] border border-white/10 text-white font-mono text-[15px] focus:outline-none focus:border-[#00f2ff]/50 transition-colors placeholder:text-gray-300"
+                        placeholder="Buscar artículos..."
+                        class="block w-full px-4 py-3 bg-section-dark border border-white/10 text-white text-sm rounded-lg focus:outline-none focus:border-accent/50 transition-colors placeholder:text-muted"
                     />
                 </div>
 
@@ -137,13 +134,13 @@ setSchema({
                         :key="category.id"
                         @click="setCategory(category.id)"
                         :class="[
-                            'px-4 py-2 text-[15px] font-mono tracking-widest transition-all duration-300 border uppercase',
+                            'px-4 py-2 text-xs font-semibold tracking-wider transition-all duration-300 rounded-full border',
                             selectedCategory === category.id
-                                ? 'bg-[#00f2ff]/10 border-[#00f2ff] text-[#00f2ff] shadow-[0_0_10px_rgba(0,242,255,0.2)]'
-                                : 'bg-[#0c121e] border-white/10 text-gray-300 hover:border-[#00f2ff]/50 hover:text-gray-300'
+                                ? 'bg-accent/10 border-accent text-accent'
+                                : 'bg-section-dark border-white/10 text-muted hover:border-accent/50 hover:text-white'
                         ]"
                     >
-                        {{ category.name }} [{{ category.count }}]
+                        {{ category.name }} ({{ category.count }})
                     </button>
                 </div>
             </div>
@@ -151,64 +148,54 @@ setSchema({
     </section>
 
     <!-- Featured Article -->
-    <section v-if="featuredPost && selectedCategory === 'all' && !searchQuery" class="py-16 bg-[#0a0e17] relative z-10">
+    <section v-if="featuredPost && selectedCategory === 'all' && !searchQuery" class="py-16 bg-section-dark relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-10 flex items-center gap-4">
-                <span class="text-[#00f2ff] font-mono text-[14px] uppercase">> ENTRY_DESTACADO</span>
-                <div class="flex-grow h-[1px] bg-gradient-to-r from-[#00f2ff]/30 to-transparent"></div>
+            <div class="mb-10">
+                <h2 class="text-xl font-bold text-white tracking-widest font-sans">
+                    Artículo Destacado
+                </h2>
             </div>
 
-            <div class="bg-[#0c121e] border border-white/5 relative group overflow-hidden shadow-2xl">
-                <div class="absolute top-0 left-0 w-[2px] h-full bg-gradient-to-b from-[#00f2ff] to-transparent"></div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center p-8 lg:p-12">
-                    <div class="order-2 lg:order-1 relative z-10">
-                        <div class="flex items-center gap-4 mb-4">
-                            <span class="border border-[#00f2ff]/30 bg-[#00f2ff]/10 text-[#00f2ff] px-2 py-1 text-[14px] font-mono tracking-widest">
-                                ROOT_ACCESS
-                            </span>
-                            <span class="text-gray-300 font-mono text-[14px] uppercase">{{ formatDate(featuredPost.published_at || featuredPost.created_at) }}</span>
-                        </div>
-                        <h3 class="text-3xl lg:text-4xl font-bold font-sans text-white mb-4 leading-tight">{{ featuredPost.title }}</h3>
-                        <p class="text-gray-300 font-mono text-[15px] mb-8 leading-relaxed">{{ featuredPost.excerpt }}</p>
-                        <div class="flex items-center justify-between border-t border-white/5 pt-6">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 border border-white/10 flex items-center justify-center bg-black">
-                                    <span class="text-white font-mono text-[14px]">{{ featuredPost.user?.name ? featuredPost.user.name.split(' ').map(n => n[0]).join('') : 'SYS' }}</span>
-                                </div>
-                                <div>
-                                    <p class="font-mono text-[15px] text-gray-300 uppercase">{{ featuredPost.user?.name || 'SYS_ADMIN' }}</p>
-                                    <p class="text-gray-300 font-mono text-[15px] uppercase">{{ featuredPost.reading_time || '5 MIN' }}</p>
-                                </div>
+            <div class="card-border bg-section-surface relative group overflow-hidden shadow-2xl flex flex-col lg:flex-row">
+                <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="text-xs font-semibold text-accent uppercase tracking-wider">
+                            {{ featuredPost.category?.name || 'Destacado' }}
+                        </span>
+                        <span class="text-xs text-muted">{{ formatDate(featuredPost.published_at || featuredPost.created_at) }}</span>
+                    </div>
+                    <h3 class="card-title text-3xl lg:text-4xl mb-4">{{ featuredPost.title }}</h3>
+                    <p class="card-text text-sm mb-8">{{ featuredPost.excerpt }}</p>
+                    
+                    <div class="flex items-center justify-between border-t border-white/5 pt-6 mt-auto">
+                        <div class="flex items-center gap-3">
+                            <div>
+                                <p class="text-xs font-semibold text-white uppercase">{{ featuredPost.user?.name || 'SysifosWeb' }}</p>
+                                <p class="text-xs text-muted">{{ featuredPost.reading_time || '5 min de lectura' }}</p>
                             </div>
-                            <a :href="getPostUrl(featuredPost)" class="text-[#00f2ff] font-mono text-[15px] uppercase tracking-widest hover:text-white transition-colors flex items-center gap-2">
-                                LEER_REGISTRO >
-                            </a>
                         </div>
+                        <a :href="getPostUrl(featuredPost)" class="cta-ghost text-xs">
+                            Leer Artículo
+                        </a>
                     </div>
-                    <div class="order-1 lg:order-2 relative h-full min-h-[300px]">
-                        <img :src="getImageUrl(featuredPost)" :alt="featuredPost.title" class="absolute inset-0 w-full h-full object-cover filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" />
-                        <div class="absolute inset-0 ring-1 ring-inset ring-white/10 pointer-events-none"></div>
-                        <div class="absolute inset-0 bg-gradient-to-r from-[#0c121e] via-transparent to-transparent lg:block hidden"></div>
-                        <div class="absolute top-4 right-4">
-                            <span v-if="featuredPost.category" class="bg-[#0c121e]/80 border border-white/10 text-gray-300 px-2 py-1 text-[15px] font-mono uppercase backdrop-blur-md">
-                                {{ featuredPost.category.name }}
-                            </span>
-                        </div>
-                    </div>
+                </div>
+                <div class="lg:w-1/2 relative min-h-[300px]">
+                    <img :src="getImageUrl(featuredPost)" :alt="featuredPost.title" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                    <div class="absolute inset-0 bg-gradient-to-r from-section-surface via-transparent to-transparent lg:block hidden"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Articles Grid -->
-    <section class="py-16 bg-[#0a0e17] relative z-10">
+    <section class="py-16 bg-section-dark relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-12 border-b border-white/5 pb-4">
-                <h2 class="text-xl font-bold text-white uppercase tracking-widest font-sans">
-                    {{ selectedCategory === 'all' ? 'Logs Recientes' : allCategories.find(c => c.id === selectedCategory)?.name }}
+                <h2 class="text-xl font-bold text-white tracking-widest font-sans">
+                    {{ selectedCategory === 'all' ? 'Últimos Artículos' : allCategories.find(c => c.id === selectedCategory)?.name }}
                 </h2>
-                <p class="text-[#00f2ff] font-mono text-[14px] uppercase">
-                    [{{ filteredPosts.length }}] REGISTROS
+                <p class="text-xs font-semibold text-accent">
+                    {{ filteredPosts.length }} artículos
                 </p>
             </div>
 
@@ -217,33 +204,31 @@ setSchema({
                 <article
                     v-for="post in filteredPosts"
                     :key="post.id"
-                    class="bg-[#0c121e] border border-white/5 overflow-hidden hover:border-[#00f2ff]/30 hover:shadow-[0_0_20px_rgba(0,242,255,0.1)] transition-all duration-500 group flex flex-col h-full"
+                    class="card-border bg-section-surface hover:border-accent/30 transition-all duration-300 group flex flex-col h-full overflow-hidden"
                 >
                     <div class="relative h-48 bg-black overflow-hidden border-b border-white/5">
-                        <img :src="getImageUrl(post)" :alt="post.title" class="w-full h-full object-cover filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
-                        <div class="absolute top-2 left-2 z-10">
-                            <span class="bg-[#0c121e]/80 border border-[#00f2ff]/20 text-[#00f2ff] px-2 py-1 text-[15px] font-mono uppercase backdrop-blur-sm">
-                                {{ post.category?.name || 'GENERAL' }}
+                        <img :src="getImageUrl(post)" :alt="post.title" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-700" />
+                        <div class="absolute top-4 left-4 z-10">
+                            <span class="bg-section-dark/80 border border-white/10 text-white px-2 py-1 text-xs font-semibold rounded-md backdrop-blur-sm">
+                                {{ post.category?.name || 'General' }}
                             </span>
                         </div>
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
-                        <div class="flex items-center gap-2 text-[14px] font-mono text-gray-300 mb-4 uppercase">
+                        <div class="flex items-center gap-2 text-xs text-muted mb-4">
                             <span>{{ formatDate(post.published_at || post.created_at) }}</span>
-                            <span class="text-[#00f2ff]">//</span>
-                            <span>{{ post.reading_time || '5 MIN' }}</span>
+                            <span class="text-accent">•</span>
+                            <span>{{ post.reading_time || '5 min de lectura' }}</span>
                         </div>
-                        <h3 class="text-lg font-bold font-sans text-white mb-3 group-hover:text-[#00f2ff] transition-colors duration-200">
+                        <h3 class="card-title text-lg mb-3 group-hover:text-accent transition-colors duration-200">
                             <a :href="getPostUrl(post)">{{ post.title }}</a>
                         </h3>
-                        <p class="text-gray-300 font-mono text-[14px] mb-6 flex-grow leading-relaxed line-clamp-3">{{ post.excerpt }}</p>
+                        <p class="card-text text-sm mb-6 flex-grow line-clamp-3">{{ post.excerpt }}</p>
                         
                         <div class="flex items-center justify-between mt-auto border-t border-white/5 pt-4">
-                            <div class="flex items-center gap-2">
-                                <span class="text-[15px] text-gray-300 font-mono uppercase">{{ post.user?.name || 'SYS_ADMIN' }}</span>
-                            </div>
-                            <a :href="getPostUrl(post)" class="text-[#00f2ff] font-mono text-[14px] uppercase hover:text-white transition-colors flex items-center gap-1">
-                                LEER >
+                            <span class="text-xs font-semibold text-white uppercase">{{ post.user?.name || 'SysifosWeb' }}</span>
+                            <a :href="getPostUrl(post)" class="text-accent text-xs font-semibold hover:text-white transition-colors">
+                                Leer artículo
                             </a>
                         </div>
                     </div>
@@ -251,10 +236,10 @@ setSchema({
             </div>
 
             <!-- No Results -->
-            <div v-else class="text-center py-20 border border-dashed border-white/10 bg-[#0c121e]/50">
-                <span class="text-[#00f2ff] font-mono text-4xl mb-4 block">!</span>
-                <h3 class="text-[14px] font-mono text-gray-300 mb-2 uppercase tracking-widest">ERR: NO_RECORDS_FOUND</h3>
-                <p class="text-gray-300 font-mono text-[15px]">Ajusta los parámetros de búsqueda o cambia la categoría.</p>
+            <div v-else class="text-center py-20 card-border bg-section-surface">
+                <span class="text-accent text-4xl mb-4 block">!</span>
+                <h3 class="text-lg font-semibold text-white mb-2">No se encontraron artículos</h3>
+                <p class="text-sm text-muted">Ajusta los parámetros de búsqueda o cambia la categoría.</p>
             </div>
 
             <!-- Pagination Laravel -->
@@ -266,16 +251,16 @@ setSchema({
                             :href="link.url"
                             v-html="link.label"
                             :class="[
-                                'px-3 py-2 text-[15px] font-mono transition-colors duration-200 border uppercase',
+                                'px-3 py-2 text-sm rounded-md transition-colors duration-200 border',
                                 link.active
-                                    ? 'bg-[#00f2ff]/10 border-[#00f2ff] text-[#00f2ff]'
-                                    : 'bg-[#0c121e] border-white/10 text-gray-300 hover:border-[#00f2ff]/50 hover:text-gray-300'
+                                    ? 'bg-accent/10 border-accent text-accent'
+                                    : 'bg-section-dark border-white/10 text-muted hover:border-accent/50 hover:text-white'
                             ]"
                         ></a>
                         <span
                             v-else
                             v-html="link.label"
-                            class="px-3 py-2 text-[15px] font-mono text-gray-300 border border-white/5 bg-[#0a0e17] cursor-not-allowed uppercase"
+                            class="px-3 py-2 text-sm text-muted border border-white/5 bg-section-dark cursor-not-allowed rounded-md"
                         ></span>
                     </template>
                 </nav>
