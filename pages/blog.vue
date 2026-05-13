@@ -156,7 +156,7 @@ setSchema({
                 </h2>
             </div>
 
-            <div class="card-border bg-section-surface relative group overflow-hidden shadow-2xl flex flex-col lg:flex-row">
+            <div class="card-border bg-section-surface relative group overflow-hidden shadow-2xl flex flex-col lg:flex-row" v-reveal data-delay="100">
                 <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
                     <div class="flex items-center gap-4 mb-4">
                         <span class="text-xs font-semibold text-accent uppercase tracking-wider">
@@ -202,8 +202,9 @@ setSchema({
             <!-- Articles Grid -->
             <div v-if="filteredPosts.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 <article
-                    v-for="post in filteredPosts"
+                    v-for="(post, index) in filteredPosts"
                     :key="post.id"
+                    v-reveal :data-delay="index * 150"
                     class="card-border bg-section-surface hover:border-accent/30 transition-all duration-300 group flex flex-col h-full overflow-hidden"
                 >
                     <div class="relative h-48 bg-black overflow-hidden border-b border-white/5">

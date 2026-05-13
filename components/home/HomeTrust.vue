@@ -7,8 +7,8 @@
         
         <!-- Bloque de Texto Izquierda -->
         <div class="w-full lg:w-[380px] shrink-0 mb-12 lg:mb-0">
-          <p class="section-eyebrow section-eyebrow--purple mb-4">Stack tecnológico</p>
-          <div class="flex flex-col leading-tight">
+          <p class="section-eyebrow section-eyebrow--purple mb-4" v-reveal data-delay="0">Stack tecnológico</p>
+          <div class="flex flex-col leading-tight" v-reveal data-delay="100">
             <span class="text-3xl lg:text-4xl font-bold" style="color: var(--text-main); letter-spacing: -0.025em; font-family: 'Inter', sans-serif;">Tecnología de</span>
             <span class="text-3xl lg:text-4xl font-bold" style="color: var(--accent); letter-spacing: -0.025em; font-family: 'Inter', sans-serif;">vanguardia.</span>
             <p class="mt-4 text-sm leading-relaxed max-w-[280px]" style="color: var(--text-secondary);">Construimos con las herramientas que usan las mejores empresas del mundo.</p>
@@ -16,7 +16,7 @@
         </div>
 
         <!-- Carrusel Infinito (Estilo Marquee Maravilloso) -->
-        <div ref="carouselContainer" class="relative flex-grow overflow-hidden py-32">
+        <div ref="carouselContainer" class="relative flex-grow overflow-hidden py-32" v-reveal data-delay="200">
           <!-- El contenedor track debe tener ancho max-content para no colapsar y evitar saltos -->
           <div class="flex flex-nowrap w-max animate-slow-marquee hover:[animation-play-state:paused]" ref="carouselTrack">
             <!-- Dos sets idénticos son suficientes para un desplazamiento del -50% -->

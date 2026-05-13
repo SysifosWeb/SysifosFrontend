@@ -11,11 +11,11 @@
 
       <!-- Header -->
       <div class="text-center mb-12">
-        <div class="eyebrow-badge mx-auto mb-6">
+        <div class="eyebrow-badge mx-auto mb-6" v-reveal data-delay="0">
           <span class="eyebrow-badge__dot"></span>
           <span class="eyebrow-badge__text">El problema que frena tu crecimiento</span>
         </div>
-        <h2 class="section-title problems-title">
+        <h2 class="section-title problems-title" v-reveal data-delay="100">
           Tu negocio merece más que<br class="hidden md:block"/> un sitio web genérico.
         </h2>
       </div>
@@ -23,6 +23,7 @@
       <!-- Pain Point Cards -->
       <div class="flex flex-col gap-4">
         <div v-for="(pain, index) in pains" :key="pain.id"
+             v-reveal :data-delay="index * 150"
              class="pain-card group relative flex flex-col md:flex-row items-start md:items-center gap-6 bg-section-surface card-border">
 
           <!-- Número -->
@@ -54,7 +55,7 @@
       </div>
 
       <!-- CTA inferior -->
-      <div class="mt-12 text-center">
+      <div class="mt-12 text-center" v-reveal data-delay="400">
         <p class="card-text mb-5">¿Te identificas con alguno de estos problemas?</p>
         <NuxtLink to="/contacto" class="cta-ghost">
           Hablemos de tu proyecto

@@ -18,15 +18,15 @@
     </div>
 
     <div class="max-w-[1400px] w-[92%] mx-auto relative z-10 text-center">
-      <p class="text-sm font-medium mb-4" style="color: var(--text-muted);">Empieza hoy</p>
-      <h2 class="text-3xl md:text-5xl font-bold leading-tight max-w-3xl mx-auto mb-6" style="color: var(--text-main); letter-spacing: -0.025em;">
+      <p class="text-sm font-medium mb-4" style="color: var(--text-muted);" v-reveal data-delay="0">Empieza hoy</p>
+      <h2 class="text-3xl md:text-5xl font-bold leading-tight max-w-3xl mx-auto mb-6" style="color: var(--text-main); letter-spacing: -0.025em;" v-reveal data-delay="100">
         ¿Listo para hacer crecer<br class="hidden md:block"/> tu negocio?
       </h2>
-      <p class="text-lg mb-12 max-w-xl mx-auto" style="color: var(--text-secondary);">
+      <p class="text-lg mb-12 max-w-xl mx-auto" style="color: var(--text-secondary);" v-reveal data-delay="200">
         Agenda una llamada de 30 minutos sin costo. Te escuchamos y te decimos honestamente cómo podemos ayudarte.
       </p>
 
-      <div class="flex flex-col items-center gap-5">
+      <div class="flex flex-col items-center gap-5" v-reveal data-delay="300">
         <NuxtLink to="/contacto" 
                   class="inline-flex items-center gap-2 px-10 py-4 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
                   style="background: var(--accent); color: #0b0f1c; box-shadow: 0 0 24px rgba(56,189,248,0.2);">

@@ -59,11 +59,11 @@ const projects = [
         
         <!-- Encabezado de Proyecto -->
         <div class="mb-12 lg:mb-16 flex flex-col items-start relative">
-            <div class="flex items-center gap-3 mb-3 text-xs font-semibold uppercase tracking-widest text-muted">
+            <div class="flex items-center gap-3 mb-3 text-xs font-semibold uppercase tracking-widest text-muted" v-reveal data-delay="0">
                 <span class="w-6 h-[1px] bg-muted/50"></span>
                 PROYECTO {{ project.id }}
             </div>
-            <h2 class="section-title text-4xl md:text-5xl lg:text-6xl">
+            <h2 class="section-title text-4xl md:text-5xl lg:text-6xl" v-reveal data-delay="100">
               {{ project.title.split(' ')[0] }} <span class="text-purple">{{ project.title.split(' ').slice(1).join(' ') }}</span>
             </h2>
         </div>
@@ -74,7 +74,7 @@ const projects = [
             <div class="lg:col-span-5 flex flex-col gap-6" :class="index % 2 !== 0 ? 'lg:order-2' : ''">
                 
                 <!-- Desafío Module -->
-                <div class="card-border bg-section-surface p-8 flex flex-col group transition-colors hover:border-purple/20">
+                <div class="card-border bg-section-surface p-8 flex flex-col group transition-colors hover:border-purple/20" v-reveal data-delay="200">
                     <h3 class="text-xs font-semibold uppercase tracking-widest mb-4 flex items-center gap-2 text-muted">
                         <Database class="w-4 h-4 text-purple" /> DESAFÍO TÉCNICO
                     </h3>
@@ -84,7 +84,7 @@ const projects = [
                 </div>
 
                 <!-- Solución Module -->
-                <div class="card-border bg-section-surface p-8 flex flex-col group transition-colors hover:border-purple/20">
+                <div class="card-border bg-section-surface p-8 flex flex-col group transition-colors hover:border-purple/20" v-reveal data-delay="300">
                     <h3 class="text-xs font-semibold uppercase tracking-widest mb-4 flex items-center gap-2 text-muted">
                         <Cpu class="w-4 h-4 text-purple" /> SOLUCIÓN INGENIERÍA
                     </h3>
@@ -94,7 +94,7 @@ const projects = [
                 </div>
 
                 <!-- Stats Matrix -->
-                <div class="grid grid-cols-3 gap-4 mt-2">
+                <div class="grid grid-cols-3 gap-4 mt-2" v-reveal data-delay="400">
                     <div v-for="stat in project.stats" :key="stat.label" class="card-border bg-section-surface p-5 flex flex-col items-center justify-center text-center">
                         <div class="text-2xl font-bold text-white mb-1">{{ stat.value.replace('%', '').replace('+', '') }}<span class="text-purple">{{ stat.value.includes('%') ? '%' : stat.value.includes('+') ? '+' : '' }}</span></div>
                         <div class="text-[10px] font-semibold text-muted uppercase tracking-wider">{{ stat.label }}</div>
@@ -102,7 +102,7 @@ const projects = [
                 </div>
                 
                 <!-- CTA -->
-                <div class="mt-4">
+                <div class="mt-4" v-reveal data-delay="500">
                     <a :href="project.link" target="_blank" class="cta-ghost w-full justify-center py-4 border border-white/10 hover:border-white/20">
                         Ver Detalles <ExternalLink class="w-4 h-4" />
                     </a>
@@ -110,7 +110,7 @@ const projects = [
             </div>
 
             <!-- PROYECCIÓN VISUAL (Derecha o Izquierda dependiendo de index) -->
-            <div class="lg:col-span-7 relative group flex flex-col" :class="index % 2 !== 0 ? 'lg:order-1' : ''">
+            <div class="lg:col-span-7 relative group flex flex-col" :class="index % 2 !== 0 ? 'lg:order-1' : ''" v-reveal data-delay="300">
                 
                 <!-- Main Visual -->
                 <div class="relative overflow-hidden h-full min-h-[400px] rounded-2xl border border-white/10 shadow-xl bg-section-surface">

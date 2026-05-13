@@ -107,7 +107,7 @@ const submitForm = async (event) => {
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
         
         <!-- Contenedor del Formulario -->
-        <div class="card-elevated p-8 lg:p-12 relative flex flex-col">
+        <div class="card-elevated p-8 lg:p-12 relative flex flex-col" v-reveal data-delay="0">
           <div class="mb-10">
             <h2 class="card-title text-3xl mb-3">
               Déjanos un mensaje.
@@ -157,7 +157,7 @@ const submitForm = async (event) => {
 
         <!-- Info Section -->
         <div class="flex flex-col gap-8">
-            <div class="card-border bg-section-dark p-8 lg:p-12 relative flex flex-col justify-center h-full">
+            <div class="card-border bg-section-dark p-8 lg:p-12 relative flex flex-col justify-center h-full" v-reveal data-delay="150">
                 <h3 class="card-title text-xl mb-8">Información de Contacto</h3>
                 
                 <div class="space-y-8">
@@ -204,7 +204,7 @@ const submitForm = async (event) => {
             </div>
 
             <!-- WhatsApp CTA -->
-            <a href="https://wa.me/56949109970" target="_blank" class="card-border bg-[#111827] border-green-500/30 p-8 hover:bg-green-500/10 hover:border-green-500/50 transition-all flex items-center justify-between group shadow-xl">
+            <a href="https://wa.me/56949109970" target="_blank" class="card-border bg-[#111827] border-green-500/30 p-8 hover:bg-green-500/10 hover:border-green-500/50 transition-all flex items-center justify-between group shadow-xl" v-reveal data-delay="300">
                 <div>
                     <h4 class="text-white font-semibold mb-1 flex items-center gap-2">
                         <MessageSquare class="w-5 h-5 text-green-500" /> WhatsApp

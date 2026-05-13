@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-    <header class="secondary-header-container bg-section-dark relative overflow-hidden flex items-center border-b border-white/5">
+    <header class="secondary-header-container bg-section-dark relative overflow-hidden flex items-center">
         
         <!-- Gradientes premium sutiles -->
         <div class="absolute inset-0 pointer-events-none z-0">

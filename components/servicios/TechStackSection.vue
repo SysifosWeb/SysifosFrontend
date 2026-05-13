@@ -2,85 +2,86 @@
 </script>
 
 <template>
-  <section class="relative bg-section-surface py-20 lg:py-28 overflow-hidden border-b border-white/5">
+  <section class="relative bg-section-dark py-12 lg:py-20 overflow-hidden">
     
     <!-- Glows -->
     <div class="section-glow-cyan glow-center"></div>
 
-    <div class="section-container relative z-20 text-center mb-16 flex flex-col items-center">
-        <div class="eyebrow-badge mx-auto mb-6">
+    <div class="section-container relative z-20 text-center mb-20 flex flex-col items-center">
+        <div class="eyebrow-badge mx-auto mb-6" v-reveal data-delay="0">
           <span class="eyebrow-badge__dot"></span>
-          <span class="eyebrow-badge__text">Tech Stack</span>
+          <span class="eyebrow-badge__text">Infraestructura Tecnológica</span>
         </div>
-        <h2 class="section-title text-3xl md:text-5xl mb-4">
-          Arsenal <span class="text-accent">Tecnológico.</span>
+        <h2 class="section-title text-3xl md:text-5xl mb-2" v-reveal data-delay="100">
+          Tecnología orientada a <span class="text-accent">Resultados.</span>
         </h2>
+        <p class="text-white/60 text-lg max-w-2xl mt-6" v-reveal data-delay="200">
+          Elegimos nuestro stack tecnológico no por estar a la moda, sino porque garantizan el rendimiento, seguridad y escala que tu empresa requiere.
+        </p>
     </div>
 
     <div class="section-container grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 relative z-10">
         
-        <!-- Frontend -->
+        <!-- Rendimiento & Frontend -->
         <div>
             <h3 class="text-sm uppercase tracking-widest mb-6 flex items-center gap-3 font-semibold text-main">
-                <span class="w-1.5 h-1.5 rounded-full bg-accent"></span> FRONTEND
+                <span class="w-1.5 h-1.5 rounded-full bg-accent"></span> EXPERIENCIA & VELOCIDAD
             </h3>
             <div class="space-y-4">
-                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-accent/30 transition-colors">
-                    <span class="card-title text-sm m-0">Vue.js / Nuxt</span>
-                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full rounded-full bg-accent w-[95%]"></div>
+                <div class="card-border bg-white/[0.02] border border-white/5 p-6 flex flex-col gap-2 group hover:border-accent/30 transition-colors" v-reveal data-delay="0">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="card-title text-base m-0 font-bold text-white">Velocidad Extrema & Mejor SEO</span>
+                        <span class="text-[10px] font-bold tracking-widest text-accent uppercase bg-accent/10 border border-accent/20 px-2 py-1 rounded">VUE / NUXT</span>
                     </div>
+                    <p class="text-sm text-white/50">Tiempos de carga casi instantáneos que reducen la tasa de rebote y te posicionan más alto en Google.</p>
                 </div>
-                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-accent/30 transition-colors">
-                    <span class="card-title text-sm m-0">React / Next.js</span>
-                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full rounded-full bg-accent w-[85%]"></div>
+                
+                <div class="card-border bg-white/[0.02] border border-white/5 p-6 flex flex-col gap-2 group hover:border-accent/30 transition-colors" v-reveal data-delay="100">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="card-title text-base m-0 font-bold text-white">Interfaces Inmersivas</span>
+                        <span class="text-[10px] font-bold tracking-widest text-accent uppercase bg-accent/10 border border-accent/20 px-2 py-1 rounded">REACT / NEXT.JS</span>
                     </div>
+                    <p class="text-sm text-white/50">Desarrollo de aplicaciones fluidas, reactivas y modernas que aumentan la retención del usuario.</p>
                 </div>
-                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-accent/30 transition-colors">
-                    <span class="card-title text-sm m-0">TypeScript</span>
-                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full rounded-full bg-accent w-[90%]"></div>
+
+                <div class="card-border bg-white/[0.02] border border-white/5 p-6 flex flex-col gap-2 group hover:border-accent/30 transition-colors" v-reveal data-delay="200">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="card-title text-base m-0 font-bold text-white">Diseño Pixel-Perfect</span>
+                        <span class="text-[10px] font-bold tracking-widest text-accent uppercase bg-accent/10 border border-accent/20 px-2 py-1 rounded">TAILWINDCSS</span>
                     </div>
-                </div>
-                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-accent/30 transition-colors">
-                    <span class="card-title text-sm m-0">TailwindCSS</span>
-                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full rounded-full bg-accent w-[98%]"></div>
-                    </div>
+                    <p class="text-sm text-white/50">Estética hiper-personalizada sin plantillas, garantizando que tu marca se vea única y premium en cualquier pantalla.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Backend -->
+        <!-- Arquitectura & Backend -->
         <div>
             <h3 class="text-sm uppercase tracking-widest mb-6 flex items-center gap-3 font-semibold text-main">
-                <span class="w-1.5 h-1.5 rounded-full bg-purple"></span> BACKEND
+                <span class="w-1.5 h-1.5 rounded-full bg-purple"></span> ESTABILIDAD & ESCALA
             </h3>
             <div class="space-y-4">
-                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-purple/30 transition-colors">
-                    <span class="card-title text-sm m-0">Laravel / PHP</span>
-                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full rounded-full bg-purple w-[95%]"></div>
+                <div class="card-border bg-white/[0.02] border border-white/5 p-6 flex flex-col gap-2 group hover:border-purple/30 transition-colors" v-reveal data-delay="0">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="card-title text-base m-0 font-bold text-white">Arquitectura Escalable</span>
+                        <span class="text-[10px] font-bold tracking-widest text-purple uppercase bg-purple/10 border border-purple/20 px-2 py-1 rounded">LARAVEL / NODE</span>
                     </div>
+                    <p class="text-sm text-white/50">Motores de negocio construidos para soportar miles de transacciones concurrentes sin caerse.</p>
                 </div>
-                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-purple/30 transition-colors">
-                    <span class="card-title text-sm m-0">Node.js</span>
-                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full rounded-full bg-purple w-[80%]"></div>
+
+                <div class="card-border bg-white/[0.02] border border-white/5 p-6 flex flex-col gap-2 group hover:border-purple/30 transition-colors" v-reveal data-delay="100">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="card-title text-base m-0 font-bold text-white">Seguridad de Datos</span>
+                        <span class="text-[10px] font-bold tracking-widest text-purple uppercase bg-purple/10 border border-purple/20 px-2 py-1 rounded">POSTGRESQL</span>
                     </div>
+                    <p class="text-sm text-white/50">Bases de datos estructuradas con encriptación de nivel bancario para proteger tu información más valiosa.</p>
                 </div>
-                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-purple/30 transition-colors">
-                    <span class="card-title text-sm m-0">PostgreSQL / MySQL</span>
-                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full rounded-full bg-purple w-[90%]"></div>
+
+                <div class="card-border bg-white/[0.02] border border-white/5 p-6 flex flex-col gap-2 group hover:border-purple/30 transition-colors" v-reveal data-delay="200">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="card-title text-base m-0 font-bold text-white">Estabilidad a Largo Plazo</span>
+                        <span class="text-[10px] font-bold tracking-widest text-purple uppercase bg-purple/10 border border-purple/20 px-2 py-1 rounded">TYPESCRIPT</span>
                     </div>
-                </div>
-                <div class="card-border bg-section-dark p-5 flex justify-between items-center group hover:border-purple/30 transition-colors">
-                    <span class="card-title text-sm m-0">REST API / GraphQL</span>
-                    <div class="w-32 lg:w-48 h-[3px] rounded-full bg-white/5 relative overflow-hidden">
-                        <div class="absolute top-0 left-0 h-full rounded-full bg-purple w-[85%]"></div>
-                    </div>
+                    <p class="text-sm text-white/50">Código altamente tipado que previene errores críticos antes de que lleguen a producción, garantizando disponibilidad 24/7.</p>
                 </div>
             </div>
         </div>

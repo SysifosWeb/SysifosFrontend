@@ -8,11 +8,11 @@
 
       <!-- Header -->
       <div class="mb-12 max-w-xl">
-        <div class="eyebrow-badge mx-auto mb-6">
+        <div class="eyebrow-badge mx-auto mb-6" v-reveal data-delay="0">
           <span class="eyebrow-badge__dot"></span>
           <span class="eyebrow-badge__text">Lo que podemos hacer por ti</span>
         </div>
-        <h2 class="section-title text-3xl md:text-4xl">
+        <h2 class="section-title text-3xl md:text-4xl" v-reveal data-delay="100">
           Soluciones digitales que impulsan tu negocio.
         </h2>
       </div>
@@ -20,6 +20,7 @@
       <!-- Grid de Servicios -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div v-for="(service, index) in services" :key="index"
+             v-reveal :data-delay="index * 150"
              class="service-card group relative flex flex-col p-8 rounded-2xl cursor-default bg-section-surface"
              :class="`service-card--${service.variant}`">
 
@@ -57,7 +58,7 @@
       </div>
 
       <!-- CTA final -->
-      <div class="mt-10 flex justify-end">
+      <div class="mt-10 flex justify-end" v-reveal data-delay="300">
         <NuxtLink to="/servicios" class="cta-ghost">
           Ver todos los servicios
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

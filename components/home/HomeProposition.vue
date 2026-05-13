@@ -9,7 +9,7 @@
 
       <!-- Stats superiores -->
       <div class="stats-grid">
-        <div v-for="stat in stats" :key="stat.label" class="text-center md:text-left">
+        <div v-for="(stat, index) in stats" :key="stat.label" class="text-center md:text-left" v-reveal :data-delay="index * 150">
           <div class="stat-number">{{ stat.number }}</div>
           <p class="card-text">{{ stat.label }}</p>
         </div>
@@ -20,16 +20,16 @@
 
         <!-- Izquierda: Claim -->
         <div>
-          <p class="section-eyebrow section-eyebrow--purple mb-4">Nuestra propuesta de valor</p>
-          <h2 class="section-title proposition-title mb-6">
+          <p class="section-eyebrow section-eyebrow--purple mb-4" v-reveal data-delay="0">Nuestra propuesta de valor</p>
+          <h2 class="section-title proposition-title mb-6" v-reveal data-delay="100">
             No construimos páginas web.<br/>
             <span class="text-accent">Construimos motores de crecimiento</span> digital para tu empresa.
           </h2>
-          <p class="section-subtitle mb-10">
+          <p class="section-subtitle mb-10" v-reveal data-delay="200">
             Cada proyecto que entregamos está diseñado para generar resultados medibles:
             más visitas, más conversiones y más ventas.
           </p>
-          <NuxtLink to="/contacto" class="cta-primary-btn">
+          <NuxtLink to="/contacto" class="cta-primary-btn" v-reveal data-delay="300">
             Agenda una asesoría gratuita
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -39,7 +39,8 @@
 
         <!-- Derecha: Diferenciadores -->
         <div class="flex flex-col gap-4">
-          <div v-for="diff in differentiators" :key="diff.title"
+          <div v-for="(diff, index) in differentiators" :key="diff.title"
+               v-reveal :data-delay="index * 150"
                class="diff-card flex items-start gap-5">
             <div class="diff-icon">{{ diff.icon }}</div>
             <div>

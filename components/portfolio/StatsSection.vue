@@ -16,7 +16,7 @@ const stats = [
     <div class="section-container relative z-10">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <div v-for="stat in stats" :key="stat.label" class="card-border bg-section-dark p-10 flex flex-col items-center text-center relative group transition-colors hover:border-accent/30">
+        <div v-for="(stat, index) in stats" :key="stat.label" class="card-border bg-section-dark p-10 flex flex-col items-center text-center relative group transition-colors hover:border-accent/30" v-reveal :data-delay="index * 150">
           
           <div class="w-16 h-16 rounded-xl bg-section-surface border border-white/10 flex items-center justify-center mb-6 transition-all group-hover:bg-accent/10 group-hover:border-accent/30">
             <component :is="stat.icon" class="w-8 h-8 text-accent opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" />

@@ -9,17 +9,17 @@
     
     <div class="section-container relative z-20 text-center flex flex-col items-center">
         
-        <div class="eyebrow-badge mx-auto mb-6">
+        <div class="eyebrow-badge mx-auto mb-6" v-reveal data-delay="0">
           <span class="eyebrow-badge__dot"></span>
           <span class="eyebrow-badge__text">Historial de Ejecución</span>
         </div>
 
-        <h1 class="section-title text-5xl md:text-6xl lg:text-7xl mb-8 leading-tight">
+        <h1 class="section-title text-5xl md:text-6xl lg:text-7xl mb-8 leading-tight" v-reveal data-delay="100">
           Casos de <br class="md:hidden"/>
           <span class="text-accent">Éxito.</span>
         </h1>
 
-        <div class="relative max-w-xl mx-auto">
+        <div class="relative max-w-xl mx-auto" v-reveal data-delay="200">
             <p class="section-subtitle">
                 Explora nuestra matriz de soluciones implementadas. Cada proyecto representa un hito en ingeniería de software y arquitectura escalable, diseñado para generar resultados reales.
             </p>

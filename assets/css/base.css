@@ -52,3 +52,34 @@
   --text-medium:          var(--text-secondary);
   --text-dark:            #020617;
 }
+
+/* ============================================
+   Cinematic Reveal System (v-reveal)
+   Física pesada y premium (ease lento)
+============================================ */
+
+/* Base state (Hidden & Translated) */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(30px);
+  /* Curva cubic-bezier para un "landing" lento y elegante */
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* Modifier: Slide Right */
+.reveal-right {
+  transform: translateX(-30px);
+}
+
+/* Modifier: Scale Up */
+.reveal-scale {
+  transform: scale(0.95);
+}
+
+/* Revealed State */
+.reveal-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}

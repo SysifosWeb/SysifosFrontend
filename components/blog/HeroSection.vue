@@ -7,17 +7,17 @@
     <div class="section-glow-purple glow-center"></div>
     
     <div class="section-container relative z-20 text-center flex flex-col items-center">
-        <div class="eyebrow-badge mx-auto mb-6">
+        <div class="eyebrow-badge mx-auto mb-6" v-reveal data-delay="0">
           <span class="eyebrow-badge__dot"></span>
           <span class="eyebrow-badge__text">Base de Conocimiento</span>
         </div>
         
-        <h1 class="section-title text-5xl md:text-6xl lg:text-7xl mb-8 leading-tight">
+        <h1 class="section-title text-5xl md:text-6xl lg:text-7xl mb-8 leading-tight" v-reveal data-delay="100">
           Nuestro <br class="md:hidden"/>
           <span class="text-accent">Blog.</span>
         </h1>
         
-        <div class="relative max-w-xl mx-auto">
+        <div class="relative max-w-xl mx-auto" v-reveal data-delay="200">
             <p class="section-subtitle">
                 Artículos, tutoriales y novedades técnicas sobre desarrollo web, arquitectura de software y escalabilidad digital.
             </p>

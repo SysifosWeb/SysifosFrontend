@@ -4,8 +4,8 @@
 
       <!-- Header centrado -->
       <div class="section-header text-center mb-16">
-        <p class="section-eyebrow section-eyebrow--purple mb-4">Así trabajamos juntos</p>
-        <h2 class="section-title text-3xl md:text-4xl">
+        <p class="section-eyebrow section-eyebrow--purple mb-4" v-reveal data-delay="0">Así trabajamos juntos</p>
+        <h2 class="section-title text-3xl md:text-4xl" v-reveal data-delay="100">
           Empezar es más fácil de lo que crees.
         </h2>
       </div>
@@ -15,7 +15,7 @@
         <div class="hidden lg:block absolute top-[60px] left-[10%] right-[10%] h-px connector-line"></div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          <div v-for="(step, index) in steps" :key="index" class="relative group step-item">
+          <div v-for="(step, index) in steps" :key="index" class="relative group step-item" v-reveal :data-delay="index * 150">
             <div class="flex flex-col items-center text-center">
 
               <!-- Ícono -->
