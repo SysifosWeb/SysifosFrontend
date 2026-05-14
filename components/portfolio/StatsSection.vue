@@ -9,7 +9,7 @@ const stats = [
 </script>
 
 <template>
-  <section class="relative bg-section-surface py-20 lg:py-28 overflow-hidden border-b border-white/5">
+  <section class="relative bg-section-dark py-12 lg:py-16 overflow-hidden">
     
     <div class="section-glow-cyan glow-bottom-right"></div>
 

@@ -1,7 +1,7 @@
 <script setup>
 // Page Layout configuration
 definePageMeta({
-  layout: 'secondary',
+  layout: 'hero',
   title: 'Contacto'
 })
 
@@ -59,7 +59,6 @@ setSchema({
   }
 })
 </script>
-
 <template>
   <div class="bg-section-dark min-h-screen">
     <ContactoHeroSection />

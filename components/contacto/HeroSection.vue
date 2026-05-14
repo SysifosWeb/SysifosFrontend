@@ -2,45 +2,26 @@
 </script>
 
 <template>
-  <section class="relative bg-section-dark pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden border-b border-white/5">
+  <section class="relative bg-section-dark pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden border-b border-white/5">
     
-    <div class="section-glow-cyan glow-center"></div>
+    <div class="absolute rounded-full pointer-events-none blur-[120px] w-[600px] h-[600px] bg-sky-400 opacity-[0.03] top-0 left-1/2 -translate-x-1/2"></div>
     
-    <div class="section-container relative z-20 text-center flex flex-col items-center">
-        <div class="eyebrow-badge mx-auto mb-6" v-reveal data-delay="0">
-          <span class="eyebrow-badge__dot"></span>
-          <span class="eyebrow-badge__text">Hablemos</span>
+    <div class="relative z-20 w-[90%] max-w-[1000px] mx-auto text-center flex flex-col items-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 mb-8 backdrop-blur-sm" v-reveal data-delay="0">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+          <span class="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-white/70">Iniciemos una colaboración</span>
         </div>
         
-        <h1 class="section-title text-5xl md:text-6xl lg:text-7xl mb-8 leading-tight" v-reveal data-delay="100">
-          Enlace de <br class="md:hidden"/>
-          <span class="text-accent">Contacto.</span>
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-[1.05] tracking-tight text-white" v-reveal data-delay="100">
+          Hablemos de tu <br class="md:hidden"/>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">próximo proyecto.</span>
         </h1>
         
         <div class="relative max-w-xl mx-auto" v-reveal data-delay="200">
-            <p class="section-subtitle">
-                Cuéntanos sobre tu proyecto. Nuestro equipo técnico evaluará tu arquitectura y te entregará una propuesta eficiente y escalable.
+            <p class="text-lg text-white/60 leading-relaxed font-medium">
+                Nos apasiona resolver desafíos técnicos complejos. Cuéntanos qué quieres construir y nuestro equipo evaluará la arquitectura óptima para escalar tu idea.
             </p>
         </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.section-container {
-  position: relative;
-  z-index: 10;
-  width: 90%;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.glow-center {
-  width: 600px;
-  height: 600px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.1;
-}
-</style>

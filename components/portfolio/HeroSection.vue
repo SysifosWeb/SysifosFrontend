@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <section class="relative bg-section-dark pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden border-b border-white/5">
+  <section class="relative bg-section-dark pt-32 pb-10 lg:pt-48 lg:pb-16 overflow-hidden">
     
     <!-- Glows -->
     <div class="section-glow-purple glow-center"></div>
@@ -11,17 +11,17 @@
         
         <div class="eyebrow-badge mx-auto mb-6" v-reveal data-delay="0">
           <span class="eyebrow-badge__dot"></span>
-          <span class="eyebrow-badge__text">Historial de Ejecución</span>
+          <span class="eyebrow-badge__text">Impacto y Resultados</span>
         </div>
 
         <h1 class="section-title text-5xl md:text-6xl lg:text-7xl mb-8 leading-tight" v-reveal data-delay="100">
-          Casos de <br class="md:hidden"/>
-          <span class="text-accent">Éxito.</span>
+          Plataformas que <br class="md:hidden"/>
+          <span class="text-accent">Escalan Negocios.</span>
         </h1>
 
         <div class="relative max-w-xl mx-auto" v-reveal data-delay="200">
-            <p class="section-subtitle">
-                Explora nuestra matriz de soluciones implementadas. Cada proyecto representa un hito en ingeniería de software y arquitectura escalable, diseñado para generar resultados reales.
+            <p class="section-subtitle text-lg text-white/70 font-medium">
+                No construimos simples webs; desarrollamos infraestructuras digitales de alto rendimiento. Descubre cómo ayudamos a empresas a optimizar sus procesos, multiplicar su conversión y liderar su sector mediante ingeniería de software premium.
             </p>
         </div>
         

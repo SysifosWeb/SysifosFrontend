@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <section class="hero-section bg-section-dark">
+  <section class="hero-section bg-section-dark pt-32 lg:pt-48 pb-16 lg:pb-24">
 
     <!-- Ambient Glow -->
     <div class="section-glow-cyan glow-center"></div>
@@ -44,7 +44,6 @@
 <style scoped>
 .hero-section {
   position: relative;
-  padding: 6rem 0 4rem;
   overflow: hidden;
 }
 

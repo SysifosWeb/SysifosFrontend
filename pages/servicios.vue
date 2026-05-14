@@ -1,7 +1,7 @@
 <script setup>
 // Page Layout configuration
 definePageMeta({
-  layout: 'secondary',
+  layout: 'hero',
   title: 'Servicios'
 })
 

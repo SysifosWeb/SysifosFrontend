@@ -49,7 +49,8 @@ watch(() => route.fullPath, () => {
               { to: '/', label: 'Inicio' },
               { to: '/nosotros', label: 'Nosotros' },
               { to: '/servicios', label: 'Servicios' },
-              { to: '/portfolio', label: 'Portfolio' }
+              { to: '/portfolio', label: 'Portfolio' },
+              { to: '/blog', label: 'Blog' }
             ]" :key="item.to">
               <NuxtLink
                 :to="item.to"
@@ -102,6 +103,7 @@ watch(() => route.fullPath, () => {
             { to: '/nosotros', label: 'Nosotros' },
             { to: '/servicios', label: 'Servicios' },
             { to: '/portfolio', label: 'Portfolio' },
+            { to: '/blog', label: 'Blog' },
             { to: '/contacto', label: 'Contacto' }
           ]" :key="item.to">
             <NuxtLink :to="item.to" class="text-2xl font-bold tracking-widest text-white font-tech uppercase transition-colors hover:text-accent">{{ item.label }}</NuxtLink>

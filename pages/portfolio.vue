@@ -18,7 +18,7 @@ setSchema({
 })
 
 definePageMeta({
-  layout: 'secondary',
+  layout: 'hero',
   title: 'Portfolio'
 })
 </script>
@@ -28,6 +28,5 @@ definePageMeta({
     <PortfolioHeroSection />
     <PortfolioGridSection />
     <PortfolioStatsSection />
-    <NosotrosCtaSection />
   </div>
 </template>
