@@ -7,9 +7,13 @@ defineProps({
     modelValue: {
         type: String,
         required: true
+    },
+    searchQuery: {
+        type: String,
+        default: ''
     }
 })
-defineEmits(['update:modelValue'])
+defineEmits(['update:modelValue', 'update:searchQuery'])
 </script>
 
 <template>
@@ -28,7 +32,13 @@ defineEmits(['update:modelValue'])
             </div>
             
             <div class="relative w-full md:w-64 flex-shrink-0">
-                <input type="text" placeholder="Buscar artículos..." class="w-full bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-white/30 transition-colors">
+                <input 
+                    type="text" 
+                    :value="searchQuery"
+                    @input="$emit('update:searchQuery', $event.target.value)"
+                    placeholder="Buscar artículos..." 
+                    class="w-full bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-white/30 transition-colors"
+                >
             </div>
         </div>
     </section>

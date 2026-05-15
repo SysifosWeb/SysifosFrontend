@@ -10,7 +10,7 @@ defineProps({
 <template>
     <section class="py-16 lg:py-24 bg-section-dark relative z-10">
         <div class="max-w-[1200px] w-[90%] mx-auto">
-            <NuxtLink to="/blog/arquitectura-invisible" class="group relative block rounded-[2rem] border border-white/10 bg-white/[0.02] overflow-hidden flex flex-col lg:flex-row hover:border-white/20 transition-all duration-500 shadow-2xl">
+            <NuxtLink :to="`/blog/${post.slug}`" class="group relative block rounded-[2rem] border border-white/10 bg-white/[0.02] overflow-hidden flex flex-col lg:flex-row hover:border-white/20 transition-all duration-500 shadow-2xl">
                 <div class="lg:w-1/2 p-8 lg:p-16 flex flex-col justify-center">
                     <div class="flex items-center gap-3 mb-6">
                         <span class="px-2.5 py-1 rounded-md bg-white/10 text-[0.65rem] font-bold uppercase tracking-wider text-white">{{ post.category.name }}</span>
