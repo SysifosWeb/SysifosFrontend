@@ -11,20 +11,20 @@ import { createConsola } from 'consola';
 import { XMLParser } from 'fast-xml-parser';
 import { ipxFSStorage, ipxHttpStorage, createIPX, createIPXH3Handler } from 'ipx';
 
-const suspectProtoRx$1 = /"(?:_|\\u0{2}5[Ff]){2}(?:p|\\u0{2}70)(?:r|\\u0{2}72)(?:o|\\u0{2}6[Ff])(?:t|\\u0{2}74)(?:o|\\u0{2}6[Ff])(?:_|\\u0{2}5[Ff]){2}"\s*:/;
-const suspectConstructorRx$1 = /"(?:c|\\u0063)(?:o|\\u006[Ff])(?:n|\\u006[Ee])(?:s|\\u0073)(?:t|\\u0074)(?:r|\\u0072)(?:u|\\u0075)(?:c|\\u0063)(?:t|\\u0074)(?:o|\\u006[Ff])(?:r|\\u0072)"\s*:/;
-const JsonSigRx$1 = /^\s*["[{]|^\s*-?\d{1,16}(\.\d{1,17})?([Ee][+-]?\d+)?\s*$/;
-function jsonParseTransform$1(key, value) {
+const suspectProtoRx = /"(?:_|\\u0{2}5[Ff]){2}(?:p|\\u0{2}70)(?:r|\\u0{2}72)(?:o|\\u0{2}6[Ff])(?:t|\\u0{2}74)(?:o|\\u0{2}6[Ff])(?:_|\\u0{2}5[Ff]){2}"\s*:/;
+const suspectConstructorRx = /"(?:c|\\u0063)(?:o|\\u006[Ff])(?:n|\\u006[Ee])(?:s|\\u0073)(?:t|\\u0074)(?:r|\\u0072)(?:u|\\u0075)(?:c|\\u0063)(?:t|\\u0074)(?:o|\\u006[Ff])(?:r|\\u0072)"\s*:/;
+const JsonSigRx = /^\s*["[{]|^\s*-?\d{1,16}(\.\d{1,17})?([Ee][+-]?\d+)?\s*$/;
+function jsonParseTransform(key, value) {
   if (key === "__proto__" || key === "constructor" && value && typeof value === "object" && "prototype" in value) {
-    warnKeyDropped$1(key);
+    warnKeyDropped(key);
     return;
   }
   return value;
 }
-function warnKeyDropped$1(key) {
+function warnKeyDropped(key) {
   console.warn(`[destr] Dropping "${key}" key to prevent prototype pollution.`);
 }
-function destr$1(value, options = {}) {
+function destr(value, options = {}) {
   if (typeof value !== "string") {
     return value;
   }
@@ -57,18 +57,18 @@ function destr$1(value, options = {}) {
       }
     }
   }
-  if (!JsonSigRx$1.test(value)) {
+  if (!JsonSigRx.test(value)) {
     if (options.strict) {
       throw new SyntaxError("[destr] Invalid JSON");
     }
     return value;
   }
   try {
-    if (suspectProtoRx$1.test(value) || suspectConstructorRx$1.test(value)) {
+    if (suspectProtoRx.test(value) || suspectConstructorRx.test(value)) {
       if (options.strict) {
         throw new Error("[destr] Possible prototype pollution");
       }
-      return JSON.parse(value, jsonParseTransform$1);
+      return JSON.parse(value, jsonParseTransform);
     }
     return JSON.parse(value);
   } catch (error) {
@@ -79,43 +79,51 @@ function destr$1(value, options = {}) {
   }
 }
 
-const HASH_RE$1 = /#/g;
-const AMPERSAND_RE$1 = /&/g;
-const SLASH_RE$1 = /\//g;
-const EQUAL_RE$1 = /=/g;
-const PLUS_RE$1 = /\+/g;
-const ENC_CARET_RE$1 = /%5e/gi;
-const ENC_BACKTICK_RE$1 = /%60/gi;
-const ENC_PIPE_RE$1 = /%7c/gi;
-const ENC_SPACE_RE$1 = /%20/gi;
-const ENC_SLASH_RE$1 = /%2f/gi;
-function encode$1(text) {
-  return encodeURI("" + text).replace(ENC_PIPE_RE$1, "|");
+const HASH_RE = /#/g;
+const AMPERSAND_RE = /&/g;
+const SLASH_RE = /\//g;
+const EQUAL_RE = /=/g;
+const IM_RE = /\?/g;
+const PLUS_RE = /\+/g;
+const ENC_CARET_RE = /%5e/gi;
+const ENC_BACKTICK_RE = /%60/gi;
+const ENC_PIPE_RE = /%7c/gi;
+const ENC_SPACE_RE = /%20/gi;
+const ENC_SLASH_RE = /%2f/gi;
+const ENC_ENC_SLASH_RE = /%252f/gi;
+function encode(text) {
+  return encodeURI("" + text).replace(ENC_PIPE_RE, "|");
 }
-function encodeQueryValue$1(input) {
-  return encode$1(typeof input === "string" ? input : JSON.stringify(input)).replace(PLUS_RE$1, "%2B").replace(ENC_SPACE_RE$1, "+").replace(HASH_RE$1, "%23").replace(AMPERSAND_RE$1, "%26").replace(ENC_BACKTICK_RE$1, "`").replace(ENC_CARET_RE$1, "^").replace(SLASH_RE$1, "%2F");
+function encodeQueryValue(input) {
+  return encode(typeof input === "string" ? input : JSON.stringify(input)).replace(PLUS_RE, "%2B").replace(ENC_SPACE_RE, "+").replace(HASH_RE, "%23").replace(AMPERSAND_RE, "%26").replace(ENC_BACKTICK_RE, "`").replace(ENC_CARET_RE, "^").replace(SLASH_RE, "%2F");
 }
-function encodeQueryKey$1(text) {
-  return encodeQueryValue$1(text).replace(EQUAL_RE$1, "%3D");
+function encodeQueryKey(text) {
+  return encodeQueryValue(text).replace(EQUAL_RE, "%3D");
 }
-function decode$2(text = "") {
+function encodePath(text) {
+  return encode(text).replace(HASH_RE, "%23").replace(IM_RE, "%3F").replace(ENC_ENC_SLASH_RE, "%2F").replace(AMPERSAND_RE, "%26").replace(PLUS_RE, "%2B");
+}
+function encodeParam(text) {
+  return encodePath(text).replace(SLASH_RE, "%2F");
+}
+function decode$1(text = "") {
   try {
     return decodeURIComponent("" + text);
   } catch {
     return "" + text;
   }
 }
-function decodePath$1(text) {
-  return decode$2(text.replace(ENC_SLASH_RE$1, "%252F"));
+function decodePath(text) {
+  return decode$1(text.replace(ENC_SLASH_RE, "%252F"));
 }
-function decodeQueryKey$1(text) {
-  return decode$2(text.replace(PLUS_RE$1, " "));
+function decodeQueryKey(text) {
+  return decode$1(text.replace(PLUS_RE, " "));
 }
-function decodeQueryValue$1(text) {
-  return decode$2(text.replace(PLUS_RE$1, " "));
+function decodeQueryValue(text) {
+  return decode$1(text.replace(PLUS_RE, " "));
 }
 
-function parseQuery$1(parametersString = "") {
+function parseQuery(parametersString = "") {
   const object = /* @__PURE__ */ Object.create(null);
   if (parametersString[0] === "?") {
     parametersString = parametersString.slice(1);
@@ -125,11 +133,11 @@ function parseQuery$1(parametersString = "") {
     if (s.length < 2) {
       continue;
     }
-    const key = decodeQueryKey$1(s[1]);
+    const key = decodeQueryKey(s[1]);
     if (key === "__proto__" || key === "constructor") {
       continue;
     }
-    const value = decodeQueryValue$1(s[2] || "");
+    const value = decodeQueryValue(s[2] || "");
     if (object[key] === void 0) {
       object[key] = value;
     } else if (Array.isArray(object[key])) {
@@ -140,76 +148,110 @@ function parseQuery$1(parametersString = "") {
   }
   return object;
 }
-function encodeQueryItem$1(key, value) {
+function encodeQueryItem(key, value) {
   if (typeof value === "number" || typeof value === "boolean") {
     value = String(value);
   }
   if (!value) {
-    return encodeQueryKey$1(key);
+    return encodeQueryKey(key);
   }
   if (Array.isArray(value)) {
     return value.map(
-      (_value) => `${encodeQueryKey$1(key)}=${encodeQueryValue$1(_value)}`
+      (_value) => `${encodeQueryKey(key)}=${encodeQueryValue(_value)}`
     ).join("&");
   }
-  return `${encodeQueryKey$1(key)}=${encodeQueryValue$1(value)}`;
+  return `${encodeQueryKey(key)}=${encodeQueryValue(value)}`;
 }
-function stringifyQuery$1(query) {
-  return Object.keys(query).filter((k) => query[k] !== void 0).map((k) => encodeQueryItem$1(k, query[k])).filter(Boolean).join("&");
+function stringifyQuery(query) {
+  return Object.keys(query).filter((k) => query[k] !== void 0).map((k) => encodeQueryItem(k, query[k])).filter(Boolean).join("&");
 }
 
-const PROTOCOL_STRICT_REGEX$1 = /^[\s\w\0+.-]{2,}:([/\\]{1,2})/;
-const PROTOCOL_REGEX$1 = /^[\s\w\0+.-]{2,}:([/\\]{2})?/;
-const PROTOCOL_RELATIVE_REGEX$1 = /^([/\\]\s*){2,}[^/\\]/;
-const JOIN_LEADING_SLASH_RE$1 = /^\.?\//;
-function hasProtocol$1(inputString, opts = {}) {
+const PROTOCOL_STRICT_REGEX = /^[\s\w\0+.-]{2,}:([/\\]{1,2})/;
+const PROTOCOL_REGEX = /^[\s\w\0+.-]{2,}:([/\\]{2})?/;
+const PROTOCOL_RELATIVE_REGEX = /^([/\\]\s*){2,}[^/\\]/;
+const PROTOCOL_SCRIPT_RE = /^[\s\0]*(blob|data|javascript|vbscript):$/i;
+const TRAILING_SLASH_RE = /\/$|\/\?|\/#/;
+const JOIN_LEADING_SLASH_RE = /^\.?\//;
+function hasProtocol(inputString, opts = {}) {
   if (typeof opts === "boolean") {
     opts = { acceptRelative: opts };
   }
   if (opts.strict) {
-    return PROTOCOL_STRICT_REGEX$1.test(inputString);
+    return PROTOCOL_STRICT_REGEX.test(inputString);
   }
-  return PROTOCOL_REGEX$1.test(inputString) || (opts.acceptRelative ? PROTOCOL_RELATIVE_REGEX$1.test(inputString) : false);
+  return PROTOCOL_REGEX.test(inputString) || (opts.acceptRelative ? PROTOCOL_RELATIVE_REGEX.test(inputString) : false);
 }
-function hasTrailingSlash$1(input = "", respectQueryAndFragment) {
-  {
+function isScriptProtocol(protocol) {
+  return !!protocol && PROTOCOL_SCRIPT_RE.test(protocol);
+}
+function hasTrailingSlash(input = "", respectQueryAndFragment) {
+  if (!respectQueryAndFragment) {
     return input.endsWith("/");
   }
+  return TRAILING_SLASH_RE.test(input);
 }
-function withoutTrailingSlash$1(input = "", respectQueryAndFragment) {
-  {
-    return (hasTrailingSlash$1(input) ? input.slice(0, -1) : input) || "/";
+function withoutTrailingSlash(input = "", respectQueryAndFragment) {
+  if (!respectQueryAndFragment) {
+    return (hasTrailingSlash(input) ? input.slice(0, -1) : input) || "/";
   }
+  if (!hasTrailingSlash(input, true)) {
+    return input || "/";
+  }
+  let path = input;
+  let fragment = "";
+  const fragmentIndex = input.indexOf("#");
+  if (fragmentIndex !== -1) {
+    path = input.slice(0, fragmentIndex);
+    fragment = input.slice(fragmentIndex);
+  }
+  const [s0, ...s] = path.split("?");
+  const cleanPath = s0.endsWith("/") ? s0.slice(0, -1) : s0;
+  return (cleanPath || "/") + (s.length > 0 ? `?${s.join("?")}` : "") + fragment;
 }
-function withTrailingSlash$1(input = "", respectQueryAndFragment) {
-  {
+function withTrailingSlash(input = "", respectQueryAndFragment) {
+  if (!respectQueryAndFragment) {
     return input.endsWith("/") ? input : input + "/";
   }
+  if (hasTrailingSlash(input, true)) {
+    return input || "/";
+  }
+  let path = input;
+  let fragment = "";
+  const fragmentIndex = input.indexOf("#");
+  if (fragmentIndex !== -1) {
+    path = input.slice(0, fragmentIndex);
+    fragment = input.slice(fragmentIndex);
+    if (!path) {
+      return fragment;
+    }
+  }
+  const [s0, ...s] = path.split("?");
+  return s0 + "/" + (s.length > 0 ? `?${s.join("?")}` : "") + fragment;
 }
-function hasLeadingSlash$1(input = "") {
+function hasLeadingSlash(input = "") {
   return input.startsWith("/");
 }
-function withLeadingSlash$1(input = "") {
-  return hasLeadingSlash$1(input) ? input : "/" + input;
+function withLeadingSlash(input = "") {
+  return hasLeadingSlash(input) ? input : "/" + input;
 }
-function withBase$1(input, base) {
-  if (isEmptyURL$1(base) || hasProtocol$1(input)) {
+function withBase(input, base) {
+  if (isEmptyURL(base) || hasProtocol(input)) {
     return input;
   }
-  const _base = withoutTrailingSlash$1(base);
+  const _base = withoutTrailingSlash(base);
   if (input.startsWith(_base)) {
     const nextChar = input[_base.length];
     if (!nextChar || nextChar === "/" || nextChar === "?") {
       return input;
     }
   }
-  return joinURL$1(_base, input);
+  return joinURL(_base, input);
 }
-function withoutBase$1(input, base) {
-  if (isEmptyURL$1(base)) {
+function withoutBase(input, base) {
+  if (isEmptyURL(base)) {
     return input;
   }
-  const _base = withoutTrailingSlash$1(base);
+  const _base = withoutTrailingSlash(base);
   if (!input.startsWith(_base)) {
     return input;
   }
@@ -217,30 +259,30 @@ function withoutBase$1(input, base) {
   if (nextChar && nextChar !== "/" && nextChar !== "?") {
     return input;
   }
-  const trimmed = input.slice(_base.length);
-  return trimmed[0] === "/" ? trimmed : "/" + trimmed;
+  const trimmed = input.slice(_base.length).replace(/^\/+/, "");
+  return "/" + trimmed;
 }
-function withQuery$1(input, query) {
-  const parsed = parseURL$1(input);
-  const mergedQuery = { ...parseQuery$1(parsed.search), ...query };
-  parsed.search = stringifyQuery$1(mergedQuery);
-  return stringifyParsedURL$1(parsed);
+function withQuery(input, query) {
+  const parsed = parseURL(input);
+  const mergedQuery = { ...parseQuery(parsed.search), ...query };
+  parsed.search = stringifyQuery(mergedQuery);
+  return stringifyParsedURL(parsed);
 }
-function getQuery$3(input) {
-  return parseQuery$1(parseURL$1(input).search);
+function getQuery$1(input) {
+  return parseQuery(parseURL(input).search);
 }
-function isEmptyURL$1(url) {
+function isEmptyURL(url) {
   return !url || url === "/";
 }
-function isNonEmptyURL$1(url) {
+function isNonEmptyURL(url) {
   return url && url !== "/";
 }
-function joinURL$1(base, ...input) {
+function joinURL(base, ...input) {
   let url = base || "";
-  for (const segment of input.filter((url2) => isNonEmptyURL$1(url2))) {
+  for (const segment of input.filter((url2) => isNonEmptyURL(url2))) {
     if (url) {
-      const _segment = segment.replace(JOIN_LEADING_SLASH_RE$1, "");
-      url = withTrailingSlash$1(url) + _segment;
+      const _segment = segment.replace(JOIN_LEADING_SLASH_RE, "");
+      url = withTrailingSlash(url) + _segment;
     } else {
       url = segment;
     }
@@ -261,7 +303,7 @@ function joinRelativeURL(..._input) {
         continue;
       }
       if (s === "..") {
-        if (segments.length === 1 && hasProtocol$1(segments[0])) {
+        if (segments.length === 1 && hasProtocol(segments[0])) {
           continue;
         }
         segments.pop();
@@ -291,11 +333,11 @@ function joinRelativeURL(..._input) {
   }
   return url;
 }
-function withHttps$1(input) {
-  return withProtocol$1(input, "https://");
+function withHttps(input) {
+  return withProtocol(input, "https://");
 }
-function withProtocol$1(input, protocol) {
-  let match = input.match(PROTOCOL_REGEX$1);
+function withProtocol(input, protocol) {
+  let match = input.match(PROTOCOL_REGEX);
   if (!match) {
     match = input.match(/^\/{2,}/);
   }
@@ -305,8 +347,8 @@ function withProtocol$1(input, protocol) {
   return protocol + input.slice(match[0].length);
 }
 
-const protocolRelative$1 = Symbol.for("ufo:protocolRelative");
-function parseURL$1(input = "", defaultProto) {
+const protocolRelative = Symbol.for("ufo:protocolRelative");
+function parseURL(input = "", defaultProto) {
   const _specialProtoMatch = input.match(
     /^[\s\0]*(blob:|data:|javascript:|vbscript:)(.*)/i
   );
@@ -322,15 +364,15 @@ function parseURL$1(input = "", defaultProto) {
       hash: ""
     };
   }
-  if (!hasProtocol$1(input, { acceptRelative: true })) {
-    return parsePath$1(input);
+  if (!hasProtocol(input, { acceptRelative: true })) {
+    return defaultProto ? parseURL(defaultProto + input) : parsePath(input);
   }
   const [, protocol = "", auth, hostAndPath = ""] = input.replace(/\\/g, "/").match(/^[\s\0]*([\w+.-]{2,}:)?\/\/([^/@]+@)?(.*)/) || [];
   let [, host = "", path = ""] = hostAndPath.match(/([^#/?]*)(.*)?/) || [];
   if (protocol === "file:") {
     path = path.replace(/\/(?=[A-Za-z]:)/, "");
   }
-  const { pathname, search, hash } = parsePath$1(path);
+  const { pathname, search, hash } = parsePath(path);
   return {
     protocol: protocol.toLowerCase(),
     auth: auth ? auth.slice(0, Math.max(0, auth.length - 1)) : "",
@@ -338,10 +380,10 @@ function parseURL$1(input = "", defaultProto) {
     pathname,
     search,
     hash,
-    [protocolRelative$1]: !protocol
+    [protocolRelative]: !protocol
   };
 }
-function parsePath$1(input = "") {
+function parsePath(input = "") {
   const [pathname = "", search = "", hash = ""] = (input.match(/([^#?]*)(\?[^#]*)?(#.*)?/) || []).splice(1);
   return {
     pathname,
@@ -349,42 +391,253 @@ function parsePath$1(input = "") {
     hash
   };
 }
-function stringifyParsedURL$1(parsed) {
+function stringifyParsedURL(parsed) {
   const pathname = parsed.pathname || "";
   const search = parsed.search ? (parsed.search.startsWith("?") ? "" : "?") + parsed.search : "";
   const hash = parsed.hash || "";
   const auth = parsed.auth ? parsed.auth + "@" : "";
   const host = parsed.host || "";
-  const proto = parsed.protocol || parsed[protocolRelative$1] ? (parsed.protocol || "") + "//" : "";
+  const proto = parsed.protocol || parsed[protocolRelative] ? (parsed.protocol || "") + "//" : "";
   return proto + auth + host + pathname + search + hash;
 }
 
-const NODE_TYPES$1 = {
+const NullObject = /* @__PURE__ */ (() => {
+  const C = function() {
+  };
+  C.prototype = /* @__PURE__ */ Object.create(null);
+  return C;
+})();
+function parse(str, options) {
+  if (typeof str !== "string") {
+    throw new TypeError("argument str must be a string");
+  }
+  const obj = new NullObject();
+  const opt = {};
+  const dec = opt.decode || decode;
+  let index = 0;
+  while (index < str.length) {
+    const eqIdx = str.indexOf("=", index);
+    if (eqIdx === -1) {
+      break;
+    }
+    let endIdx = str.indexOf(";", index);
+    if (endIdx === -1) {
+      endIdx = str.length;
+    } else if (endIdx < eqIdx) {
+      index = str.lastIndexOf(";", eqIdx - 1) + 1;
+      continue;
+    }
+    const key = str.slice(index, eqIdx).trim();
+    if (opt?.filter && !opt?.filter(key)) {
+      index = endIdx + 1;
+      continue;
+    }
+    if (void 0 === obj[key]) {
+      let val = str.slice(eqIdx + 1, endIdx).trim();
+      if (val.codePointAt(0) === 34) {
+        val = val.slice(1, -1);
+      }
+      obj[key] = tryDecode(val, dec);
+    }
+    index = endIdx + 1;
+  }
+  return obj;
+}
+function decode(str) {
+  return str.includes("%") ? decodeURIComponent(str) : str;
+}
+function tryDecode(str, decode2) {
+  try {
+    return decode2(str);
+  } catch {
+    return str;
+  }
+}
+
+const fieldContentRegExp = /^[\u0009\u0020-\u007E\u0080-\u00FF]+$/;
+function serialize$2(name, value, options) {
+  const opt = options || {};
+  const enc = opt.encode || encodeURIComponent;
+  if (typeof enc !== "function") {
+    throw new TypeError("option encode is invalid");
+  }
+  if (!fieldContentRegExp.test(name)) {
+    throw new TypeError("argument name is invalid");
+  }
+  const encodedValue = enc(value);
+  if (encodedValue && !fieldContentRegExp.test(encodedValue)) {
+    throw new TypeError("argument val is invalid");
+  }
+  let str = name + "=" + encodedValue;
+  if (void 0 !== opt.maxAge && opt.maxAge !== null) {
+    const maxAge = opt.maxAge - 0;
+    if (Number.isNaN(maxAge) || !Number.isFinite(maxAge)) {
+      throw new TypeError("option maxAge is invalid");
+    }
+    str += "; Max-Age=" + Math.floor(maxAge);
+  }
+  if (opt.domain) {
+    if (!fieldContentRegExp.test(opt.domain)) {
+      throw new TypeError("option domain is invalid");
+    }
+    str += "; Domain=" + opt.domain;
+  }
+  if (opt.path) {
+    if (!fieldContentRegExp.test(opt.path)) {
+      throw new TypeError("option path is invalid");
+    }
+    str += "; Path=" + opt.path;
+  }
+  if (opt.expires) {
+    if (!isDate(opt.expires) || Number.isNaN(opt.expires.valueOf())) {
+      throw new TypeError("option expires is invalid");
+    }
+    str += "; Expires=" + opt.expires.toUTCString();
+  }
+  if (opt.httpOnly) {
+    str += "; HttpOnly";
+  }
+  if (opt.secure) {
+    str += "; Secure";
+  }
+  if (opt.priority) {
+    const priority = typeof opt.priority === "string" ? opt.priority.toLowerCase() : opt.priority;
+    switch (priority) {
+      case "low": {
+        str += "; Priority=Low";
+        break;
+      }
+      case "medium": {
+        str += "; Priority=Medium";
+        break;
+      }
+      case "high": {
+        str += "; Priority=High";
+        break;
+      }
+      default: {
+        throw new TypeError("option priority is invalid");
+      }
+    }
+  }
+  if (opt.sameSite) {
+    const sameSite = typeof opt.sameSite === "string" ? opt.sameSite.toLowerCase() : opt.sameSite;
+    switch (sameSite) {
+      case true: {
+        str += "; SameSite=Strict";
+        break;
+      }
+      case "lax": {
+        str += "; SameSite=Lax";
+        break;
+      }
+      case "strict": {
+        str += "; SameSite=Strict";
+        break;
+      }
+      case "none": {
+        str += "; SameSite=None";
+        break;
+      }
+      default: {
+        throw new TypeError("option sameSite is invalid");
+      }
+    }
+  }
+  if (opt.partitioned) {
+    str += "; Partitioned";
+  }
+  return str;
+}
+function isDate(val) {
+  return Object.prototype.toString.call(val) === "[object Date]" || val instanceof Date;
+}
+
+function parseSetCookie(setCookieValue, options) {
+  const parts = (setCookieValue || "").split(";").filter((str) => typeof str === "string" && !!str.trim());
+  const nameValuePairStr = parts.shift() || "";
+  const parsed = _parseNameValuePair(nameValuePairStr);
+  const name = parsed.name;
+  let value = parsed.value;
+  try {
+    value = options?.decode === false ? value : (options?.decode || decodeURIComponent)(value);
+  } catch {
+  }
+  const cookie = {
+    name,
+    value
+  };
+  for (const part of parts) {
+    const sides = part.split("=");
+    const partKey = (sides.shift() || "").trimStart().toLowerCase();
+    const partValue = sides.join("=");
+    switch (partKey) {
+      case "expires": {
+        cookie.expires = new Date(partValue);
+        break;
+      }
+      case "max-age": {
+        cookie.maxAge = Number.parseInt(partValue, 10);
+        break;
+      }
+      case "secure": {
+        cookie.secure = true;
+        break;
+      }
+      case "httponly": {
+        cookie.httpOnly = true;
+        break;
+      }
+      case "samesite": {
+        cookie.sameSite = partValue;
+        break;
+      }
+      default: {
+        cookie[partKey] = partValue;
+      }
+    }
+  }
+  return cookie;
+}
+function _parseNameValuePair(nameValuePairStr) {
+  let name = "";
+  let value = "";
+  const nameValueArr = nameValuePairStr.split("=");
+  if (nameValueArr.length > 1) {
+    name = nameValueArr.shift();
+    value = nameValueArr.join("=");
+  } else {
+    value = nameValuePairStr;
+  }
+  return { name, value };
+}
+
+const NODE_TYPES = {
   NORMAL: 0,
   WILDCARD: 1,
   PLACEHOLDER: 2
 };
 
-function createRouter$2(options = {}) {
+function createRouter$1(options = {}) {
   const ctx = {
     options,
-    rootNode: createRadixNode$1(),
+    rootNode: createRadixNode(),
     staticRoutesMap: {}
   };
   const normalizeTrailingSlash = (p) => options.strictTrailingSlash ? p : p.replace(/\/$/, "") || "/";
   if (options.routes) {
     for (const path in options.routes) {
-      insert$1(ctx, normalizeTrailingSlash(path), options.routes[path]);
+      insert(ctx, normalizeTrailingSlash(path), options.routes[path]);
     }
   }
   return {
     ctx,
-    lookup: (path) => lookup$1(ctx, normalizeTrailingSlash(path)),
-    insert: (path, data) => insert$1(ctx, normalizeTrailingSlash(path), data),
-    remove: (path) => remove$1(ctx, normalizeTrailingSlash(path))
+    lookup: (path) => lookup(ctx, normalizeTrailingSlash(path)),
+    insert: (path, data) => insert(ctx, normalizeTrailingSlash(path), data),
+    remove: (path) => remove(ctx, normalizeTrailingSlash(path))
   };
 }
-function lookup$1(ctx, path) {
+function lookup(ctx, path) {
   const staticPathNode = ctx.staticRoutesMap[path];
   if (staticPathNode) {
     return staticPathNode.data;
@@ -436,7 +689,7 @@ function lookup$1(ctx, path) {
   }
   return node.data;
 }
-function insert$1(ctx, path, data) {
+function insert(ctx, path, data) {
   let isStaticRoute = true;
   const sections = path.split("/");
   let node = ctx.rootNode;
@@ -447,14 +700,14 @@ function insert$1(ctx, path, data) {
     if (childNode = node.children.get(section)) {
       node = childNode;
     } else {
-      const type = getNodeType$1(section);
-      childNode = createRadixNode$1({ type, parent: node });
+      const type = getNodeType(section);
+      childNode = createRadixNode({ type, parent: node });
       node.children.set(section, childNode);
-      if (type === NODE_TYPES$1.PLACEHOLDER) {
+      if (type === NODE_TYPES.PLACEHOLDER) {
         childNode.paramName = section === "*" ? `_${_unnamedPlaceholderCtr++}` : section.slice(1);
         node.placeholderChildren.push(childNode);
         isStaticRoute = false;
-      } else if (type === NODE_TYPES$1.WILDCARD) {
+      } else if (type === NODE_TYPES.WILDCARD) {
         node.wildcardChildNode = childNode;
         childNode.paramName = section.slice(
           3
@@ -475,7 +728,7 @@ function insert$1(ctx, path, data) {
   }
   return node;
 }
-function remove$1(ctx, path) {
+function remove(ctx, path) {
   let success = false;
   const sections = path.split("/");
   let node = ctx.rootNode;
@@ -497,9 +750,9 @@ function remove$1(ctx, path) {
   }
   return success;
 }
-function createRadixNode$1(options = {}) {
+function createRadixNode(options = {}) {
   return {
-    type: options.type || NODE_TYPES$1.NORMAL,
+    type: options.type || NODE_TYPES.NORMAL,
     maxDepth: 0,
     parent: options.parent || null,
     children: /* @__PURE__ */ new Map(),
@@ -509,47 +762,47 @@ function createRadixNode$1(options = {}) {
     placeholderChildren: []
   };
 }
-function getNodeType$1(str) {
+function getNodeType(str) {
   if (str.startsWith("**")) {
-    return NODE_TYPES$1.WILDCARD;
+    return NODE_TYPES.WILDCARD;
   }
   if (str[0] === ":" || str === "*") {
-    return NODE_TYPES$1.PLACEHOLDER;
+    return NODE_TYPES.PLACEHOLDER;
   }
-  return NODE_TYPES$1.NORMAL;
+  return NODE_TYPES.NORMAL;
 }
 
-function toRouteMatcher$1(router) {
-  const table = _routerNodeToTable$1("", router.ctx.rootNode);
-  return _createMatcher$1(table, router.ctx.options.strictTrailingSlash);
+function toRouteMatcher(router) {
+  const table = _routerNodeToTable("", router.ctx.rootNode);
+  return _createMatcher(table, router.ctx.options.strictTrailingSlash);
 }
-function _createMatcher$1(table, strictTrailingSlash) {
+function _createMatcher(table, strictTrailingSlash) {
   return {
     ctx: { table },
-    matchAll: (path) => _matchRoutes$1(path, table, strictTrailingSlash)
+    matchAll: (path) => _matchRoutes(path, table, strictTrailingSlash)
   };
 }
-function _createRouteTable$1() {
+function _createRouteTable() {
   return {
     static: /* @__PURE__ */ new Map(),
     wildcard: /* @__PURE__ */ new Map(),
     dynamic: /* @__PURE__ */ new Map()
   };
 }
-function _matchRoutes$1(path, table, strictTrailingSlash) {
+function _matchRoutes(path, table, strictTrailingSlash) {
   if (strictTrailingSlash !== true && path.endsWith("/")) {
     path = path.slice(0, -1) || "/";
   }
   const matches = [];
-  for (const [key, value] of _sortRoutesMap$1(table.wildcard)) {
+  for (const [key, value] of _sortRoutesMap(table.wildcard)) {
     if (path === key || path.startsWith(key + "/")) {
       matches.push(value);
     }
   }
-  for (const [key, value] of _sortRoutesMap$1(table.dynamic)) {
+  for (const [key, value] of _sortRoutesMap(table.dynamic)) {
     if (path.startsWith(key + "/")) {
       const subPath = "/" + path.slice(key.length).split("/").splice(2).join("/");
-      matches.push(..._matchRoutes$1(subPath, value));
+      matches.push(..._matchRoutes(subPath, value));
     }
   }
   const staticMatch = table.static.get(path);
@@ -558,21 +811,21 @@ function _matchRoutes$1(path, table, strictTrailingSlash) {
   }
   return matches.filter(Boolean);
 }
-function _sortRoutesMap$1(m) {
+function _sortRoutesMap(m) {
   return [...m.entries()].sort((a, b) => a[0].length - b[0].length);
 }
-function _routerNodeToTable$1(initialPath, initialNode) {
-  const table = _createRouteTable$1();
+function _routerNodeToTable(initialPath, initialNode) {
+  const table = _createRouteTable();
   function _addNode(path, node) {
     if (path) {
-      if (node.type === NODE_TYPES$1.NORMAL && !(path.includes("*") || path.includes(":"))) {
+      if (node.type === NODE_TYPES.NORMAL && !(path.includes("*") || path.includes(":"))) {
         if (node.data) {
           table.static.set(path, node.data);
         }
-      } else if (node.type === NODE_TYPES$1.WILDCARD) {
+      } else if (node.type === NODE_TYPES.WILDCARD) {
         table.wildcard.set(path.replace("/**", ""), node.data);
-      } else if (node.type === NODE_TYPES$1.PLACEHOLDER) {
-        const subTable = _routerNodeToTable$1("", node);
+      } else if (node.type === NODE_TYPES.PLACEHOLDER) {
+        const subTable = _routerNodeToTable("", node);
         if (node.data) {
           subTable.static.set("/", node.data);
         }
@@ -588,7 +841,7 @@ function _routerNodeToTable$1(initialPath, initialNode) {
   return table;
 }
 
-function isPlainObject$1(value) {
+function isPlainObject(value) {
   if (value === null || typeof value !== "object") {
     return false;
   }
@@ -605,12 +858,12 @@ function isPlainObject$1(value) {
   return true;
 }
 
-function _defu$1(baseObject, defaults, namespace = ".", merger) {
-  if (!isPlainObject$1(defaults)) {
-    return _defu$1(baseObject, {}, namespace, merger);
+function _defu(baseObject, defaults, namespace = ".", merger) {
+  if (!isPlainObject(defaults)) {
+    return _defu(baseObject, {}, namespace, merger);
   }
-  const object = Object.assign({}, defaults);
-  for (const key in baseObject) {
+  const object = { ...defaults };
+  for (const key of Object.keys(baseObject)) {
     if (key === "__proto__" || key === "constructor") {
       continue;
     }
@@ -623,8 +876,8 @@ function _defu$1(baseObject, defaults, namespace = ".", merger) {
     }
     if (Array.isArray(value) && Array.isArray(object[key])) {
       object[key] = [...value, ...object[key]];
-    } else if (isPlainObject$1(value) && isPlainObject$1(object[key])) {
-      object[key] = _defu$1(
+    } else if (isPlainObject(value) && isPlainObject(object[key])) {
+      object[key] = _defu(
         value,
         object[key],
         (namespace ? `${namespace}.` : "") + key.toString(),
@@ -636,23 +889,41 @@ function _defu$1(baseObject, defaults, namespace = ".", merger) {
   }
   return object;
 }
-function createDefu$1(merger) {
+function createDefu(merger) {
   return (...arguments_) => (
     // eslint-disable-next-line unicorn/no-array-reduce
-    arguments_.reduce((p, c) => _defu$1(p, c, "", merger), {})
+    arguments_.reduce((p, c) => _defu(p, c, "", merger), {})
   );
 }
-const defu$1 = createDefu$1();
-const defuFn = createDefu$1((object, key, currentValue) => {
+const defu = createDefu();
+const defuFn = createDefu((object, key, currentValue) => {
   if (object[key] !== void 0 && typeof currentValue === "function") {
     object[key] = currentValue(object[key]);
     return true;
   }
 });
 
-function o$1(n){throw new Error(`${n} is not implemented yet!`)}let i$2 = class i extends EventEmitter{__unenv__={};readableEncoding=null;readableEnded=true;readableFlowing=false;readableHighWaterMark=0;readableLength=0;readableObjectMode=false;readableAborted=false;readableDidRead=false;closed=false;errored=null;readable=false;destroyed=false;static from(e,t){return new i(t)}constructor(e){super();}_read(e){}read(e){}setEncoding(e){return this}pause(){return this}resume(){return this}isPaused(){return  true}unpipe(e){return this}unshift(e,t){}wrap(e){return this}push(e,t){return  false}_destroy(e,t){this.removeAllListeners();}destroy(e){return this.destroyed=true,this._destroy(e),this}pipe(e,t){return {}}compose(e,t){throw new Error("Method not implemented.")}[Symbol.asyncDispose](){return this.destroy(),Promise.resolve()}async*[Symbol.asyncIterator](){throw o$1("Readable.asyncIterator")}iterator(e){throw o$1("Readable.iterator")}map(e,t){throw o$1("Readable.map")}filter(e,t){throw o$1("Readable.filter")}forEach(e,t){throw o$1("Readable.forEach")}reduce(e,t,r){throw o$1("Readable.reduce")}find(e,t){throw o$1("Readable.find")}findIndex(e,t){throw o$1("Readable.findIndex")}some(e,t){throw o$1("Readable.some")}toArray(e){throw o$1("Readable.toArray")}every(e,t){throw o$1("Readable.every")}flatMap(e,t){throw o$1("Readable.flatMap")}drop(e,t){throw o$1("Readable.drop")}take(e,t){throw o$1("Readable.take")}asIndexedPairs(e){throw o$1("Readable.asIndexedPairs")}};let l$2 = class l extends EventEmitter{__unenv__={};writable=true;writableEnded=false;writableFinished=false;writableHighWaterMark=0;writableLength=0;writableObjectMode=false;writableCorked=0;closed=false;errored=null;writableNeedDrain=false;writableAborted=false;destroyed=false;_data;_encoding="utf8";constructor(e){super();}pipe(e,t){return {}}_write(e,t,r){if(this.writableEnded){r&&r();return}if(this._data===void 0)this._data=e;else {const s=typeof this._data=="string"?Buffer$1.from(this._data,this._encoding||t||"utf8"):this._data,a=typeof e=="string"?Buffer$1.from(e,t||this._encoding||"utf8"):e;this._data=Buffer$1.concat([s,a]);}this._encoding=t,r&&r();}_writev(e,t){}_destroy(e,t){}_final(e){}write(e,t,r){const s=typeof t=="string"?this._encoding:"utf8",a=typeof t=="function"?t:typeof r=="function"?r:void 0;return this._write(e,s,a),true}setDefaultEncoding(e){return this}end(e,t,r){const s=typeof e=="function"?e:typeof t=="function"?t:typeof r=="function"?r:void 0;if(this.writableEnded)return s&&s(),this;const a=e===s?void 0:e;if(a){const u=t===s?void 0:t;this.write(a,u,s);}return this.writableEnded=true,this.writableFinished=true,this.emit("close"),this.emit("finish"),this}cork(){}uncork(){}destroy(e){return this.destroyed=true,delete this._data,this.removeAllListeners(),this}compose(e,t){throw new Error("Method not implemented.")}[Symbol.asyncDispose](){return Promise.resolve()}};const c$1=class c{allowHalfOpen=true;_destroy;constructor(e=new i$2,t=new l$2){Object.assign(this,e),Object.assign(this,t),this._destroy=m(e._destroy,t._destroy);}};function _$1(){return Object.assign(c$1.prototype,i$2.prototype),Object.assign(c$1.prototype,l$2.prototype),c$1}function m(...n){return function(...e){for(const t of n)t(...e);}}const g=_$1();let A$1 = class A extends g{__unenv__={};bufferSize=0;bytesRead=0;bytesWritten=0;connecting=false;destroyed=false;pending=false;localAddress="";localPort=0;remoteAddress="";remoteFamily="";remotePort=0;autoSelectFamilyAttemptedAddresses=[];readyState="readOnly";constructor(e){super();}write(e,t,r){return  false}connect(e,t,r){return this}end(e,t,r){return this}setEncoding(e){return this}pause(){return this}resume(){return this}setTimeout(e,t){return this}setNoDelay(e){return this}setKeepAlive(e,t){return this}address(){return {}}unref(){return this}ref(){return this}destroySoon(){this.destroy();}resetAndDestroy(){const e=new Error("ERR_SOCKET_CLOSED");return e.code="ERR_SOCKET_CLOSED",this.destroy(e),this}};class y extends i$2{aborted=false;httpVersion="1.1";httpVersionMajor=1;httpVersionMinor=1;complete=true;connection;socket;headers={};trailers={};method="GET";url="/";statusCode=200;statusMessage="";closed=false;errored=null;readable=false;constructor(e){super(),this.socket=this.connection=e||new A$1;}get rawHeaders(){const e=this.headers,t=[];for(const r in e)if(Array.isArray(e[r]))for(const s of e[r])t.push(r,s);else t.push(r,e[r]);return t}get rawTrailers(){return []}setTimeout(e,t){return this}get headersDistinct(){return p(this.headers)}get trailersDistinct(){return p(this.trailers)}}function p(n){const e={};for(const[t,r]of Object.entries(n))t&&(e[t]=(Array.isArray(r)?r:[r]).filter(Boolean));return e}class w extends l$2{statusCode=200;statusMessage="";upgrading=false;chunkedEncoding=false;shouldKeepAlive=false;useChunkedEncodingByDefault=false;sendDate=false;finished=false;headersSent=false;strictContentLength=false;connection=null;socket=null;req;_headers={};constructor(e){super(),this.req=e;}assignSocket(e){e._httpMessage=this,this.socket=e,this.connection=e,this.emit("socket",e),this._flush();}_flush(){this.flushHeaders();}detachSocket(e){}writeContinue(e){}writeHead(e,t,r){e&&(this.statusCode=e),typeof t=="string"&&(this.statusMessage=t,t=void 0);const s=r||t;if(s&&!Array.isArray(s))for(const a in s)this.setHeader(a,s[a]);return this.headersSent=true,this}writeProcessing(){}setTimeout(e,t){return this}appendHeader(e,t){e=e.toLowerCase();const r=this._headers[e],s=[...Array.isArray(r)?r:[r],...Array.isArray(t)?t:[t]].filter(Boolean);return this._headers[e]=s.length>1?s:s[0],this}setHeader(e,t){return this._headers[e.toLowerCase()]=t,this}setHeaders(e){for(const[t,r]of Object.entries(e))this.setHeader(t,r);return this}getHeader(e){return this._headers[e.toLowerCase()]}getHeaders(){return this._headers}getHeaderNames(){return Object.keys(this._headers)}hasHeader(e){return e.toLowerCase()in this._headers}removeHeader(e){delete this._headers[e.toLowerCase()];}addTrailers(e){}flushHeaders(){}writeEarlyHints(e,t){typeof t=="function"&&t();}}const E=(()=>{const n=function(){};return n.prototype=Object.create(null),n})();function R$1(n={}){const e=new E,t=Array.isArray(n)||H(n)?n:Object.entries(n);for(const[r,s]of t)if(s){if(e[r]===void 0){e[r]=s;continue}e[r]=[...Array.isArray(e[r])?e[r]:[e[r]],...Array.isArray(s)?s:[s]];}return e}function H(n){return typeof n?.entries=="function"}function v(n={}){if(n instanceof Headers)return n;const e=new Headers;for(const[t,r]of Object.entries(n))if(r!==void 0){if(Array.isArray(r)){for(const s of r)e.append(t,String(s));continue}e.set(t,String(r));}return e}const S$1=new Set([101,204,205,304]);async function b$1(n,e){const t=new y,r=new w(t);t.url=e.url?.toString()||"/";let s;if(!t.url.startsWith("/")){const d=new URL(t.url);s=d.host,t.url=d.pathname+d.search+d.hash;}t.method=e.method||"GET",t.headers=R$1(e.headers||{}),t.headers.host||(t.headers.host=e.host||s||"localhost"),t.connection.encrypted=t.connection.encrypted||e.protocol==="https",t.body=e.body||null,t.__unenv__=e.context,await n(t,r);let a=r._data;(S$1.has(r.statusCode)||t.method.toUpperCase()==="HEAD")&&(a=null,delete r._headers["content-length"]);const u={status:r.statusCode,statusText:r.statusMessage,headers:r._headers,body:a};return t.destroy(),r.destroy(),u}async function C$1(n,e,t={}){try{const r=await b$1(n,{url:e,...t});return new Response(r.body,{status:r.status,statusText:r.statusText,headers:v(r.headers)})}catch(r){return new Response(r.toString(),{status:Number.parseInt(r.statusCode||r.code)||500,statusText:r.statusText})}}
+function o$1(n){throw new Error(`${n} is not implemented yet!`)}let i$2 = class i extends EventEmitter{__unenv__={};readableEncoding=null;readableEnded=true;readableFlowing=false;readableHighWaterMark=0;readableLength=0;readableObjectMode=false;readableAborted=false;readableDidRead=false;closed=false;errored=null;readable=false;destroyed=false;static from(e,t){return new i(t)}constructor(e){super();}_read(e){}read(e){}setEncoding(e){return this}pause(){return this}resume(){return this}isPaused(){return  true}unpipe(e){return this}unshift(e,t){}wrap(e){return this}push(e,t){return  false}_destroy(e,t){this.removeAllListeners();}destroy(e){return this.destroyed=true,this._destroy(e),this}pipe(e,t){return {}}compose(e,t){throw new Error("Method not implemented.")}[Symbol.asyncDispose](){return this.destroy(),Promise.resolve()}async*[Symbol.asyncIterator](){throw o$1("Readable.asyncIterator")}iterator(e){throw o$1("Readable.iterator")}map(e,t){throw o$1("Readable.map")}filter(e,t){throw o$1("Readable.filter")}forEach(e,t){throw o$1("Readable.forEach")}reduce(e,t,r){throw o$1("Readable.reduce")}find(e,t){throw o$1("Readable.find")}findIndex(e,t){throw o$1("Readable.findIndex")}some(e,t){throw o$1("Readable.some")}toArray(e){throw o$1("Readable.toArray")}every(e,t){throw o$1("Readable.every")}flatMap(e,t){throw o$1("Readable.flatMap")}drop(e,t){throw o$1("Readable.drop")}take(e,t){throw o$1("Readable.take")}asIndexedPairs(e){throw o$1("Readable.asIndexedPairs")}};let l$2 = class l extends EventEmitter{__unenv__={};writable=true;writableEnded=false;writableFinished=false;writableHighWaterMark=0;writableLength=0;writableObjectMode=false;writableCorked=0;closed=false;errored=null;writableNeedDrain=false;writableAborted=false;destroyed=false;_data;_encoding="utf8";constructor(e){super();}pipe(e,t){return {}}_write(e,t,r){if(this.writableEnded){r&&r();return}if(this._data===void 0)this._data=e;else {const s=typeof this._data=="string"?Buffer$1.from(this._data,this._encoding||t||"utf8"):this._data,a=typeof e=="string"?Buffer$1.from(e,t||this._encoding||"utf8"):e;this._data=Buffer$1.concat([s,a]);}this._encoding=t,r&&r();}_writev(e,t){}_destroy(e,t){}_final(e){}write(e,t,r){const s=typeof t=="string"?this._encoding:"utf8",a=typeof t=="function"?t:typeof r=="function"?r:void 0;return this._write(e,s,a),true}setDefaultEncoding(e){return this}end(e,t,r){const s=typeof e=="function"?e:typeof t=="function"?t:typeof r=="function"?r:void 0;if(this.writableEnded)return s&&s(),this;const a=e===s?void 0:e;if(a){const u=t===s?void 0:t;this.write(a,u,s);}return this.writableEnded=true,this.writableFinished=true,this.emit("close"),this.emit("finish"),this}cork(){}uncork(){}destroy(e){return this.destroyed=true,delete this._data,this.removeAllListeners(),this}compose(e,t){throw new Error("Method not implemented.")}[Symbol.asyncDispose](){return Promise.resolve()}};const c$2=class c{allowHalfOpen=true;_destroy;constructor(e=new i$2,t=new l$2){Object.assign(this,e),Object.assign(this,t),this._destroy=m(e._destroy,t._destroy);}};function _$1(){return Object.assign(c$2.prototype,i$2.prototype),Object.assign(c$2.prototype,l$2.prototype),c$2}function m(...n){return function(...e){for(const t of n)t(...e);}}const g=_$1();let A$1 = class A extends g{__unenv__={};bufferSize=0;bytesRead=0;bytesWritten=0;connecting=false;destroyed=false;pending=false;localAddress="";localPort=0;remoteAddress="";remoteFamily="";remotePort=0;autoSelectFamilyAttemptedAddresses=[];readyState="readOnly";constructor(e){super();}write(e,t,r){return  false}connect(e,t,r){return this}end(e,t,r){return this}setEncoding(e){return this}pause(){return this}resume(){return this}setTimeout(e,t){return this}setNoDelay(e){return this}setKeepAlive(e,t){return this}address(){return {}}unref(){return this}ref(){return this}destroySoon(){this.destroy();}resetAndDestroy(){const e=new Error("ERR_SOCKET_CLOSED");return e.code="ERR_SOCKET_CLOSED",this.destroy(e),this}};class y extends i$2{aborted=false;httpVersion="1.1";httpVersionMajor=1;httpVersionMinor=1;complete=true;connection;socket;headers={};trailers={};method="GET";url="/";statusCode=200;statusMessage="";closed=false;errored=null;readable=false;constructor(e){super(),this.socket=this.connection=e||new A$1;}get rawHeaders(){const e=this.headers,t=[];for(const r in e)if(Array.isArray(e[r]))for(const s of e[r])t.push(r,s);else t.push(r,e[r]);return t}get rawTrailers(){return []}setTimeout(e,t){return this}get headersDistinct(){return p(this.headers)}get trailersDistinct(){return p(this.trailers)}}function p(n){const e={};for(const[t,r]of Object.entries(n))t&&(e[t]=(Array.isArray(r)?r:[r]).filter(Boolean));return e}class w extends l$2{statusCode=200;statusMessage="";upgrading=false;chunkedEncoding=false;shouldKeepAlive=false;useChunkedEncodingByDefault=false;sendDate=false;finished=false;headersSent=false;strictContentLength=false;connection=null;socket=null;req;_headers={};constructor(e){super(),this.req=e;}assignSocket(e){e._httpMessage=this,this.socket=e,this.connection=e,this.emit("socket",e),this._flush();}_flush(){this.flushHeaders();}detachSocket(e){}writeContinue(e){}writeHead(e,t,r){e&&(this.statusCode=e),typeof t=="string"&&(this.statusMessage=t,t=void 0);const s=r||t;if(s&&!Array.isArray(s))for(const a in s)this.setHeader(a,s[a]);return this.headersSent=true,this}writeProcessing(){}setTimeout(e,t){return this}appendHeader(e,t){e=e.toLowerCase();const r=this._headers[e],s=[...Array.isArray(r)?r:[r],...Array.isArray(t)?t:[t]].filter(Boolean);return this._headers[e]=s.length>1?s:s[0],this}setHeader(e,t){return this._headers[e.toLowerCase()]=t,this}setHeaders(e){for(const[t,r]of Object.entries(e))this.setHeader(t,r);return this}getHeader(e){return this._headers[e.toLowerCase()]}getHeaders(){return this._headers}getHeaderNames(){return Object.keys(this._headers)}hasHeader(e){return e.toLowerCase()in this._headers}removeHeader(e){delete this._headers[e.toLowerCase()];}addTrailers(e){}flushHeaders(){}writeEarlyHints(e,t){typeof t=="function"&&t();}}const E=(()=>{const n=function(){};return n.prototype=Object.create(null),n})();function R$1(n={}){const e=new E,t=Array.isArray(n)||H(n)?n:Object.entries(n);for(const[r,s]of t)if(s){if(e[r]===void 0){e[r]=s;continue}e[r]=[...Array.isArray(e[r])?e[r]:[e[r]],...Array.isArray(s)?s:[s]];}return e}function H(n){return typeof n?.entries=="function"}function v(n={}){if(n instanceof Headers)return n;const e=new Headers;for(const[t,r]of Object.entries(n))if(r!==void 0){if(Array.isArray(r)){for(const s of r)e.append(t,String(s));continue}e.set(t,String(r));}return e}const S$1=new Set([101,204,205,304]);async function b$1(n,e){const t=new y,r=new w(t);t.url=e.url?.toString()||"/";let s;if(!t.url.startsWith("/")){const d=new URL(t.url);s=d.host,t.url=d.pathname+d.search+d.hash;}t.method=e.method||"GET",t.headers=R$1(e.headers||{}),t.headers.host||(t.headers.host=e.host||s||"localhost"),t.connection.encrypted=t.connection.encrypted||e.protocol==="https",t.body=e.body||null,t.__unenv__=e.context,await n(t,r);let a=r._data;(S$1.has(r.statusCode)||t.method.toUpperCase()==="HEAD")&&(a=null,delete r._headers["content-length"]);const u={status:r.statusCode,statusText:r.statusMessage,headers:r._headers,body:a};return t.destroy(),r.destroy(),u}async function C$1(n,e,t={}){try{const r=await b$1(n,{url:e,...t});return new Response(r.body,{status:r.status,statusText:r.statusText,headers:v(r.headers)})}catch(r){return new Response(r.toString(),{status:Number.parseInt(r.statusCode||r.code)||500,statusText:r.statusText})}}
 
-function hasProp$1(obj, prop) {
+function useBase(base, handler) {
+  base = withoutTrailingSlash(base);
+  if (!base || base === "/") {
+    return handler;
+  }
+  return eventHandler(async (event) => {
+    event.node.req.originalUrl = event.node.req.originalUrl || event.node.req.url || "/";
+    const _path = event._path || event.node.req.url || "/";
+    event._path = withoutBase(event.path || "/", base);
+    event.node.req.url = event._path;
+    try {
+      return await handler(event);
+    } finally {
+      event._path = event.node.req.url = _path;
+    }
+  });
+}
+
+function hasProp(obj, prop) {
   try {
     return prop in obj;
   } catch {
@@ -660,7 +931,7 @@ function hasProp$1(obj, prop) {
   }
 }
 
-let H3Error$1 = class H3Error extends Error {
+class H3Error extends Error {
   static __h3_error__ = true;
   statusCode = 500;
   fatal = false;
@@ -677,28 +948,28 @@ let H3Error$1 = class H3Error extends Error {
   toJSON() {
     const obj = {
       message: this.message,
-      statusCode: sanitizeStatusCode$1(this.statusCode, 500)
+      statusCode: sanitizeStatusCode(this.statusCode, 500)
     };
     if (this.statusMessage) {
-      obj.statusMessage = sanitizeStatusMessage$1(this.statusMessage);
+      obj.statusMessage = sanitizeStatusMessage(this.statusMessage);
     }
     if (this.data !== void 0) {
       obj.data = this.data;
     }
     return obj;
   }
-};
-function createError$2(input) {
+}
+function createError$1(input) {
   if (typeof input === "string") {
-    return new H3Error$1(input);
+    return new H3Error(input);
   }
-  if (isError$1(input)) {
+  if (isError(input)) {
     return input;
   }
-  const err = new H3Error$1(input.message ?? input.statusMessage ?? "", {
+  const err = new H3Error(input.message ?? input.statusMessage ?? "", {
     cause: input.cause || input
   });
-  if (hasProp$1(input, "stack")) {
+  if (hasProp(input, "stack")) {
     try {
       Object.defineProperty(err, "stack", {
         get() {
@@ -716,9 +987,9 @@ function createError$2(input) {
     err.data = input.data;
   }
   if (input.statusCode) {
-    err.statusCode = sanitizeStatusCode$1(input.statusCode, err.statusCode);
+    err.statusCode = sanitizeStatusCode(input.statusCode, err.statusCode);
   } else if (input.status) {
-    err.statusCode = sanitizeStatusCode$1(input.status, err.statusCode);
+    err.statusCode = sanitizeStatusCode(input.status, err.statusCode);
   }
   if (input.statusMessage) {
     err.statusMessage = input.statusMessage;
@@ -727,7 +998,7 @@ function createError$2(input) {
   }
   if (err.statusMessage) {
     const originalMessage = err.statusMessage;
-    const sanitizedMessage = sanitizeStatusMessage$1(err.statusMessage);
+    const sanitizedMessage = sanitizeStatusMessage(err.statusMessage);
     if (sanitizedMessage !== originalMessage) {
       console.warn(
         "[h3] Please prefer using `message` for longer error messages instead of `statusMessage`. In the future, `statusMessage` will be sanitized by default."
@@ -746,7 +1017,7 @@ function sendError(event, error, debug) {
   if (event.handled) {
     return;
   }
-  const h3Error = isError$1(error) ? error : createError$2(error);
+  const h3Error = isError(error) ? error : createError$1(error);
   const responseBody = {
     statusCode: h3Error.statusCode,
     statusMessage: h3Error.statusMessage,
@@ -761,15 +1032,15 @@ function sendError(event, error, debug) {
   }
   const _code = Number.parseInt(h3Error.statusCode);
   setResponseStatus(event, _code, h3Error.statusMessage);
-  event.node.res.setHeader("content-type", MIMES$1.json);
+  event.node.res.setHeader("content-type", MIMES.json);
   event.node.res.end(JSON.stringify(responseBody, void 0, 2));
 }
-function isError$1(input) {
+function isError(input) {
   return input?.constructor?.__h3_error__ === true;
 }
 
-function getQuery$2(event) {
-  return getQuery$3(event.path || "");
+function getQuery(event) {
+  return getQuery$1(event.path || "");
 }
 function isMethod(event, expected, allowHead) {
   if (typeof expected === "string") {
@@ -783,13 +1054,13 @@ function isMethod(event, expected, allowHead) {
 }
 function assertMethod(event, expected, allowHead) {
   if (!isMethod(event, expected)) {
-    throw createError$2({
+    throw createError$1({
       statusCode: 405,
       statusMessage: "HTTP method is not allowed."
     });
   }
 }
-function getRequestHeaders$1(event) {
+function getRequestHeaders(event) {
   const _headers = {};
   for (const key in event.node.req.headers) {
     const val = event.node.req.headers[key];
@@ -797,12 +1068,13 @@ function getRequestHeaders$1(event) {
   }
   return _headers;
 }
-function getRequestHeader$1(event, name) {
-  const headers = getRequestHeaders$1(event);
+function getRequestHeader(event, name) {
+  const headers = getRequestHeaders(event);
   const value = headers[name.toLowerCase()];
   return value;
 }
-function getRequestHost$1(event, opts = {}) {
+const getHeader = getRequestHeader;
+function getRequestHost(event, opts = {}) {
   if (opts.xForwardedHost) {
     const _header = event.node.req.headers["x-forwarded-host"];
     const xForwardedHost = (_header || "").split(",").shift()?.trim();
@@ -819,7 +1091,7 @@ function getRequestProtocol(event, opts = {}) {
   return event.node.req.connection?.encrypted ? "https" : "http";
 }
 function getRequestURL(event, opts = {}) {
-  const host = getRequestHost$1(event, opts);
+  const host = getRequestHost(event, opts);
   const protocol = getRequestProtocol(event, opts);
   const path = (event.node.req.originalUrl || event.path).replace(
     /^[/\\]+/g,
@@ -965,16 +1237,16 @@ function handleCacheHeaders(event, opts) {
   return false;
 }
 
-const MIMES$1 = {
+const MIMES = {
   html: "text/html",
   json: "application/json"
 };
 
-const DISALLOWED_STATUS_CHARS$1 = /[^\u0009\u0020-\u007E]/g;
-function sanitizeStatusMessage$1(statusMessage = "") {
-  return statusMessage.replace(DISALLOWED_STATUS_CHARS$1, "");
+const DISALLOWED_STATUS_CHARS = /[^\u0009\u0020-\u007E]/g;
+function sanitizeStatusMessage(statusMessage = "") {
+  return statusMessage.replace(DISALLOWED_STATUS_CHARS, "");
 }
-function sanitizeStatusCode$1(statusCode, defaultStatusCode = 200) {
+function sanitizeStatusCode(statusCode, defaultStatusCode = 200) {
   if (!statusCode) {
     return defaultStatusCode;
   }
@@ -986,9 +1258,50 @@ function sanitizeStatusCode$1(statusCode, defaultStatusCode = 200) {
   }
   return statusCode;
 }
-function splitCookiesString$1(cookiesString) {
+
+function getDistinctCookieKey(name, opts) {
+  return [name, opts.domain || "", opts.path || "/"].join(";");
+}
+
+function parseCookies(event) {
+  return parse(event.node.req.headers.cookie || "");
+}
+function getCookie(event, name) {
+  return parseCookies(event)[name];
+}
+function setCookie(event, name, value, serializeOptions = {}) {
+  if (!serializeOptions.path) {
+    serializeOptions = { path: "/", ...serializeOptions };
+  }
+  const newCookie = serialize$2(name, value, serializeOptions);
+  const currentCookies = splitCookiesString(
+    event.node.res.getHeader("set-cookie")
+  );
+  if (currentCookies.length === 0) {
+    event.node.res.setHeader("set-cookie", newCookie);
+    return;
+  }
+  const newCookieKey = getDistinctCookieKey(name, serializeOptions);
+  event.node.res.removeHeader("set-cookie");
+  for (const cookie of currentCookies) {
+    const parsed = parseSetCookie(cookie);
+    const key = getDistinctCookieKey(parsed.name, parsed);
+    if (key === newCookieKey) {
+      continue;
+    }
+    event.node.res.appendHeader("set-cookie", cookie);
+  }
+  event.node.res.appendHeader("set-cookie", newCookie);
+}
+function deleteCookie(event, name, serializeOptions) {
+  setCookie(event, name, "", {
+    ...serializeOptions,
+    maxAge: 0
+  });
+}
+function splitCookiesString(cookiesString) {
   if (Array.isArray(cookiesString)) {
-    return cookiesString.flatMap((c) => splitCookiesString$1(c));
+    return cookiesString.flatMap((c) => splitCookiesString(c));
   }
   if (typeof cookiesString !== "string") {
     return [];
@@ -1042,13 +1355,13 @@ function splitCookiesString$1(cookiesString) {
   return cookiesStrings;
 }
 
-const defer$1 = typeof setImmediate === "undefined" ? (fn) => fn() : setImmediate;
-function send$1(event, data, type) {
+const defer = typeof setImmediate === "undefined" ? (fn) => fn() : setImmediate;
+function send(event, data, type) {
   if (type) {
-    defaultContentType$1(event, type);
+    defaultContentType(event, type);
   }
   return new Promise((resolve) => {
-    defer$1(() => {
+    defer(() => {
       if (!event.handled) {
         event.node.res.end(data);
       }
@@ -1063,7 +1376,7 @@ function sendNoContent(event, code) {
   if (!code && event.node.res.statusCode !== 200) {
     code = event.node.res.statusCode;
   }
-  const _code = sanitizeStatusCode$1(code, 204);
+  const _code = sanitizeStatusCode(code, 204);
   if (_code === 204) {
     event.node.res.removeHeader("content-length");
   }
@@ -1072,13 +1385,13 @@ function sendNoContent(event, code) {
 }
 function setResponseStatus(event, code, text) {
   if (code) {
-    event.node.res.statusCode = sanitizeStatusCode$1(
+    event.node.res.statusCode = sanitizeStatusCode(
       code,
       event.node.res.statusCode
     );
   }
   if (text) {
-    event.node.res.statusMessage = sanitizeStatusMessage$1(text);
+    event.node.res.statusMessage = sanitizeStatusMessage(text);
   }
 }
 function getResponseStatus(event) {
@@ -1087,20 +1400,20 @@ function getResponseStatus(event) {
 function getResponseStatusText(event) {
   return event.node.res.statusMessage;
 }
-function defaultContentType$1(event, type) {
+function defaultContentType(event, type) {
   if (type && event.node.res.statusCode !== 304 && !event.node.res.getHeader("content-type")) {
     event.node.res.setHeader("content-type", type);
   }
 }
-function sendRedirect$1(event, location, code = 302) {
-  event.node.res.statusCode = sanitizeStatusCode$1(
+function sendRedirect(event, location, code = 302) {
+  event.node.res.statusCode = sanitizeStatusCode(
     code,
     event.node.res.statusCode
   );
   event.node.res.setHeader("location", location);
   const encodedLoc = location.replace(/"/g, "%22");
   const html = `<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=${encodedLoc}"></head></html>`;
-  return send$1(event, html, MIMES$1.html);
+  return send(event, html, MIMES.html);
 }
 function getResponseHeader(event, name) {
   return event.node.res.getHeader(name);
@@ -1114,9 +1427,10 @@ function setResponseHeaders(event, headers) {
   }
 }
 const setHeaders = setResponseHeaders;
-function setResponseHeader$1(event, name, value) {
+function setResponseHeader(event, name, value) {
   event.node.res.setHeader(name, value);
 }
+const setHeader = setResponseHeader;
 function appendResponseHeader(event, name, value) {
   let current = event.node.res.getHeader(name);
   if (!current) {
@@ -1160,7 +1474,7 @@ function sendStream(event, stream) {
     event._handled = true;
     return Promise.resolve();
   }
-  if (hasProp$1(stream, "pipeTo") && typeof stream.pipeTo === "function") {
+  if (hasProp(stream, "pipeTo") && typeof stream.pipeTo === "function") {
     return stream.pipeTo(
       new WritableStream({
         write(chunk) {
@@ -1171,7 +1485,7 @@ function sendStream(event, stream) {
       event.node.res.end();
     });
   }
-  if (hasProp$1(stream, "pipe") && typeof stream.pipe === "function") {
+  if (hasProp(stream, "pipe") && typeof stream.pipe === "function") {
     return new Promise((resolve, reject) => {
       stream.pipe(event.node.res);
       if (stream.on) {
@@ -1195,19 +1509,19 @@ function sendStream(event, stream) {
 function sendWebResponse(event, response) {
   for (const [key, value] of response.headers) {
     if (key === "set-cookie") {
-      event.node.res.appendHeader(key, splitCookiesString$1(value));
+      event.node.res.appendHeader(key, splitCookiesString(value));
     } else {
       event.node.res.setHeader(key, value);
     }
   }
   if (response.status) {
-    event.node.res.statusCode = sanitizeStatusCode$1(
+    event.node.res.statusCode = sanitizeStatusCode(
       response.status,
       event.node.res.statusCode
     );
   }
   if (response.statusText) {
-    event.node.res.statusMessage = sanitizeStatusMessage$1(response.statusText);
+    event.node.res.statusMessage = sanitizeStatusMessage(response.statusText);
   }
   if (response.redirected) {
     event.node.res.setHeader("location", response.url);
@@ -1268,17 +1582,17 @@ async function sendProxy(event, target, opts = {}) {
       ...opts.fetchOptions
     });
   } catch (error) {
-    throw createError$2({
+    throw createError$1({
       status: 502,
       statusMessage: "Bad Gateway",
       cause: error
     });
   }
-  event.node.res.statusCode = sanitizeStatusCode$1(
+  event.node.res.statusCode = sanitizeStatusCode(
     response.status,
     event.node.res.statusCode
   );
-  event.node.res.statusMessage = sanitizeStatusMessage$1(response.statusText);
+  event.node.res.statusMessage = sanitizeStatusMessage(response.statusText);
   const cookies = [];
   for (const [key, value] of response.headers.entries()) {
     if (key === "content-encoding") {
@@ -1288,7 +1602,7 @@ async function sendProxy(event, target, opts = {}) {
       continue;
     }
     if (key === "set-cookie") {
-      cookies.push(...splitCookiesString$1(value));
+      cookies.push(...splitCookiesString(value));
       continue;
     }
     event.node.res.setHeader(key, value);
@@ -1337,7 +1651,7 @@ async function sendProxy(event, target, opts = {}) {
 }
 function getProxyRequestHeaders(event, opts) {
   const headers = /* @__PURE__ */ Object.create(null);
-  const reqHeaders = getRequestHeaders$1(event);
+  const reqHeaders = getRequestHeaders(event);
   for (const name in reqHeaders) {
     if (!ignoredHeaders.has(name) || name === "host" && opts?.host) {
       headers[name] = reqHeaders[name];
@@ -1467,7 +1781,7 @@ class H3Event {
   }
 }
 function isEvent(input) {
-  return hasProp$1(input, "__is_event__");
+  return hasProp(input, "__is_event__");
 }
 function createEvent(req, res) {
   return new H3Event(req, res);
@@ -1486,27 +1800,27 @@ function _normalizeNodeHeaders(nodeHeaders) {
   return headers;
 }
 
-function defineEventHandler$1(handler) {
+function defineEventHandler(handler) {
   if (typeof handler === "function") {
     handler.__is_handler__ = true;
     return handler;
   }
   const _hooks = {
-    onRequest: _normalizeArray$1(handler.onRequest),
-    onBeforeResponse: _normalizeArray$1(handler.onBeforeResponse)
+    onRequest: _normalizeArray(handler.onRequest),
+    onBeforeResponse: _normalizeArray(handler.onBeforeResponse)
   };
   const _handler = (event) => {
-    return _callHandler$1(event, handler.handler, _hooks);
+    return _callHandler(event, handler.handler, _hooks);
   };
   _handler.__is_handler__ = true;
   _handler.__resolve__ = handler.handler.__resolve__;
   _handler.__websocket__ = handler.websocket;
   return _handler;
 }
-function _normalizeArray$1(input) {
+function _normalizeArray(input) {
   return input ? Array.isArray(input) ? input : [input] : void 0;
 }
-async function _callHandler$1(event, handler, hooks) {
+async function _callHandler(event, handler, hooks) {
   if (hooks.onRequest) {
     for (const hook of hooks.onRequest) {
       await hook(event);
@@ -1524,14 +1838,14 @@ async function _callHandler$1(event, handler, hooks) {
   }
   return response.body;
 }
-const eventHandler$1 = defineEventHandler$1;
+const eventHandler = defineEventHandler;
 function isEventHandler(input) {
-  return hasProp$1(input, "__is_handler__");
+  return hasProp(input, "__is_handler__");
 }
-function toEventHandler$1(input, _, _route) {
+function toEventHandler(input, _, _route) {
   return input;
 }
-function defineLazyEventHandler$1(factory) {
+function defineLazyEventHandler(factory) {
   let _promise;
   let _resolved;
   const resolveHandler = () => {
@@ -1547,13 +1861,13 @@ function defineLazyEventHandler$1(factory) {
             handler2
           );
         }
-        _resolved = { handler: toEventHandler$1(r.default || r) };
+        _resolved = { handler: toEventHandler(r.default || r) };
         return _resolved;
       });
     }
     return _promise;
   };
-  const handler = eventHandler$1((event) => {
+  const handler = eventHandler((event) => {
     if (_resolved) {
       return _resolved.handler(event);
     }
@@ -1562,7 +1876,7 @@ function defineLazyEventHandler$1(factory) {
   handler.__resolve__ = resolveHandler;
   return handler;
 }
-const lazyEventHandler$1 = defineLazyEventHandler$1;
+const lazyEventHandler = defineLazyEventHandler;
 
 function createApp(options = {}) {
   const stack = [];
@@ -1605,7 +1919,7 @@ function use(app, arg1, arg2, arg3) {
 }
 function createAppEventHandler(stack, options) {
   const spacing = options.debug ? 2 : void 0;
-  return eventHandler$1(async (event) => {
+  return eventHandler(async (event) => {
     event.node.req.originalUrl = event.node.req.originalUrl || event.node.req.url || "/";
     const _rawReqUrl = event.node.req.url || "/";
     const _reqPath = _decodePath(event._path || _rawReqUrl);
@@ -1653,7 +1967,7 @@ function createAppEventHandler(stack, options) {
       }
     }
     if (!event.handled) {
-      throw createError$2({
+      throw createError$1({
         statusCode: 404,
         statusMessage: `Cannot find any path matching ${event.path || "/"}.`
       });
@@ -1687,7 +2001,7 @@ function createResolver(stack) {
         res = {
           ...res,
           ..._res,
-          route: joinURL$1(res.route || "/", _res.route || "/")
+          route: joinURL(res.route || "/", _res.route || "/")
         };
       }
       return res;
@@ -1700,12 +2014,12 @@ function normalizeLayer(input) {
     handler = handler.handler;
   }
   if (input.lazy) {
-    handler = lazyEventHandler$1(handler);
+    handler = lazyEventHandler(handler);
   } else if (!isEventHandler(handler)) {
-    handler = toEventHandler$1(handler, void 0, input.route);
+    handler = toEventHandler(handler, void 0, input.route);
   }
   return {
-    route: withoutTrailingSlash$1(input.route),
+    route: withoutTrailingSlash(input.route),
     match: input.match,
     handler
   };
@@ -1722,15 +2036,15 @@ function handleHandlerResponse(event, val, jsonSpace) {
       return sendStream(event, val);
     }
     if (val.buffer) {
-      return send$1(event, val);
+      return send(event, val);
     }
     if (val.arrayBuffer && typeof val.arrayBuffer === "function") {
       return val.arrayBuffer().then((arrayBuffer) => {
-        return send$1(event, Buffer.from(arrayBuffer), val.type);
+        return send(event, Buffer.from(arrayBuffer), val.type);
       });
     }
     if (val instanceof Error) {
-      throw createError$2(val);
+      throw createError$1(val);
     }
     if (typeof val.end === "function") {
       return true;
@@ -1738,15 +2052,15 @@ function handleHandlerResponse(event, val, jsonSpace) {
   }
   const valType = typeof val;
   if (valType === "string") {
-    return send$1(event, val, MIMES$1.html);
+    return send(event, val, MIMES.html);
   }
   if (valType === "object" || valType === "boolean" || valType === "number") {
-    return send$1(event, JSON.stringify(val, void 0, jsonSpace), MIMES$1.json);
+    return send(event, JSON.stringify(val, void 0, jsonSpace), MIMES.json);
   }
   if (valType === "bigint") {
-    return send$1(event, val.toString(), MIMES$1.json);
+    return send(event, val.toString(), MIMES.json);
   }
-  throw createError$2({
+  throw createError$1({
     statusCode: 500,
     statusMessage: `[h3] Cannot send ${valType} as response.`
   });
@@ -1764,7 +2078,7 @@ function _decodePath(url) {
   const qIndex = url.indexOf("?");
   const path = qIndex === -1 ? url : url.slice(0, qIndex);
   const query = qIndex === -1 ? "" : url.slice(qIndex);
-  const decodedPath = path.includes("%25") ? decodePath$1(path.replace(/%25/g, "%2525")) : decodePath$1(path);
+  const decodedPath = path.includes("%25") ? decodePath(path.replace(/%25/g, "%2525")) : decodePath(path);
   return decodedPath + query;
 }
 function websocketOptions(evResolver, appOptions) {
@@ -1772,7 +2086,7 @@ function websocketOptions(evResolver, appOptions) {
     ...appOptions.websocket,
     async resolve(info) {
       const url = info.request?.url || info.url || "/";
-      const { pathname } = typeof url === "string" ? parseURL$1(url) : url;
+      const { pathname } = typeof url === "string" ? parseURL(url) : url;
       const resolved = await evResolver(pathname);
       return resolved?.handler?.__websocket__ || {};
     }
@@ -1790,8 +2104,8 @@ const RouterMethods = [
   "trace",
   "patch"
 ];
-function createRouter$1(opts = {}) {
-  const _router = createRouter$2({});
+function createRouter(opts = {}) {
+  const _router = createRouter$1({});
   const routes = {};
   let _matcher;
   const router = {};
@@ -1806,7 +2120,7 @@ function createRouter$1(opts = {}) {
         addRoute(path, handler, m);
       }
     } else {
-      route.handlers[method] = toEventHandler$1(handler);
+      route.handlers[method] = toEventHandler(handler);
     }
     return router;
   };
@@ -1822,7 +2136,7 @@ function createRouter$1(opts = {}) {
     const matched = _router.lookup(path);
     if (!matched || !matched.handlers) {
       return {
-        error: createError$2({
+        error: createError$1({
           statusCode: 404,
           name: "Not Found",
           statusMessage: `Cannot find any route matching ${path || "/"}.`
@@ -1832,7 +2146,7 @@ function createRouter$1(opts = {}) {
     let handler = matched.handlers[method] || matched.handlers.all;
     if (!handler) {
       if (!_matcher) {
-        _matcher = toRouteMatcher$1(_router);
+        _matcher = toRouteMatcher(_router);
       }
       const _matches = _matcher.matchAll(path).reverse();
       for (const _match of _matches) {
@@ -1850,7 +2164,7 @@ function createRouter$1(opts = {}) {
     }
     if (!handler) {
       return {
-        error: createError$2({
+        error: createError$1({
           statusCode: 405,
           name: "Method Not Allowed",
           statusMessage: `Method ${method} is not allowed on this route.`
@@ -1860,7 +2174,7 @@ function createRouter$1(opts = {}) {
     return { matched, handler };
   };
   const isPreemptive = opts.preemptive || opts.preemtive;
-  router.handler = eventHandler$1((event) => {
+  router.handler = eventHandler((event) => {
     const match = matchHandler(
       event.path,
       event.method.toLowerCase()
@@ -1883,7 +2197,7 @@ function createRouter$1(opts = {}) {
     });
   });
   router.handler.__resolve__ = async (path) => {
-    path = withLeadingSlash$1(path);
+    path = withLeadingSlash(path);
     const match = matchHandler(path);
     if ("error" in match) {
       return;
@@ -1909,8 +2223,8 @@ function toNodeListener(app) {
     try {
       await app.handler(event);
     } catch (_error) {
-      const error = createError$2(_error);
-      if (!isError$1(_error)) {
+      const error = createError$1(_error);
+      if (!isError(_error)) {
         error.unhandled = true;
       }
       setResponseStatus(event, error.statusCode, error.statusMessage);
@@ -2361,10 +2675,10 @@ function createFetch(globalOptions = {}) {
     }
     if (typeof context.request === "string") {
       if (context.options.baseURL) {
-        context.request = withBase$1(context.request, context.options.baseURL);
+        context.request = withBase(context.request, context.options.baseURL);
       }
       if (context.options.query) {
-        context.request = withQuery$1(context.request, context.options.query);
+        context.request = withQuery(context.request, context.options.query);
         delete context.options.query;
       }
       if ("query" in context.options) {
@@ -2439,7 +2753,7 @@ function createFetch(globalOptions = {}) {
       switch (responseType) {
         case "json": {
           const data = await context.response.text();
-          const parseFunction = context.options.parseResponse || destr$1;
+          const parseFunction = context.options.parseResponse || destr;
           context.response._data = parseFunction(data);
           break;
         }
@@ -2808,7 +3122,7 @@ function createStorage(options = {}) {
       key = normalizeKey$1(key);
       const { relativeKey, driver } = getMount(key);
       return asyncCall(driver.getItem, relativeKey, opts).then(
-        (value) => destr$1(value)
+        (value) => destr(value)
       );
     },
     getItems(items, commonOptions = {}) {
@@ -2824,7 +3138,7 @@ function createStorage(options = {}) {
           ).then(
             (r) => r.map((item) => ({
               key: joinKeys(batch.base, item.key),
-              value: destr$1(item.value)
+              value: destr(item.value)
             }))
           );
         }
@@ -2836,7 +3150,7 @@ function createStorage(options = {}) {
               item.options
             ).then((value) => ({
               key: item.key,
-              value: destr$1(value)
+              value: destr(value)
             }));
           })
         );
@@ -2944,7 +3258,7 @@ function createStorage(options = {}) {
           driver.getItem,
           relativeKey + "$",
           opts
-        ).then((value_) => destr$1(value_));
+        ).then((value_) => destr(value_));
         if (value && typeof value === "object") {
           if (typeof value.atime === "string") {
             value.atime = new Date(value.atime);
@@ -3134,21 +3448,21 @@ const assets$1 = {
 function defineDriver(factory) {
   return factory;
 }
-function createError$1(driver, message, opts) {
+function createError(driver, message, opts) {
   const err = new Error(`[unstorage] [${driver}] ${message}`, opts);
   if (Error.captureStackTrace) {
-    Error.captureStackTrace(err, createError$1);
+    Error.captureStackTrace(err, createError);
   }
   return err;
 }
 function createRequiredError(driver, name) {
   if (Array.isArray(name)) {
-    return createError$1(
+    return createError(
       driver,
       `Missing some of the required options ${name.map((n) => "`" + n + "`").join(", ")}`
     );
   }
-  return createError$1(driver, `Missing required option \`${name}\`.`);
+  return createError(driver, `Missing required option \`${name}\`.`);
 }
 
 function ignoreNotfound(err) {
@@ -3227,7 +3541,7 @@ const unstorage_47drivers_47fs_45lite = defineDriver((opts = {}) => {
   opts.base = resolve$2(opts.base);
   const r = (key) => {
     if (PATH_TRAVERSE_RE.test(key)) {
-      throw createError$1(
+      throw createError(
         DRIVER_NAME,
         `Invalid key: ${JSON.stringify(key)}. It should not contain .. segments`
       );
@@ -3294,7 +3608,23 @@ function useStorage(base = "") {
   return base ? prefixStorage(storage, base) : storage;
 }
 
+function serialize$1(o){return typeof o=="string"?`'${o}'`:new c$1().serialize(o)}const c$1=/*@__PURE__*/function(){class o{#t=new Map;compare(t,r){const e=typeof t,n=typeof r;return e==="string"&&n==="string"?t.localeCompare(r):e==="number"&&n==="number"?t-r:String.prototype.localeCompare.call(this.serialize(t,true),this.serialize(r,true))}serialize(t,r){if(t===null)return "null";switch(typeof t){case "string":return r?t:`'${t}'`;case "bigint":return `${t}n`;case "object":return this.$object(t);case "function":return this.$function(t)}return String(t)}serializeObject(t){const r=Object.prototype.toString.call(t);if(r!=="[object Object]")return this.serializeBuiltInType(r.length<10?`unknown:${r}`:r.slice(8,-1),t);const e=t.constructor,n=e===Object||e===void 0?"":e.name;if(n!==""&&globalThis[n]===e)return this.serializeBuiltInType(n,t);if(typeof t.toJSON=="function"){const i=t.toJSON();return n+(i!==null&&typeof i=="object"?this.$object(i):`(${this.serialize(i)})`)}return this.serializeObjectEntries(n,Object.entries(t))}serializeBuiltInType(t,r){const e=this["$"+t];if(e)return e.call(this,r);if(typeof r?.entries=="function")return this.serializeObjectEntries(t,r.entries());throw new Error(`Cannot serialize ${t}`)}serializeObjectEntries(t,r){const e=Array.from(r).sort((i,a)=>this.compare(i[0],a[0]));let n=`${t}{`;for(let i=0;i<e.length;i++){const[a,l]=e[i];n+=`${this.serialize(a,true)}:${this.serialize(l)}`,i<e.length-1&&(n+=",");}return n+"}"}$object(t){let r=this.#t.get(t);return r===void 0&&(this.#t.set(t,`#${this.#t.size}`),r=this.serializeObject(t),this.#t.set(t,r)),r}$function(t){const r=Function.prototype.toString.call(t);return r.slice(-15)==="[native code] }"?`${t.name||""}()[native]`:`${t.name}(${t.length})${r.replace(/\s*\n\s*/g,"")}`}$Array(t){let r="[";for(let e=0;e<t.length;e++)r+=this.serialize(t[e]),e<t.length-1&&(r+=",");return r+"]"}$Date(t){try{return `Date(${t.toISOString()})`}catch{return "Date(null)"}}$ArrayBuffer(t){return `ArrayBuffer[${new Uint8Array(t).join(",")}]`}$Set(t){return `Set${this.$Array(Array.from(t).sort((r,e)=>this.compare(r,e)))}`}$Map(t){return this.serializeObjectEntries("Map",t.entries())}}for(const s of ["Error","RegExp","URL"])o.prototype["$"+s]=function(t){return `${s}(${t})`};for(const s of ["Int8Array","Uint8Array","Uint8ClampedArray","Int16Array","Uint16Array","Int32Array","Uint32Array","Float32Array","Float64Array"])o.prototype["$"+s]=function(t){return `${s}[${t.join(",")}]`};for(const s of ["BigInt64Array","BigUint64Array"])o.prototype["$"+s]=function(t){return `${s}[${t.join("n,")}${t.length>0?"n":""}]`};return o}();
+
+function isEqual(object1, object2) {
+  if (object1 === object2) {
+    return true;
+  }
+  if (serialize$1(object1) === serialize$1(object2)) {
+    return true;
+  }
+  return false;
+}
+
 const e=globalThis.process?.getBuiltinModule?.("crypto")?.hash,r$1="sha256",s="base64url";function digest(t){if(e)return e(r$1,t,s);const o=createHash(r$1).update(t);return globalThis.process?.versions?.webcontainer?o.digest().toString(s):o.digest(s)}
+
+function hash$1(input) {
+  return digest(serialize$1(input));
+}
 
 const Hasher = /* @__PURE__ */ (() => {
   class Hasher2 {
@@ -3470,13 +3800,13 @@ const Hasher = /* @__PURE__ */ (() => {
   }
   return Hasher2;
 })();
-function serialize$1(object) {
+function serialize(object) {
   const hasher = new Hasher();
   hasher.dispatch(object);
   return hasher.buff;
 }
 function hash(value) {
-  return digest(typeof value === "string" ? value : serialize$1(value)).replace(/[-_]/g, "").slice(0, 10);
+  return digest(typeof value === "string" ? value : serialize(value)).replace(/[-_]/g, "").slice(0, 10);
 }
 
 function defaultCacheOptions() {
@@ -3605,7 +3935,7 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions()) {
       const _path = event.node.req.originalUrl || event.node.req.url || event.path;
       let _pathname;
       try {
-        _pathname = escapeKey(decodeURI(parseURL$1(_path).pathname)).slice(0, 16) || "index";
+        _pathname = escapeKey(decodeURI(parseURL(_path).pathname)).slice(0, 16) || "index";
       } catch {
         _pathname = "-";
       }
@@ -3758,7 +4088,7 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions()) {
     },
     _opts
   );
-  return defineEventHandler$1(async (event) => {
+  return defineEventHandler(async (event) => {
     if (opts.headersOnly) {
       if (handleCacheHeaders(event, { maxAge: opts.maxAge })) {
         return;
@@ -3784,7 +4114,7 @@ function defineCachedEventHandler(handler, opts = defaultCacheOptions()) {
       if (name === "set-cookie") {
         event.node.res.appendHeader(
           name,
-          splitCookiesString$1(value)
+          splitCookiesString(value)
         );
       } else {
         if (value !== void 0) {
@@ -3961,7 +4291,7 @@ function snakeCase(str) {
 
 function getEnv(key, opts) {
   const envKey = snakeCase(key).toUpperCase();
-  return destr$1(
+  return destr(
     process.env[opts.prefix + envKey] ?? process.env[opts.altPrefix + envKey]
   );
 }
@@ -4000,7 +4330,7 @@ function _expandFromEnv(value) {
 const _inlineRuntimeConfig = {
   "app": {
     "baseURL": "/",
-    "buildId": "efc373b0-6e15-47c7-9e83-4156bf03ce6c",
+    "buildId": "a1215aca-4e90-4876-a4aa-a7efdae6efce",
     "buildAssetsDir": "/_nuxt/",
     "cdnURL": ""
   },
@@ -4272,18 +4602,51 @@ const defaultNamespace = _globalThis[globalKey] || (_globalThis[globalKey] = cre
 const getContext = (key, opts = {}) => defaultNamespace.get(key, opts);
 const asyncHandlersKey = "__unctx_async_handlers__";
 const asyncHandlers = _globalThis[asyncHandlersKey] || (_globalThis[asyncHandlersKey] = /* @__PURE__ */ new Set());
+function executeAsync(function_) {
+  const restores = [];
+  for (const leaveHandler of asyncHandlers) {
+    const restore2 = leaveHandler();
+    if (restore2) {
+      restores.push(restore2);
+    }
+  }
+  const restore = () => {
+    for (const restore2 of restores) {
+      restore2();
+    }
+  };
+  let awaitable = function_();
+  if (awaitable && typeof awaitable === "object" && "catch" in awaitable) {
+    awaitable = awaitable.catch((error) => {
+      restore();
+      throw error;
+    });
+  }
+  return [awaitable, restore];
+}
 
 getContext("nitro-app", {
   asyncContext: false,
   AsyncLocalStorage: void 0
 });
 
+function isPathInScope(pathname, base) {
+  let canonical;
+  try {
+    const pre = pathname.replace(/%2f/gi, "/").replace(/%5c/gi, "\\");
+    canonical = new URL(pre, "http://_").pathname;
+  } catch {
+    return false;
+  }
+  return !base || canonical === base || canonical.startsWith(base + "/");
+}
+
 const config = useRuntimeConfig();
-const _routeRulesMatcher = toRouteMatcher$1(
-  createRouter$2({ routes: config.nitro.routeRules })
+const _routeRulesMatcher = toRouteMatcher(
+  createRouter$1({ routes: config.nitro.routeRules })
 );
 function createRouteRulesHandler(ctx) {
-  return eventHandler$1((event) => {
+  return eventHandler((event) => {
     const routeRules = getRouteRules(event);
     if (routeRules.headers) {
       setHeaders(event, routeRules.headers);
@@ -4294,14 +4657,19 @@ function createRouteRulesHandler(ctx) {
         let targetPath = event.path;
         const strpBase = routeRules.redirect._redirectStripBase;
         if (strpBase) {
-          targetPath = withoutBase$1(targetPath, strpBase);
+          if (!isPathInScope(event.path.split("?")[0], strpBase)) {
+            throw createError$1({ statusCode: 400 });
+          }
+          targetPath = withoutBase(targetPath, strpBase);
+        } else if (targetPath.startsWith("//")) {
+          targetPath = targetPath.replace(/^\/+/, "/");
         }
-        target = joinURL$1(target.slice(0, -3), targetPath);
+        target = joinURL(target.slice(0, -3), targetPath);
       } else if (event.path.includes("?")) {
-        const query = getQuery$3(event.path);
-        target = withQuery$1(target, query);
+        const query = getQuery$1(event.path);
+        target = withQuery(target, query);
       }
-      return sendRedirect$1(event, target, routeRules.redirect.statusCode);
+      return sendRedirect(event, target, routeRules.redirect.statusCode);
     }
     if (routeRules.proxy) {
       let target = routeRules.proxy.to;
@@ -4309,12 +4677,17 @@ function createRouteRulesHandler(ctx) {
         let targetPath = event.path;
         const strpBase = routeRules.proxy._proxyStripBase;
         if (strpBase) {
-          targetPath = withoutBase$1(targetPath, strpBase);
+          if (!isPathInScope(event.path.split("?")[0], strpBase)) {
+            throw createError$1({ statusCode: 400 });
+          }
+          targetPath = withoutBase(targetPath, strpBase);
+        } else if (targetPath.startsWith("//")) {
+          targetPath = targetPath.replace(/^\/+/, "/");
         }
-        target = joinURL$1(target.slice(0, -3), targetPath);
+        target = joinURL(target.slice(0, -3), targetPath);
       } else if (event.path.includes("?")) {
-        const query = getQuery$3(event.path);
-        target = withQuery$1(target, query);
+        const query = getQuery$1(event.path);
+        target = withQuery(target, query);
       }
       return proxyRequest(event, target, {
         fetch: ctx.localFetch,
@@ -4327,13 +4700,13 @@ function getRouteRules(event) {
   event.context._nitro = event.context._nitro || {};
   if (!event.context._nitro.routeRules) {
     event.context._nitro.routeRules = getRouteRulesForPath(
-      withoutBase$1(event.path.split("?")[0], useRuntimeConfig().app.baseURL)
+      withoutBase(event.path.split("?")[0], useRuntimeConfig().app.baseURL)
     );
   }
   return event.context._nitro.routeRules;
 }
 function getRouteRulesForPath(path) {
-  return defu$1({}, ..._routeRulesMatcher.matchAll(path).reverse());
+  return defu({}, ..._routeRulesMatcher.matchAll(path).reverse());
 }
 
 function _captureError(error, type) {
@@ -4364,7 +4737,7 @@ function normalizeFetchResponse(response) {
   });
 }
 function normalizeCookieHeader(header = "") {
-  return splitCookiesString$1(joinHeaders(header));
+  return splitCookiesString(joinHeaders(header));
 }
 function normalizeCookieHeaders(headers) {
   const outgoingHeaders = new Headers();
@@ -4380,53 +4753,54 @@ function normalizeCookieHeaders(headers) {
   return outgoingHeaders;
 }
 
-/**
-* Nitro internal functions extracted from https://github.com/nitrojs/nitro/blob/v2/src/runtime/internal/utils.ts
-*/
 function isJsonRequest(event) {
-	// If the client specifically requests HTML, then avoid classifying as JSON.
+	
 	if (hasReqHeader(event, "accept", "text/html")) {
 		return false;
 	}
 	return hasReqHeader(event, "accept", "application/json") || hasReqHeader(event, "user-agent", "curl/") || hasReqHeader(event, "user-agent", "httpie/") || hasReqHeader(event, "sec-fetch-mode", "cors") || event.path.startsWith("/api/") || event.path.endsWith(".json");
 }
 function hasReqHeader(event, name, includes) {
-	const value = getRequestHeader$1(event, name);
+	const value = getRequestHeader(event, name);
 	return !!(value && typeof value === "string" && value.toLowerCase().includes(includes));
 }
 
 const errorHandler$0 = (async function errorhandler(error, event, { defaultHandler }) {
 	if (event.handled || isJsonRequest(event)) {
-		// let Nitro handle JSON errors
+		
 		return;
 	}
-	// invoke default Nitro error handler (which will log appropriately if required)
+	
 	const defaultRes = await defaultHandler(error, event, { json: true });
-	// let Nitro handle redirect if appropriate
+	
 	const status = error.status || error.statusCode || 500;
 	if (status === 404 && defaultRes.status === 302) {
 		setResponseHeaders(event, defaultRes.headers);
 		setResponseStatus(event, defaultRes.status, defaultRes.statusText);
-		return send$1(event, JSON.stringify(defaultRes.body, null, 2));
+		return send(event, JSON.stringify(defaultRes.body, null, 2));
 	}
 	const errorObject = defaultRes.body;
-	// remove proto/hostname/port from URL
+	
 	const url = new URL(errorObject.url);
-	errorObject.url = withoutBase$1(url.pathname, useRuntimeConfig(event).app.baseURL) + url.search + url.hash;
-	// add default server message (keep sanitized for unhandled errors)
+	errorObject.url = withoutBase(url.pathname, useRuntimeConfig(event).app.baseURL) + url.search + url.hash;
+	
 	errorObject.message = error.unhandled ? errorObject.message || "Server Error" : error.message || errorObject.message || "Server Error";
-	// we will be rendering this error internally so we can pass along the error.data safely
+	
 	errorObject.data ||= error.data;
 	errorObject.statusText ||= error.statusText || error.statusMessage;
 	delete defaultRes.headers["content-type"];
 	delete defaultRes.headers["content-security-policy"];
 	setResponseHeaders(event, defaultRes.headers);
-	// Access request headers
-	const reqHeaders = getRequestHeaders$1(event);
-	// Detect to avoid recursion in SSR rendering of errors
-	const isRenderingError = event.path.startsWith("/__nuxt_error") || !!reqHeaders["x-nuxt-error"];
-	// HTML response (via SSR)
-	const res = isRenderingError ? null : await useNitroApp().localFetch(withQuery$1(joinURL$1(useRuntimeConfig(event).app.baseURL, "/__nuxt_error"), errorObject), {
+	
+	const reqHeaders = getRequestHeaders(event);
+	
+	const isRenderingError = event.path.startsWith("/__nuxt_error") || !!reqHeaders["x-nuxt-error"] || !!event.context.nuxt?.["~rendering-error"];
+	if (!isRenderingError) {
+		event.context.nuxt ||= {};
+		event.context.nuxt["~rendering-error"] = true;
+	}
+	
+	const res = isRenderingError ? null : await useNitroApp().localFetch(withQuery(joinURL(useRuntimeConfig(event).app.baseURL, "/__nuxt_error"), errorObject), {
 		headers: {
 			...reqHeaders,
 			"x-nuxt-error": "true"
@@ -4436,11 +4810,11 @@ const errorHandler$0 = (async function errorhandler(error, event, { defaultHandl
 	if (event.handled) {
 		return;
 	}
-	// Fallback to static rendered error page
+	
 	if (!res) {
 		const { template } = await import('../_/error-500.mjs');
-		setResponseHeader$1(event, "Content-Type", "text/html;charset=UTF-8");
-		return send$1(event, template(errorObject));
+		setResponseHeader(event, "Content-Type", "text/html;charset=UTF-8");
+		return send(event, template(errorObject));
 	}
 	const html = await res.text();
 	for (const [header, value] of res.headers.entries()) {
@@ -4448,10 +4822,10 @@ const errorHandler$0 = (async function errorhandler(error, event, { defaultHandl
 			appendResponseHeader(event, header, value);
 			continue;
 		}
-		setResponseHeader$1(event, header, value);
+		setResponseHeader(event, header, value);
 	}
 	setResponseStatus(event, res.status && res.status !== 200 ? res.status : defaultRes.status, res.statusText || defaultRes.statusText);
-	return send$1(event, html);
+	return send(event, html);
 });
 
 function defineNitroErrorHandler(handler) {
@@ -4463,7 +4837,7 @@ const errorHandler$1 = defineNitroErrorHandler(
     const res = defaultHandler(error, event);
     setResponseHeaders(event, res.headers);
     setResponseStatus(event, res.status, res.statusText);
-    return send$1(event, JSON.stringify(res.body, null, 2));
+    return send(event, JSON.stringify(res.body, null, 2));
   }
 );
 function defaultHandler(error, event, opts) {
@@ -4774,8 +5148,8 @@ function normalizeSiteConfig(config) {
     config.indexable = String(config.indexable) !== "false";
   if (typeof config.trailingSlash !== "undefined" && !config.trailingSlash)
     config.trailingSlash = String(config.trailingSlash) !== "false";
-  if (config.url && !hasProtocol$1(String(config.url), { acceptRelative: true, strict: false }))
-    config.url = withHttps$1(String(config.url));
+  if (config.url && !hasProtocol(String(config.url), { acceptRelative: true, strict: false }))
+    config.url = withHttps(String(config.url));
   const keys = Object.keys(config).sort((a, b) => a.localeCompare(b));
   const newConfig = {};
   for (const k of keys)
@@ -4850,7 +5224,7 @@ function envSiteConfig(env = {}) {
 
 function getSiteConfig(e, _options) {
   e.context.siteConfig = e.context.siteConfig || createSiteConfigStack();
-  const options = defu$1(_options, useRuntimeConfig(e)["nuxt-site-config"], { debug: false });
+  const options = defu(_options, useRuntimeConfig(e)["nuxt-site-config"], { debug: false });
   return e.context.siteConfig.get(options);
 }
 
@@ -4877,1220 +5251,1220 @@ const assets = {
   "/.htaccess": {
     "type": "text/plain; charset=utf-8",
     "etag": "\"f50-O9Qw1A7summxnRDfC3SWRZK7iwQ\"",
-    "mtime": "2026-05-19T03:22:32.383Z",
+    "mtime": "2026-05-19T04:27:03.423Z",
     "size": 3920,
     "path": "../public/.htaccess"
   },
   "/robots.txt": {
     "type": "text/plain; charset=utf-8",
     "etag": "\"ed-HmwUNVyTKVgdtxsTmvPgu66kaGM\"",
-    "mtime": "2026-05-19T03:22:32.383Z",
+    "mtime": "2026-05-19T04:27:03.423Z",
     "size": 237,
     "path": "../public/robots.txt"
   },
   "/css/nuxt-google-fonts.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"5b22-EtJv623pquYV+WZcrmIfqsd9k5o\"",
-    "mtime": "2026-05-19T03:22:32.352Z",
+    "mtime": "2026-05-19T04:27:03.388Z",
     "size": 23330,
     "path": "../public/css/nuxt-google-fonts.css"
-  },
-  "/fonts/Inter-normal-300-cyrillic.woff2": {
-    "type": "font/woff2",
-    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18748,
-    "path": "../public/fonts/Inter-normal-300-cyrillic.woff2"
-  },
-  "/fonts/Inter-normal-300-cyrillic-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
-    "mtime": "2026-05-19T03:22:32.352Z",
-    "size": 25960,
-    "path": "../public/fonts/Inter-normal-300-cyrillic-ext.woff2"
   },
   "/logo_min.ico": {
     "type": "image/vnd.microsoft.icon",
     "etag": "\"37c3e-d5SSDYbeXvohJTgAacvZdcjoOm4\"",
-    "mtime": "2026-05-19T03:22:32.383Z",
+    "mtime": "2026-05-19T04:27:03.423Z",
     "size": 228414,
     "path": "../public/logo_min.ico"
   },
-  "/fonts/Inter-normal-300-greek-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 11232,
-    "path": "../public/fonts/Inter-normal-300-greek-ext.woff2"
-  },
-  "/fonts/Inter-normal-300-greek.woff2": {
-    "type": "font/woff2",
-    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18996,
-    "path": "../public/fonts/Inter-normal-300-greek.woff2"
-  },
-  "/fonts/Inter-normal-300-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 85068,
-    "path": "../public/fonts/Inter-normal-300-latin-ext.woff2"
-  },
-  "/fonts/Inter-normal-300-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 48256,
-    "path": "../public/fonts/Inter-normal-300-latin.woff2"
-  },
-  "/fonts/Inter-normal-300-vietnamese.woff2": {
-    "type": "font/woff2",
-    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 10252,
-    "path": "../public/fonts/Inter-normal-300-vietnamese.woff2"
-  },
-  "/fonts/Inter-normal-400-cyrillic-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 25960,
-    "path": "../public/fonts/Inter-normal-400-cyrillic-ext.woff2"
-  },
-  "/fonts/Inter-normal-400-cyrillic.woff2": {
-    "type": "font/woff2",
-    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18748,
-    "path": "../public/fonts/Inter-normal-400-cyrillic.woff2"
-  },
-  "/fonts/Inter-normal-400-greek-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 11232,
-    "path": "../public/fonts/Inter-normal-400-greek-ext.woff2"
-  },
-  "/fonts/Inter-normal-400-greek.woff2": {
-    "type": "font/woff2",
-    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18996,
-    "path": "../public/fonts/Inter-normal-400-greek.woff2"
-  },
-  "/fonts/Inter-normal-400-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 85068,
-    "path": "../public/fonts/Inter-normal-400-latin-ext.woff2"
-  },
-  "/fonts/Inter-normal-400-vietnamese.woff2": {
-    "type": "font/woff2",
-    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 10252,
-    "path": "../public/fonts/Inter-normal-400-vietnamese.woff2"
-  },
-  "/fonts/Inter-normal-400-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 48256,
-    "path": "../public/fonts/Inter-normal-400-latin.woff2"
-  },
-  "/fonts/Inter-normal-500-cyrillic-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 25960,
-    "path": "../public/fonts/Inter-normal-500-cyrillic-ext.woff2"
-  },
-  "/fonts/Inter-normal-500-cyrillic.woff2": {
-    "type": "font/woff2",
-    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18748,
-    "path": "../public/fonts/Inter-normal-500-cyrillic.woff2"
-  },
-  "/fonts/Inter-normal-500-greek-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 11232,
-    "path": "../public/fonts/Inter-normal-500-greek-ext.woff2"
-  },
-  "/fonts/Inter-normal-500-greek.woff2": {
-    "type": "font/woff2",
-    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18996,
-    "path": "../public/fonts/Inter-normal-500-greek.woff2"
-  },
-  "/fonts/Inter-normal-500-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 85068,
-    "path": "../public/fonts/Inter-normal-500-latin-ext.woff2"
-  },
-  "/fonts/Inter-normal-500-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 48256,
-    "path": "../public/fonts/Inter-normal-500-latin.woff2"
-  },
-  "/img/og-home.png": {
-    "type": "image/png",
-    "etag": "\"ad4de-xBMGiPQ+Hs+U1dH5p59HapSPyeA\"",
-    "mtime": "2026-05-19T03:22:32.383Z",
-    "size": 709854,
-    "path": "../public/img/og-home.png"
-  },
-  "/fonts/Inter-normal-500-vietnamese.woff2": {
-    "type": "font/woff2",
-    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 10252,
-    "path": "../public/fonts/Inter-normal-500-vietnamese.woff2"
-  },
-  "/fonts/Inter-normal-600-cyrillic-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 25960,
-    "path": "../public/fonts/Inter-normal-600-cyrillic-ext.woff2"
-  },
-  "/fonts/Inter-normal-600-cyrillic.woff2": {
-    "type": "font/woff2",
-    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18748,
-    "path": "../public/fonts/Inter-normal-600-cyrillic.woff2"
-  },
-  "/fonts/Inter-normal-600-greek-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 11232,
-    "path": "../public/fonts/Inter-normal-600-greek-ext.woff2"
-  },
-  "/fonts/Inter-normal-600-greek.woff2": {
-    "type": "font/woff2",
-    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18996,
-    "path": "../public/fonts/Inter-normal-600-greek.woff2"
-  },
-  "/fonts/Inter-normal-600-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 85068,
-    "path": "../public/fonts/Inter-normal-600-latin-ext.woff2"
-  },
-  "/fonts/Inter-normal-600-vietnamese.woff2": {
-    "type": "font/woff2",
-    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 10252,
-    "path": "../public/fonts/Inter-normal-600-vietnamese.woff2"
-  },
-  "/fonts/Inter-normal-600-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 48256,
-    "path": "../public/fonts/Inter-normal-600-latin.woff2"
-  },
-  "/fonts/Inter-normal-700-cyrillic-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 25960,
-    "path": "../public/fonts/Inter-normal-700-cyrillic-ext.woff2"
-  },
-  "/fonts/Inter-normal-700-cyrillic.woff2": {
-    "type": "font/woff2",
-    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18748,
-    "path": "../public/fonts/Inter-normal-700-cyrillic.woff2"
-  },
-  "/fonts/Inter-normal-700-greek-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 11232,
-    "path": "../public/fonts/Inter-normal-700-greek-ext.woff2"
-  },
-  "/fonts/Inter-normal-700-greek.woff2": {
-    "type": "font/woff2",
-    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18996,
-    "path": "../public/fonts/Inter-normal-700-greek.woff2"
-  },
-  "/fonts/Inter-normal-700-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 85068,
-    "path": "../public/fonts/Inter-normal-700-latin-ext.woff2"
-  },
-  "/fonts/Inter-normal-700-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 48256,
-    "path": "../public/fonts/Inter-normal-700-latin.woff2"
-  },
-  "/fonts/Inter-normal-700-vietnamese.woff2": {
-    "type": "font/woff2",
-    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 10252,
-    "path": "../public/fonts/Inter-normal-700-vietnamese.woff2"
-  },
-  "/fonts/Inter-normal-800-cyrillic-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 25960,
-    "path": "../public/fonts/Inter-normal-800-cyrillic-ext.woff2"
-  },
-  "/fonts/Inter-normal-800-cyrillic.woff2": {
-    "type": "font/woff2",
-    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18748,
-    "path": "../public/fonts/Inter-normal-800-cyrillic.woff2"
-  },
-  "/fonts/Inter-normal-800-greek-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 11232,
-    "path": "../public/fonts/Inter-normal-800-greek-ext.woff2"
-  },
-  "/fonts/Inter-normal-800-greek.woff2": {
-    "type": "font/woff2",
-    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 18996,
-    "path": "../public/fonts/Inter-normal-800-greek.woff2"
-  },
-  "/fonts/Inter-normal-800-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 85068,
-    "path": "../public/fonts/Inter-normal-800-latin-ext.woff2"
-  },
-  "/fonts/Inter-normal-800-vietnamese.woff2": {
-    "type": "font/woff2",
-    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
-    "mtime": "2026-05-19T03:22:32.353Z",
-    "size": 10252,
-    "path": "../public/fonts/Inter-normal-800-vietnamese.woff2"
-  },
-  "/fonts/Inter-normal-800-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 48256,
-    "path": "../public/fonts/Inter-normal-800-latin.woff2"
-  },
-  "/fonts/Inter-normal-900-cyrillic-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 25960,
-    "path": "../public/fonts/Inter-normal-900-cyrillic-ext.woff2"
-  },
-  "/fonts/Inter-normal-900-cyrillic.woff2": {
-    "type": "font/woff2",
-    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 18748,
-    "path": "../public/fonts/Inter-normal-900-cyrillic.woff2"
-  },
-  "/fonts/Inter-normal-900-greek-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 11232,
-    "path": "../public/fonts/Inter-normal-900-greek-ext.woff2"
-  },
-  "/fonts/Inter-normal-900-greek.woff2": {
-    "type": "font/woff2",
-    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 18996,
-    "path": "../public/fonts/Inter-normal-900-greek.woff2"
-  },
-  "/fonts/Inter-normal-900-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 85068,
-    "path": "../public/fonts/Inter-normal-900-latin-ext.woff2"
-  },
-  "/fonts/Inter-normal-900-vietnamese.woff2": {
-    "type": "font/woff2",
-    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 10252,
-    "path": "../public/fonts/Inter-normal-900-vietnamese.woff2"
-  },
-  "/fonts/Inter-normal-900-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 48256,
-    "path": "../public/fonts/Inter-normal-900-latin.woff2"
-  },
-  "/fonts/Poppins-normal-300-devanagari.woff2": {
-    "type": "font/woff2",
-    "etag": "\"99f4-WNrgXa27E9CkL/p6OkUVoYZR4SE\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 39412,
-    "path": "../public/fonts/Poppins-normal-300-devanagari.woff2"
-  },
-  "/fonts/Poppins-normal-300-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1594-dAp7vSJ7nedwIqra5uHYACwZX80\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 5524,
-    "path": "../public/fonts/Poppins-normal-300-latin-ext.woff2"
-  },
-  "/fonts/Poppins-normal-300-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1ea0-qem6/mRmb0WVBRoOiVtHpfo55n4\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 7840,
-    "path": "../public/fonts/Poppins-normal-300-latin.woff2"
-  },
-  "/fonts/Poppins-normal-400-devanagari.woff2": {
-    "type": "font/woff2",
-    "etag": "\"9aec-+heN9EaOhnzMHYotWFtIR1rPUqo\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 39660,
-    "path": "../public/fonts/Poppins-normal-400-devanagari.woff2"
-  },
-  "/fonts/Poppins-normal-400-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"160c-hU5vllMlNwAgRAQhdepX1vg79Ok\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 5644,
-    "path": "../public/fonts/Poppins-normal-400-latin-ext.woff2"
-  },
-  "/fonts/Poppins-normal-400-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1ecc-rG1xtNX90rPavJoG/2wAHkJR2gs\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 7884,
-    "path": "../public/fonts/Poppins-normal-400-latin.woff2"
-  },
-  "/fonts/Poppins-normal-500-devanagari.woff2": {
-    "type": "font/woff2",
-    "etag": "\"98ac-FfduLsaYHzsmK+dTRQej4D+0kzM\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 39084,
-    "path": "../public/fonts/Poppins-normal-500-devanagari.woff2"
-  },
-  "/fonts/Poppins-normal-500-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"156c-pME+B9QjmcPt7Gput9k/IBr33DY\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 5484,
-    "path": "../public/fonts/Poppins-normal-500-latin-ext.woff2"
-  },
-  "/fonts/Poppins-normal-500-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1e44-DaLRfnOPRtKgnm+3lp2kUXGamCA\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 7748,
-    "path": "../public/fonts/Poppins-normal-500-latin.woff2"
-  },
-  "/fonts/Poppins-normal-600-devanagari.woff2": {
-    "type": "font/woff2",
-    "etag": "\"997c-qGf4mE9ZWpp57X22lffBTB3znms\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 39292,
-    "path": "../public/fonts/Poppins-normal-600-devanagari.woff2"
-  },
-  "/fonts/Poppins-normal-600-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1594-zckNsOxkFI6FcjVKnKntSmmMnaM\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 5524,
-    "path": "../public/fonts/Poppins-normal-600-latin-ext.woff2"
-  },
-  "/fonts/Poppins-normal-600-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1f40-F5+X7AJ18JYDqNuU1DgOtYTYHNU\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 8000,
-    "path": "../public/fonts/Poppins-normal-600-latin.woff2"
-  },
-  "/fonts/Poppins-normal-700-devanagari.woff2": {
-    "type": "font/woff2",
-    "etag": "\"9954-YmyFpGMZyKQZKjnfAlsNz3JPyWo\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 39252,
-    "path": "../public/fonts/Poppins-normal-700-devanagari.woff2"
-  },
-  "/fonts/Poppins-normal-700-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1538-V1Zt39He3h9fDuZ6w3aFkkjTGXY\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 5432,
-    "path": "../public/fonts/Poppins-normal-700-latin-ext.woff2"
-  },
-  "/fonts/Poppins-normal-700-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1e88-y3JiEtXVJQIXUqHYRwoPtZPgxJ4\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 7816,
-    "path": "../public/fonts/Poppins-normal-700-latin.woff2"
-  },
-  "/fonts/Poppins-normal-800-devanagari.woff2": {
-    "type": "font/woff2",
-    "etag": "\"981c-k3g2dJ6QWFyP7z9VbO1vm6CQB+k\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 38940,
-    "path": "../public/fonts/Poppins-normal-800-devanagari.woff2"
-  },
-  "/fonts/Poppins-normal-800-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1574-+mU2pngeulIVUPtXj3aty3xqk/E\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 5492,
-    "path": "../public/fonts/Poppins-normal-800-latin-ext.woff2"
-  },
-  "/fonts/Poppins-normal-800-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1e90-bRHXQ7w8+xadcLyGRQ8YNR3BqQU\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 7824,
-    "path": "../public/fonts/Poppins-normal-800-latin.woff2"
-  },
-  "/fonts/Poppins-normal-900-devanagari.woff2": {
-    "type": "font/woff2",
-    "etag": "\"9530-Bg0f4jk4tdlaQKfyg6hPpVkMz8E\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 38192,
-    "path": "../public/fonts/Poppins-normal-900-devanagari.woff2"
-  },
-  "/fonts/Poppins-normal-900-latin-ext.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1504-BjV9ewsNiVWeLSlB7JQaVoLNW9g\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 5380,
-    "path": "../public/fonts/Poppins-normal-900-latin-ext.woff2"
-  },
-  "/fonts/Poppins-normal-900-latin.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1dd0-7Ay7y0YA5pHLJKY0UfdYcn+QowY\"",
-    "mtime": "2026-05-19T03:22:32.354Z",
-    "size": 7632,
-    "path": "../public/fonts/Poppins-normal-900-latin.woff2"
-  },
-  "/_nuxt/0e1ZdXx3.js": {
+  "/_nuxt/54XM1wFP.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"239e-qxN38moD6L2Eq3bwjbRUM+kyUB4\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 9118,
-    "path": "../public/_nuxt/0e1ZdXx3.js"
+    "etag": "\"324-Q9EisC1qvnhk3Wbo03/rQCA1DFA\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 804,
+    "path": "../public/_nuxt/54XM1wFP.js"
   },
-  "/_nuxt/0vE0a4C3.js": {
+  "/_nuxt/9oxCDpX_.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"4da-xQ+RJBvbiZBaK3z9TaEBiAwRxUE\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 1242,
-    "path": "../public/_nuxt/0vE0a4C3.js"
+    "etag": "\"2484-et3f1NaA7lGCKphWytHHEodmmQ0\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 9348,
+    "path": "../public/_nuxt/9oxCDpX_.js"
   },
-  "/_nuxt/7Otbi_Is.js": {
+  "/_nuxt/B6nI37v-.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"2132-gqbgfunBXR3dW1ot9nCT9UaKTMY\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 8498,
-    "path": "../public/_nuxt/7Otbi_Is.js"
+    "etag": "\"14b-geZqB6/sFYCsoYQ26XdsCWtCjsA\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 331,
+    "path": "../public/_nuxt/B6nI37v-.js"
   },
-  "/_nuxt/7focd2h2.js": {
+  "/_nuxt/B9jBwKbK.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"32ff-eXCxnF/PHa1bhKMOuhdPycLkTJo\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 13055,
-    "path": "../public/_nuxt/7focd2h2.js"
+    "etag": "\"2d17-OKPvcSFbVa9nsbPgIcidA0ipcEU\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 11543,
+    "path": "../public/_nuxt/B9jBwKbK.js"
   },
-  "/_nuxt/B1_CzAhL.js": {
+  "/_nuxt/BGMTMFZi.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"50b2-kwfa6LQtPD8jGJnt4rsZVAXjO/g\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 20658,
-    "path": "../public/_nuxt/B1_CzAhL.js"
-  },
-  "/_nuxt/BBhRfvhx.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"2d0b-wsb72lRsWh4VHB6zMSc90rS4124\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 11531,
-    "path": "../public/_nuxt/BBhRfvhx.js"
-  },
-  "/_nuxt/BBns7GPs.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"49c7-T6s3WH2iuUnhpCcXIKRjaKg+obY\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 18887,
-    "path": "../public/_nuxt/BBns7GPs.js"
-  },
-  "/_nuxt/BFX0R_vt.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"364a-auOB12GzGbOFx9WYmzlMHnNnKwQ\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 13898,
-    "path": "../public/_nuxt/BFX0R_vt.js"
+    "etag": "\"2b68-UVFU7nkWwKD7yzZI6Txxc1MtapM\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 11112,
+    "path": "../public/_nuxt/BGMTMFZi.js"
   },
   "/_nuxt/BJ2ClxiI.js": {
     "type": "text/javascript; charset=utf-8",
     "etag": "\"a45-zN9HxSHCgw/dHdLJnzIzRqykuKE\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 2629,
     "path": "../public/_nuxt/BJ2ClxiI.js"
+  },
+  "/_nuxt/BPjs6Mrj.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"213a-BRMOnWl7oeWAHKE8byMzNO3FrjE\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 8506,
+    "path": "../public/_nuxt/BPjs6Mrj.js"
+  },
+  "/_nuxt/BQX1WgZn.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"2fdc-z7mwOML2YE8UsDsqtUboMNXwxFE\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 12252,
+    "path": "../public/_nuxt/BQX1WgZn.js"
   },
   "/_nuxt/Ansar.BIRTxN9m.jpeg": {
     "type": "image/jpeg",
     "etag": "\"4b7e7-jcyAOr9Zx6ffQeNe7hWH93Z+CGM\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 309223,
     "path": "../public/_nuxt/Ansar.BIRTxN9m.jpeg"
   },
-  "/_nuxt/BTe2PQof.js": {
+  "/_nuxt/BYZA7dyr.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"2fdf-k7pleMYKzQ/tNMsJpH0MmWkdZ6U\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 12255,
-    "path": "../public/_nuxt/BTe2PQof.js"
+    "etag": "\"14e7-Ehx6eL4pAJFhp+8/SicW7R6Yuk0\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 5351,
+    "path": "../public/_nuxt/BYZA7dyr.js"
   },
-  "/_nuxt/BjDHH5_d.js": {
+  "/_nuxt/BkhfFcrQ.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"1981-oMrPYg4xZWxGrBF5i7sW9RhHPPQ\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 6529,
-    "path": "../public/_nuxt/BjDHH5_d.js"
+    "etag": "\"e9f-o/F94jCrk0Q/xGc6bkVYZLAQbV8\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 3743,
+    "path": "../public/_nuxt/BkhfFcrQ.js"
   },
-  "/_nuxt/BpmukHGw.js": {
+  "/_nuxt/Bqf_mWyc.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"2b64-/zFh1d8AbNIup5kNdVRccFzgy6k\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 11108,
-    "path": "../public/_nuxt/BpmukHGw.js"
+    "etag": "\"1dbe-1qDyaNy9gn8KXtxWB2zh3smRfHc\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 7614,
+    "path": "../public/_nuxt/Bqf_mWyc.js"
   },
-  "/_nuxt/C4zvbGFT.js": {
+  "/_nuxt/BrUP9AHH.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"2515-zJ+GAE+eXAcROevPyoT/YL+o6vA\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 9493,
-    "path": "../public/_nuxt/C4zvbGFT.js"
+    "etag": "\"251b-Flvh2atvvxLRw7UWnMJPKck7mpA\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 9499,
+    "path": "../public/_nuxt/BrUP9AHH.js"
   },
-  "/_nuxt/C6rFKkc_.js": {
+  "/_nuxt/BwUFNyj2.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"9c-KrH60ZsF1RXfms2vrd3SFiVFcFU\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 156,
-    "path": "../public/_nuxt/C6rFKkc_.js"
+    "etag": "\"2e1a-iEuJAYp9pusy8WLNWksXiF6Wv+g\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 11802,
+    "path": "../public/_nuxt/BwUFNyj2.js"
   },
-  "/_nuxt/CBbFCcRj.js": {
+  "/_nuxt/C0RqOy0a.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"613-Q7TDlYAM5t0Jq3JfIsZdnCpCDi4\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 1555,
-    "path": "../public/_nuxt/CBbFCcRj.js"
+    "etag": "\"13a1-eSbujtJ2p7CVNBe88xpBQyim3cs\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 5025,
+    "path": "../public/_nuxt/C0RqOy0a.js"
   },
-  "/_nuxt/BqpfUNpH.js": {
+  "/_nuxt/C3NGdeub.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"316a6-BtllTqI3gJhZn1i60Tzj4AXdvZ8\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 202406,
-    "path": "../public/_nuxt/BqpfUNpH.js"
+    "etag": "\"193c-fHzDAKrur4JDFCoV2ouAdfLY9ck\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 6460,
+    "path": "../public/_nuxt/C3NGdeub.js"
   },
-  "/_nuxt/CF1YLfT2.js": {
+  "/_nuxt/C5teSimp.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"26d3-Ey+QAmF5P0BswhYGONygw36pk2Y\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 9939,
-    "path": "../public/_nuxt/CF1YLfT2.js"
+    "etag": "\"3c90-hyZOX7/GAObcjEieOTeHMmbTlFo\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 15504,
+    "path": "../public/_nuxt/C5teSimp.js"
   },
-  "/_nuxt/CKudCpHm.js": {
+  "/_nuxt/CFcJaCby.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"13a5-jEQq42ZIwu9/fTD2nHs3Xte7oio\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 5029,
-    "path": "../public/_nuxt/CKudCpHm.js"
+    "etag": "\"61b-DvbdxIMIidWQ+FF9aCmQKgV1rW4\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 1563,
+    "path": "../public/_nuxt/CFcJaCby.js"
   },
-  "/_nuxt/CSXMTSuk.js": {
+  "/_nuxt/CQF8JzD6.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"2c80-IG+OVFsnYMrvZvDV7/YSr7x+PGY\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 11392,
-    "path": "../public/_nuxt/CSXMTSuk.js"
+    "etag": "\"1993-F4hJZPmN37Hv9u7Ritk3GnB0ims\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 6547,
+    "path": "../public/_nuxt/CQF8JzD6.js"
   },
-  "/_nuxt/CiYCmYH-.js": {
+  "/_nuxt/CTD2eR8q.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"14b-wMP2CubW4Mgn7nIsF8GYjDl6hMU\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 331,
-    "path": "../public/_nuxt/CiYCmYH-.js"
+    "etag": "\"26d9-aWmVYTT5RK8zcZmR+9SwHTRVVJM\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 9945,
+    "path": "../public/_nuxt/CTD2eR8q.js"
   },
-  "/_nuxt/CkA_oU9s.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"17b-utXZmm7+hS7xMU5C9WtSRBsUk2A\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 379,
-    "path": "../public/_nuxt/CkA_oU9s.js"
+  "/img/og-home.png": {
+    "type": "image/png",
+    "etag": "\"ad4de-xBMGiPQ+Hs+U1dH5p59HapSPyeA\"",
+    "mtime": "2026-05-19T04:27:03.423Z",
+    "size": 709854,
+    "path": "../public/img/og-home.png"
   },
-  "/_nuxt/Cq-bExWm.js": {
+  "/_nuxt/CTXvOLeq.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"c28-Mx3Zie5CQr7y2rdfJKJJMyd5VEU\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 3112,
-    "path": "../public/_nuxt/Cq-bExWm.js"
+    "etag": "\"cf9-VHhvAx0h4W9Kv4mN8MaCmwrOn7I\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 3321,
+    "path": "../public/_nuxt/CTXvOLeq.js"
   },
-  "/_nuxt/Crn0ZeaD.js": {
+  "/_nuxt/CYD737cD.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"3c8c-m64hDnYPggktoSIAv4Ue5b4/27A\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 15500,
-    "path": "../public/_nuxt/Crn0ZeaD.js"
+    "etag": "\"318c-x3AcnwZbFB0uwr/9rRUMZINTo6A\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 12684,
+    "path": "../public/_nuxt/CYD737cD.js"
+  },
+  "/_nuxt/CcikB38L.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"50b7-/FSgvTTP66pKeofHmy4hzgOr1sQ\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 20663,
+    "path": "../public/_nuxt/CcikB38L.js"
   },
   "/_nuxt/CtaSection.DleS3rCX.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"4e-rE5GSFdMREwRiCwBKi8wdclrw/I\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 78,
     "path": "../public/_nuxt/CtaSection.DleS3rCX.css"
   },
-  "/_nuxt/D0bdyyUE.js": {
+  "/_nuxt/CxWFlLgV.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"1db5-7HWvoM0ZIJ2FWBL97XbpokLdwJU\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 7605,
-    "path": "../public/_nuxt/D0bdyyUE.js"
+    "etag": "\"8b3c-TcjqAqRBgtOwgHJrESA5LvPfvXI\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 35644,
+    "path": "../public/_nuxt/CxWFlLgV.js"
   },
-  "/_nuxt/DBrbV7lc.js": {
+  "/_nuxt/D-Ly-uwL.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"4118-SDDYIaAJ8A9yyDwD6VdJ0k4WuCE\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 16664,
-    "path": "../public/_nuxt/DBrbV7lc.js"
+    "etag": "\"4395-Uj+JDTQX4wbqofQjDCXCo+Yhcoc\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 17301,
+    "path": "../public/_nuxt/D-Ly-uwL.js"
   },
-  "/_nuxt/DTFPkkIy.js": {
+  "/_nuxt/D1QAJiAu.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"d2a-clUX/+7fg0l5szOEkJyV4/+59FU\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 3370,
-    "path": "../public/_nuxt/DTFPkkIy.js"
+    "etag": "\"9c-/1KUioiIA69doK6D/FvgTazDfrE\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 156,
+    "path": "../public/_nuxt/D1QAJiAu.js"
   },
-  "/_nuxt/DVAVSRUo.js": {
+  "/_nuxt/D8Xy3yCk.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"320-tfTfVCO1qwW3TilxK0RoXgLvtvU\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 800,
-    "path": "../public/_nuxt/DVAVSRUo.js"
+    "etag": "\"17b-Ol/u9dyiNIjX/59FhPLIxA4s7EE\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 379,
+    "path": "../public/_nuxt/D8Xy3yCk.js"
   },
-  "/_nuxt/DWG8RaY0.js": {
+  "/_nuxt/DPAGV8Dh.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"8b2d-DVbk+VcQA/o12UfVZ3X+BvAItmA\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 35629,
-    "path": "../public/_nuxt/DWG8RaY0.js"
+    "etag": "\"2c8f-85/iuk5CBvJBNzgGzhroI7ad6xo\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 11407,
+    "path": "../public/_nuxt/DPAGV8Dh.js"
   },
-  "/_nuxt/D_TxeD6J.js": {
+  "/_nuxt/DQINbiKX.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"4385-AEMgH7JvCTnw7GaxZuZuUEPuxfc\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 17285,
-    "path": "../public/_nuxt/D_TxeD6J.js"
+    "etag": "\"c30-t3o5pp9K3rdrspvVx/OaONo5TcY\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 3120,
+    "path": "../public/_nuxt/DQINbiKX.js"
   },
-  "/_nuxt/De1tcZo4.js": {
+  "/_nuxt/DSfyBDFS.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"323b-lhZU+qUVRxMe99FXCP8xwVIRp8c\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 12859,
-    "path": "../public/_nuxt/De1tcZo4.js"
-  },
-  "/_nuxt/DfK8x5CN.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"14f2-w2rIHvvE+xEFntIQKe89V/h6d0g\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 5362,
-    "path": "../public/_nuxt/DfK8x5CN.js"
-  },
-  "/_nuxt/Dh8bpbNM.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"247f-Ho1zG9q/hKHek9cNxCobg+q6WRo\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 9343,
-    "path": "../public/_nuxt/Dh8bpbNM.js"
+    "etag": "\"23a6-v6/YMnnRX3dP21FqEkO7kRAgrCY\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 9126,
+    "path": "../public/_nuxt/DSfyBDFS.js"
   },
   "/_nuxt/Diego.BExUej--.png": {
     "type": "image/png",
     "etag": "\"8a10-rKTq5FemUerjDMty5NXwuuJ6ydc\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 35344,
     "path": "../public/_nuxt/Diego.BExUej--.png"
   },
-  "/_nuxt/DlrxozPM.js": {
+  "/_nuxt/DtIZsLGO.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"1936-yTZ6XV2vAEzvEVHtC9w7s0PfE8s\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 6454,
-    "path": "../public/_nuxt/DlrxozPM.js"
+    "etag": "\"33d0-iZa/CDSpURLN9mC7Mh/nny26kNA\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 13264,
+    "path": "../public/_nuxt/DtIZsLGO.js"
+  },
+  "/_nuxt/Dx3sg5yE.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"a6-X8uuJa7/6IuIjCjqJGZjqKLirB8\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 166,
+    "path": "../public/_nuxt/Dx3sg5yE.js"
+  },
+  "/_nuxt/DxT6MpSA.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"4122-odF+PN2FImoEsgLiWYUqm2C595M\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 16674,
+    "path": "../public/_nuxt/DxT6MpSA.js"
+  },
+  "/_nuxt/DtLfKRKd.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"30623-62hT9LtewRC2FyAfoH8msqYZyt4\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 198179,
+    "path": "../public/_nuxt/DtLfKRKd.js"
   },
   "/_nuxt/Footer.xo_aVSq0.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"26c-5kaBjq2+2kI3rrJuWYmLDLg1BtM\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 620,
     "path": "../public/_nuxt/Footer.xo_aVSq0.css"
   },
-  "/_nuxt/HXPH8KB5.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"e97-GY5Bb5lI79hwiPAVmfYhsCE3n9U\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 3735,
-    "path": "../public/_nuxt/HXPH8KB5.js"
+  "/_nuxt/Faremin.BJNiIC4f.jpeg": {
+    "type": "image/jpeg",
+    "etag": "\"2ee4e-J/uxQl2TaMk0vZ0WXZQZu1dbT84\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 192078,
+    "path": "../public/_nuxt/Faremin.BJNiIC4f.jpeg"
   },
   "/_nuxt/Inter-normal-300-cyrillic-ext.BOeWTOD4.woff2": {
     "type": "font/woff2",
     "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 25960,
     "path": "../public/_nuxt/Inter-normal-300-cyrillic-ext.BOeWTOD4.woff2"
   },
   "/_nuxt/Inter-normal-300-cyrillic.DqGufNeO.woff2": {
     "type": "font/woff2",
     "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 18748,
     "path": "../public/_nuxt/Inter-normal-300-cyrillic.DqGufNeO.woff2"
-  },
-  "/_nuxt/Faremin.BJNiIC4f.jpeg": {
-    "type": "image/jpeg",
-    "etag": "\"2ee4e-J/uxQl2TaMk0vZ0WXZQZu1dbT84\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
-    "size": 192078,
-    "path": "../public/_nuxt/Faremin.BJNiIC4f.jpeg"
   },
   "/_nuxt/Inter-normal-300-greek-ext.DlzME5K_.woff2": {
     "type": "font/woff2",
     "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 11232,
     "path": "../public/_nuxt/Inter-normal-300-greek-ext.DlzME5K_.woff2"
   },
   "/_nuxt/Inter-normal-300-greek.CkhJZR-_.woff2": {
     "type": "font/woff2",
     "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
-    "mtime": "2026-05-19T03:22:32.371Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 18996,
     "path": "../public/_nuxt/Inter-normal-300-greek.CkhJZR-_.woff2"
   },
   "/_nuxt/Inter-normal-300-latin-ext.DO1Apj_S.woff2": {
     "type": "font/woff2",
     "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 85068,
     "path": "../public/_nuxt/Inter-normal-300-latin-ext.DO1Apj_S.woff2"
-  },
-  "/_nuxt/Inter-normal-300-vietnamese.CBcvBZtf.woff2": {
-    "type": "font/woff2",
-    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
-    "size": 10252,
-    "path": "../public/_nuxt/Inter-normal-300-vietnamese.CBcvBZtf.woff2"
   },
   "/_nuxt/Inter-normal-300-latin.Dx4kXJAl.woff2": {
     "type": "font/woff2",
     "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 48256,
     "path": "../public/_nuxt/Inter-normal-300-latin.Dx4kXJAl.woff2"
   },
-  "/_nuxt/LPBuAtGq.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"33c5-aoAneve5GIIcCAjfhtlrKm7kpGM\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
-    "size": 13253,
-    "path": "../public/_nuxt/LPBuAtGq.js"
-  },
-  "/_nuxt/Nk1FJH3L.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"186-SLiy5ufuYw62KrM5G8rnNOiEpQg\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
-    "size": 390,
-    "path": "../public/_nuxt/Nk1FJH3L.js"
-  },
-  "/_nuxt/Poppins-normal-300-devanagari.D7nrgzLr.woff2": {
+  "/_nuxt/Inter-normal-300-vietnamese.CBcvBZtf.woff2": {
     "type": "font/woff2",
-    "etag": "\"99f4-WNrgXa27E9CkL/p6OkUVoYZR4SE\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
-    "size": 39412,
-    "path": "../public/_nuxt/Poppins-normal-300-devanagari.D7nrgzLr.woff2"
+    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 10252,
+    "path": "../public/_nuxt/Inter-normal-300-vietnamese.CBcvBZtf.woff2"
+  },
+  "/_nuxt/J-4EaxlZ.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"49cd-nG685ZQkswRtFa9YRHdvBPwBrGI\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 18893,
+    "path": "../public/_nuxt/J-4EaxlZ.js"
   },
   "/_nuxt/Poppins-normal-300-latin-ext.Cirz0Guu.woff2": {
     "type": "font/woff2",
     "etag": "\"1594-dAp7vSJ7nedwIqra5uHYACwZX80\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.408Z",
     "size": 5524,
     "path": "../public/_nuxt/Poppins-normal-300-latin-ext.Cirz0Guu.woff2"
+  },
+  "/_nuxt/Poppins-normal-300-devanagari.D7nrgzLr.woff2": {
+    "type": "font/woff2",
+    "etag": "\"99f4-WNrgXa27E9CkL/p6OkUVoYZR4SE\"",
+    "mtime": "2026-05-19T04:27:03.408Z",
+    "size": 39412,
+    "path": "../public/_nuxt/Poppins-normal-300-devanagari.D7nrgzLr.woff2"
   },
   "/_nuxt/Poppins-normal-300-latin.Dku2WoCh.woff2": {
     "type": "font/woff2",
     "etag": "\"1ea0-qem6/mRmb0WVBRoOiVtHpfo55n4\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 7840,
     "path": "../public/_nuxt/Poppins-normal-300-latin.Dku2WoCh.woff2"
-  },
-  "/_nuxt/Poppins-normal-400-devanagari.CJDn6rn8.woff2": {
-    "type": "font/woff2",
-    "etag": "\"9aec-+heN9EaOhnzMHYotWFtIR1rPUqo\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
-    "size": 39660,
-    "path": "../public/_nuxt/Poppins-normal-400-devanagari.CJDn6rn8.woff2"
   },
   "/_nuxt/Poppins-normal-400-latin-ext.by3JarPu.woff2": {
     "type": "font/woff2",
     "etag": "\"160c-hU5vllMlNwAgRAQhdepX1vg79Ok\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 5644,
     "path": "../public/_nuxt/Poppins-normal-400-latin-ext.by3JarPu.woff2"
+  },
+  "/_nuxt/Poppins-normal-400-devanagari.CJDn6rn8.woff2": {
+    "type": "font/woff2",
+    "etag": "\"9aec-+heN9EaOhnzMHYotWFtIR1rPUqo\"",
+    "mtime": "2026-05-19T04:27:03.409Z",
+    "size": 39660,
+    "path": "../public/_nuxt/Poppins-normal-400-devanagari.CJDn6rn8.woff2"
   },
   "/_nuxt/Poppins-normal-400-latin.cpxAROuN.woff2": {
     "type": "font/woff2",
     "etag": "\"1ecc-rG1xtNX90rPavJoG/2wAHkJR2gs\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 7884,
     "path": "../public/_nuxt/Poppins-normal-400-latin.cpxAROuN.woff2"
-  },
-  "/_nuxt/Poppins-normal-500-latin-ext.CK-6C4Hw.woff2": {
-    "type": "font/woff2",
-    "etag": "\"156c-pME+B9QjmcPt7Gput9k/IBr33DY\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
-    "size": 5484,
-    "path": "../public/_nuxt/Poppins-normal-500-latin-ext.CK-6C4Hw.woff2"
   },
   "/_nuxt/Poppins-normal-500-devanagari.BIdkeU1p.woff2": {
     "type": "font/woff2",
     "etag": "\"98ac-FfduLsaYHzsmK+dTRQej4D+0kzM\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 39084,
     "path": "../public/_nuxt/Poppins-normal-500-devanagari.BIdkeU1p.woff2"
+  },
+  "/_nuxt/Poppins-normal-500-latin-ext.CK-6C4Hw.woff2": {
+    "type": "font/woff2",
+    "etag": "\"156c-pME+B9QjmcPt7Gput9k/IBr33DY\"",
+    "mtime": "2026-05-19T04:27:03.409Z",
+    "size": 5484,
+    "path": "../public/_nuxt/Poppins-normal-500-latin-ext.CK-6C4Hw.woff2"
   },
   "/_nuxt/Poppins-normal-500-latin.C8OXljZJ.woff2": {
     "type": "font/woff2",
     "etag": "\"1e44-DaLRfnOPRtKgnm+3lp2kUXGamCA\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 7748,
     "path": "../public/_nuxt/Poppins-normal-500-latin.C8OXljZJ.woff2"
   },
   "/_nuxt/Poppins-normal-600-devanagari.STEjXBNN.woff2": {
     "type": "font/woff2",
     "etag": "\"997c-qGf4mE9ZWpp57X22lffBTB3znms\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 39292,
     "path": "../public/_nuxt/Poppins-normal-600-devanagari.STEjXBNN.woff2"
   },
   "/_nuxt/Poppins-normal-600-latin-ext.CAhIAdZj.woff2": {
     "type": "font/woff2",
     "etag": "\"1594-zckNsOxkFI6FcjVKnKntSmmMnaM\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 5524,
     "path": "../public/_nuxt/Poppins-normal-600-latin-ext.CAhIAdZj.woff2"
   },
   "/_nuxt/Poppins-normal-600-latin.zEkxB9Mr.woff2": {
     "type": "font/woff2",
     "etag": "\"1f40-F5+X7AJ18JYDqNuU1DgOtYTYHNU\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 8000,
     "path": "../public/_nuxt/Poppins-normal-600-latin.zEkxB9Mr.woff2"
   },
   "/_nuxt/Poppins-normal-700-devanagari.O-jipLrW.woff2": {
     "type": "font/woff2",
     "etag": "\"9954-YmyFpGMZyKQZKjnfAlsNz3JPyWo\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 39252,
     "path": "../public/_nuxt/Poppins-normal-700-devanagari.O-jipLrW.woff2"
   },
   "/_nuxt/Poppins-normal-700-latin-ext.cby-RkWa.woff2": {
     "type": "font/woff2",
     "etag": "\"1538-V1Zt39He3h9fDuZ6w3aFkkjTGXY\"",
-    "mtime": "2026-05-19T03:22:32.374Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 5432,
     "path": "../public/_nuxt/Poppins-normal-700-latin-ext.cby-RkWa.woff2"
   },
   "/_nuxt/Poppins-normal-700-latin.Qrb0O0WB.woff2": {
     "type": "font/woff2",
     "etag": "\"1e88-y3JiEtXVJQIXUqHYRwoPtZPgxJ4\"",
-    "mtime": "2026-05-19T03:22:32.374Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 7816,
     "path": "../public/_nuxt/Poppins-normal-700-latin.Qrb0O0WB.woff2"
   },
   "/_nuxt/Poppins-normal-800-devanagari.ACzlZF75.woff2": {
     "type": "font/woff2",
     "etag": "\"981c-k3g2dJ6QWFyP7z9VbO1vm6CQB+k\"",
-    "mtime": "2026-05-19T03:22:32.375Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 38940,
     "path": "../public/_nuxt/Poppins-normal-800-devanagari.ACzlZF75.woff2"
   },
   "/_nuxt/Poppins-normal-800-latin-ext.CDgOlX-1.woff2": {
     "type": "font/woff2",
     "etag": "\"1574-+mU2pngeulIVUPtXj3aty3xqk/E\"",
-    "mtime": "2026-05-19T03:22:32.375Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 5492,
     "path": "../public/_nuxt/Poppins-normal-800-latin-ext.CDgOlX-1.woff2"
   },
   "/_nuxt/Poppins-normal-800-latin.Bd8-pIP1.woff2": {
     "type": "font/woff2",
     "etag": "\"1e90-bRHXQ7w8+xadcLyGRQ8YNR3BqQU\"",
-    "mtime": "2026-05-19T03:22:32.375Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 7824,
     "path": "../public/_nuxt/Poppins-normal-800-latin.Bd8-pIP1.woff2"
   },
   "/_nuxt/Poppins-normal-900-devanagari.DntvEK6c.woff2": {
     "type": "font/woff2",
     "etag": "\"9530-Bg0f4jk4tdlaQKfyg6hPpVkMz8E\"",
-    "mtime": "2026-05-19T03:22:32.375Z",
+    "mtime": "2026-05-19T04:27:03.410Z",
     "size": 38192,
     "path": "../public/_nuxt/Poppins-normal-900-devanagari.DntvEK6c.woff2"
   },
   "/_nuxt/Poppins-normal-900-latin-ext.DPEExWNF.woff2": {
     "type": "font/woff2",
     "etag": "\"1504-BjV9ewsNiVWeLSlB7JQaVoLNW9g\"",
-    "mtime": "2026-05-19T03:22:32.375Z",
+    "mtime": "2026-05-19T04:27:03.410Z",
     "size": 5380,
     "path": "../public/_nuxt/Poppins-normal-900-latin-ext.DPEExWNF.woff2"
-  },
-  "/_nuxt/Poppins-normal-900-latin.BmL1zqjw.woff2": {
-    "type": "font/woff2",
-    "etag": "\"1dd0-7Ay7y0YA5pHLJKY0UfdYcn+QowY\"",
-    "mtime": "2026-05-19T03:22:32.375Z",
-    "size": 7632,
-    "path": "../public/_nuxt/Poppins-normal-900-latin.BmL1zqjw.woff2"
-  },
-  "/_nuxt/Karen.5R8jYqDP.png": {
-    "type": "image/png",
-    "etag": "\"22ebdf-Ir60B35Rza+WwlokI5FX9ExdcSo\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
-    "size": 2288607,
-    "path": "../public/_nuxt/Karen.5R8jYqDP.png"
-  },
-  "/_nuxt/S5tzlLTM.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"ced-KAg3ovXMybIqnPFpAo1xNYRWWsk\"",
-    "mtime": "2026-05-19T03:22:32.375Z",
-    "size": 3309,
-    "path": "../public/_nuxt/S5tzlLTM.js"
   },
   "/_nuxt/Osman.CLFqOxtl.png": {
     "type": "image/png",
     "etag": "\"1b93d5-1ng6Hs4I9qM50FDjOUO+lY+kZu8\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.409Z",
     "size": 1807317,
     "path": "../public/_nuxt/Osman.CLFqOxtl.png"
   },
   "/_nuxt/Estrategia.CCMIqNO1.webp": {
     "type": "image/webp",
     "etag": "\"3b1a0c-Ml802dv5nCCcb16zylQetSZucDI\"",
-    "mtime": "2026-05-19T03:22:32.372Z",
+    "mtime": "2026-05-19T04:27:03.410Z",
     "size": 3873292,
     "path": "../public/_nuxt/Estrategia.CCMIqNO1.webp"
   },
-  "/_nuxt/YkwS8U2q.js": {
+  "/_nuxt/Poppins-normal-900-latin.BmL1zqjw.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1dd0-7Ay7y0YA5pHLJKY0UfdYcn+QowY\"",
+    "mtime": "2026-05-19T04:27:03.410Z",
+    "size": 7632,
+    "path": "../public/_nuxt/Poppins-normal-900-latin.BmL1zqjw.woff2"
+  },
+  "/_nuxt/Ujwcru1A.js": {
     "type": "text/javascript; charset=utf-8",
-    "etag": "\"a6-Yjwz9FN77exbLJLaFtJdfyC5Uaw\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
-    "size": 166,
-    "path": "../public/_nuxt/YkwS8U2q.js"
+    "etag": "\"3309-VldbyZePWkP2LXChJ1LsqHrxI0E\"",
+    "mtime": "2026-05-19T04:27:03.410Z",
+    "size": 13065,
+    "path": "../public/_nuxt/Ujwcru1A.js"
   },
   "/_nuxt/_id_.Bw_vMRnJ.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"2e-lWmwF/6REn0RlkxesP4IweVDT1Q\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "mtime": "2026-05-19T04:27:03.410Z",
     "size": 46,
     "path": "../public/_nuxt/_id_.Bw_vMRnJ.css"
   },
   "/_nuxt/_id_.DRXt61eJ.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"363-+Aah+rrqZgF5TD/NlPtVybHQfaw\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "mtime": "2026-05-19T04:27:03.410Z",
     "size": 867,
     "path": "../public/_nuxt/_id_.DRXt61eJ.css"
   },
   "/_nuxt/StahlForm.f_-F-LCh.jpeg": {
     "type": "image/jpeg",
     "etag": "\"2b321-9bwRtQTZkBmuRIqcgSjUGmhzMkw\"",
-    "mtime": "2026-05-19T03:22:32.375Z",
+    "mtime": "2026-05-19T04:27:03.410Z",
     "size": 176929,
     "path": "../public/_nuxt/StahlForm.f_-F-LCh.jpeg"
+  },
+  "/_nuxt/ajhaF5OY.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"d2c-rwzVqAtjn1+BROOB5k/eFRZGCTI\"",
+    "mtime": "2026-05-19T04:27:03.410Z",
+    "size": 3372,
+    "path": "../public/_nuxt/ajhaF5OY.js"
+  },
+  "/_nuxt/b0nI8_SU.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"4da-Xh58RDMSuws8lJG7xWCKknGvJFg\"",
+    "mtime": "2026-05-19T04:27:03.410Z",
+    "size": 1242,
+    "path": "../public/_nuxt/b0nI8_SU.js"
+  },
+  "/_nuxt/bZzPqM6-.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"187-MJSxEFi0LXEta+4/3I5XK4CIbZ0\"",
+    "mtime": "2026-05-19T04:27:03.410Z",
+    "size": 391,
+    "path": "../public/_nuxt/bZzPqM6-.js"
   },
   "/_nuxt/default.4cMhaDx0.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"70a-oTq8OloK2l6mZ25QTf/ZDqfLED0\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "mtime": "2026-05-19T04:27:03.410Z",
     "size": 1802,
     "path": "../public/_nuxt/default.4cMhaDx0.css"
   },
   "/_nuxt/delivery.BbVlRW9e.png": {
     "type": "image/png",
     "etag": "\"4cfd-uFiPTvrZzFY7UNhWjLPG7jYpozY\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "mtime": "2026-05-19T04:27:03.410Z",
     "size": 19709,
     "path": "../public/_nuxt/delivery.BbVlRW9e.png"
   },
   "/_nuxt/edit.DUebnU2s.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"a0-XCgHDgLE6RWWBw8EuRIlav7Awd8\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "mtime": "2026-05-19T04:27:03.411Z",
     "size": 160,
     "path": "../public/_nuxt/edit.DUebnU2s.css"
   },
-  "/_nuxt/error-404.XQECf0ks.css": {
+  "/_nuxt/error-404.DL_4WIao.css": {
     "type": "text/css; charset=utf-8",
-    "etag": "\"dca-9pYGek3HKd173Xvb9C/aAbvjqKM\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "etag": "\"dca-KnjyV0UbpsrliiJzZx69defY74k\"",
+    "mtime": "2026-05-19T04:27:03.411Z",
     "size": 3530,
-    "path": "../public/_nuxt/error-404.XQECf0ks.css"
+    "path": "../public/_nuxt/error-404.DL_4WIao.css"
   },
-  "/_nuxt/error-500.CD7S9LrB.css": {
+  "/_nuxt/error-500.I1Dtv2V5.css": {
     "type": "text/css; charset=utf-8",
-    "etag": "\"75a-C0SkMXAea0tSAQGitqFa7VZzaYw\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "etag": "\"75a-vEGyJqldBVJrnMfcLsrGaHcxYl0\"",
+    "mtime": "2026-05-19T04:27:03.411Z",
     "size": 1882,
-    "path": "../public/_nuxt/error-500.CD7S9LrB.css"
+    "path": "../public/_nuxt/error-500.I1Dtv2V5.css"
+  },
+  "/_nuxt/fcLqjgZG.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"3657-Jfg6cHSjFcZt74/CfYW6HZtmPwA\"",
+    "mtime": "2026-05-19T04:27:03.411Z",
+    "size": 13911,
+    "path": "../public/_nuxt/fcLqjgZG.js"
   },
   "/_nuxt/index.BMLyY_nD.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"25e1-cJXRlET1c9G9vx4sSc8oyq8bHVQ\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "mtime": "2026-05-19T04:27:03.419Z",
     "size": 9697,
     "path": "../public/_nuxt/index.BMLyY_nD.css"
   },
   "/_nuxt/index.qJaQZ8R-.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"90-F0xOhDcsuh45LF9QLW1LlVhEhb0\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "mtime": "2026-05-19T04:27:03.419Z",
     "size": 144,
     "path": "../public/_nuxt/index.qJaQZ8R-.css"
   },
   "/_nuxt/index.tn0RQdqM.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"0-2jmj7l5rSw0yVb/vlWAYkK/YBwk\"",
-    "mtime": "2026-05-19T03:22:29.580Z",
+    "mtime": "2026-05-19T04:27:00.589Z",
     "size": 0,
     "path": "../public/_nuxt/index.tn0RQdqM.css"
   },
   "/_nuxt/logo-blanco.BFdNkacE.webp": {
     "type": "image/webp",
     "etag": "\"3524-tpL+vqps0PccQUnPWXNsfS7FGg4\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "mtime": "2026-05-19T04:27:03.419Z",
     "size": 13604,
     "path": "../public/_nuxt/logo-blanco.BFdNkacE.webp"
+  },
+  "/_nuxt/Karen.5R8jYqDP.png": {
+    "type": "image/png",
+    "etag": "\"22ebdf-Ir60B35Rza+WwlokI5FX9ExdcSo\"",
+    "mtime": "2026-05-19T04:27:03.409Z",
+    "size": 2288607,
+    "path": "../public/_nuxt/Karen.5R8jYqDP.png"
   },
   "/_nuxt/logo-sinapsys.BKSCR-a_.png": {
     "type": "image/png",
     "etag": "\"308b-gBsHAI/O21uiu1wt8AC7ij/yD5o\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "mtime": "2026-05-19T04:27:03.419Z",
     "size": 12427,
     "path": "../public/_nuxt/logo-sinapsys.BKSCR-a_.png"
   },
   "/_nuxt/nosotros.Co9yxsTj.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"2552-IBV/LmEFOMH5Or6KN6xuC4fNeVI\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "mtime": "2026-05-19T04:27:03.419Z",
     "size": 9554,
     "path": "../public/_nuxt/nosotros.Co9yxsTj.css"
-  },
-  "/_nuxt/pdIWlh6x.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"3181-jaQVGZ8KRfs82KlFkvAaHlvFB6U\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
-    "size": 12673,
-    "path": "../public/_nuxt/pdIWlh6x.js"
   },
   "/_nuxt/portfolio.CwpiG5sz.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"209-sYOL8hrSYExkirPkBJnyhiDay6k\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
+    "mtime": "2026-05-19T04:27:03.419Z",
     "size": 521,
     "path": "../public/_nuxt/portfolio.CwpiG5sz.css"
-  },
-  "/_nuxt/rPFH-muF.js": {
-    "type": "text/javascript; charset=utf-8",
-    "etag": "\"2e18-dIl3ECoIqaiu3a0kbPyCnldaI6k\"",
-    "mtime": "2026-05-19T03:22:32.376Z",
-    "size": 11800,
-    "path": "../public/_nuxt/rPFH-muF.js"
-  },
-  "/_nuxt/saas_product_visual.DCk3OXMj.png": {
-    "type": "image/png",
-    "etag": "\"70f84-MLpPqS2Jvka09yPGE6aF677gSpw\"",
-    "mtime": "2026-05-19T03:22:32.377Z",
-    "size": 462724,
-    "path": "../public/_nuxt/saas_product_visual.DCk3OXMj.png"
   },
   "/_nuxt/secondary.Bl8PMD26.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"146-mcsma1UO1yoKlADqamYgiqB/59c\"",
-    "mtime": "2026-05-19T03:22:32.377Z",
+    "mtime": "2026-05-19T04:27:03.419Z",
     "size": 326,
     "path": "../public/_nuxt/secondary.Bl8PMD26.css"
   },
   "/_nuxt/servicios.D8irrCv3.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"546-Jxgt/TcSt7nUuhIqi3apO9J/wTI\"",
-    "mtime": "2026-05-19T03:22:32.377Z",
+    "mtime": "2026-05-19T04:27:03.419Z",
     "size": 1350,
     "path": "../public/_nuxt/servicios.D8irrCv3.css"
   },
-  "/_nuxt/builds/latest.json": {
-    "type": "application/json",
-    "etag": "\"47-o+S0E1b8w1Zf42HE200+NLOIrZs\"",
-    "mtime": "2026-05-19T03:22:32.343Z",
-    "size": 71,
-    "path": "../public/_nuxt/builds/latest.json"
+  "/_nuxt/ylVYs5lg.js": {
+    "type": "text/javascript; charset=utf-8",
+    "etag": "\"3241-cIsQ+orDFLG44lnasCJ/twHIDAs\"",
+    "mtime": "2026-05-19T04:27:03.419Z",
+    "size": 12865,
+    "path": "../public/_nuxt/ylVYs5lg.js"
   },
-  "/_nuxt/builds/meta/efc373b0-6e15-47c7-9e83-4156bf03ce6c.json": {
-    "type": "application/json",
-    "etag": "\"58-sGhW9ZIf4dMIsrHmKKfQjEOml0o\"",
-    "mtime": "2026-05-19T03:22:32.340Z",
-    "size": 88,
-    "path": "../public/_nuxt/builds/meta/efc373b0-6e15-47c7-9e83-4156bf03ce6c.json"
+  "/fonts/Inter-normal-300-cyrillic-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
+    "mtime": "2026-05-19T04:27:03.388Z",
+    "size": 25960,
+    "path": "../public/fonts/Inter-normal-300-cyrillic-ext.woff2"
+  },
+  "/fonts/Inter-normal-300-cyrillic.woff2": {
+    "type": "font/woff2",
+    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
+    "mtime": "2026-05-19T04:27:03.388Z",
+    "size": 18748,
+    "path": "../public/fonts/Inter-normal-300-cyrillic.woff2"
+  },
+  "/fonts/Inter-normal-300-greek-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
+    "mtime": "2026-05-19T04:27:03.388Z",
+    "size": 11232,
+    "path": "../public/fonts/Inter-normal-300-greek-ext.woff2"
+  },
+  "/fonts/Inter-normal-300-greek.woff2": {
+    "type": "font/woff2",
+    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
+    "mtime": "2026-05-19T04:27:03.388Z",
+    "size": 18996,
+    "path": "../public/fonts/Inter-normal-300-greek.woff2"
+  },
+  "/fonts/Inter-normal-300-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 85068,
+    "path": "../public/fonts/Inter-normal-300-latin-ext.woff2"
+  },
+  "/fonts/Inter-normal-300-vietnamese.woff2": {
+    "type": "font/woff2",
+    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 10252,
+    "path": "../public/fonts/Inter-normal-300-vietnamese.woff2"
+  },
+  "/fonts/Inter-normal-300-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
+    "mtime": "2026-05-19T04:27:03.388Z",
+    "size": 48256,
+    "path": "../public/fonts/Inter-normal-300-latin.woff2"
+  },
+  "/_nuxt/saas_product_visual.DCk3OXMj.png": {
+    "type": "image/png",
+    "etag": "\"70f84-MLpPqS2Jvka09yPGE6aF677gSpw\"",
+    "mtime": "2026-05-19T04:27:03.419Z",
+    "size": 462724,
+    "path": "../public/_nuxt/saas_product_visual.DCk3OXMj.png"
+  },
+  "/fonts/Inter-normal-400-cyrillic-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 25960,
+    "path": "../public/fonts/Inter-normal-400-cyrillic-ext.woff2"
+  },
+  "/fonts/Inter-normal-400-cyrillic.woff2": {
+    "type": "font/woff2",
+    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18748,
+    "path": "../public/fonts/Inter-normal-400-cyrillic.woff2"
+  },
+  "/fonts/Inter-normal-400-greek-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 11232,
+    "path": "../public/fonts/Inter-normal-400-greek-ext.woff2"
+  },
+  "/fonts/Inter-normal-400-greek.woff2": {
+    "type": "font/woff2",
+    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18996,
+    "path": "../public/fonts/Inter-normal-400-greek.woff2"
+  },
+  "/fonts/Inter-normal-400-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 85068,
+    "path": "../public/fonts/Inter-normal-400-latin-ext.woff2"
+  },
+  "/fonts/Inter-normal-400-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 48256,
+    "path": "../public/fonts/Inter-normal-400-latin.woff2"
+  },
+  "/fonts/Inter-normal-400-vietnamese.woff2": {
+    "type": "font/woff2",
+    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 10252,
+    "path": "../public/fonts/Inter-normal-400-vietnamese.woff2"
+  },
+  "/fonts/Inter-normal-500-cyrillic-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 25960,
+    "path": "../public/fonts/Inter-normal-500-cyrillic-ext.woff2"
+  },
+  "/fonts/Inter-normal-500-cyrillic.woff2": {
+    "type": "font/woff2",
+    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18748,
+    "path": "../public/fonts/Inter-normal-500-cyrillic.woff2"
   },
   "/_nuxt/diseño._Zwbrrym.webp": {
     "type": "image/webp",
     "etag": "\"2cd552-0vJUDeGxBzlhk28Lwn/D9sg/aFk\"",
-    "mtime": "2026-05-19T03:22:32.377Z",
+    "mtime": "2026-05-19T04:27:03.411Z",
     "size": 2938194,
     "path": "../public/_nuxt/diseño._Zwbrrym.webp"
   },
   "/_nuxt/despliege.CrdPmiWC.webp": {
     "type": "image/webp",
     "etag": "\"36b490-riJF392t8vZ87ljKGKx1cFXXINs\"",
-    "mtime": "2026-05-19T03:22:32.377Z",
+    "mtime": "2026-05-19T04:27:03.412Z",
     "size": 3585168,
     "path": "../public/_nuxt/despliege.CrdPmiWC.webp"
+  },
+  "/fonts/Inter-normal-500-greek-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 11232,
+    "path": "../public/fonts/Inter-normal-500-greek-ext.woff2"
+  },
+  "/fonts/Inter-normal-500-greek.woff2": {
+    "type": "font/woff2",
+    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18996,
+    "path": "../public/fonts/Inter-normal-500-greek.woff2"
   },
   "/_nuxt/arquitectura.yTo3fKt-.webp": {
     "type": "image/webp",
     "etag": "\"3cf902-WWnfLkxgWaCwTYsEQWv5CBCbnbA\"",
-    "mtime": "2026-05-19T03:22:32.377Z",
+    "mtime": "2026-05-19T04:27:03.412Z",
     "size": 3995906,
     "path": "../public/_nuxt/arquitectura.yTo3fKt-.webp"
+  },
+  "/fonts/Inter-normal-500-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 85068,
+    "path": "../public/fonts/Inter-normal-500-latin-ext.woff2"
+  },
+  "/fonts/Inter-normal-500-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 48256,
+    "path": "../public/fonts/Inter-normal-500-latin.woff2"
+  },
+  "/fonts/Inter-normal-500-vietnamese.woff2": {
+    "type": "font/woff2",
+    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 10252,
+    "path": "../public/fonts/Inter-normal-500-vietnamese.woff2"
+  },
+  "/fonts/Inter-normal-600-cyrillic-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 25960,
+    "path": "../public/fonts/Inter-normal-600-cyrillic-ext.woff2"
+  },
+  "/fonts/Inter-normal-600-cyrillic.woff2": {
+    "type": "font/woff2",
+    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18748,
+    "path": "../public/fonts/Inter-normal-600-cyrillic.woff2"
+  },
+  "/fonts/Inter-normal-600-greek-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 11232,
+    "path": "../public/fonts/Inter-normal-600-greek-ext.woff2"
+  },
+  "/fonts/Inter-normal-600-greek.woff2": {
+    "type": "font/woff2",
+    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18996,
+    "path": "../public/fonts/Inter-normal-600-greek.woff2"
+  },
+  "/fonts/Inter-normal-600-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 85068,
+    "path": "../public/fonts/Inter-normal-600-latin-ext.woff2"
+  },
+  "/fonts/Inter-normal-600-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 48256,
+    "path": "../public/fonts/Inter-normal-600-latin.woff2"
+  },
+  "/fonts/Inter-normal-600-vietnamese.woff2": {
+    "type": "font/woff2",
+    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 10252,
+    "path": "../public/fonts/Inter-normal-600-vietnamese.woff2"
+  },
+  "/fonts/Inter-normal-700-cyrillic-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 25960,
+    "path": "../public/fonts/Inter-normal-700-cyrillic-ext.woff2"
+  },
+  "/fonts/Inter-normal-700-cyrillic.woff2": {
+    "type": "font/woff2",
+    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18748,
+    "path": "../public/fonts/Inter-normal-700-cyrillic.woff2"
+  },
+  "/fonts/Inter-normal-700-greek-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 11232,
+    "path": "../public/fonts/Inter-normal-700-greek-ext.woff2"
+  },
+  "/fonts/Inter-normal-700-greek.woff2": {
+    "type": "font/woff2",
+    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18996,
+    "path": "../public/fonts/Inter-normal-700-greek.woff2"
+  },
+  "/fonts/Inter-normal-700-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 48256,
+    "path": "../public/fonts/Inter-normal-700-latin.woff2"
+  },
+  "/fonts/Inter-normal-700-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 85068,
+    "path": "../public/fonts/Inter-normal-700-latin-ext.woff2"
+  },
+  "/fonts/Inter-normal-700-vietnamese.woff2": {
+    "type": "font/woff2",
+    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 10252,
+    "path": "../public/fonts/Inter-normal-700-vietnamese.woff2"
+  },
+  "/fonts/Inter-normal-800-cyrillic-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 25960,
+    "path": "../public/fonts/Inter-normal-800-cyrillic-ext.woff2"
+  },
+  "/fonts/Inter-normal-800-cyrillic.woff2": {
+    "type": "font/woff2",
+    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18748,
+    "path": "../public/fonts/Inter-normal-800-cyrillic.woff2"
+  },
+  "/fonts/Inter-normal-800-greek-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 11232,
+    "path": "../public/fonts/Inter-normal-800-greek-ext.woff2"
+  },
+  "/fonts/Inter-normal-800-greek.woff2": {
+    "type": "font/woff2",
+    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18996,
+    "path": "../public/fonts/Inter-normal-800-greek.woff2"
+  },
+  "/fonts/Inter-normal-800-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 85068,
+    "path": "../public/fonts/Inter-normal-800-latin-ext.woff2"
+  },
+  "/fonts/Inter-normal-800-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 48256,
+    "path": "../public/fonts/Inter-normal-800-latin.woff2"
+  },
+  "/fonts/Inter-normal-800-vietnamese.woff2": {
+    "type": "font/woff2",
+    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 10252,
+    "path": "../public/fonts/Inter-normal-800-vietnamese.woff2"
+  },
+  "/fonts/Inter-normal-900-cyrillic-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"6568-cF1iUGbboMFZ8TfnP5HiMgl9II0\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 25960,
+    "path": "../public/fonts/Inter-normal-900-cyrillic-ext.woff2"
+  },
+  "/fonts/Inter-normal-900-cyrillic.woff2": {
+    "type": "font/woff2",
+    "etag": "\"493c-n3Oy9D6jvzfMjpClqox+Zo7ERQQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18748,
+    "path": "../public/fonts/Inter-normal-900-cyrillic.woff2"
+  },
+  "/fonts/Inter-normal-900-greek-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"2be0-BP5iTzJeB8nLqYAgKpWNi5o1Zm8\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 11232,
+    "path": "../public/fonts/Inter-normal-900-greek-ext.woff2"
+  },
+  "/fonts/Inter-normal-900-greek.woff2": {
+    "type": "font/woff2",
+    "etag": "\"4a34-xor/hj4YNqI52zFecXnUbzQ4Xs4\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 18996,
+    "path": "../public/fonts/Inter-normal-900-greek.woff2"
+  },
+  "/fonts/Inter-normal-900-vietnamese.woff2": {
+    "type": "font/woff2",
+    "etag": "\"280c-nBythjoDQ0+5wVAendJ6wU7Xz2M\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 10252,
+    "path": "../public/fonts/Inter-normal-900-vietnamese.woff2"
+  },
+  "/fonts/Inter-normal-900-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"bc80-8R1ym7Ck2DUNLqPQ/AYs9u8tUpg\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 48256,
+    "path": "../public/fonts/Inter-normal-900-latin.woff2"
+  },
+  "/fonts/Poppins-normal-300-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1594-dAp7vSJ7nedwIqra5uHYACwZX80\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 5524,
+    "path": "../public/fonts/Poppins-normal-300-latin-ext.woff2"
+  },
+  "/fonts/Inter-normal-900-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"14c4c-zz61D7IQFMB9QxHvTAOk/Vh4ibQ\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 85068,
+    "path": "../public/fonts/Inter-normal-900-latin-ext.woff2"
+  },
+  "/fonts/Poppins-normal-300-devanagari.woff2": {
+    "type": "font/woff2",
+    "etag": "\"99f4-WNrgXa27E9CkL/p6OkUVoYZR4SE\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 39412,
+    "path": "../public/fonts/Poppins-normal-300-devanagari.woff2"
+  },
+  "/fonts/Poppins-normal-300-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1ea0-qem6/mRmb0WVBRoOiVtHpfo55n4\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 7840,
+    "path": "../public/fonts/Poppins-normal-300-latin.woff2"
+  },
+  "/fonts/Poppins-normal-400-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"160c-hU5vllMlNwAgRAQhdepX1vg79Ok\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 5644,
+    "path": "../public/fonts/Poppins-normal-400-latin-ext.woff2"
+  },
+  "/fonts/Poppins-normal-400-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1ecc-rG1xtNX90rPavJoG/2wAHkJR2gs\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 7884,
+    "path": "../public/fonts/Poppins-normal-400-latin.woff2"
+  },
+  "/fonts/Poppins-normal-400-devanagari.woff2": {
+    "type": "font/woff2",
+    "etag": "\"9aec-+heN9EaOhnzMHYotWFtIR1rPUqo\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 39660,
+    "path": "../public/fonts/Poppins-normal-400-devanagari.woff2"
+  },
+  "/fonts/Poppins-normal-500-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"156c-pME+B9QjmcPt7Gput9k/IBr33DY\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 5484,
+    "path": "../public/fonts/Poppins-normal-500-latin-ext.woff2"
+  },
+  "/fonts/Poppins-normal-500-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1e44-DaLRfnOPRtKgnm+3lp2kUXGamCA\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 7748,
+    "path": "../public/fonts/Poppins-normal-500-latin.woff2"
+  },
+  "/fonts/Poppins-normal-500-devanagari.woff2": {
+    "type": "font/woff2",
+    "etag": "\"98ac-FfduLsaYHzsmK+dTRQej4D+0kzM\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 39084,
+    "path": "../public/fonts/Poppins-normal-500-devanagari.woff2"
+  },
+  "/fonts/Poppins-normal-600-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1594-zckNsOxkFI6FcjVKnKntSmmMnaM\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 5524,
+    "path": "../public/fonts/Poppins-normal-600-latin-ext.woff2"
+  },
+  "/fonts/Poppins-normal-600-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1f40-F5+X7AJ18JYDqNuU1DgOtYTYHNU\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 8000,
+    "path": "../public/fonts/Poppins-normal-600-latin.woff2"
+  },
+  "/fonts/Poppins-normal-600-devanagari.woff2": {
+    "type": "font/woff2",
+    "etag": "\"997c-qGf4mE9ZWpp57X22lffBTB3znms\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 39292,
+    "path": "../public/fonts/Poppins-normal-600-devanagari.woff2"
+  },
+  "/fonts/Poppins-normal-700-devanagari.woff2": {
+    "type": "font/woff2",
+    "etag": "\"9954-YmyFpGMZyKQZKjnfAlsNz3JPyWo\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 39252,
+    "path": "../public/fonts/Poppins-normal-700-devanagari.woff2"
+  },
+  "/fonts/Poppins-normal-700-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1538-V1Zt39He3h9fDuZ6w3aFkkjTGXY\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 5432,
+    "path": "../public/fonts/Poppins-normal-700-latin-ext.woff2"
+  },
+  "/fonts/Poppins-normal-700-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1e88-y3JiEtXVJQIXUqHYRwoPtZPgxJ4\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 7816,
+    "path": "../public/fonts/Poppins-normal-700-latin.woff2"
+  },
+  "/fonts/Poppins-normal-800-devanagari.woff2": {
+    "type": "font/woff2",
+    "etag": "\"981c-k3g2dJ6QWFyP7z9VbO1vm6CQB+k\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 38940,
+    "path": "../public/fonts/Poppins-normal-800-devanagari.woff2"
+  },
+  "/fonts/Poppins-normal-800-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1574-+mU2pngeulIVUPtXj3aty3xqk/E\"",
+    "mtime": "2026-05-19T04:27:03.389Z",
+    "size": 5492,
+    "path": "../public/fonts/Poppins-normal-800-latin-ext.woff2"
+  },
+  "/fonts/Poppins-normal-800-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1e90-bRHXQ7w8+xadcLyGRQ8YNR3BqQU\"",
+    "mtime": "2026-05-19T04:27:03.390Z",
+    "size": 7824,
+    "path": "../public/fonts/Poppins-normal-800-latin.woff2"
+  },
+  "/fonts/Poppins-normal-900-devanagari.woff2": {
+    "type": "font/woff2",
+    "etag": "\"9530-Bg0f4jk4tdlaQKfyg6hPpVkMz8E\"",
+    "mtime": "2026-05-19T04:27:03.390Z",
+    "size": 38192,
+    "path": "../public/fonts/Poppins-normal-900-devanagari.woff2"
+  },
+  "/fonts/Poppins-normal-900-latin-ext.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1504-BjV9ewsNiVWeLSlB7JQaVoLNW9g\"",
+    "mtime": "2026-05-19T04:27:03.390Z",
+    "size": 5380,
+    "path": "../public/fonts/Poppins-normal-900-latin-ext.woff2"
+  },
+  "/fonts/Poppins-normal-900-latin.woff2": {
+    "type": "font/woff2",
+    "etag": "\"1dd0-7Ay7y0YA5pHLJKY0UfdYcn+QowY\"",
+    "mtime": "2026-05-19T04:27:03.390Z",
+    "size": 7632,
+    "path": "../public/fonts/Poppins-normal-900-latin.woff2"
+  },
+  "/_nuxt/builds/latest.json": {
+    "type": "application/json",
+    "etag": "\"47-/6mQON+IuGdNwhCXJfw2Mui2r2c\"",
+    "mtime": "2026-05-19T04:27:03.378Z",
+    "size": 71,
+    "path": "../public/_nuxt/builds/latest.json"
+  },
+  "/_nuxt/builds/meta/a1215aca-4e90-4876-a4aa-a7efdae6efce.json": {
+    "type": "application/json",
+    "etag": "\"58-bLM+CkIXmwuNbx0BW4Nkt3z0ZEM\"",
+    "mtime": "2026-05-19T04:27:03.375Z",
+    "size": 88,
+    "path": "../public/_nuxt/builds/meta/a1215aca-4e90-4876-a4aa-a7efdae6efce.json"
   }
 };
 
@@ -6101,7 +6475,7 @@ function normalizeWindowsPath(input = "") {
   }
   return input.replace(/\\/g, "/").replace(_DRIVE_LETTER_START_RE, (r) => r.toUpperCase());
 }
-const _IS_ABSOLUTE_RE$1 = /^[/\\](?![/\\])|^[/\\]{2}(?!\.)|^[A-Za-z]:[/\\]/;
+const _IS_ABSOLUTE_RE = /^[/\\](?![/\\])|^[/\\]{2}(?!\.)|^[A-Za-z]:[/\\]/;
 const _DRIVE_LETTER_RE = /^[A-Za-z]:$/;
 function cwd() {
   if (typeof process !== "undefined" && typeof process.cwd === "function") {
@@ -6119,10 +6493,10 @@ const resolve$1 = function(...arguments_) {
       continue;
     }
     resolvedPath = `${path}/${resolvedPath}`;
-    resolvedAbsolute = isAbsolute$1(path);
+    resolvedAbsolute = isAbsolute(path);
   }
   resolvedPath = normalizeString(resolvedPath, !resolvedAbsolute);
-  if (resolvedAbsolute && !isAbsolute$1(resolvedPath)) {
+  if (resolvedAbsolute && !isAbsolute(resolvedPath)) {
     return `/${resolvedPath}`;
   }
   return resolvedPath.length > 0 ? resolvedPath : ".";
@@ -6186,15 +6560,15 @@ function normalizeString(path, allowAboveRoot) {
   }
   return res;
 }
-const isAbsolute$1 = function(p) {
-  return _IS_ABSOLUTE_RE$1.test(p);
+const isAbsolute = function(p) {
+  return _IS_ABSOLUTE_RE.test(p);
 };
 const dirname = function(p) {
   const segments = normalizeWindowsPath(p).replace(/\/$/, "").split("/").slice(0, -1);
   if (segments.length === 1 && _DRIVE_LETTER_RE.test(segments[0])) {
     segments[0] += "/";
   }
-  return segments.join("/") || (isAbsolute$1(p) ? "/" : ".");
+  return segments.join("/") || (isAbsolute(p) ? "/" : ".");
 };
 
 function readAsset (id) {
@@ -6220,23 +6594,23 @@ function getAsset (id) {
 
 const METHODS = /* @__PURE__ */ new Set(["HEAD", "GET"]);
 const EncodingMap = { gzip: ".gz", br: ".br" };
-const _0loVyi = eventHandler$1((event) => {
+const _0loVyi = eventHandler((event) => {
   if (event.method && !METHODS.has(event.method)) {
     return;
   }
-  let id = decodePath$1(
-    withLeadingSlash$1(withoutTrailingSlash$1(parseURL$1(event.path).pathname))
+  let id = decodePath(
+    withLeadingSlash(withoutTrailingSlash(parseURL(event.path).pathname))
   );
   let asset;
   const encodingHeader = String(
-    getRequestHeader$1(event, "accept-encoding") || ""
+    getRequestHeader(event, "accept-encoding") || ""
   );
   const encodings = [
     ...encodingHeader.split(",").map((e) => EncodingMap[e.trim()]).filter(Boolean).sort(),
     ""
   ];
   for (const encoding of encodings) {
-    for (const _id of [id + encoding, joinURL$1(id, "index.html" + encoding)]) {
+    for (const _id of [id + encoding, joinURL(id, "index.html" + encoding)]) {
       const _asset = getAsset(_id);
       if (_asset) {
         asset = _asset;
@@ -6248,38 +6622,38 @@ const _0loVyi = eventHandler$1((event) => {
   if (!asset) {
     if (isPublicAssetURL(id)) {
       removeResponseHeader(event, "Cache-Control");
-      throw createError$2({ statusCode: 404 });
+      throw createError$1({ statusCode: 404 });
     }
     return;
   }
   if (asset.encoding !== void 0) {
     appendResponseHeader(event, "Vary", "Accept-Encoding");
   }
-  const ifNotMatch = getRequestHeader$1(event, "if-none-match") === asset.etag;
+  const ifNotMatch = getRequestHeader(event, "if-none-match") === asset.etag;
   if (ifNotMatch) {
     setResponseStatus(event, 304, "Not Modified");
     return "";
   }
-  const ifModifiedSinceH = getRequestHeader$1(event, "if-modified-since");
+  const ifModifiedSinceH = getRequestHeader(event, "if-modified-since");
   const mtimeDate = new Date(asset.mtime);
   if (ifModifiedSinceH && asset.mtime && new Date(ifModifiedSinceH) >= mtimeDate) {
     setResponseStatus(event, 304, "Not Modified");
     return "";
   }
   if (asset.type && !getResponseHeader(event, "Content-Type")) {
-    setResponseHeader$1(event, "Content-Type", asset.type);
+    setResponseHeader(event, "Content-Type", asset.type);
   }
   if (asset.etag && !getResponseHeader(event, "ETag")) {
-    setResponseHeader$1(event, "ETag", asset.etag);
+    setResponseHeader(event, "ETag", asset.etag);
   }
   if (asset.mtime && !getResponseHeader(event, "Last-Modified")) {
-    setResponseHeader$1(event, "Last-Modified", mtimeDate.toUTCString());
+    setResponseHeader(event, "Last-Modified", mtimeDate.toUTCString());
   }
   if (asset.encoding && !getResponseHeader(event, "Content-Encoding")) {
-    setResponseHeader$1(event, "Content-Encoding", asset.encoding);
+    setResponseHeader(event, "Content-Encoding", asset.encoding);
   }
   if (asset.size > 0 && !getResponseHeader(event, "Content-Length")) {
-    setResponseHeader$1(event, "Content-Length", asset.size);
+    setResponseHeader(event, "Content-Length", asset.size);
   }
   return readAsset(id);
 });
@@ -6373,12 +6747,12 @@ function getNitroOrigin(e) {
   return getNitroOrigin$1({
     isDev: false,
     isPrerender: false,
-    requestHost: e ? getRequestHost$1(e, { xForwardedHost: true }) : void 0,
+    requestHost: e ? getRequestHost(e, { xForwardedHost: true }) : void 0,
     requestProtocol: e ? getRequestProtocol(e, { xForwardedProto: true }) : void 0
   });
 }
 
-const _k2C9FJ = eventHandler$1(async (e) => {
+const _k2C9FJ = eventHandler(async (e) => {
   if (e.context._initedSiteConfig)
     return;
   const runtimeConfig = useRuntimeConfig(e);
@@ -6413,7 +6787,7 @@ const _k2C9FJ = eventHandler$1(async (e) => {
     });
   }
   if (config.multiTenancy) {
-    const host = parseURL$1(nitroOrigin).host?.replace(/:\d+$/, "") || "";
+    const host = parseURL(nitroOrigin).host?.replace(/:\d+$/, "") || "";
     const tenant = config.multiTenancy?.find((t) => t.hosts.includes(host));
     if (tenant) {
       siteConfig.push({
@@ -6428,1213 +6802,6 @@ const _k2C9FJ = eventHandler$1(async (e) => {
   e.context.siteConfig = ctx.siteConfig;
   e.context._initedSiteConfig = true;
 });
-
-const HASH_RE = /#/g;
-const AMPERSAND_RE = /&/g;
-const SLASH_RE = /\//g;
-const EQUAL_RE = /=/g;
-const IM_RE = /\?/g;
-const PLUS_RE = /\+/g;
-const ENC_CARET_RE = /%5e/gi;
-const ENC_BACKTICK_RE = /%60/gi;
-const ENC_PIPE_RE = /%7c/gi;
-const ENC_SPACE_RE = /%20/gi;
-const ENC_SLASH_RE = /%2f/gi;
-const ENC_ENC_SLASH_RE = /%252f/gi;
-function encode(text) {
-  return encodeURI("" + text).replace(ENC_PIPE_RE, "|");
-}
-function encodeQueryValue(input) {
-  return encode(typeof input === "string" ? input : JSON.stringify(input)).replace(PLUS_RE, "%2B").replace(ENC_SPACE_RE, "+").replace(HASH_RE, "%23").replace(AMPERSAND_RE, "%26").replace(ENC_BACKTICK_RE, "`").replace(ENC_CARET_RE, "^").replace(SLASH_RE, "%2F");
-}
-function encodeQueryKey(text) {
-  return encodeQueryValue(text).replace(EQUAL_RE, "%3D");
-}
-function encodePath(text) {
-  return encode(text).replace(HASH_RE, "%23").replace(IM_RE, "%3F").replace(ENC_ENC_SLASH_RE, "%2F").replace(AMPERSAND_RE, "%26").replace(PLUS_RE, "%2B");
-}
-function encodeParam(text) {
-  return encodePath(text).replace(SLASH_RE, "%2F");
-}
-function decode$1(text = "") {
-  try {
-    return decodeURIComponent("" + text);
-  } catch {
-    return "" + text;
-  }
-}
-function decodePath(text) {
-  return decode$1(text.replace(ENC_SLASH_RE, "%252F"));
-}
-function decodeQueryKey(text) {
-  return decode$1(text.replace(PLUS_RE, " "));
-}
-function decodeQueryValue(text) {
-  return decode$1(text.replace(PLUS_RE, " "));
-}
-
-function parseQuery(parametersString = "") {
-  const object = /* @__PURE__ */ Object.create(null);
-  if (parametersString[0] === "?") {
-    parametersString = parametersString.slice(1);
-  }
-  for (const parameter of parametersString.split("&")) {
-    const s = parameter.match(/([^=]+)=?(.*)/) || [];
-    if (s.length < 2) {
-      continue;
-    }
-    const key = decodeQueryKey(s[1]);
-    if (key === "__proto__" || key === "constructor") {
-      continue;
-    }
-    const value = decodeQueryValue(s[2] || "");
-    if (object[key] === void 0) {
-      object[key] = value;
-    } else if (Array.isArray(object[key])) {
-      object[key].push(value);
-    } else {
-      object[key] = [object[key], value];
-    }
-  }
-  return object;
-}
-function encodeQueryItem(key, value) {
-  if (typeof value === "number" || typeof value === "boolean") {
-    value = String(value);
-  }
-  if (!value) {
-    return encodeQueryKey(key);
-  }
-  if (Array.isArray(value)) {
-    return value.map(
-      (_value) => `${encodeQueryKey(key)}=${encodeQueryValue(_value)}`
-    ).join("&");
-  }
-  return `${encodeQueryKey(key)}=${encodeQueryValue(value)}`;
-}
-function stringifyQuery(query) {
-  return Object.keys(query).filter((k) => query[k] !== void 0).map((k) => encodeQueryItem(k, query[k])).filter(Boolean).join("&");
-}
-
-const PROTOCOL_STRICT_REGEX = /^[\s\w\0+.-]{2,}:([/\\]{1,2})/;
-const PROTOCOL_REGEX = /^[\s\w\0+.-]{2,}:([/\\]{2})?/;
-const PROTOCOL_RELATIVE_REGEX = /^([/\\]\s*){2,}[^/\\]/;
-const PROTOCOL_SCRIPT_RE = /^[\s\0]*(blob|data|javascript|vbscript):$/i;
-const TRAILING_SLASH_RE = /\/$|\/\?|\/#/;
-const JOIN_LEADING_SLASH_RE = /^\.?\//;
-function hasProtocol(inputString, opts = {}) {
-  if (typeof opts === "boolean") {
-    opts = { acceptRelative: opts };
-  }
-  if (opts.strict) {
-    return PROTOCOL_STRICT_REGEX.test(inputString);
-  }
-  return PROTOCOL_REGEX.test(inputString) || (opts.acceptRelative ? PROTOCOL_RELATIVE_REGEX.test(inputString) : false);
-}
-function isScriptProtocol(protocol) {
-  return !!protocol && PROTOCOL_SCRIPT_RE.test(protocol);
-}
-function hasTrailingSlash(input = "", respectQueryAndFragment) {
-  if (!respectQueryAndFragment) {
-    return input.endsWith("/");
-  }
-  return TRAILING_SLASH_RE.test(input);
-}
-function withoutTrailingSlash(input = "", respectQueryAndFragment) {
-  if (!respectQueryAndFragment) {
-    return (hasTrailingSlash(input) ? input.slice(0, -1) : input) || "/";
-  }
-  if (!hasTrailingSlash(input, true)) {
-    return input || "/";
-  }
-  let path = input;
-  let fragment = "";
-  const fragmentIndex = input.indexOf("#");
-  if (fragmentIndex !== -1) {
-    path = input.slice(0, fragmentIndex);
-    fragment = input.slice(fragmentIndex);
-  }
-  const [s0, ...s] = path.split("?");
-  const cleanPath = s0.endsWith("/") ? s0.slice(0, -1) : s0;
-  return (cleanPath || "/") + (s.length > 0 ? `?${s.join("?")}` : "") + fragment;
-}
-function withTrailingSlash(input = "", respectQueryAndFragment) {
-  if (!respectQueryAndFragment) {
-    return input.endsWith("/") ? input : input + "/";
-  }
-  if (hasTrailingSlash(input, true)) {
-    return input || "/";
-  }
-  let path = input;
-  let fragment = "";
-  const fragmentIndex = input.indexOf("#");
-  if (fragmentIndex !== -1) {
-    path = input.slice(0, fragmentIndex);
-    fragment = input.slice(fragmentIndex);
-    if (!path) {
-      return fragment;
-    }
-  }
-  const [s0, ...s] = path.split("?");
-  return s0 + "/" + (s.length > 0 ? `?${s.join("?")}` : "") + fragment;
-}
-function hasLeadingSlash(input = "") {
-  return input.startsWith("/");
-}
-function withLeadingSlash(input = "") {
-  return hasLeadingSlash(input) ? input : "/" + input;
-}
-function withBase(input, base) {
-  if (isEmptyURL(base) || hasProtocol(input)) {
-    return input;
-  }
-  const _base = withoutTrailingSlash(base);
-  if (input.startsWith(_base)) {
-    const nextChar = input[_base.length];
-    if (!nextChar || nextChar === "/" || nextChar === "?") {
-      return input;
-    }
-  }
-  return joinURL(_base, input);
-}
-function withoutBase(input, base) {
-  if (isEmptyURL(base)) {
-    return input;
-  }
-  const _base = withoutTrailingSlash(base);
-  if (!input.startsWith(_base)) {
-    return input;
-  }
-  const nextChar = input[_base.length];
-  if (nextChar && nextChar !== "/" && nextChar !== "?") {
-    return input;
-  }
-  const trimmed = input.slice(_base.length).replace(/^\/+/, "");
-  return "/" + trimmed;
-}
-function withQuery(input, query) {
-  const parsed = parseURL(input);
-  const mergedQuery = { ...parseQuery(parsed.search), ...query };
-  parsed.search = stringifyQuery(mergedQuery);
-  return stringifyParsedURL(parsed);
-}
-function getQuery$1(input) {
-  return parseQuery(parseURL(input).search);
-}
-function isEmptyURL(url) {
-  return !url || url === "/";
-}
-function isNonEmptyURL(url) {
-  return url && url !== "/";
-}
-function joinURL(base, ...input) {
-  let url = base || "";
-  for (const segment of input.filter((url2) => isNonEmptyURL(url2))) {
-    if (url) {
-      const _segment = segment.replace(JOIN_LEADING_SLASH_RE, "");
-      url = withTrailingSlash(url) + _segment;
-    } else {
-      url = segment;
-    }
-  }
-  return url;
-}
-function withHttps(input) {
-  return withProtocol(input, "https://");
-}
-function withProtocol(input, protocol) {
-  let match = input.match(PROTOCOL_REGEX);
-  if (!match) {
-    match = input.match(/^\/{2,}/);
-  }
-  if (!match) {
-    return protocol + input;
-  }
-  return protocol + input.slice(match[0].length);
-}
-
-const protocolRelative = Symbol.for("ufo:protocolRelative");
-function parseURL(input = "", defaultProto) {
-  const _specialProtoMatch = input.match(
-    /^[\s\0]*(blob:|data:|javascript:|vbscript:)(.*)/i
-  );
-  if (_specialProtoMatch) {
-    const [, _proto, _pathname = ""] = _specialProtoMatch;
-    return {
-      protocol: _proto.toLowerCase(),
-      pathname: _pathname,
-      href: _proto + _pathname,
-      auth: "",
-      host: "",
-      search: "",
-      hash: ""
-    };
-  }
-  if (!hasProtocol(input, { acceptRelative: true })) {
-    return defaultProto ? parseURL(defaultProto + input) : parsePath(input);
-  }
-  const [, protocol = "", auth, hostAndPath = ""] = input.replace(/\\/g, "/").match(/^[\s\0]*([\w+.-]{2,}:)?\/\/([^/@]+@)?(.*)/) || [];
-  let [, host = "", path = ""] = hostAndPath.match(/([^#/?]*)(.*)?/) || [];
-  if (protocol === "file:") {
-    path = path.replace(/\/(?=[A-Za-z]:)/, "");
-  }
-  const { pathname, search, hash } = parsePath(path);
-  return {
-    protocol: protocol.toLowerCase(),
-    auth: auth ? auth.slice(0, Math.max(0, auth.length - 1)) : "",
-    host,
-    pathname,
-    search,
-    hash,
-    [protocolRelative]: !protocol
-  };
-}
-function parsePath(input = "") {
-  const [pathname = "", search = "", hash = ""] = (input.match(/([^#?]*)(\?[^#]*)?(#.*)?/) || []).splice(1);
-  return {
-    pathname,
-    search,
-    hash
-  };
-}
-function stringifyParsedURL(parsed) {
-  const pathname = parsed.pathname || "";
-  const search = parsed.search ? (parsed.search.startsWith("?") ? "" : "?") + parsed.search : "";
-  const hash = parsed.hash || "";
-  const auth = parsed.auth ? parsed.auth + "@" : "";
-  const host = parsed.host || "";
-  const proto = parsed.protocol || parsed[protocolRelative] ? (parsed.protocol || "") + "//" : "";
-  return proto + auth + host + pathname + search + hash;
-}
-
-const NullObject = /* @__PURE__ */ (() => {
-  const C = function() {
-  };
-  C.prototype = /* @__PURE__ */ Object.create(null);
-  return C;
-})();
-function parse(str, options) {
-  if (typeof str !== "string") {
-    throw new TypeError("argument str must be a string");
-  }
-  const obj = new NullObject();
-  const opt = {};
-  const dec = opt.decode || decode;
-  let index = 0;
-  while (index < str.length) {
-    const eqIdx = str.indexOf("=", index);
-    if (eqIdx === -1) {
-      break;
-    }
-    let endIdx = str.indexOf(";", index);
-    if (endIdx === -1) {
-      endIdx = str.length;
-    } else if (endIdx < eqIdx) {
-      index = str.lastIndexOf(";", eqIdx - 1) + 1;
-      continue;
-    }
-    const key = str.slice(index, eqIdx).trim();
-    if (opt?.filter && !opt?.filter(key)) {
-      index = endIdx + 1;
-      continue;
-    }
-    if (void 0 === obj[key]) {
-      let val = str.slice(eqIdx + 1, endIdx).trim();
-      if (val.codePointAt(0) === 34) {
-        val = val.slice(1, -1);
-      }
-      obj[key] = tryDecode(val, dec);
-    }
-    index = endIdx + 1;
-  }
-  return obj;
-}
-function decode(str) {
-  return str.includes("%") ? decodeURIComponent(str) : str;
-}
-function tryDecode(str, decode2) {
-  try {
-    return decode2(str);
-  } catch {
-    return str;
-  }
-}
-
-const fieldContentRegExp = /^[\u0009\u0020-\u007E\u0080-\u00FF]+$/;
-function serialize(name, value, options) {
-  const opt = options || {};
-  const enc = opt.encode || encodeURIComponent;
-  if (typeof enc !== "function") {
-    throw new TypeError("option encode is invalid");
-  }
-  if (!fieldContentRegExp.test(name)) {
-    throw new TypeError("argument name is invalid");
-  }
-  const encodedValue = enc(value);
-  if (encodedValue && !fieldContentRegExp.test(encodedValue)) {
-    throw new TypeError("argument val is invalid");
-  }
-  let str = name + "=" + encodedValue;
-  if (void 0 !== opt.maxAge && opt.maxAge !== null) {
-    const maxAge = opt.maxAge - 0;
-    if (Number.isNaN(maxAge) || !Number.isFinite(maxAge)) {
-      throw new TypeError("option maxAge is invalid");
-    }
-    str += "; Max-Age=" + Math.floor(maxAge);
-  }
-  if (opt.domain) {
-    if (!fieldContentRegExp.test(opt.domain)) {
-      throw new TypeError("option domain is invalid");
-    }
-    str += "; Domain=" + opt.domain;
-  }
-  if (opt.path) {
-    if (!fieldContentRegExp.test(opt.path)) {
-      throw new TypeError("option path is invalid");
-    }
-    str += "; Path=" + opt.path;
-  }
-  if (opt.expires) {
-    if (!isDate(opt.expires) || Number.isNaN(opt.expires.valueOf())) {
-      throw new TypeError("option expires is invalid");
-    }
-    str += "; Expires=" + opt.expires.toUTCString();
-  }
-  if (opt.httpOnly) {
-    str += "; HttpOnly";
-  }
-  if (opt.secure) {
-    str += "; Secure";
-  }
-  if (opt.priority) {
-    const priority = typeof opt.priority === "string" ? opt.priority.toLowerCase() : opt.priority;
-    switch (priority) {
-      case "low": {
-        str += "; Priority=Low";
-        break;
-      }
-      case "medium": {
-        str += "; Priority=Medium";
-        break;
-      }
-      case "high": {
-        str += "; Priority=High";
-        break;
-      }
-      default: {
-        throw new TypeError("option priority is invalid");
-      }
-    }
-  }
-  if (opt.sameSite) {
-    const sameSite = typeof opt.sameSite === "string" ? opt.sameSite.toLowerCase() : opt.sameSite;
-    switch (sameSite) {
-      case true: {
-        str += "; SameSite=Strict";
-        break;
-      }
-      case "lax": {
-        str += "; SameSite=Lax";
-        break;
-      }
-      case "strict": {
-        str += "; SameSite=Strict";
-        break;
-      }
-      case "none": {
-        str += "; SameSite=None";
-        break;
-      }
-      default: {
-        throw new TypeError("option sameSite is invalid");
-      }
-    }
-  }
-  if (opt.partitioned) {
-    str += "; Partitioned";
-  }
-  return str;
-}
-function isDate(val) {
-  return Object.prototype.toString.call(val) === "[object Date]" || val instanceof Date;
-}
-
-function parseSetCookie(setCookieValue, options) {
-  const parts = (setCookieValue || "").split(";").filter((str) => typeof str === "string" && !!str.trim());
-  const nameValuePairStr = parts.shift() || "";
-  const parsed = _parseNameValuePair(nameValuePairStr);
-  const name = parsed.name;
-  let value = parsed.value;
-  try {
-    value = options?.decode === false ? value : (options?.decode || decodeURIComponent)(value);
-  } catch {
-  }
-  const cookie = {
-    name,
-    value
-  };
-  for (const part of parts) {
-    const sides = part.split("=");
-    const partKey = (sides.shift() || "").trimStart().toLowerCase();
-    const partValue = sides.join("=");
-    switch (partKey) {
-      case "expires": {
-        cookie.expires = new Date(partValue);
-        break;
-      }
-      case "max-age": {
-        cookie.maxAge = Number.parseInt(partValue, 10);
-        break;
-      }
-      case "secure": {
-        cookie.secure = true;
-        break;
-      }
-      case "httponly": {
-        cookie.httpOnly = true;
-        break;
-      }
-      case "samesite": {
-        cookie.sameSite = partValue;
-        break;
-      }
-      default: {
-        cookie[partKey] = partValue;
-      }
-    }
-  }
-  return cookie;
-}
-function _parseNameValuePair(nameValuePairStr) {
-  let name = "";
-  let value = "";
-  const nameValueArr = nameValuePairStr.split("=");
-  if (nameValueArr.length > 1) {
-    name = nameValueArr.shift();
-    value = nameValueArr.join("=");
-  } else {
-    value = nameValuePairStr;
-  }
-  return { name, value };
-}
-
-const NODE_TYPES = {
-  NORMAL: 0,
-  WILDCARD: 1,
-  PLACEHOLDER: 2
-};
-
-function createRouter(options = {}) {
-  const ctx = {
-    options,
-    rootNode: createRadixNode(),
-    staticRoutesMap: {}
-  };
-  const normalizeTrailingSlash = (p) => options.strictTrailingSlash ? p : p.replace(/\/$/, "") || "/";
-  if (options.routes) {
-    for (const path in options.routes) {
-      insert(ctx, normalizeTrailingSlash(path), options.routes[path]);
-    }
-  }
-  return {
-    ctx,
-    lookup: (path) => lookup(ctx, normalizeTrailingSlash(path)),
-    insert: (path, data) => insert(ctx, normalizeTrailingSlash(path), data),
-    remove: (path) => remove(ctx, normalizeTrailingSlash(path))
-  };
-}
-function lookup(ctx, path) {
-  const staticPathNode = ctx.staticRoutesMap[path];
-  if (staticPathNode) {
-    return staticPathNode.data;
-  }
-  const sections = path.split("/");
-  const params = {};
-  let paramsFound = false;
-  let wildcardNode = null;
-  let node = ctx.rootNode;
-  let wildCardParam = null;
-  for (let i = 0; i < sections.length; i++) {
-    const section = sections[i];
-    if (node.wildcardChildNode !== null) {
-      wildcardNode = node.wildcardChildNode;
-      wildCardParam = sections.slice(i).join("/");
-    }
-    const nextNode = node.children.get(section);
-    if (nextNode === void 0) {
-      if (node && node.placeholderChildren.length > 1) {
-        const remaining = sections.length - i;
-        node = node.placeholderChildren.find((c) => c.maxDepth === remaining) || null;
-      } else {
-        node = node.placeholderChildren[0] || null;
-      }
-      if (!node) {
-        break;
-      }
-      if (node.paramName) {
-        params[node.paramName] = section;
-      }
-      paramsFound = true;
-    } else {
-      node = nextNode;
-    }
-  }
-  if ((node === null || node.data === null) && wildcardNode !== null) {
-    node = wildcardNode;
-    params[node.paramName || "_"] = wildCardParam;
-    paramsFound = true;
-  }
-  if (!node) {
-    return null;
-  }
-  if (paramsFound) {
-    return {
-      ...node.data,
-      params: paramsFound ? params : void 0
-    };
-  }
-  return node.data;
-}
-function insert(ctx, path, data) {
-  let isStaticRoute = true;
-  const sections = path.split("/");
-  let node = ctx.rootNode;
-  let _unnamedPlaceholderCtr = 0;
-  const matchedNodes = [node];
-  for (const section of sections) {
-    let childNode;
-    if (childNode = node.children.get(section)) {
-      node = childNode;
-    } else {
-      const type = getNodeType(section);
-      childNode = createRadixNode({ type, parent: node });
-      node.children.set(section, childNode);
-      if (type === NODE_TYPES.PLACEHOLDER) {
-        childNode.paramName = section === "*" ? `_${_unnamedPlaceholderCtr++}` : section.slice(1);
-        node.placeholderChildren.push(childNode);
-        isStaticRoute = false;
-      } else if (type === NODE_TYPES.WILDCARD) {
-        node.wildcardChildNode = childNode;
-        childNode.paramName = section.slice(
-          3
-          /* "**:" */
-        ) || "_";
-        isStaticRoute = false;
-      }
-      matchedNodes.push(childNode);
-      node = childNode;
-    }
-  }
-  for (const [depth, node2] of matchedNodes.entries()) {
-    node2.maxDepth = Math.max(matchedNodes.length - depth, node2.maxDepth || 0);
-  }
-  node.data = data;
-  if (isStaticRoute === true) {
-    ctx.staticRoutesMap[path] = node;
-  }
-  return node;
-}
-function remove(ctx, path) {
-  let success = false;
-  const sections = path.split("/");
-  let node = ctx.rootNode;
-  for (const section of sections) {
-    node = node.children.get(section);
-    if (!node) {
-      return success;
-    }
-  }
-  if (node.data) {
-    const lastSection = sections.at(-1) || "";
-    node.data = null;
-    if (Object.keys(node.children).length === 0 && node.parent) {
-      node.parent.children.delete(lastSection);
-      node.parent.wildcardChildNode = null;
-      node.parent.placeholderChildren = [];
-    }
-    success = true;
-  }
-  return success;
-}
-function createRadixNode(options = {}) {
-  return {
-    type: options.type || NODE_TYPES.NORMAL,
-    maxDepth: 0,
-    parent: options.parent || null,
-    children: /* @__PURE__ */ new Map(),
-    data: options.data || null,
-    paramName: options.paramName || null,
-    wildcardChildNode: null,
-    placeholderChildren: []
-  };
-}
-function getNodeType(str) {
-  if (str.startsWith("**")) {
-    return NODE_TYPES.WILDCARD;
-  }
-  if (str[0] === ":" || str === "*") {
-    return NODE_TYPES.PLACEHOLDER;
-  }
-  return NODE_TYPES.NORMAL;
-}
-
-function toRouteMatcher(router) {
-  const table = _routerNodeToTable("", router.ctx.rootNode);
-  return _createMatcher(table, router.ctx.options.strictTrailingSlash);
-}
-function _createMatcher(table, strictTrailingSlash) {
-  return {
-    ctx: { table },
-    matchAll: (path) => _matchRoutes(path, table, strictTrailingSlash)
-  };
-}
-function _createRouteTable() {
-  return {
-    static: /* @__PURE__ */ new Map(),
-    wildcard: /* @__PURE__ */ new Map(),
-    dynamic: /* @__PURE__ */ new Map()
-  };
-}
-function _matchRoutes(path, table, strictTrailingSlash) {
-  if (strictTrailingSlash !== true && path.endsWith("/")) {
-    path = path.slice(0, -1) || "/";
-  }
-  const matches = [];
-  for (const [key, value] of _sortRoutesMap(table.wildcard)) {
-    if (path === key || path.startsWith(key + "/")) {
-      matches.push(value);
-    }
-  }
-  for (const [key, value] of _sortRoutesMap(table.dynamic)) {
-    if (path.startsWith(key + "/")) {
-      const subPath = "/" + path.slice(key.length).split("/").splice(2).join("/");
-      matches.push(..._matchRoutes(subPath, value));
-    }
-  }
-  const staticMatch = table.static.get(path);
-  if (staticMatch) {
-    matches.push(staticMatch);
-  }
-  return matches.filter(Boolean);
-}
-function _sortRoutesMap(m) {
-  return [...m.entries()].sort((a, b) => a[0].length - b[0].length);
-}
-function _routerNodeToTable(initialPath, initialNode) {
-  const table = _createRouteTable();
-  function _addNode(path, node) {
-    if (path) {
-      if (node.type === NODE_TYPES.NORMAL && !(path.includes("*") || path.includes(":"))) {
-        if (node.data) {
-          table.static.set(path, node.data);
-        }
-      } else if (node.type === NODE_TYPES.WILDCARD) {
-        table.wildcard.set(path.replace("/**", ""), node.data);
-      } else if (node.type === NODE_TYPES.PLACEHOLDER) {
-        const subTable = _routerNodeToTable("", node);
-        if (node.data) {
-          subTable.static.set("/", node.data);
-        }
-        table.dynamic.set(path.replace(/\/\*|\/:\w+/, ""), subTable);
-        return;
-      }
-    }
-    for (const [childPath, child] of node.children.entries()) {
-      _addNode(`${path}/${childPath}`.replace("//", "/"), child);
-    }
-  }
-  _addNode(initialPath, initialNode);
-  return table;
-}
-
-function isPlainObject(value) {
-  if (value === null || typeof value !== "object") {
-    return false;
-  }
-  const prototype = Object.getPrototypeOf(value);
-  if (prototype !== null && prototype !== Object.prototype && Object.getPrototypeOf(prototype) !== null) {
-    return false;
-  }
-  if (Symbol.iterator in value) {
-    return false;
-  }
-  if (Symbol.toStringTag in value) {
-    return Object.prototype.toString.call(value) === "[object Module]";
-  }
-  return true;
-}
-
-function _defu(baseObject, defaults, namespace = ".", merger) {
-  if (!isPlainObject(defaults)) {
-    return _defu(baseObject, {}, namespace, merger);
-  }
-  const object = { ...defaults };
-  for (const key of Object.keys(baseObject)) {
-    if (key === "__proto__" || key === "constructor") {
-      continue;
-    }
-    const value = baseObject[key];
-    if (value === null || value === void 0) {
-      continue;
-    }
-    if (merger && merger(object, key, value, namespace)) {
-      continue;
-    }
-    if (Array.isArray(value) && Array.isArray(object[key])) {
-      object[key] = [...value, ...object[key]];
-    } else if (isPlainObject(value) && isPlainObject(object[key])) {
-      object[key] = _defu(
-        value,
-        object[key],
-        (namespace ? `${namespace}.` : "") + key.toString(),
-        merger
-      );
-    } else {
-      object[key] = value;
-    }
-  }
-  return object;
-}
-function createDefu(merger) {
-  return (...arguments_) => (
-    // eslint-disable-next-line unicorn/no-array-reduce
-    arguments_.reduce((p, c) => _defu(p, c, "", merger), {})
-  );
-}
-const defu = createDefu();
-
-const suspectProtoRx = /"(?:_|\\u0{2}5[Ff]){2}(?:p|\\u0{2}70)(?:r|\\u0{2}72)(?:o|\\u0{2}6[Ff])(?:t|\\u0{2}74)(?:o|\\u0{2}6[Ff])(?:_|\\u0{2}5[Ff]){2}"\s*:/;
-const suspectConstructorRx = /"(?:c|\\u0063)(?:o|\\u006[Ff])(?:n|\\u006[Ee])(?:s|\\u0073)(?:t|\\u0074)(?:r|\\u0072)(?:u|\\u0075)(?:c|\\u0063)(?:t|\\u0074)(?:o|\\u006[Ff])(?:r|\\u0072)"\s*:/;
-const JsonSigRx = /^\s*["[{]|^\s*-?\d{1,16}(\.\d{1,17})?([Ee][+-]?\d+)?\s*$/;
-function jsonParseTransform(key, value) {
-  if (key === "__proto__" || key === "constructor" && value && typeof value === "object" && "prototype" in value) {
-    warnKeyDropped(key);
-    return;
-  }
-  return value;
-}
-function warnKeyDropped(key) {
-  console.warn(`[destr] Dropping "${key}" key to prevent prototype pollution.`);
-}
-function destr(value, options = {}) {
-  if (typeof value !== "string") {
-    return value;
-  }
-  if (value[0] === '"' && value[value.length - 1] === '"' && value.indexOf("\\") === -1) {
-    return value.slice(1, -1);
-  }
-  const _value = value.trim();
-  if (_value.length <= 9) {
-    switch (_value.toLowerCase()) {
-      case "true": {
-        return true;
-      }
-      case "false": {
-        return false;
-      }
-      case "undefined": {
-        return void 0;
-      }
-      case "null": {
-        return null;
-      }
-      case "nan": {
-        return Number.NaN;
-      }
-      case "infinity": {
-        return Number.POSITIVE_INFINITY;
-      }
-      case "-infinity": {
-        return Number.NEGATIVE_INFINITY;
-      }
-    }
-  }
-  if (!JsonSigRx.test(value)) {
-    if (options.strict) {
-      throw new SyntaxError("[destr] Invalid JSON");
-    }
-    return value;
-  }
-  try {
-    if (suspectProtoRx.test(value) || suspectConstructorRx.test(value)) {
-      if (options.strict) {
-        throw new Error("[destr] Possible prototype pollution");
-      }
-      return JSON.parse(value, jsonParseTransform);
-    }
-    return JSON.parse(value);
-  } catch (error) {
-    if (options.strict) {
-      throw error;
-    }
-    return value;
-  }
-}
-
-function useBase(base, handler) {
-  base = withoutTrailingSlash(base);
-  if (!base || base === "/") {
-    return handler;
-  }
-  return eventHandler(async (event) => {
-    event.node.req.originalUrl = event.node.req.originalUrl || event.node.req.url || "/";
-    const _path = event._path || event.node.req.url || "/";
-    event._path = withoutBase(event.path || "/", base);
-    event.node.req.url = event._path;
-    try {
-      return await handler(event);
-    } finally {
-      event._path = event.node.req.url = _path;
-    }
-  });
-}
-
-function hasProp(obj, prop) {
-  try {
-    return prop in obj;
-  } catch {
-    return false;
-  }
-}
-
-class H3Error extends Error {
-  static __h3_error__ = true;
-  statusCode = 500;
-  fatal = false;
-  unhandled = false;
-  statusMessage;
-  data;
-  cause;
-  constructor(message, opts = {}) {
-    super(message, opts);
-    if (opts.cause && !this.cause) {
-      this.cause = opts.cause;
-    }
-  }
-  toJSON() {
-    const obj = {
-      message: this.message,
-      statusCode: sanitizeStatusCode(this.statusCode, 500)
-    };
-    if (this.statusMessage) {
-      obj.statusMessage = sanitizeStatusMessage(this.statusMessage);
-    }
-    if (this.data !== void 0) {
-      obj.data = this.data;
-    }
-    return obj;
-  }
-}
-function createError(input) {
-  if (typeof input === "string") {
-    return new H3Error(input);
-  }
-  if (isError(input)) {
-    return input;
-  }
-  const err = new H3Error(input.message ?? input.statusMessage ?? "", {
-    cause: input.cause || input
-  });
-  if (hasProp(input, "stack")) {
-    try {
-      Object.defineProperty(err, "stack", {
-        get() {
-          return input.stack;
-        }
-      });
-    } catch {
-      try {
-        err.stack = input.stack;
-      } catch {
-      }
-    }
-  }
-  if (input.data) {
-    err.data = input.data;
-  }
-  if (input.statusCode) {
-    err.statusCode = sanitizeStatusCode(input.statusCode, err.statusCode);
-  } else if (input.status) {
-    err.statusCode = sanitizeStatusCode(input.status, err.statusCode);
-  }
-  if (input.statusMessage) {
-    err.statusMessage = input.statusMessage;
-  } else if (input.statusText) {
-    err.statusMessage = input.statusText;
-  }
-  if (err.statusMessage) {
-    const originalMessage = err.statusMessage;
-    const sanitizedMessage = sanitizeStatusMessage(err.statusMessage);
-    if (sanitizedMessage !== originalMessage) {
-      console.warn(
-        "[h3] Please prefer using `message` for longer error messages instead of `statusMessage`. In the future, `statusMessage` will be sanitized by default."
-      );
-    }
-  }
-  if (input.fatal !== void 0) {
-    err.fatal = input.fatal;
-  }
-  if (input.unhandled !== void 0) {
-    err.unhandled = input.unhandled;
-  }
-  return err;
-}
-function isError(input) {
-  return input?.constructor?.__h3_error__ === true;
-}
-
-function getQuery(event) {
-  return getQuery$1(event.path || "");
-}
-function getRequestHeaders(event) {
-  const _headers = {};
-  for (const key in event.node.req.headers) {
-    const val = event.node.req.headers[key];
-    _headers[key] = Array.isArray(val) ? val.filter(Boolean).join(", ") : val;
-  }
-  return _headers;
-}
-function getRequestHeader(event, name) {
-  const headers = getRequestHeaders(event);
-  const value = headers[name.toLowerCase()];
-  return value;
-}
-const getHeader = getRequestHeader;
-function getRequestHost(event, opts = {}) {
-  if (opts.xForwardedHost) {
-    const _header = event.node.req.headers["x-forwarded-host"];
-    const xForwardedHost = (_header || "").split(",").shift()?.trim();
-    if (xForwardedHost) {
-      return xForwardedHost;
-    }
-  }
-  return event.node.req.headers.host || "localhost";
-}
-
-const MIMES = {
-  html: "text/html"};
-
-const DISALLOWED_STATUS_CHARS = /[^\u0009\u0020-\u007E]/g;
-function sanitizeStatusMessage(statusMessage = "") {
-  return statusMessage.replace(DISALLOWED_STATUS_CHARS, "");
-}
-function sanitizeStatusCode(statusCode, defaultStatusCode = 200) {
-  if (!statusCode) {
-    return defaultStatusCode;
-  }
-  if (typeof statusCode === "string") {
-    statusCode = Number.parseInt(statusCode, 10);
-  }
-  if (statusCode < 100 || statusCode > 999) {
-    return defaultStatusCode;
-  }
-  return statusCode;
-}
-
-function getDistinctCookieKey(name, opts) {
-  return [name, opts.domain || "", opts.path || "/"].join(";");
-}
-
-function parseCookies(event) {
-  return parse(event.node.req.headers.cookie || "");
-}
-function getCookie(event, name) {
-  return parseCookies(event)[name];
-}
-function setCookie(event, name, value, serializeOptions = {}) {
-  if (!serializeOptions.path) {
-    serializeOptions = { path: "/", ...serializeOptions };
-  }
-  const newCookie = serialize(name, value, serializeOptions);
-  const currentCookies = splitCookiesString(
-    event.node.res.getHeader("set-cookie")
-  );
-  if (currentCookies.length === 0) {
-    event.node.res.setHeader("set-cookie", newCookie);
-    return;
-  }
-  const newCookieKey = getDistinctCookieKey(name, serializeOptions);
-  event.node.res.removeHeader("set-cookie");
-  for (const cookie of currentCookies) {
-    const parsed = parseSetCookie(cookie);
-    const key = getDistinctCookieKey(parsed.name, parsed);
-    if (key === newCookieKey) {
-      continue;
-    }
-    event.node.res.appendHeader("set-cookie", cookie);
-  }
-  event.node.res.appendHeader("set-cookie", newCookie);
-}
-function deleteCookie(event, name, serializeOptions) {
-  setCookie(event, name, "", {
-    ...serializeOptions,
-    maxAge: 0
-  });
-}
-function splitCookiesString(cookiesString) {
-  if (Array.isArray(cookiesString)) {
-    return cookiesString.flatMap((c) => splitCookiesString(c));
-  }
-  if (typeof cookiesString !== "string") {
-    return [];
-  }
-  const cookiesStrings = [];
-  let pos = 0;
-  let start;
-  let ch;
-  let lastComma;
-  let nextStart;
-  let cookiesSeparatorFound;
-  const skipWhitespace = () => {
-    while (pos < cookiesString.length && /\s/.test(cookiesString.charAt(pos))) {
-      pos += 1;
-    }
-    return pos < cookiesString.length;
-  };
-  const notSpecialChar = () => {
-    ch = cookiesString.charAt(pos);
-    return ch !== "=" && ch !== ";" && ch !== ",";
-  };
-  while (pos < cookiesString.length) {
-    start = pos;
-    cookiesSeparatorFound = false;
-    while (skipWhitespace()) {
-      ch = cookiesString.charAt(pos);
-      if (ch === ",") {
-        lastComma = pos;
-        pos += 1;
-        skipWhitespace();
-        nextStart = pos;
-        while (pos < cookiesString.length && notSpecialChar()) {
-          pos += 1;
-        }
-        if (pos < cookiesString.length && cookiesString.charAt(pos) === "=") {
-          cookiesSeparatorFound = true;
-          pos = nextStart;
-          cookiesStrings.push(cookiesString.slice(start, lastComma));
-          start = pos;
-        } else {
-          pos = lastComma + 1;
-        }
-      } else {
-        pos += 1;
-      }
-    }
-    if (!cookiesSeparatorFound || pos >= cookiesString.length) {
-      cookiesStrings.push(cookiesString.slice(start));
-    }
-  }
-  return cookiesStrings;
-}
-
-const defer = typeof setImmediate === "undefined" ? (fn) => fn() : setImmediate;
-function send(event, data, type) {
-  {
-    defaultContentType(event, type);
-  }
-  return new Promise((resolve) => {
-    defer(() => {
-      if (!event.handled) {
-        event.node.res.end(data);
-      }
-      resolve();
-    });
-  });
-}
-function defaultContentType(event, type) {
-  if (event.node.res.statusCode !== 304 && !event.node.res.getHeader("content-type")) {
-    event.node.res.setHeader("content-type", type);
-  }
-}
-function sendRedirect(event, location, code = 302) {
-  event.node.res.statusCode = sanitizeStatusCode(
-    code,
-    event.node.res.statusCode
-  );
-  event.node.res.setHeader("location", location);
-  const encodedLoc = location.replace(/"/g, "%22");
-  const html = `<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=${encodedLoc}"></head></html>`;
-  return send(event, html, MIMES.html);
-}
-function setResponseHeader(event, name, value) {
-  event.node.res.setHeader(name, value);
-}
-const setHeader = setResponseHeader;
-
-function defineEventHandler(handler) {
-  if (typeof handler === "function") {
-    handler.__is_handler__ = true;
-    return handler;
-  }
-  const _hooks = {
-    onRequest: _normalizeArray(handler.onRequest),
-    onBeforeResponse: _normalizeArray(handler.onBeforeResponse)
-  };
-  const _handler = (event) => {
-    return _callHandler(event, handler.handler, _hooks);
-  };
-  _handler.__is_handler__ = true;
-  _handler.__resolve__ = handler.handler.__resolve__;
-  _handler.__websocket__ = handler.websocket;
-  return _handler;
-}
-function _normalizeArray(input) {
-  return input ? Array.isArray(input) ? input : [input] : void 0;
-}
-async function _callHandler(event, handler, hooks) {
-  if (hooks.onRequest) {
-    for (const hook of hooks.onRequest) {
-      await hook(event);
-      if (event.handled) {
-        return;
-      }
-    }
-  }
-  const body = await handler(event);
-  const response = { body };
-  if (hooks.onBeforeResponse) {
-    for (const hook of hooks.onBeforeResponse) {
-      await hook(event, response);
-    }
-  }
-  return response.body;
-}
-const eventHandler = defineEventHandler;
-function toEventHandler(input, _, _route) {
-  return input;
-}
-function defineLazyEventHandler(factory) {
-  let _promise;
-  let _resolved;
-  const resolveHandler = () => {
-    if (_resolved) {
-      return Promise.resolve(_resolved);
-    }
-    if (!_promise) {
-      _promise = Promise.resolve(factory()).then((r) => {
-        const handler2 = r.default || r;
-        if (typeof handler2 !== "function") {
-          throw new TypeError(
-            "Invalid lazy handler result. It should be a function:",
-            handler2
-          );
-        }
-        _resolved = { handler: toEventHandler(r.default || r) };
-        return _resolved;
-      });
-    }
-    return _promise;
-  };
-  const handler = eventHandler((event) => {
-    if (_resolved) {
-      return _resolved.handler(event);
-    }
-    return resolveHandler().then((r) => r.handler(event));
-  });
-  handler.__resolve__ = resolveHandler;
-  return handler;
-}
-const lazyEventHandler = defineLazyEventHandler;
 
 const logger = createConsola({
   defaults: {
@@ -7721,11 +6888,11 @@ function createFilter(options = {}) {
   const includeRegex = include.filter((r) => r instanceof RegExp);
   const excludeStrings = exclude.filter((r) => typeof r === "string");
   const includeStrings = include.filter((r) => typeof r === "string");
-  const excludeMatcher = excludeStrings.length > 0 ? toRouteMatcher(createRouter({
+  const excludeMatcher = excludeStrings.length > 0 ? toRouteMatcher(createRouter$1({
     routes: Object.fromEntries(excludeStrings.map((r) => [r, true])),
     strictTrailingSlash: false
   })) : null;
-  const includeMatcher = includeStrings.length > 0 ? toRouteMatcher(createRouter({
+  const includeMatcher = includeStrings.length > 0 ? toRouteMatcher(createRouter$1({
     routes: Object.fromEntries(includeStrings.map((r) => [r, true])),
     strictTrailingSlash: false
   })) : null;
@@ -7766,25 +6933,25 @@ function useSiteConfig(e, _options) {
   return getSiteConfig(e, _options);
 }
 
-function resolveSitePath$1(pathOrUrl, options) {
+function resolveSitePath(pathOrUrl, options) {
   let path = pathOrUrl;
-  if (hasProtocol$1(pathOrUrl, { strict: false, acceptRelative: true })) {
-    const parsed = parseURL$1(pathOrUrl);
+  if (hasProtocol(pathOrUrl, { strict: false, acceptRelative: true })) {
+    const parsed = parseURL(pathOrUrl);
     path = parsed.pathname;
   }
-  const base = withLeadingSlash$1(options.base || "/");
+  const base = withLeadingSlash(options.base || "/");
   if (base !== "/" && path.startsWith(base)) {
     path = path.slice(base.length);
   }
-  let origin = withoutTrailingSlash$1(options.absolute ? options.siteUrl : "");
+  let origin = withoutTrailingSlash(options.absolute ? options.siteUrl : "");
   if (base !== "/" && origin.endsWith(base)) {
     origin = origin.slice(0, origin.indexOf(base));
   }
-  const baseWithOrigin = options.withBase ? withBase$1(base, origin || "/") : origin;
-  const resolvedUrl = withBase$1(path, baseWithOrigin);
-  return path === "/" && !options.withBase ? withTrailingSlash$1(resolvedUrl) : fixSlashes$1(options.trailingSlash, resolvedUrl);
+  const baseWithOrigin = options.withBase ? withBase(base, origin || "/") : origin;
+  const resolvedUrl = withBase(path, baseWithOrigin);
+  return path === "/" && !options.withBase ? withTrailingSlash(resolvedUrl) : fixSlashes(options.trailingSlash, resolvedUrl);
 }
-const fileExtensions$1 = [
+const fileExtensions = [
   // Images
   "jpg",
   "jpeg",
@@ -7896,16 +7063,16 @@ const fileExtensions$1 = [
   "old",
   "sav"
 ];
-function isPathFile$1(path) {
+function isPathFile(path) {
   const lastSegment = path.split("/").pop();
   const ext = (lastSegment || path).match(/\.[0-9a-z]+$/i)?.[0];
-  return ext && fileExtensions$1.includes(ext.replace(".", ""));
+  return ext && fileExtensions.includes(ext.replace(".", ""));
 }
-function fixSlashes$1(trailingSlash, pathOrUrl) {
-  const $url = parseURL$1(pathOrUrl);
-  if (isPathFile$1($url.pathname))
+function fixSlashes(trailingSlash, pathOrUrl) {
+  const $url = parseURL(pathOrUrl);
+  if (isPathFile($url.pathname))
     return pathOrUrl;
-  const fixedPath = trailingSlash ? withTrailingSlash$1($url.pathname) : withoutTrailingSlash$1($url.pathname);
+  const fixedPath = trailingSlash ? withTrailingSlash($url.pathname) : withoutTrailingSlash($url.pathname);
   return `${$url.protocol ? `${$url.protocol}//` : ""}${$url.host || ""}${fixedPath}${$url.search || ""}${$url.hash || ""}`;
 }
 
@@ -7914,7 +7081,7 @@ function createSitePathResolver(e, options = {}) {
   const nitroOrigin = getNitroOrigin(e);
   const nuxtBase = useRuntimeConfig(e).app.baseURL || "/";
   return (path) => {
-    return resolveSitePath$1(path, {
+    return resolveSitePath(path, {
       ...options,
       siteUrl: options.canonical !== false || false ? siteConfig.url : nitroOrigin,
       trailingSlash: siteConfig.trailingSlash,
@@ -7923,7 +7090,7 @@ function createSitePathResolver(e, options = {}) {
   };
 }
 
-const _cLUELm = defineEventHandler(async (e) => {
+const _T6k6l3 = defineEventHandler(async (e) => {
   const fixPath = createSitePathResolver(e, { absolute: false, withBase: true });
   const { sitemapName: fallbackSitemapName, cacheMaxAgeSeconds, version, xslColumns, xslTips } = useSitemapRuntimeConfig();
   setHeader(e, "Content-Type", "application/xslt+xml");
@@ -8341,156 +7508,13 @@ const _cLUELm = defineEventHandler(async (e) => {
 `;
 });
 
-function resolveSitePath(pathOrUrl, options) {
-  let path = pathOrUrl;
-  if (hasProtocol(pathOrUrl, { strict: false, acceptRelative: true })) {
-    const parsed = parseURL(pathOrUrl);
-    path = parsed.pathname;
-  }
-  const base = withLeadingSlash(options.base || "/");
-  if (base !== "/" && path.startsWith(base)) {
-    path = path.slice(base.length);
-  }
-  let origin = withoutTrailingSlash(options.siteUrl );
-  if (base !== "/" && origin.endsWith(base)) {
-    origin = origin.slice(0, origin.indexOf(base));
-  }
-  const baseWithOrigin = origin;
-  const resolvedUrl = withBase(path, baseWithOrigin);
-  return path === "/" && true ? withTrailingSlash(resolvedUrl) : fixSlashes(options.trailingSlash, resolvedUrl);
-}
-const fileExtensions = [
-  // Images
-  "jpg",
-  "jpeg",
-  "png",
-  "gif",
-  "bmp",
-  "webp",
-  "svg",
-  "ico",
-  // Documents
-  "pdf",
-  "doc",
-  "docx",
-  "xls",
-  "xlsx",
-  "ppt",
-  "pptx",
-  "txt",
-  "md",
-  "markdown",
-  // Archives
-  "zip",
-  "rar",
-  "7z",
-  "tar",
-  "gz",
-  // Audio
-  "mp3",
-  "wav",
-  "flac",
-  "ogg",
-  "opus",
-  "m4a",
-  "aac",
-  "midi",
-  "mid",
-  // Video
-  "mp4",
-  "avi",
-  "mkv",
-  "mov",
-  "wmv",
-  "flv",
-  "webm",
-  // Web
-  "html",
-  "css",
-  "js",
-  "json",
-  "xml",
-  "tsx",
-  "jsx",
-  "ts",
-  "vue",
-  "svelte",
-  "xsl",
-  "rss",
-  "atom",
-  // Programming
-  "php",
-  "py",
-  "rb",
-  "java",
-  "c",
-  "cpp",
-  "h",
-  "go",
-  // Data formats
-  "csv",
-  "tsv",
-  "sql",
-  "yaml",
-  "yml",
-  // Fonts
-  "woff",
-  "woff2",
-  "ttf",
-  "otf",
-  "eot",
-  // Executables/Binaries
-  "exe",
-  "msi",
-  "apk",
-  "ipa",
-  "dmg",
-  "iso",
-  "bin",
-  // Scripts/Config
-  "bat",
-  "cmd",
-  "sh",
-  "env",
-  "htaccess",
-  "conf",
-  "toml",
-  "ini",
-  // Package formats
-  "deb",
-  "rpm",
-  "jar",
-  "war",
-  // E-books
-  "epub",
-  "mobi",
-  // Common temporary/backup files
-  "log",
-  "tmp",
-  "bak",
-  "old",
-  "sav"
-];
-function isPathFile(path) {
-  const lastSegment = path.split("/").pop();
-  const ext = (lastSegment || path).match(/\.[0-9a-z]+$/i)?.[0];
-  return ext && fileExtensions.includes(ext.replace(".", ""));
-}
-function fixSlashes(trailingSlash, pathOrUrl) {
-  const $url = parseURL(pathOrUrl);
-  if (isPathFile($url.pathname))
-    return pathOrUrl;
-  const fixedPath = trailingSlash ? withTrailingSlash($url.pathname) : withoutTrailingSlash($url.pathname);
-  return `${$url.protocol ? `${$url.protocol}//` : ""}${$url.host || ""}${fixedPath}${$url.search || ""}${$url.hash || ""}`;
-}
-
 function withoutQuery(path) {
   return path.split("?")[0];
 }
 function createNitroRouteRuleMatcher() {
   const { nitro, app } = useRuntimeConfig();
   const _routeRulesMatcher = toRouteMatcher(
-    createRouter({
+    createRouter$1({
       routes: Object.fromEntries(
         Object.entries(nitro?.routeRules || {}).map(([path, rules]) => [path === "/" ? path : withoutTrailingSlash(path), rules])
       )
@@ -9505,6 +8529,8 @@ async function buildSitemapUrls(sitemap, resolvers, runtimeConfig, nitro) {
     if (domain) {
       const _tester = resolvers.canonicalUrlResolver;
       resolvers.canonicalUrlResolver = (path) => resolveSitePath(path, {
+        absolute: true,
+        withBase: false,
         siteUrl: withHttps(domain),
         trailingSlash: _tester("/test/").endsWith("/"),
         base: "/"
@@ -9632,7 +8658,7 @@ async function buildSitemapXml(event, definition, resolvers, runtimeConfig) {
       const chunkIndex = Number(lastPart);
       const baseSitemapName = parts.join("-");
       if (urls.length === 0 && chunkIndex > 0) {
-        throw createError({
+        throw createError$1({
           statusCode: 404,
           message: `Sitemap chunk ${chunkIndex} for "${baseSitemapName}" does not exist.`
         });
@@ -9696,14 +8722,9 @@ async function sitemapXmlEventHandler(e) {
   return createSitemap(e, Object.values(sitemaps)[0], runtimeConfig);
 }
 
-const _1KQmZM = defineEventHandler(sitemapXmlEventHandler);
+const _AY2vbH = defineEventHandler(sitemapXmlEventHandler);
 
-const _SxA8c9 = defineEventHandler$1(() => {});
-
-const _IS_ABSOLUTE_RE = /^[/\\](?![/\\])|^[/\\]{2}(?!\.)|^[A-Za-z]:[/\\]/;
-const isAbsolute = function(p) {
-  return _IS_ABSOLUTE_RE.test(p);
-};
+const _SxA8c9 = defineEventHandler(() => {});
 
 function defineNitroPlugin(def) {
   return def;
@@ -9711,14 +8732,14 @@ function defineNitroPlugin(def) {
 
 function defineRenderHandler(render) {
   const runtimeConfig = useRuntimeConfig();
-  return eventHandler$1(async (event) => {
+  return eventHandler(async (event) => {
     const nitroApp = useNitroApp();
     const ctx = { event, render, response: void 0 };
     await nitroApp.hooks.callHook("render:before", ctx);
     if (!ctx.response) {
       if (event.path === `${runtimeConfig.app.baseURL}favicon.ico`) {
-        setResponseHeader$1(event, "Content-Type", "image/x-icon");
-        return send$1(
+        setResponseHeader(event, "Content-Type", "image/x-icon");
+        return send(
           event,
           "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
         );
@@ -9727,7 +8748,7 @@ function defineRenderHandler(render) {
       if (!ctx.response) {
         const _currentStatus = getResponseStatus(event);
         setResponseStatus(event, _currentStatus === 200 ? 500 : _currentStatus);
-        return send$1(
+        return send(
           event,
           "No response returned from render handler: " + event.path
         );
@@ -9749,24 +8770,24 @@ function defineRenderHandler(render) {
 }
 
 function baseURL() {
-	// TODO: support passing event to `useRuntimeConfig`
+	
 	return useRuntimeConfig().app.baseURL;
 }
 function buildAssetsDir() {
-	// TODO: support passing event to `useRuntimeConfig`
+	
 	return useRuntimeConfig().app.buildAssetsDir;
 }
 function buildAssetsURL(...path) {
 	return joinRelativeURL(publicAssetsURL(), buildAssetsDir(), ...path);
 }
 function publicAssetsURL(...path) {
-	// TODO: support passing event to `useRuntimeConfig`
+	
 	const app = useRuntimeConfig().app;
 	const publicBase = app.cdnURL || app.baseURL;
 	return path.length ? joinRelativeURL(publicBase, ...path) : publicBase;
 }
 
-const _7tH42C = lazyEventHandler(() => {
+const _bEVXVZ = lazyEventHandler(() => {
   const opts = useRuntimeConfig().ipx || {};
   const fsDir = opts?.fs?.dir ? (Array.isArray(opts.fs.dir) ? opts.fs.dir : [opts.fs.dir]).map((dir) => isAbsolute(dir) ? dir : fileURLToPath(new URL(dir, globalThis._importMeta_.url))) : void 0;
   const fsStorage = opts.fs?.dir ? ipxFSStorage({ ...opts.fs, dir: fsDir }) : void 0;
@@ -9784,20 +8805,16 @@ const _7tH42C = lazyEventHandler(() => {
   return useBase(opts.baseURL, ipxHandler);
 });
 
-const _lazy_9Bu4dm = () => import('../routes/renderer.mjs');
+const _lazy_9Bu4dm = () => import('../routes/renderer.mjs').then(function (n) { return n.r; });
 
 const handlers = [
   { route: '', handler: _0loVyi, lazy: false, middleware: true, method: undefined },
   { route: '/__nuxt_error', handler: _lazy_9Bu4dm, lazy: true, middleware: false, method: undefined },
   { route: '', handler: _k2C9FJ, lazy: false, middleware: true, method: undefined },
-  { route: '/__sitemap__/style.xsl', handler: _cLUELm, lazy: false, middleware: false, method: undefined },
-  { route: '/sitemap.xml', handler: _1KQmZM, lazy: false, middleware: false, method: undefined },
+  { route: '/__sitemap__/style.xsl', handler: _T6k6l3, lazy: false, middleware: false, method: undefined },
+  { route: '/sitemap.xml', handler: _AY2vbH, lazy: false, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
-  { route: '', handler: _k2C9FJ, lazy: false, middleware: true, method: undefined },
-  { route: '/__sitemap__/style.xsl', handler: _cLUELm, lazy: false, middleware: false, method: undefined },
-  { route: '/sitemap.xml', handler: _1KQmZM, lazy: false, middleware: false, method: undefined },
-  { route: '/__nuxt_island/**', handler: _SxA8c9, lazy: false, middleware: false, method: undefined },
-  { route: '/_ipx/**', handler: _7tH42C, lazy: false, middleware: false, method: undefined },
+  { route: '/_ipx/**', handler: _bEVXVZ, lazy: false, middleware: false, method: undefined },
   { route: '/**', handler: _lazy_9Bu4dm, lazy: true, middleware: false, method: undefined }
 ];
 
@@ -9819,7 +8836,7 @@ function createNitroApp() {
     }
   };
   const h3App = createApp({
-    debug: destr$1(false),
+    debug: destr(false),
     onError: (error, event) => {
       captureError(error, { event, tags: ["request"] });
       return errorHandler(error, event);
@@ -9869,7 +8886,7 @@ function createNitroApp() {
       });
     }
   });
-  const router = createRouter$1({
+  const router = createRouter({
     preemptive: true
   });
   const nodeHandler = toNodeListener(h3App);
@@ -9895,7 +8912,7 @@ function createNitroApp() {
   globalThis.$fetch = $fetch;
   h3App.use(createRouteRulesHandler({ localFetch }));
   for (const h of handlers) {
-    let handler = h.lazy ? lazyEventHandler$1(h.handler) : h.handler;
+    let handler = h.lazy ? lazyEventHandler(h.handler) : h.handler;
     if (h.middleware || !h.route) {
       const middlewareBase = (config.app.baseURL + (h.route || "/")).replace(
         /\/+/g,
@@ -10192,7 +9209,7 @@ const cert = process.env.NITRO_SSL_CERT;
 const key = process.env.NITRO_SSL_KEY;
 const nitroApp = useNitroApp();
 const server = cert && key ? new Server({ key, cert }, toNodeListener(nitroApp.h3App)) : new Server$1(toNodeListener(nitroApp.h3App));
-const port = destr$1(process.env.NITRO_PORT || process.env.PORT) || 3e3;
+const port = destr(process.env.NITRO_PORT || process.env.PORT) || 3e3;
 const host = process.env.NITRO_HOST || process.env.HOST;
 const path = process.env.NITRO_UNIX_SOCKET;
 const listener = server.listen(path ? { path } : { port, host }, (err) => {
@@ -10214,5 +9231,5 @@ trapUnhandledNodeErrors();
 setupGracefulShutdown(listener, nitroApp);
 const nodeServer = {};
 
-export { $fetch$1 as $, destr as A, setCookie as B, getCookie as C, deleteCookie as D, parseQuery as E, withTrailingSlash as F, withoutTrailingSlash as G, nodeServer as H, getResponseStatus as a, buildAssetsURL as b, getQuery$2 as c, defineRenderHandler as d, createError$2 as e, getRouteRules as f, getResponseStatusText as g, useNitroApp as h, parseURL as i, joinURL$1 as j, encodePath as k, decodePath as l, createError as m, hasProtocol as n, isScriptProtocol as o, publicAssetsURL as p, joinURL as q, baseURL as r, sanitizeStatusCode as s, defu as t, useRuntimeConfig as u, defu$1 as v, withQuery as w, withLeadingSlash as x, encodeParam as y, getRequestHeader as z };
+export { $fetch$1 as $, parseQuery as A, parseURL as B, publicAssetsURL as C, sanitizeStatusCode as D, setCookie as E, useNitroApp as F, useRuntimeConfig as G, withLeadingSlash as H, withQuery as I, withTrailingSlash as J, withoutTrailingSlash as K, buildAssetsURL as a, baseURL as b, createError$1 as c, createHooks as d, decodePath as e, defineRenderHandler as f, defu as g, deleteCookie as h, destr as i, encodeParam as j, encodePath as k, executeAsync as l, getContext as m, getCookie as n, getQuery as o, getRequestHeader as p, getResponseStatus as q, getResponseStatusText as r, getRouteRules as s, hasProtocol as t, hash$1 as u, isEqual as v, isScriptProtocol as w, joinURL as x, klona as y, nodeServer as z };
 //# sourceMappingURL=nitro.mjs.map
