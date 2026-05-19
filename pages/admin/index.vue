@@ -108,7 +108,7 @@ const getActivityColor = (color) => {
       <div class="mb-6 flex items-center justify-between">
         <div>
           <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Dashboard</h1>
-          <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Resumen y estado del sistema</p>
+          <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">Resumen y estado del sistema</p>
         </div>
       </div>
 
@@ -127,19 +127,19 @@ const getActivityColor = (color) => {
             </div>
             <div class="ml-5 w-0 flex-1">
               <dl>
-                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Total Posts</dt>
+                <dt class="text-sm font-medium text-gray-300 dark:text-gray-300 truncate">Total Posts</dt>
                 <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ stats.total_posts }}</dd>
               </dl>
             </div>
           </div>
           <div class="mt-4">
-            <div class="text-sm text-gray-600 dark:text-gray-400">
+            <div class="text-sm text-gray-300 dark:text-gray-300">
               <span class="text-green-600 dark:text-green-400 font-medium">{{ stats.published_posts }}</span>
               publicados,
               <span class="text-yellow-600 dark:text-yellow-400 font-medium">{{ stats.draft_posts }}</span> borradores,
               <span class="text-purple-600 dark:text-purple-400 font-medium">{{ stats.featured_posts }}</span> desc.
             </div>
-            <div class="text-xs text-gray-500 mt-1">
+            <div class="text-xs text-gray-300 mt-1">
               {{ periodStats.posts_last_7_days }} nuevos esta semana
             </div>
           </div>
@@ -158,18 +158,18 @@ const getActivityColor = (color) => {
             </div>
             <div class="ml-5 w-0 flex-1">
               <dl>
-                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Contactos</dt>
+                <dt class="text-sm font-medium text-gray-300 dark:text-gray-300 truncate">Contactos</dt>
                 <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ stats.total_contacts }}</dd>
               </dl>
             </div>
           </div>
           <div class="mt-4">
-            <div class="text-sm text-gray-600 dark:text-gray-400">
+            <div class="text-sm text-gray-300 dark:text-gray-300">
               <span class="text-red-600 dark:text-red-400 font-medium">{{ stats.new_contacts }}</span> nuevos,
               <span class="text-green-600 dark:text-green-400 font-medium">{{ stats.replied_contacts }}</span>
               respondidos
             </div>
-            <div class="text-xs text-gray-500 mt-1">
+            <div class="text-xs text-gray-300 mt-1">
               {{ periodStats.contacts_last_7_days }} esta semana
             </div>
           </div>
@@ -190,17 +190,17 @@ const getActivityColor = (color) => {
             </div>
             <div class="ml-5 w-0 flex-1">
               <dl>
-                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Total Vistas</dt>
+                <dt class="text-sm font-medium text-gray-300 dark:text-gray-300 truncate">Total Vistas</dt>
                 <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ stats.total_views?.toLocaleString() }}
                 </dd>
               </dl>
             </div>
           </div>
           <div class="mt-4">
-            <div class="text-sm text-gray-600 dark:text-gray-400">
+            <div class="text-sm text-gray-300 dark:text-gray-300">
               Promedio: <span class="font-medium dark:text-white">{{ stats.avg_views_per_post }}</span> por post
             </div>
-            <div class="text-xs text-gray-500 mt-1">
+            <div class="text-xs text-gray-300 mt-1">
               {{ periodStats.views_last_7_days?.toLocaleString() }} esta semana
             </div>
           </div>
@@ -219,16 +219,16 @@ const getActivityColor = (color) => {
             </div>
             <div class="ml-5 w-0 flex-1">
               <dl>
-                <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Categorías</dt>
+                <dt class="text-sm font-medium text-gray-300 dark:text-gray-300 truncate">Categorías</dt>
                 <dd class="text-lg font-medium text-gray-900 dark:text-white">{{ stats.total_categories }}</dd>
               </dl>
             </div>
           </div>
           <div class="mt-4">
-            <div class="text-sm text-gray-600 dark:text-gray-400">
+            <div class="text-sm text-gray-300 dark:text-gray-300">
               <span class="text-green-600 dark:text-green-400 font-medium">{{ stats.active_categories }}</span> activas
             </div>
-            <div class="text-xs text-gray-500 mt-1">
+            <div class="text-xs text-gray-300 mt-1">
               {{ stats.total_users }} usuarios ({{ stats.admin_users }} admins)
             </div>
           </div>
@@ -255,22 +255,22 @@ const getActivityColor = (color) => {
                 :style="{ height: `${Math.max(((month.views || 0) / 10 / maxMonthlyValue) * 200, 4)}px` }"
                 :title="`${month.views} vistas`"></div>
             </div>
-            <span class="text-xs text-gray-500 dark:text-gray-400 mt-2 transform -rotate-45 origin-top-left">{{
+            <span class="text-xs text-gray-300 dark:text-gray-300 mt-2 transform -rotate-45 origin-top-left">{{
               month.month_short }}</span>
           </div>
         </div>
         <div class="flex justify-center mt-4 space-x-6">
           <div class="flex items-center">
             <div class="w-3 h-3 bg-blue-500 rounded mr-2"></div>
-            <span class="text-sm text-gray-600 dark:text-gray-400">Posts</span>
+            <span class="text-sm text-gray-300 dark:text-gray-300">Posts</span>
           </div>
           <div class="flex items-center">
             <div class="w-3 h-3 bg-purple-500 rounded mr-2"></div>
-            <span class="text-sm text-gray-600 dark:text-gray-400">Contactos</span>
+            <span class="text-sm text-gray-300 dark:text-gray-300">Contactos</span>
           </div>
           <div class="flex items-center">
             <div class="w-3 h-3 bg-green-500 rounded mr-2"></div>
-            <span class="text-sm text-gray-600 dark:text-gray-400">Vistas</span>
+            <span class="text-sm text-gray-300 dark:text-gray-300">Vistas</span>
           </div>
         </div>
       </div>
@@ -288,7 +288,7 @@ const getActivityColor = (color) => {
             </div>
           </div>
           <div class="divide-y divide-gray-200 dark:divide-slate-700 max-h-96 overflow-y-auto">
-            <div v-if="recentPosts.length === 0" class="px-6 py-4 text-center text-gray-500">
+            <div v-if="recentPosts.length === 0" class="px-6 py-4 text-center text-gray-300">
               No hay posts aún
             </div>
             <div v-for="post in recentPosts" :key="post.id"
@@ -297,14 +297,14 @@ const getActivityColor = (color) => {
                 <div class="flex-1 min-w-0">
                   <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ post.title }}</p>
                   <div class="flex items-center mt-1 space-x-2">
-                    <span class="text-xs text-gray-500">{{ post.user?.name || post.author || 'Usuario' }}</span>
+                    <span class="text-xs text-gray-300">{{ post.user?.name || post.author || 'Usuario' }}</span>
                     <span v-if="post.category"
                       class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium text-white shadow-sm"
                       :style="{ backgroundColor: post.category_color ? post.category_color : '#6b7280' }">
                       {{ post.category.name }}
                     </span>
                   </div>
-                  <p class="text-xs text-gray-400 mt-1">{{ post.time_ago || formatDate(post.created_at) }} • {{
+                  <p class="text-xs text-gray-300 mt-1">{{ post.time_ago || formatDate(post.created_at) }} • {{
                     post.views }} vistas</p>
                 </div>
                 <div class="ml-4 flex-shrink-0 flex flex-col items-end space-y-1">
@@ -330,7 +330,7 @@ const getActivityColor = (color) => {
             </div>
           </div>
           <div class="divide-y divide-gray-200 dark:divide-slate-700 max-h-96 overflow-y-auto">
-            <div v-if="recentContacts.length === 0" class="px-6 py-4 text-center text-gray-500">
+            <div v-if="recentContacts.length === 0" class="px-6 py-4 text-center text-gray-300">
               No hay contactos aún
             </div>
             <div v-for="contact in recentContacts" :key="contact.id"
@@ -339,8 +339,8 @@ const getActivityColor = (color) => {
                 <div class="flex-1 min-w-0">
                   <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ contact.name }}</p>
                   <p class="text-sm text-gray-700 dark:text-gray-300 truncate">{{ contact.subject }}</p>
-                  <p class="text-xs text-gray-500 truncate">{{ contact.email }}</p>
-                  <p class="text-xs text-gray-400 mt-1">{{ contact.time_ago || formatDate(contact.created_at) }}</p>
+                  <p class="text-xs text-gray-300 truncate">{{ contact.email }}</p>
+                  <p class="text-xs text-gray-300 mt-1">{{ contact.time_ago || formatDate(contact.created_at) }}</p>
                 </div>
                 <div class="ml-4 flex-shrink-0">
                   <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full" :class="{
@@ -363,7 +363,7 @@ const getActivityColor = (color) => {
             <h3 class="text-lg font-medium text-gray-900 dark:text-white">Actividad Reciente</h3>
           </div>
           <div class="divide-y divide-gray-200 dark:divide-slate-700 max-h-96 overflow-y-auto">
-            <div v-if="recentActivity.length === 0" class="px-6 py-4 text-center text-gray-500">
+            <div v-if="recentActivity.length === 0" class="px-6 py-4 text-center text-gray-300">
               No hay actividad reciente (o el backend no provee esta info aún)
             </div>
             <div v-for="activity in recentActivity" :key="`${activity.type}-${activity.time}`" class="px-6 py-3">
@@ -383,7 +383,7 @@ const getActivityColor = (color) => {
                     {{ activity.action }}
                     <span class="font-medium">"{{ activity.title }}"</span>
                   </p>
-                  <p class="text-xs text-gray-500">{{ activity.time_ago }}</p>
+                  <p class="text-xs text-gray-300">{{ activity.time_ago }}</p>
                 </div>
               </div>
             </div>
@@ -399,7 +399,7 @@ const getActivityColor = (color) => {
             <h3 class="text-lg font-medium text-gray-900 dark:text-white">Posts Más Populares</h3>
           </div>
           <div class="divide-y divide-gray-200 dark:divide-slate-700">
-            <div v-if="popularPosts.length === 0" class="px-6 py-4 text-center text-gray-500">
+            <div v-if="popularPosts.length === 0" class="px-6 py-4 text-center text-gray-300">
               No hay posts populares aún
             </div>
             <div v-for="post in popularPosts" :key="post.id"
@@ -413,14 +413,14 @@ const getActivityColor = (color) => {
                       :style="{ backgroundColor: post.category_color ? post.category_color : '#6b7280' }">
                       {{ post.category.name }}
                     </span>
-                    <span class="text-xs text-gray-500">{{ formatDate(post.published_at) || formatDate(post.created_at)
+                    <span class="text-xs text-gray-300">{{ formatDate(post.published_at) || formatDate(post.created_at)
                       }}</span>
                   </div>
                 </div>
                 <div class="ml-4 flex-shrink-0 text-right">
                   <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ post.views?.toLocaleString() || 0
                   }}</p>
-                  <p class="text-xs text-gray-500">vistas</p>
+                  <p class="text-xs text-gray-300">vistas</p>
                 </div>
               </div>
             </div>
@@ -433,7 +433,7 @@ const getActivityColor = (color) => {
             <h3 class="text-lg font-medium text-gray-900 dark:text-white">Categorías Más Activas</h3>
           </div>
           <div class="divide-y divide-gray-200 dark:divide-slate-700">
-            <div v-if="topCategories.length === 0" class="px-6 py-4 text-center text-gray-500">
+            <div v-if="topCategories.length === 0" class="px-6 py-4 text-center text-gray-300">
               No hay categorías aún
             </div>
             <div v-for="category in topCategories" :key="category.id"
@@ -445,17 +445,17 @@ const getActivityColor = (color) => {
                     </div>
                     <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ category.name }}</p>
                   </div>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  <p class="text-xs text-gray-300 dark:text-gray-300 mt-1">
                     {{ category.description }}
                   </p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                  <p class="text-xs text-gray-300 dark:text-gray-300 mt-1">
                     {{ formatDate(category.created_at) }}
                   </p>
                 </div>
                 <div class="ml-4 flex-shrink-0 text-right">
                   <p class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ category.blog_posts_count || 0 }}
                   </p>
-                  <p class="text-xs text-gray-500">posts</p>
+                  <p class="text-xs text-gray-300">posts</p>
                 </div>
               </div>
             </div>
@@ -469,27 +469,27 @@ const getActivityColor = (color) => {
         <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Estadísticas de Rendimiento</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div v-if="performanceStats.most_viewed_post" class="text-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400">Post Más Visto</p>
+            <p class="text-sm text-gray-300 dark:text-gray-300">Post Más Visto</p>
             <p class="text-lg font-medium text-gray-900 dark:text-white truncate">{{
               performanceStats.most_viewed_post.title }}</p>
             <p class="text-sm text-blue-600 dark:text-blue-400">{{
               performanceStats.most_viewed_post.views?.toLocaleString() || 0 }} vistas</p>
           </div>
           <div v-if="performanceStats.most_active_category" class="text-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400">Categoría Más Activa</p>
+            <p class="text-sm text-gray-300 dark:text-gray-300">Categoría Más Activa</p>
             <p class="text-lg font-medium text-gray-900 dark:text-white">{{ performanceStats.most_active_category.name
             }}</p>
             <p class="text-sm text-green-600 dark:text-green-400">{{
               performanceStats.most_active_category.published_posts_count }} posts</p>
           </div>
           <div class="text-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400">Promedio Contactos/Día</p>
+            <p class="text-sm text-gray-300 dark:text-gray-300">Promedio Contactos/Día</p>
             <p class="text-lg font-medium text-gray-900 dark:text-white">{{ performanceStats.avg_contacts_per_day || 0
             }}</p>
             <p class="text-sm text-purple-600 dark:text-purple-400">contactos diarios</p>
           </div>
           <div class="text-center">
-            <p class="text-sm text-gray-500 dark:text-gray-400">Actividad Total</p>
+            <p class="text-sm text-gray-300 dark:text-gray-300">Actividad Total</p>
             <p class="text-lg font-medium text-gray-900 dark:text-white">{{ currentMonthActivity }}</p>
             <p class="text-sm text-orange-600 dark:text-orange-400">este mes</p>
           </div>

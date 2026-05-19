@@ -48,7 +48,7 @@ const statusText = computed(() => {
         <!-- Error -->
         <div v-else-if="error || !category.id" class="text-center py-12">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Categoría no encontrada</h2>
-            <p class="mt-2 text-gray-600 dark:text-gray-400">La categoría que buscas no existe o fue eliminada.</p>
+            <p class="mt-2 text-gray-300 dark:text-gray-300">La categoría que buscas no existe o fue eliminada.</p>
             <NuxtLink to="/admin/categories"
                 class="mt-4 inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
                 Volver a categorías
@@ -63,7 +63,7 @@ const statusText = computed(() => {
                         <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
                             {{ category.name }}
                         </h1>
-                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                             Detalles y estadísticas de la categoría
                         </p>
                     </div>
@@ -97,7 +97,7 @@ const statusText = computed(() => {
                                     <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
                                         {{ category.name }}
                                     </h2>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    <p class="text-sm text-gray-300 dark:text-gray-300">
                                         Color: {{ category.color || 'Predeterminado' }}
                                     </p>
                                 </div>
@@ -120,7 +120,7 @@ const statusText = computed(() => {
                                 <p v-if="category.description" class="text-gray-900 dark:text-white">
                                     {{ category.description }}
                                 </p>
-                                <p v-else class="text-gray-400 dark:text-gray-500 italic">
+                                <p v-else class="text-gray-300 dark:text-gray-300 italic">
                                     Sin descripción
                                 </p>
                             </div>
@@ -160,7 +160,7 @@ const statusText = computed(() => {
                                 <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">
                                     {{ category.blog_posts_count || 0 }}
                                 </div>
-                                <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                <div class="text-sm text-gray-300 dark:text-gray-300 mt-1">
                                     Posts asociados
                                 </div>
                             </div>

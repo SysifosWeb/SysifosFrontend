@@ -165,7 +165,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                 <div class="flex items-center justify-between">
                     <div>
                         <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Crear Nuevo Post</h1>
-                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                             Completa la información para crear un nuevo post en el blog
                         </p>
                     </div>
@@ -216,14 +216,14 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                             </label>
                             <div class="mt-1 flex rounded-md shadow-sm">
                                 <span
-                                    class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-gray-500 dark:text-gray-300 text-sm">
+                                    class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-gray-300 dark:text-gray-300 text-sm">
                                     /blog/
                                 </span>
                                 <input id="slug" v-model="form.slug" type="text"
                                     class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white focus:border-blue-500 focus:ring-blue-500"
                                     placeholder="se-genera-automaticamente" />
                             </div>
-                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                            <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                                 Se genera automáticamente si se deja vacío
                             </p>
                             <p v-if="errors.slug" class="mt-2 text-sm text-red-600">
@@ -252,13 +252,13 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                         <div>
                             <label for="excerpt" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Extracto
-                                <span class="text-gray-500 dark:text-gray-400 font-normal">({{ excerptLength }}/500)</span>
+                                <span class="text-gray-300 dark:text-gray-300 font-normal">({{ excerptLength }}/500)</span>
                             </label>
                             <textarea id="excerpt" v-model="form.excerpt" @blur="generateMetaDescription" rows="3"
                                 maxlength="500"
                                 class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                 placeholder="Breve descripción del post..."></textarea>
-                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                            <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                                 Resumen corto que aparecerá en las listas de posts
                             </p>
                             <p v-if="errors.excerpt" class="mt-2 text-sm text-red-600">
@@ -279,7 +279,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                         <textarea id="content" v-model="form.content" rows="15" required
                             class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             placeholder="Escribe aquí el contenido completo del post..."></textarea>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                             Puedes usar HTML para dar formato
                         </p>
                         <p v-if="errors.content" class="mt-2 text-sm text-red-600">
@@ -295,7 +295,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                     <div class="space-y-4">
                         <div v-if="!previewImage" class="border-2 border-dashed border-gray-300 dark:border-slate-600 rounded-lg p-6">
                             <div class="text-center">
-                                <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" stroke="currentColor" fill="none"
+                                <svg class="mx-auto h-12 w-12 text-gray-300 dark:text-gray-300" stroke="currentColor" fill="none"
                                     viewBox="0 0 48 48">
                                     <path
                                         d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
@@ -309,7 +309,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                                         <input id="featured_image" type="file" accept="image/*"
                                             @change="handleImageUpload" class="sr-only" />
                                     </label>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">PNG, JPG, GIF hasta 2MB</p>
+                                    <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">PNG, JPG, GIF hasta 2MB</p>
                                 </div>
                             </div>
                         </div>
@@ -356,7 +356,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                                 </label>
                                 <input id="published_at" v-model="form.published_at" type="datetime-local"
                                     class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500" />
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                                     Deja vacío para publicar inmediatamente
                                 </p>
                             </div>
@@ -384,7 +384,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                             <div>
                                 <label for="meta_description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
                                     Meta descripción
-                                    <span class="text-gray-500 dark:text-gray-400 font-normal">({{ metaDescriptionLength }}/500)</span>
+                                    <span class="text-gray-300 dark:text-gray-300 font-normal">({{ metaDescriptionLength }}/500)</span>
                                 </label>
                                 <textarea id="meta_description" v-model="form.meta_description" rows="3" maxlength="500"
                                     class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -403,7 +403,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                                 <input id="meta_keywords" v-model="form.meta_keywords" type="text"
                                     class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                     placeholder="palabra1, palabra2, palabra3" />
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                                     Separa las palabras con comas
                                 </p>
                             </div>
@@ -414,7 +414,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                 <!-- Botones de acción -->
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6 border border-gray-100 dark:border-slate-700">
                     <div class="flex flex-col sm:flex-row items-center justify-between">
-                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-4 sm:mb-0">
+                        <div class="text-sm text-gray-300 dark:text-gray-300 mb-4 sm:mb-0">
                             * Campos obligatorios
                         </div>
                         <div class="flex items-center space-x-3 w-full sm:w-auto">

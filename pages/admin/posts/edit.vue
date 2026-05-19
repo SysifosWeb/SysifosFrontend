@@ -142,7 +142,7 @@ const isPublished = computed(() => form.status === 'published');
                         <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
                             Editar Post
                         </h1>
-                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                             Modifica la información del post
                         </p>
                     </div>
@@ -198,7 +198,7 @@ const isPublished = computed(() => form.status === 'published');
                                     <input id="slug" v-model="form.slug" type="text" required
                                         class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         placeholder="slug-del-post" />
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                    <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                                         URL: /blog/{{ form.slug }}
                                     </p>
                                     <div v-if="errors.slug" class="mt-1 text-sm text-red-600">
@@ -271,7 +271,7 @@ const isPublished = computed(() => form.status === 'published');
                                     <input id="meta_keywords" v-model="form.meta_keywords" type="text"
                                         class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         placeholder="palabra1, palabra2, palabra3" />
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                    <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                                         Separa las palabras con comas
                                     </p>
                                     <div v-if="errors.meta_keywords" class="mt-1 text-sm text-red-600">

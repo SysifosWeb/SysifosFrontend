@@ -99,9 +99,9 @@ const getStatusClass = (status) => {
         'new': 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
         'read': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
         'replied': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-        'archived': 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400'
+        'archived': 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300'
     };
-    return statusClasses[status] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400';
+    return statusClasses[status] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300';
 };
 
 const getStatusText = (status) => {
@@ -151,7 +151,7 @@ const goToPage = (url) => {
         <div class="mb-6 flex items-center justify-between">
             <div>
                 <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Contactos</h1>
-                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
                     Gestiona los mensajes de contacto de tu sitio principal
                 </p>
             </div>
@@ -210,19 +210,19 @@ const goToPage = (url) => {
                     <thead class="bg-gray-50 dark:bg-slate-900/50">
                         <tr>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
                                 Contacto</th>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
                                 Asunto</th>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
                                 Estado</th>
                             <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
                                 Fecha</th>
                             <th
-                                class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                class="px-6 py-3 text-right text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
                                 Acciones</th>
                         </tr>
                     </thead>
@@ -231,7 +231,7 @@ const goToPage = (url) => {
                             class="hover:bg-gray-50 dark:hover:bg-slate-700/50">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900 dark:text-white">{{ contact.name }}</div>
-                                <div class="text-sm text-gray-500 dark:text-gray-400">{{ contact.email }}</div>
+                                <div class="text-sm text-gray-300 dark:text-gray-300">{{ contact.email }}</div>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="text-sm text-gray-900 dark:text-white line-clamp-1"
@@ -243,7 +243,7 @@ const goToPage = (url) => {
                                     {{ getStatusText(contact.status) }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 dark:text-gray-300">
                                 {{ formatDate(contact.created_at) }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -267,7 +267,7 @@ const goToPage = (url) => {
                                         </svg>
                                     </button>
                                     <button v-if="contact.status !== 'archived'" @click="archiveContact(contact)"
-                                        class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
+                                        class="text-gray-300 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-200"
                                         title="Archivar">
                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -278,7 +278,7 @@ const goToPage = (url) => {
                             </td>
                         </tr>
                         <tr v-if="contacts.data.length === 0">
-                            <td colspan="5" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
+                            <td colspan="5" class="px-6 py-12 text-center text-gray-300 dark:text-gray-300">
                                 No se encontraron contactos.
                             </td>
                         </tr>
@@ -303,7 +303,7 @@ const goToPage = (url) => {
                     </div>
                     <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                         <div>
-                            <p class="text-sm text-gray-700 dark:text-gray-400">
+                            <p class="text-sm text-gray-700 dark:text-gray-300">
                                 Mostrando
                                 <span class="font-medium dark:text-white">{{ contacts.from }}</span>
                                 a
@@ -320,13 +320,13 @@ const goToPage = (url) => {
                                         'relative inline-flex items-center px-4 py-2 border text-sm font-medium',
                                         link.active
                                             ? 'z-10 bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-600 dark:text-blue-400'
-                                            : 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700',
+                                            : 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 text-gray-300 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700',
                                         index === 0 ? 'rounded-l-md' : '',
                                         index === contacts.links.length - 1 ? 'rounded-r-md' : '',
                                     ]" v-html="link.label">
                                     </button>
                                     <span v-else-if="link" :class="[
-                                        'relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-sm font-medium text-gray-500',
+                                        'relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-sm font-medium text-gray-300',
                                         index === 0 ? 'rounded-l-md' : '',
                                         index === contacts.links.length - 1 ? 'rounded-r-md' : '',
                                     ]" v-html="link.label">
