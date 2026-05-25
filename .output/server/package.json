@@ -66,6 +66,7 @@
     "source-map-js": "1.2.1",
     "strnum": "2.3.0",
     "svgo": "3.3.3",
+    "sweetalert2": "11.26.25",
     "ufo": "1.6.4",
     "ultrahtml": "1.6.0",
     "uncrypto": "0.1.3",

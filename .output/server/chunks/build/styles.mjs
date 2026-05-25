@@ -1,6 +1,6 @@
 const interopDefault = r => r.default || r || [];
 const styles = {
-  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.By__lbIY.mjs').then(interopDefault),
+  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.Cx7lrRFO.mjs').then(interopDefault),
   "pages/index.vue": () => import('./index-styles.CcJoqdQX.mjs').then(interopDefault),
   "components/home/HomeValue.vue": () => import('./HomeValue-styles.iOfSa90Y.mjs').then(interopDefault),
   "components/home/HomeProblems.vue": () => import('./HomeProblems-styles.BrzEF-iF.mjs').then(interopDefault),
@@ -26,7 +26,7 @@ const styles = {
   "components/blog/FiltersSection.vue": () => import('./index-styles.CIEQcDf-.mjs').then(interopDefault),
   "pages/admin/index.vue": () => import('./index-styles.oEAM3uDO.mjs').then(interopDefault),
   "pages/admin/posts/[id].vue": () => import('./_id_-styles.Lqb561wa.mjs').then(interopDefault),
-  "pages/admin/posts/edit.vue": () => import('./edit-styles.BVmVv1aU.mjs').then(interopDefault),
+  "pages/admin/posts/edit.vue": () => import('./edit-styles.B1mqzLzU.mjs').then(interopDefault),
   "pages/admin/contacts/[id].vue": () => import('./_id_-styles._u7EXDFO.mjs').then(interopDefault),
   "node_modules/nuxt/dist/app/components/error-404.vue": () => import('./error-404-styles.CiJjK6WX.mjs').then(interopDefault),
   "node_modules/nuxt/dist/app/components/error-500.vue": () => import('./error-500-styles.ulHNpcF1.mjs').then(interopDefault),

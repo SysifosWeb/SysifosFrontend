@@ -1,4 +1,4 @@
-import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { hasInjectionContext, inject, getCurrentInstance, defineComponent, createElementBlock, shallowRef, provide, cloneVNode, h, defineAsyncComponent, computed, unref, shallowReactive, ref, Suspense, Fragment, createApp, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, reactive, effectScope, mergeProps, getCurrentScope, toRef, withCtx, nextTick, isReadonly, useSSRContext, isRef, isShallow, isReactive, toRaw } from 'vue';
+import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { defineComponent, shallowRef, getCurrentInstance, provide, cloneVNode, h, createElementBlock, hasInjectionContext, inject, defineAsyncComponent, computed, unref, shallowReactive, ref, Suspense, Fragment, createApp, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, reactive, effectScope, mergeProps, getCurrentScope, toRef, withCtx, nextTick, isReadonly, useSSRContext, isRef, isShallow, isReactive, toRaw } from 'vue';
 import { c as createError$1, B as parseURL, k as encodePath, e as decodePath, t as hasProtocol, w as isScriptProtocol, x as joinURL, I as withQuery, D as sanitizeStatusCode, m as getContext, $ as $fetch, b as baseURL, g as defu, d as createHooks, l as executeAsync } from '../nitro/nitro.mjs';
 import { useRoute as useRoute$1, RouterView, createMemoryHistory, createRouter, START_LOCATION } from 'vue-router';
 import { ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode } from 'vue/server-renderer';
@@ -492,121 +492,121 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-C-lqYDBd.mjs')
+    component: () => import('./index-dGRFbc8r.mjs')
   },
   {
     name: "contacto",
     path: "/contacto",
     meta: __nuxt_page_meta$i || {},
-    component: () => import('./contacto-BKHNcnzg.mjs')
+    component: () => import('./contacto-BQdU98D9.mjs')
   },
   {
     name: "nosotros",
     path: "/nosotros",
     meta: __nuxt_page_meta$h || {},
-    component: () => import('./nosotros-BDs9z2ZG.mjs')
+    component: () => import('./nosotros-CJjFu7MB.mjs')
   },
   {
     name: "sinapsys",
     path: "/sinapsys",
     meta: __nuxt_page_meta$g || {},
-    component: () => import('./sinapsys-BUlkwndL.mjs')
+    component: () => import('./sinapsys-B2Ub_IdW.mjs')
   },
   {
     name: "portfolio",
     path: "/portfolio",
     meta: __nuxt_page_meta$f || {},
-    component: () => import('./portfolio-DMWMSfMd.mjs')
+    component: () => import('./portfolio-Z1ZqHaX6.mjs')
   },
   {
     name: "servicios",
     path: "/servicios",
     meta: __nuxt_page_meta$e || {},
-    component: () => import('./servicios-C1KW0CSu.mjs')
+    component: () => import('./servicios-BIqC-EWF.mjs')
   },
   {
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./index-Ss1rzMCf.mjs')
+    component: () => import('./index-BGVIWfXx.mjs')
   },
   {
     name: "admin",
     path: "/admin",
     meta: __nuxt_page_meta$c || {},
-    component: () => import('./index-DsofDzqc.mjs')
+    component: () => import('./index-c43JNw3X.mjs')
   },
   {
     name: "admin-login",
     path: "/admin/login",
     meta: __nuxt_page_meta$b || {},
-    component: () => import('./login-D2QJaBYi.mjs')
+    component: () => import('./login-sfEJFPHl.mjs')
   },
   {
     name: "blog-slug",
     path: "/blog/:slug()",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./_slug_-DWQmbZVL.mjs')
+    component: () => import('./_slug_-CNzsj35b.mjs')
   },
   {
     name: "admin-posts-id",
     path: "/admin/posts/:id()",
     meta: __nuxt_page_meta$9 || {},
-    component: () => import('./_id_-VYj5kf5n.mjs')
+    component: () => import('./_id_-BeOtkOSA.mjs')
   },
   {
     name: "admin-posts-edit",
     path: "/admin/posts/edit",
     meta: __nuxt_page_meta$8 || {},
-    component: () => import('./edit-5NYwCAIQ.mjs')
+    component: () => import('./edit-DUliBZJu.mjs')
   },
   {
     name: "admin-posts",
     path: "/admin/posts",
     meta: __nuxt_page_meta$7 || {},
-    component: () => import('./index-BrE6oEgs.mjs')
+    component: () => import('./index-DAPOVGCA.mjs')
   },
   {
     name: "admin-posts-create",
     path: "/admin/posts/create",
     meta: __nuxt_page_meta$6 || {},
-    component: () => import('./create-BFKxgVKb.mjs')
+    component: () => import('./create-DoKQC1hM.mjs')
   },
   {
     name: "admin-contacts-id",
     path: "/admin/contacts/:id()",
     meta: __nuxt_page_meta$5 || {},
-    component: () => import('./_id_-DNJP2NSU.mjs')
+    component: () => import('./_id_-Ce8KaZy8.mjs')
   },
   {
     name: "admin-contacts",
     path: "/admin/contacts",
     meta: __nuxt_page_meta$4 || {},
-    component: () => import('./index-XlqsmTdU.mjs')
+    component: () => import('./index-BkSkYaEF.mjs')
   },
   {
     name: "admin-categories-id",
     path: "/admin/categories/:id()",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import('./_id_-Ihj9ZzE4.mjs')
+    component: () => import('./_id_-ZbRvW2o3.mjs')
   },
   {
     name: "admin-categories-edit",
     path: "/admin/categories/edit",
     meta: __nuxt_page_meta$2 || {},
-    component: () => import('./edit-ugkhbnFr.mjs')
+    component: () => import('./edit-B62Wyybp.mjs')
   },
   {
     name: "admin-categories",
     path: "/admin/categories",
     meta: __nuxt_page_meta$1 || {},
-    component: () => import('./index-Be4Da9o7.mjs')
+    component: () => import('./index-D2a4e_34.mjs')
   },
   {
     name: "admin-categories-create",
     path: "/admin/categories/create",
     meta: __nuxt_page_meta || {},
-    component: () => import('./create-Da5PsNWM.mjs')
+    component: () => import('./create-DrdapCZQ.mjs')
   }
 ];
 const _wrapInTransition = (props, children) => {
@@ -977,7 +977,7 @@ defineComponent({
   }
 });
 const clientOnlySymbol = /* @__PURE__ */ Symbol.for("nuxt:client-only");
-defineComponent({
+const __nuxt_component_0$1 = defineComponent({
   name: "ClientOnly",
   inheritAttrs: false,
   props: ["fallback", "placeholder", "placeholderTag", "fallbackTag"],
@@ -1107,10 +1107,10 @@ const plugins = [
   reveal_server_uRZrqkPcTOXMVic82VVVMBpGHwPPKeft5_XKNaiP79c
 ];
 const layouts = {
-  admin: defineAsyncComponent(() => import('./admin-CQa3BL2d.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-BzE1DOiB.mjs').then((m) => m.default || m)),
-  hero: defineAsyncComponent(() => import('./hero-Cxt71bHD.mjs').then((m) => m.default || m)),
-  secondary: defineAsyncComponent(() => import('./secondary-CVzoFUwi.mjs').then((m) => m.default || m))
+  admin: defineAsyncComponent(() => import('./admin-CtasstRk.mjs').then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import('./default-7D3RY2f2.mjs').then((m) => m.default || m)),
+  hero: defineAsyncComponent(() => import('./hero-524JScf1.mjs').then((m) => m.default || m)),
+  secondary: defineAsyncComponent(() => import('./secondary-C5qjD5fu.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({
@@ -1392,8 +1392,8 @@ const _sfc_main$1 = {
     const statusText = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import('./error-404-DEq7W0Ps.mjs'));
-    const _Error = defineAsyncComponent(() => import('./error-500-DyZfdFv6.mjs'));
+    const _Error404 = defineAsyncComponent(() => import('./error-404-DRs9OzY9.mjs'));
+    const _Error = defineAsyncComponent(() => import('./error-500-B8zjrAUq.mjs'));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
       _push(ssrRenderComponent(unref(ErrorTemplate), mergeProps({ status: unref(status), statusText: unref(statusText), statusCode: unref(status), statusMessage: unref(statusText), description: unref(description), stack: unref(stack) }, _attrs), null, _parent));
@@ -1485,5 +1485,5 @@ let entry;
 }
 const entry_default = ((ssrContext) => entry(ssrContext));
 
-export { _export_sfc as _, asyncDataDefaults as a, nuxtLinkDefaults as b, createError as c, useRequestEvent as d, entry_default as default, encodeRoutePath as e, fetchDefaults as f, useRequestFetch as g, useRoute as h, useRouter as i, useRuntimeConfig as j, navigateTo as n, resolveRouteObject as r, tryUseNuxtApp as t, useNuxtApp as u };
+export { __nuxt_component_0$1 as _, _export_sfc as a, asyncDataDefaults as b, createError as c, nuxtLinkDefaults as d, entry_default as default, encodeRoutePath as e, fetchDefaults as f, useRequestEvent as g, useRequestFetch as h, useRoute as i, useRouter as j, useRuntimeConfig as k, navigateTo as n, resolveRouteObject as r, tryUseNuxtApp as t, useNuxtApp as u };
 //# sourceMappingURL=server.mjs.map
