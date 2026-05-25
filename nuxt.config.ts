@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 
         // Variables públicas (cliente y servidor)
         public: {
-            apiUrl: 'https://www.sysifosweb.cl/api/',
+            apiUrl: 'https://www.olimpo.sysifosweb.cl/api/',
             // apiUrl: 'http://localhost:8000/api/',
             tinymceApiKey: process.env.NUXT_PUBLIC_TINYMCE_API_KEY || 'no-api-key'
         }
