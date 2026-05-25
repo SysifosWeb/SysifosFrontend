@@ -1,6 +1,18 @@
 <script setup>
 import { ref, reactive, computed, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import Editor from '@tinymce/tinymce-vue';
+import Swal from 'sweetalert2';
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    background: '#1e293b',
+    color: '#fff',
+});
 
 definePageMeta({ layout: 'admin' })
 
@@ -111,14 +123,15 @@ const submit = async () => {
             }
         });
 
-        alert('Post actualizado exitosamente');
+        Toast.fire({ icon: 'success', title: 'Post actualizado exitosamente' });
         router.push('/admin/posts');
     } catch (e) {
         if (e.response?.status === 422) {
             errors.value = e.response._data.errors || {};
+            Toast.fire({ icon: 'warning', title: 'Por favor, revisa los campos requeridos' });
         } else {
             console.error('Error al actualizar post:', e);
-            alert('Ocurrió un error al actualizar el post.');
+            Toast.fire({ icon: 'error', title: 'Ocurrió un error al actualizar el post' });
         }
     } finally {
         processing.value = false;
@@ -219,12 +232,36 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                         Contenido *
                                     </label>
-                                    <textarea id="content" v-model="form.content" rows="12" required
-                                        class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                        placeholder="Escribe el contenido del post aquí..."></textarea>
+                                    <ClientOnly>
+                                        <Editor
+                                            :api-key="config.public.tinymceApiKey"
+                                            v-model="form.content"
+                                            :init="{
+                                                height: 500,
+                                                menubar: false,
+                                                plugins: [
+                                                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                                                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                                                    'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                                                ],
+                                                toolbar: 'undo redo | blocks | ' +
+                                                'bold italic forecolor | alignleft aligncenter ' +
+                                                'alignright alignjustify | bullist numlist outdent indent | ' +
+                                                'removeformat | help',
+                                                skin: 'oxide-dark',
+                                                content_css: 'dark',
+                                                placeholder: 'Escribe el contenido del post aquí...'
+                                            }"
+                                        />
+                                        <template #fallback>
+                                            <div class="w-full h-[500px] flex items-center justify-center border border-gray-300 dark:border-slate-600 dark:bg-slate-900 rounded-md">
+                                                <span class="text-gray-500 dark:text-white/50">Cargando editor...</span>
+                                            </div>
+                                        </template>
+                                    </ClientOnly>
                                     <div v-if="errors.content" class="mt-1 text-sm text-red-600">
                                         {{ errors.content[0] || errors.content }}
                                     </div>

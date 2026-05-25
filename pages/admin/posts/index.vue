@@ -2,6 +2,17 @@
 import { reactive, computed, watch } from "vue";
 import { useRouter } from "vue-router";
 import delivery from "@/assets/img/delivery.png";
+import Swal from 'sweetalert2';
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    background: '#1e293b',
+    color: '#fff',
+});
 definePageMeta({
     layout: 'admin'
 })
@@ -92,7 +103,7 @@ const toggleFeatured = async (post) => {
         refresh()
     } catch (e) {
         console.error('Error toggling featured state', e)
-        alert('Ocurrió un error al cambiar el estado destacado del post');
+        Toast.fire({ icon: 'error', title: 'Error al cambiar estado destacado' });
     }
 };
 
@@ -109,7 +120,7 @@ const publishPost = async (post) => {
         refresh()
     } catch (e) {
         console.error('Error publishing post', e)
-        alert('Ocurrió un error al publicar el post');
+        Toast.fire({ icon: 'error', title: 'Error al publicar el post' });
     }
 };
 
@@ -126,12 +137,25 @@ const unpublishPost = async (post) => {
         refresh()
     } catch (e) {
         console.error('Error unpublishing post', e)
-        alert('Ocurrió un error al despublicar el post');
+        Toast.fire({ icon: 'error', title: 'Error al despublicar el post' });
     }
 };
 
 const deletePost = async (post) => {
-    if (confirm(`¿Estás seguro de que quieres eliminar el post "${post.title}"?`)) {
+    const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: `Se eliminará el post "${post.title}"`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3b82f6',
+        cancelButtonColor: '#ef4444',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+        background: '#1e293b',
+        color: '#fff',
+    });
+
+    if (result.isConfirmed) {
         try {
             await $fetch(`${config.public.apiUrl}blog/${post.id}/delete`, {
                 method: 'DELETE',
@@ -140,10 +164,11 @@ const deletePost = async (post) => {
                     Accept: 'application/json'
                 }
             })
+            Toast.fire({ icon: 'success', title: 'Post eliminado exitosamente' });
             refresh()
         } catch (e) {
             console.error('Error deleting post', e)
-            alert('Ocurrió un error al eliminar el post');
+            Toast.fire({ icon: 'error', title: 'Ocurrió un error al eliminar' });
         }
     }
 };

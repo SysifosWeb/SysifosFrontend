@@ -26,11 +26,11 @@ defineProps({
                             <span class="text-[0.65rem] font-medium text-white/40">{{ post.reading_time }}</span>
                         </div>
                         
-                        <h3 class="text-xl font-bold text-white mb-3 leading-snug group-hover:text-sky-400 transition-colors">
+                        <h3 class="text-xl font-bold text-white mb-3 leading-snug group-hover:text-sky-400 transition-colors line-clamp-2 break-words">
                             {{ post.title }}
                         </h3>
                         
-                        <p class="text-sm text-white/50 mb-6 flex-grow line-clamp-3 leading-relaxed">{{ post.excerpt }}</p>
+                        <p class="text-sm text-white/50 mb-6 flex-grow line-clamp-3 leading-relaxed break-words">{{ post.excerpt }}</p>
                         
                         <div class="flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
                             <span class="text-xs text-white/40">{{ post.date }}</span>

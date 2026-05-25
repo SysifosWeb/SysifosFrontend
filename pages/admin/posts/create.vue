@@ -1,6 +1,18 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
+import Editor from '@tinymce/tinymce-vue';
+import Swal from 'sweetalert2';
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    background: '#1e293b',
+    color: '#fff',
+});
 
 definePageMeta({ layout: 'admin' })
 
@@ -118,13 +130,15 @@ const submit = async () => {
             body: formData
         });
 
+        Toast.fire({ icon: 'success', title: 'Post creado exitosamente' });
         router.push('/admin/posts');
     } catch (e) {
         if (e.response?.status === 422) {
             errors.value = e.response._data.errors || {};
+            Toast.fire({ icon: 'warning', title: 'Por favor, revisa los campos requeridos' });
         } else {
             console.error('Error al crear post:', e);
-            alert('Ocurrió un error al crear el post.');
+            Toast.fire({ icon: 'error', title: 'Ocurrió un error al crear el post' });
         }
     } finally {
         processing.value = false;
@@ -273,15 +287,36 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                     <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Contenido</h2>
 
                     <div>
-                        <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Contenido del Post *
                         </label>
-                        <textarea id="content" v-model="form.content" rows="15" required
-                            class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                            placeholder="Escribe aquí el contenido completo del post..."></textarea>
-                        <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
-                            Puedes usar HTML para dar formato
-                        </p>
+                        <ClientOnly>
+                            <Editor
+                                :api-key="config.public.tinymceApiKey"
+                                v-model="form.content"
+                                :init="{
+                                    height: 500,
+                                    menubar: false,
+                                    plugins: [
+                                        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                                        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                                        'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                                    ],
+                                    toolbar: 'undo redo | blocks | ' +
+                                    'bold italic forecolor | alignleft aligncenter ' +
+                                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                                    'removeformat | help',
+                                    skin: 'oxide-dark',
+                                    content_css: 'dark',
+                                    placeholder: 'Escribe aquí el contenido completo del post...'
+                                }"
+                            />
+                            <template #fallback>
+                                <div class="w-full h-[500px] flex items-center justify-center border border-gray-300 dark:border-slate-600 dark:bg-slate-900 rounded-md">
+                                    <span class="text-gray-500 dark:text-white/50">Cargando editor...</span>
+                                </div>
+                            </template>
+                        </ClientOnly>
                         <p v-if="errors.content" class="mt-2 text-sm text-red-600">
                             {{ errors.content[0] || errors.content }}
                         </p>

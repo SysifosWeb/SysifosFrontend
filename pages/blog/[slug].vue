@@ -26,7 +26,7 @@ const post = computed(() => {
             avatar: postData.value.user?.name ? postData.value.user.name.substring(0, 2).toUpperCase() : 'SE'
         },
         image: postData.value.featured_image || 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop',
-        content: postData.value.content ? '<p>' + postData.value.content.replace(/\n\n/g, '</p><p>') + '</p>' : '',
+        content: postData.value.content ? (postData.value.content.includes('<') ? postData.value.content : '<p>' + postData.value.content.replace(/\n\n/g, '</p><p>') + '</p>') : '',
         tags: postData.value.meta_keywords || []
     }
 })
