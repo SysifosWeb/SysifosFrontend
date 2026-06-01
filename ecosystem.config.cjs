@@ -9,7 +9,8 @@ module.exports = {
             env: {
                 NODE_ENV: 'production',
                 PORT: 3000,
-                NUXT_API: '/api/'
+                NUXT_API: '/api/',
+                NUXT_PUBLIC_API_URL: '/api/'
             }
         }
     ]
