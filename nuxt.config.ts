@@ -1,17 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    ssr: true,
+    routeRules: {
+        '/**': { ssr: true }
+    },
     compatibilityDate: '2024-11-01',
     devtools: { enabled: false },
 
     runtimeConfig: {
-        // Variables privadas (solo servidor)
-        // apiSecret: '',
-
-        // Variables públicas (cliente y servidor)
         public: {
-            apiUrl: 'https://www.olimpo.sysifosweb.cl/api/',
-            // apiUrl: 'http://localhost:8000/api/',
+            apiUrl: process.env.NUXT_API,
             tinymceApiKey: process.env.NUXT_PUBLIC_TINYMCE_API_KEY || 'no-api-key'
         }
     },

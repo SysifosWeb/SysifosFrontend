@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 definePageMeta({
     layout: 'hero'
@@ -9,7 +9,19 @@ const route = useRoute()
 const config = useRuntimeConfig()
 const apiUrl = config.public.apiUrl
 
-const { data: postResponse } = await useFetch(`${apiUrl}blog/${route.params.slug}`)
+// Usar el slug como key para que useFetch se invalide automáticamente al cambiar de ruta
+const slug = computed(() => route.params.slug)
+
+const {
+    data: postResponse,
+    pending: postPending,
+    error: postError,
+    refresh: refreshPost
+} = await useFetch(() => `${apiUrl}blog/${slug.value}`, {
+    key: () => `post-${slug.value}`,
+    watch: [slug]
+})
+
 const postData = computed(() => postResponse.value?.data || postResponse.value || null)
 
 const post = computed(() => {
@@ -31,12 +43,19 @@ const post = computed(() => {
     }
 })
 
+// Watch adicional como respaldo: si el slug cambia y el fetch no se actualizó, forzar refresh
+watch(slug, async (newSlug, oldSlug) => {
+    if (newSlug && newSlug !== oldSlug) {
+        await refreshPost()
+    }
+})
+
 // Share functionality
 const shareUrl = computed(() => {
     if (typeof window !== 'undefined') {
         return window.location.href
     }
-    return `https://www.sysifosweb.cl/blog/${route.params.slug}`
+    return `https://www.sysifosweb.cl/blog/${slug.value}`
 })
 
 const shareOnTwitter = () => {
@@ -52,10 +71,10 @@ const shareOnLinkedIn = () => {
 }
 
 const shareOnFacebook = () => {
-    // Nota: Facebook lee los metadatos (OG tags) de la URL pública. 
+    // Nota: Facebook lee los metadatos (OG tags) de la URL pública.
     // Si usas localhost, Facebook no mostrará el contenido. Usaremos la URL de producción como fallback.
     const urlToShare = typeof window !== 'undefined' && window.location.hostname.includes('localhost')
-        ? `https://www.sysifosweb.cl/blog/${route.params.slug}`
+        ? `https://www.sysifosweb.cl/blog/${slug.value}`
         : shareUrl.value
 
     const url = encodeURIComponent(urlToShare)
@@ -65,7 +84,7 @@ const shareOnFacebook = () => {
 const shareOnWhatsApp = () => {
     // WhatsApp usa únicamente el parámetro 'text' para prellenar el mensaje, por lo que incluimos la URL dentro del texto.
     const urlToShare = typeof window !== 'undefined' && window.location.hostname.includes('localhost')
-        ? `https://www.sysifosweb.cl/blog/${route.params.slug}`
+        ? `https://www.sysifosweb.cl/blog/${slug.value}`
         : shareUrl.value
 
     const text = encodeURIComponent(`¡Mira este artículo!: ${post.value?.title}\n\n${urlToShare}`)
@@ -92,7 +111,9 @@ useSeoMeta({
     ogImage: () => post.value?.image || ''
 })
 
-const { data: relatedResponse } = await useFetch(`${apiUrl}blog`)
+const { data: relatedResponse } = await useFetch(`${apiUrl}blog`, {
+    key: 'blog-list'
+})
 const relatedPosts = computed(() => {
     const posts = relatedResponse.value?.data || []
     return posts.filter(p => p.id !== post.value?.id).slice(0, 2).map(p => ({
@@ -109,6 +130,43 @@ const relatedPosts = computed(() => {
 
 <template>
     <div class="bg-section-dark min-h-screen pb-0">
+
+        <!-- Skeleton Loader mientras carga el artículo -->
+        <div v-if="postPending" class="animate-pulse">
+            <section class="relative pt-32 lg:pt-48 pb-16 overflow-hidden">
+                <div class="max-w-[800px] w-[90%] mx-auto relative z-20">
+                    <div class="w-28 h-4 bg-white/10 rounded mb-10"></div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-16 h-5 bg-white/10 rounded"></div>
+                        <div class="w-32 h-4 bg-white/10 rounded"></div>
+                    </div>
+                    <div class="w-full h-14 bg-white/10 rounded-xl mb-4"></div>
+                    <div class="w-3/4 h-14 bg-white/10 rounded-xl mb-10"></div>
+                    <div class="flex items-center gap-4 pt-8 border-t border-white/10">
+                        <div class="w-12 h-12 rounded-full bg-white/10"></div>
+                        <div>
+                            <div class="w-24 h-4 bg-white/10 rounded mb-2"></div>
+                            <div class="w-16 h-3 bg-white/10 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="max-w-[1000px] w-[90%] mx-auto mb-16 lg:mb-24">
+                <div class="w-full h-[300px] md:h-[500px] rounded-3xl bg-white/10"></div>
+            </section>
+            <section class="max-w-[700px] w-[90%] mx-auto">
+                <div class="space-y-4">
+                    <div class="w-full h-4 bg-white/10 rounded"></div>
+                    <div class="w-full h-4 bg-white/10 rounded"></div>
+                    <div class="w-5/6 h-4 bg-white/10 rounded"></div>
+                    <div class="w-full h-4 bg-white/10 rounded"></div>
+                    <div class="w-4/6 h-4 bg-white/10 rounded"></div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contenido del artículo (solo cuando hay datos) -->
+        <div v-else-if="post">
 
         <!-- Article Hero -->
         <section class="relative pt-32 lg:pt-48 pb-16 overflow-hidden">
@@ -279,6 +337,7 @@ const relatedPosts = computed(() => {
                 </div>
                 <span class="text-sm font-medium text-white/90">Enlace copiado exitosamente</span>
             </div>
+        </div>
         </div>
     </div>
 </template>

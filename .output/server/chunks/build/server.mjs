@@ -415,7 +415,7 @@ function toArray$1(value) {
   return Array.isArray(value) ? value : [value];
 }
 const matcher = /* @__PURE__ */ (() => {
-  const $0 = {};
+  const $0 = {}, $1 = { ssr: true };
   return (m, p) => {
     let r = [];
     if (p.charCodeAt(p.length - 1) === 47) p = p.slice(0, -1) || "/";
@@ -424,6 +424,9 @@ const matcher = /* @__PURE__ */ (() => {
     } else if (p === "/sitemap.xml") {
       r.unshift({ data: $0 });
     }
+    let s = p.split("/");
+    s.length;
+    r.unshift({ data: $1, params: { "_": s.slice(1).join("/") } });
     return r;
   };
 })();
@@ -492,121 +495,121 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-dGRFbc8r.mjs')
+    component: () => import('./index-7il_p_2W.mjs')
   },
   {
     name: "contacto",
     path: "/contacto",
     meta: __nuxt_page_meta$i || {},
-    component: () => import('./contacto-BQdU98D9.mjs')
+    component: () => import('./contacto-0fxBoxDP.mjs')
   },
   {
     name: "nosotros",
     path: "/nosotros",
     meta: __nuxt_page_meta$h || {},
-    component: () => import('./nosotros-CJjFu7MB.mjs')
+    component: () => import('./nosotros-EUqxfR6K.mjs')
   },
   {
     name: "sinapsys",
     path: "/sinapsys",
     meta: __nuxt_page_meta$g || {},
-    component: () => import('./sinapsys-B2Ub_IdW.mjs')
+    component: () => import('./sinapsys-CkxZh74W.mjs')
   },
   {
     name: "portfolio",
     path: "/portfolio",
     meta: __nuxt_page_meta$f || {},
-    component: () => import('./portfolio-Z1ZqHaX6.mjs')
+    component: () => import('./portfolio-DPudpCfC.mjs')
   },
   {
     name: "servicios",
     path: "/servicios",
     meta: __nuxt_page_meta$e || {},
-    component: () => import('./servicios-BIqC-EWF.mjs')
+    component: () => import('./servicios-B7CgK22Y.mjs')
   },
   {
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./index-BGVIWfXx.mjs')
+    component: () => import('./index-du80HOln.mjs')
   },
   {
     name: "admin",
     path: "/admin",
     meta: __nuxt_page_meta$c || {},
-    component: () => import('./index-c43JNw3X.mjs')
+    component: () => import('./index-32a730Yn.mjs')
   },
   {
     name: "admin-login",
     path: "/admin/login",
     meta: __nuxt_page_meta$b || {},
-    component: () => import('./login-sfEJFPHl.mjs')
+    component: () => import('./login-BV9jBXro.mjs')
   },
   {
     name: "blog-slug",
     path: "/blog/:slug()",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./_slug_-CNzsj35b.mjs')
+    component: () => import('./_slug_-FrpCKhp3.mjs')
   },
   {
     name: "admin-posts-id",
     path: "/admin/posts/:id()",
     meta: __nuxt_page_meta$9 || {},
-    component: () => import('./_id_-BeOtkOSA.mjs')
+    component: () => import('./_id_-Dmnk6jb-.mjs')
   },
   {
     name: "admin-posts-edit",
     path: "/admin/posts/edit",
     meta: __nuxt_page_meta$8 || {},
-    component: () => import('./edit-DUliBZJu.mjs')
+    component: () => import('./edit-ca1G-7Na.mjs')
   },
   {
     name: "admin-posts",
     path: "/admin/posts",
     meta: __nuxt_page_meta$7 || {},
-    component: () => import('./index-DAPOVGCA.mjs')
+    component: () => import('./index-BvrIwmM3.mjs')
   },
   {
     name: "admin-posts-create",
     path: "/admin/posts/create",
     meta: __nuxt_page_meta$6 || {},
-    component: () => import('./create-DoKQC1hM.mjs')
+    component: () => import('./create-BKYU69vX.mjs')
   },
   {
     name: "admin-contacts-id",
     path: "/admin/contacts/:id()",
     meta: __nuxt_page_meta$5 || {},
-    component: () => import('./_id_-Ce8KaZy8.mjs')
+    component: () => import('./_id_-Bxe-0JgV.mjs')
   },
   {
     name: "admin-contacts",
     path: "/admin/contacts",
     meta: __nuxt_page_meta$4 || {},
-    component: () => import('./index-BkSkYaEF.mjs')
+    component: () => import('./index-BQpP6vIl.mjs')
   },
   {
     name: "admin-categories-id",
     path: "/admin/categories/:id()",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import('./_id_-ZbRvW2o3.mjs')
+    component: () => import('./_id_-BnlsgAQ_.mjs')
   },
   {
     name: "admin-categories-edit",
     path: "/admin/categories/edit",
     meta: __nuxt_page_meta$2 || {},
-    component: () => import('./edit-B62Wyybp.mjs')
+    component: () => import('./edit-DBfp7CRA.mjs')
   },
   {
     name: "admin-categories",
     path: "/admin/categories",
     meta: __nuxt_page_meta$1 || {},
-    component: () => import('./index-D2a4e_34.mjs')
+    component: () => import('./index-BgNZE9fJ.mjs')
   },
   {
     name: "admin-categories-create",
     path: "/admin/categories/create",
     meta: __nuxt_page_meta || {},
-    component: () => import('./create-DrdapCZQ.mjs')
+    component: () => import('./create-CGqrndtR.mjs')
   }
 ];
 const _wrapInTransition = (props, children) => {
@@ -1107,10 +1110,10 @@ const plugins = [
   reveal_server_uRZrqkPcTOXMVic82VVVMBpGHwPPKeft5_XKNaiP79c
 ];
 const layouts = {
-  admin: defineAsyncComponent(() => import('./admin-CtasstRk.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-7D3RY2f2.mjs').then((m) => m.default || m)),
-  hero: defineAsyncComponent(() => import('./hero-524JScf1.mjs').then((m) => m.default || m)),
-  secondary: defineAsyncComponent(() => import('./secondary-C5qjD5fu.mjs').then((m) => m.default || m))
+  admin: defineAsyncComponent(() => import('./admin-BB3tt1NX.mjs').then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import('./default-CxQh8R6A.mjs').then((m) => m.default || m)),
+  hero: defineAsyncComponent(() => import('./hero-BtMb-FuV.mjs').then((m) => m.default || m)),
+  secondary: defineAsyncComponent(() => import('./secondary-BHHAQqDh.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({
@@ -1392,8 +1395,8 @@ const _sfc_main$1 = {
     const statusText = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import('./error-404-DRs9OzY9.mjs'));
-    const _Error = defineAsyncComponent(() => import('./error-500-B8zjrAUq.mjs'));
+    const _Error404 = defineAsyncComponent(() => import('./error-404-3ea9fimf.mjs'));
+    const _Error = defineAsyncComponent(() => import('./error-500-B7ak4vp1.mjs'));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
       _push(ssrRenderComponent(unref(ErrorTemplate), mergeProps({ status: unref(status), statusText: unref(statusText), statusCode: unref(status), statusMessage: unref(statusText), description: unref(description), stack: unref(stack) }, _attrs), null, _parent));
