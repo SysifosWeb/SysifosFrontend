@@ -9,7 +9,7 @@ module.exports = {
             env: {
                 NODE_ENV: 'production',
                 PORT: 3000,
-                NUXT_PUBLIC_API_URL: 'https://www.sysifosweb.cl/api/'
+                NUXT_API: '/api/'
             }
         }
     ]

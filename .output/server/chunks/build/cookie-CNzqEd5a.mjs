@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { y as klona, p as getRequestHeader, i as destr, v as isEqual, E as setCookie, n as getCookie, h as deleteCookie } from '../nitro/nitro.mjs';
+import { A as klona, q as getRequestHeader, j as destr, x as isEqual, H as setCookie, o as getCookie, i as deleteCookie } from '../nitro/nitro.mjs';
 import { u as useNuxtApp, g as useRequestEvent } from './server.mjs';
 
 const NullObject = /* @__PURE__ */ (() => {

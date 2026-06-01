@@ -18,8 +18,8 @@ setMeta({
 const config = useRuntimeConfig()
 const apiUrl = config.public.apiUrl
 
-const { data: categoriesResponse } = await useFetch(`${apiUrl}category`)
-const { data: postsResponse } = await useFetch(`${apiUrl}blog`)
+const { data: categoriesResponse } = useFetch(`${apiUrl}category`)
+const { data: postsResponse } = useFetch(`${apiUrl}blog`)
 
 const categories = computed(() => {
   const cats = [{ id: 'all', name: 'Todos' }]
