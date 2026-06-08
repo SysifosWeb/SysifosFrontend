@@ -22,7 +22,12 @@ export default defineNuxtConfig({
         '@nuxtjs/google-fonts',
         '@nuxt/image',
         '@nuxtjs/sitemap',
+        'nuxt-gtag',
     ],
+
+    gtag: {
+        id: 'G-3BJ0HZ6RSH'
+    },
 
     app: {
         head: {
@@ -52,18 +57,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','${GTM_ID}');`,
                     type: 'text/javascript'
                 },
-                // Google Analytics 4 — carga directa como fallback/respaldo
-                {
-                    src: `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`,
-                    async: true
-                },
-                {
-                    innerHTML: `window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${GA4_ID}');`,
-                    type: 'text/javascript'
-                }
             ],
             // GTM noscript fallback (funciona en <head> también)
             noscript: [

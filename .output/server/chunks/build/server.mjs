@@ -501,7 +501,7 @@ const _routes = [
     name: "contacto",
     path: "/contacto",
     meta: __nuxt_page_meta$i || {},
-    component: () => import('./contacto-BK6nb_E4.mjs')
+    component: () => import('./contacto-BMOWcfly.mjs')
   },
   {
     name: "nosotros",
@@ -525,7 +525,7 @@ const _routes = [
     name: "servicios",
     path: "/servicios",
     meta: __nuxt_page_meta$e || {},
-    component: () => import('./servicios-P4wokVyR.mjs')
+    component: () => import('./servicios-CQ3RT_5R.mjs')
   },
   {
     name: "blog",
