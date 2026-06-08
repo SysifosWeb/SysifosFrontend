@@ -86,5 +86,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     site: {
         url: 'https://www.sysifosweb.cl'
     },
+    sitemap: {
+        exclude: ['/admin/**']
+    },
 })
 
