@@ -87,7 +87,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         url: 'https://www.sysifosweb.cl'
     },
     sitemap: {
-        exclude: ['/admin/**']
+        // Fuente dinámica: Nitro consulta este endpoint para obtener las URLs de artículos
+        sources: ['/__sitemap__/urls'],
+        exclude: ['/admin/**'],
+        // Prioridades por tipo de ruta
+        urls: [
+            { loc: '/', priority: 1.0, changefreq: 'weekly' },
+            { loc: '/servicios', priority: 0.9, changefreq: 'monthly' },
+            { loc: '/nosotros', priority: 0.7, changefreq: 'monthly' },
+            { loc: '/portfolio', priority: 0.7, changefreq: 'monthly' },
+            { loc: '/contacto', priority: 0.8, changefreq: 'monthly' },
+            { loc: '/blog', priority: 0.9, changefreq: 'daily' },
+        ]
     },
 })
 
