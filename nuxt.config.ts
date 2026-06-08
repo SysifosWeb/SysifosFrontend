@@ -1,4 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+const GTM_ID = 'GTM-TWB2W6T9';
+const GA4_ID = 'G-3BJ0HZ6RSH';
+
 export default defineNuxtConfig({
     routeRules: {
         '/**': { ssr: true }
@@ -18,14 +22,8 @@ export default defineNuxtConfig({
         '@nuxtjs/google-fonts',
         '@nuxt/image',
         '@nuxtjs/sitemap',
-        'nuxt-gtag',
-        ['@zadigetvoltaire/nuxt-gtm', {
-            id: 'GTM-TWB2W6T9'
-        }]
     ],
-    gtag: {
-        id: 'G-3BJ0HZ6RSH'
-    },
+
     app: {
         head: {
             charset: 'utf-8',
@@ -43,6 +41,35 @@ export default defineNuxtConfig({
             ],
             link: [
                 { rel: 'icon', type: 'image/x-icon', href: '/logo_min.ico' }
+            ],
+            script: [
+                // Google Tag Manager — debe ir lo más arriba posible en <head>
+                {
+                    innerHTML: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`,
+                    type: 'text/javascript'
+                },
+                // Google Analytics 4 — carga directa como fallback/respaldo
+                {
+                    src: `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`,
+                    async: true
+                },
+                {
+                    innerHTML: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA4_ID}');`,
+                    type: 'text/javascript'
+                }
+            ],
+            // GTM noscript fallback (funciona en <head> también)
+            noscript: [
+                {
+                    innerHTML: `<iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`
+                }
             ]
         }
     },

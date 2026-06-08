@@ -28,15 +28,15 @@ const styles = {
   "pages/admin/posts/[id].vue": () => import('./_id_-styles.Lqb561wa.mjs').then(interopDefault),
   "pages/admin/posts/edit.vue": () => import('./edit-styles.B1mqzLzU.mjs').then(interopDefault),
   "pages/admin/contacts/[id].vue": () => import('./_id_-styles._u7EXDFO.mjs').then(interopDefault),
+  "components/nosotros/CtaSection.vue": () => import('./CtaSection-styles.JH7Fbmcx.mjs').then(interopDefault),
   "node_modules/nuxt/dist/app/components/error-404.vue": () => import('./error-404-styles.CiJjK6WX.mjs').then(interopDefault),
   "node_modules/nuxt/dist/app/components/error-500.vue": () => import('./error-500-styles.ulHNpcF1.mjs').then(interopDefault),
-  "components/nosotros/CtaSection.vue": () => import('./CtaSection-styles.JH7Fbmcx.mjs').then(interopDefault),
   "layouts/default.vue": () => import('./default-styles.NHkn0362.mjs').then(interopDefault),
   "components/AppHeader.vue": () => import('./default-styles.NHkn0362.mjs').then(interopDefault),
   "layouts/secondary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
   "components/AppHeaderSecundary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
-  "components/AppNavbar.vue": () => import('./AppNavbar-styles.CoCselLM.mjs').then(interopDefault),
-  "components/Footer.vue": () => import('./Footer-styles.BSiR2sXA.mjs').then(interopDefault)
+  "components/Footer.vue": () => import('./Footer-styles.BSiR2sXA.mjs').then(interopDefault),
+  "components/AppNavbar.vue": () => import('./AppNavbar-styles.CoCselLM.mjs').then(interopDefault)
 };
 
 export { styles as default };
