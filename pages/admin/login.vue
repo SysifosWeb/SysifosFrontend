@@ -43,7 +43,14 @@ const handleLogin = async () => {
         router.push('/admin');
     } catch (error) {
         console.error('Error de login:', error);
-        errorMessage.value = error.response?._data?.message || error.data?.message || 'Credenciales inválidas o error de conexión.';
+        const status = error.response?.status || error.status;
+        if (status === 429) {
+            errorMessage.value = 'Demasiados intentos fallidos. Por favor espera un momento antes de intentar de nuevo.';
+        } else if (status === 401 || status === 422) {
+            errorMessage.value = error.response?._data?.message || error.data?.message || 'Credenciales inválidas.';
+        } else {
+            errorMessage.value = error.response?._data?.message || error.data?.message || 'Credenciales inválidas o error de conexión.';
+        }
     } finally {
         loading.value = false;
     }
@@ -139,8 +146,7 @@ onMounted(() => {
                             </div>
                             <input id="email" name="email" type="email" autocomplete="email" required
                                 v-model="form.email"
-                                class="pl-10 appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg shadow-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors duration-300"
-                                placeholder="admin@sysifos.cl" />
+                                class="pl-10 appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg shadow-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors duration-300" />
                         </div>
                     </div>
 
@@ -159,8 +165,7 @@ onMounted(() => {
                             </div>
                             <input id="password" name="password" type="password" autocomplete="current-password"
                                 required v-model="form.password"
-                                class="pl-10 appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg shadow-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors duration-300"
-                                placeholder="••••••••" />
+                                class="pl-10 appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-slate-600 rounded-lg shadow-sm placeholder-gray-400 dark:placeholder-gray-500 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors duration-300" />
                         </div>
                     </div>
 

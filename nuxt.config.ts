@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 
     runtimeConfig: {
         public: {
-            apiUrl: '/api/',
+            apiUrl: process.env.NUXT_API || '/api/',
             tinymceApiKey: process.env.NUXT_PUBLIC_TINYMCE_API_KEY || 'no-api-key'
         }
     },

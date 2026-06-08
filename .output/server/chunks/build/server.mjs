@@ -543,7 +543,7 @@ const _routes = [
     name: "admin-login",
     path: "/admin/login",
     meta: __nuxt_page_meta$b || {},
-    component: () => import('./login-BV9jBXro.mjs')
+    component: () => import('./login-DFDn_2Y8.mjs')
   },
   {
     name: "blog-slug",
