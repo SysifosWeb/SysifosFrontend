@@ -61,12 +61,24 @@ onMounted(async () => {
     }
 })
 
+// URL canónica del artículo (siempre absoluta)
+const canonicalUrl = computed(() => `https://www.sysifosweb.cl/blog/${slug.value}`)
+
 // Share functionality
 const shareUrl = computed(() => {
     if (typeof window !== 'undefined') {
         return window.location.href
     }
-    return `https://www.sysifosweb.cl/blog/${slug.value}`
+    return canonicalUrl.value
+})
+
+// Asegurar que la imagen OG sea siempre una URL absoluta
+const ogImageUrl = computed(() => {
+    const img = post.value?.image || ''
+    if (!img) return 'https://www.sysifosweb.cl/og-default.jpg'
+    if (img.startsWith('http')) return img
+    // Si es ruta relativa, anteponer el dominio
+    return `https://www.sysifosweb.cl${img.startsWith('/') ? '' : '/'}${img}`
 })
 
 const shareOnTwitter = () => {
@@ -116,10 +128,30 @@ const copyToClipboard = async () => {
     }
 }
 
+// SEO y Open Graph completo para Instagram, Facebook, LinkedIn y Twitter
 useSeoMeta({
-    title: () => post.value ? `${post.value.title} | Blog` : 'Artículo no encontrado',
-    description: () => postData.value?.excerpt || 'Lee nuestro último artículo.',
-    ogImage: () => post.value?.image || ''
+    // Meta estándar
+    title: () => post.value ? `${post.value.title} | Blog SysifosWeb` : 'Artículo no encontrado',
+    description: () => postData.value?.excerpt || 'Lee nuestro último artículo en el blog de SysifosWeb.',
+    // Open Graph (Instagram/Facebook)
+    ogType: 'article',
+    ogSiteName: 'SysifosWeb',
+    ogTitle: () => post.value?.title || 'Blog SysifosWeb',
+    ogDescription: () => postData.value?.excerpt || 'Lee nuestro último artículo en el blog de SysifosWeb.',
+    ogImage: () => ogImageUrl.value,
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+    ogImageAlt: () => post.value?.title || 'Blog SysifosWeb',
+    ogUrl: () => canonicalUrl.value,
+    // Twitter / X Card
+    twitterCard: 'summary_large_image',
+    twitterTitle: () => post.value?.title || 'Blog SysifosWeb',
+    twitterDescription: () => postData.value?.excerpt || 'Lee nuestro último artículo en el blog de SysifosWeb.',
+    twitterImage: () => ogImageUrl.value,
+})
+
+useHead({
+    link: [{ rel: 'canonical', href: canonicalUrl.value }]
 })
 
 const { data: relatedResponse } = await useFetch(`${apiUrl}blog`, {
