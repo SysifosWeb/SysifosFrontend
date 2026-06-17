@@ -14,7 +14,7 @@ defineProps({
                 <NuxtLink
                     v-for="post in posts"
                     :key="post.id"
-                    to="/blog/arquitectura-invisible"
+                    :to="`/blog/${post.slug}`"
                     class="group relative flex flex-col rounded-2xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-300 overflow-hidden"
                 >
                     <div class="relative h-56 overflow-hidden bg-[#0a0f18]">
