@@ -47,11 +47,6 @@ const post = computed(() => {
 watch(slug, async (newSlug, oldSlug) => {
     if (newSlug && newSlug !== oldSlug) {
         await refreshPost()
-        if (postData.value?.id) {
-            try {
-                await $fetch(`${apiUrl}blog/${postData.value.id}/increment-views`, { method: 'POST' })
-            } catch {}
-        }
     }
 })
 
