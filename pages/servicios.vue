@@ -21,18 +21,49 @@ onMounted(() => {
 const { setMeta, setSchema } = useSEO()
 
 setMeta({
-  title: 'Servicios de Desarrollo Web, E-commerce y Software a Medida',
-  description: 'Servicios profesionales de desarrollo web, tiendas online, landing pages, WordPress, software a medida y mantenimiento web en Chile. Laravel, Vue.js, React, Flutter. Cotiza gratis.',
-  keywords: 'servicios desarrollo web, servicios desarrollo software, landing pages chile',
+  title: 'Servicios de Desarrollo Web, Ecommerce y Software a Medida | SysifosWeb Chile',
+  description: 'Páginas web profesionales, tiendas online, aplicaciones móviles, software a medida y mantenimiento web para empresas en Chile. Trabajamos con Laravel, Vue.js, React y Flutter. Cotiza tu proyecto gratis.',
+  keywords: 'servicios desarrollo web chile, diseño páginas web empresas chile, tienda online chile, ecommerce chile, landing pages profesionales, software a medida empresas, aplicaciones móviles chile, mantenimiento web',
   image: '/img/og-servicios.jpg'
 })
 
 setSchema({
   type: 'Service',
   data: {
-    name: 'Servicios de Desarrollo Web y Software',
-    description: 'Desarrollo de páginas web, tiendas online, aplicaciones móviles y software a medida',
-    serviceType: 'Desarrollo de Software'
+    services: [
+      {
+        name: 'Páginas Web Profesionales',
+        description: 'Páginas web modernas, rápidas y optimizadas para captar clientes. Diseño Mobile-First, copywriting persuasivo y estructura lista para SEO.',
+        serviceType: 'Desarrollo de Páginas Web'
+      },
+      {
+        name: 'Tiendas Online y Ecommerce',
+        description: 'Tiendas online construidas para vender y cobrar automáticamente. Proceso de compra optimizado, integración de pagos y panel autoadministrable.',
+        serviceType: 'Desarrollo de Tiendas Online y Ecommerce'
+      },
+      {
+        name: 'Sistemas y Software a Medida',
+        description: 'Sistemas robustos que reducen costos operativos y automatizan procesos empresariales. Desarrollo full-stack con tecnologías modernas.',
+        serviceType: 'Desarrollo de Software a Medida'
+      }
+    ]
+  }
+})
+
+setSchema({
+  type: 'LocalBusiness',
+  data: {
+    name: 'Sysifos Web',
+    description: 'Agencia de desarrollo de software, páginas web profesionales y tiendas online en La Serena, Chile.',
+    telephone: '+56-9-4910-9970',
+    email: 'contacto@sysifosweb.cl',
+    addressLocality: 'La Serena',
+    addressRegion: 'Coquimbo',
+    addressCountry: 'CL',
+    openingHours: [
+      { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '18:00' }
+    ],
+    priceRange: '$$'
   }
 })
 </script>

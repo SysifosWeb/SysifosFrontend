@@ -10,17 +10,17 @@ definePageMeta({
 const { setMeta, setSchema } = useSEO()
 
 setMeta({
-  title: 'Nosotros - Equipo de Desarrollo de Software en Chile',
-  description: 'Conoce al equipo de Sysifos Web. Especialistas en desarrollo de software, aplicaciones web y soluciones digitales con años de experiencia en Chile. Diego, Karen y Osman - Full Stack Developers.',
-  keywords: 'equipo desarrollo software, equipo desarrollo web, empresa desarrollo software chile, empresa desarrollo web chile',
+  title: 'Nosotros | Equipo de Desarrollo Web y Software en Chile — SysifosWeb',
+  description: 'Somos SysifosWeb, una agencia de desarrollo de software ubicada en Coquimbo, Chile. Nuestro equipo de ingenieros full stack construye soluciones digitales escalables para empresas. Conoce quiénes somos.',
+  keywords: 'equipo desarrollo software chile, agencia desarrollo web coquimbo, empresa desarrollo software chile, desarrolladores full stack chile, quiénes somos sysifosweb',
   image: '/img/og-nosotros.jpg'
 })
 
 setSchema({
   type: 'WebPage',
   data: {
-    name: 'Nosotros - Sysifos Web',
-    description: 'Equipo de desarrollo de software especializado en soluciones digitales en Chile'
+    name: 'Nosotros — SysifosWeb',
+    description: 'Equipo de ingenieros de software especializados en desarrollo web, ecommerce y soluciones digitales para empresas en Chile y el mundo.'
   }
 })
 </script>

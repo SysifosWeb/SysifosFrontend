@@ -3,17 +3,17 @@
 const { setMeta, setSchema } = useSEO()
 
 setMeta({
-  title: 'Portfolio de Proyectos | Desarrollo Web y Casos de Éxito',
-  description: 'Explora nuestros desarrollos: Ansar Automotriz, Maestranza Faremin, StahlForm y Carmotor\'s. Ingeniería de software aplicada a soluciones reales de negocio en Chile y el mundo.',
-  keywords: 'portafolio desarrollo web, casos de éxito software, ejemplos desarrollo web chile, soluciones digitales empresas',
+  title: 'Portfolio | Proyectos de Desarrollo Web y Software a Medida — SysifosWeb',
+  description: 'Conoce nuestros proyectos reales: Ansar Automotriz, Maestranza Faremin, StahlForm y más. Desarrollamos soluciones digitales que generan resultados medibles para empresas en Chile y el mundo.',
+  keywords: 'portfolio desarrollo web chile, casos de éxito software, proyectos desarrollo web empresas, ejemplos software a medida, soluciones digitales automotriz, ecommerce chile',
   image: '/img/og-portfolio.jpg'
 })
 
 setSchema({
   type: 'WebPage',
   data: {
-    name: 'Portfolio - Sysifos Web',
-    description: 'Portfolio de proyectos de desarrollo web y software realizados por Sysifos Web'
+    name: 'Portfolio de Proyectos — SysifosWeb',
+    description: 'Casos de éxito en desarrollo web, ecommerce y software a medida para empresas en Chile y el mundo.'
   }
 })
 

@@ -12,9 +12,9 @@ const apiUrl = config.public.apiUrl
 // SEO Configuration
 const { setMeta, setSchema } = useSEO()
 setMeta({
-  title: 'Blog & Insights | Tecnología y Crecimiento Digital',
-  description: 'Explora nuestros artículos sobre arquitectura de software, escalabilidad, diseño de producto y estrategias tecnológicas.',
-  keywords: 'blog tecnología, desarrollo web chile, arquitectura de software, UX/UI, SEO, performance',
+  title: 'Blog | Tecnología, Desarrollo Web y Negocios Digitales — SysifosWeb',
+  description: 'Artículos sobre desarrollo web, software, ecommerce, SEO y estrategias digitales para empresas. Aprende cómo escalar tu negocio con tecnología de parte del equipo de SysifosWeb.',
+  keywords: 'blog desarrollo web chile, artículos tecnología empresas, tips ecommerce chile, arquitectura de software, marketing digital pymes, SEO para negocios, digitalización empresas',
   image: '/img/og-blog.jpg'
 })
 
