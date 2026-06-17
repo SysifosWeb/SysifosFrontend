@@ -1,0 +1,43 @@
+const interopDefault = r => r.default || r || [];
+const styles = {
+  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.CJtFFnHU.mjs').then(interopDefault),
+  "pages/index.vue": () => import('./index-styles.CcJoqdQX.mjs').then(interopDefault),
+  "components/home/HomeValue.vue": () => import('./HomeValue-styles.iOfSa90Y.mjs').then(interopDefault),
+  "components/home/HomeProblems.vue": () => import('./HomeProblems-styles.BrzEF-iF.mjs').then(interopDefault),
+  "components/home/HomeProposition.vue": () => import('./HomeProposition-styles.DsZ9qvqI.mjs').then(interopDefault),
+  "components/home/HomeBusinessUnits.vue": () => import('./HomeBusinessUnits-styles.DHEkRlN5.mjs').then(interopDefault),
+  "components/home/HomeTrust.vue": () => import('./HomeTrust-styles.CLV9kUK_.mjs').then(interopDefault),
+  "components/home/HomeTestimonials.vue": () => import('./HomeTestimonials-styles.BLpZ8Mhd.mjs').then(interopDefault),
+  "components/home/HomeBanner.vue": () => import('./HomeBanner-styles.CrKtXqtq.mjs').then(interopDefault),
+  "pages/nosotros.vue": () => import('./nosotros-styles.BS7KCb1j.mjs').then(interopDefault),
+  "components/nosotros/StorytellingBreak.vue": () => import('./StorytellingBreak-styles.KkNMimdk.mjs').then(interopDefault),
+  "components/nosotros/EquipoSection.vue": () => import('./EquipoSection-styles.7HP3dKvJ.mjs').then(interopDefault),
+  "components/nosotros/MetodologiaSection.vue": () => import('./MetodologiaSection-styles.Ba9-RtJ1.mjs').then(interopDefault),
+  "pages/portfolio.vue": () => import('./portfolio-styles.Bh8eqdb3.mjs').then(interopDefault),
+  "components/portfolio/HeroSection.vue": () => import('./HeroSection-styles.BqojEHeo.mjs').then(interopDefault),
+  "components/portfolio/GridSection.vue": () => import('./GridSection-styles.BvFVHGoq.mjs').then(interopDefault),
+  "components/portfolio/StatsSection.vue": () => import('./StatsSection-styles.Bk-XIwBk.mjs').then(interopDefault),
+  "pages/servicios.vue": () => import('./servicios-styles.CfgQ1y8h.mjs').then(interopDefault),
+  "components/servicios/HeroSection.vue": () => import('./HeroSection-styles.xX9nCbo-.mjs').then(interopDefault),
+  "components/servicios/ListSection.vue": () => import('./ListSection-styles.B9TUoTLm.mjs').then(interopDefault),
+  "components/servicios/ProcesoSection.vue": () => import('./ProcesoSection-styles.CQTjLApN.mjs').then(interopDefault),
+  "components/servicios/TechStackSection.vue": () => import('./TechStackSection-styles.C7L4155j.mjs').then(interopDefault),
+  "pages/blog/index.vue": () => import('./index-styles.CIEQcDf-.mjs').then(interopDefault),
+  "components/blog/FiltersSection.vue": () => import('./index-styles.CIEQcDf-.mjs').then(interopDefault),
+  "pages/admin/index.vue": () => import('./index-styles.oEAM3uDO.mjs').then(interopDefault),
+  "pages/admin/posts/[id].vue": () => import('./_id_-styles.Lqb561wa.mjs').then(interopDefault),
+  "pages/admin/posts/edit.vue": () => import('./edit-styles.B1mqzLzU.mjs').then(interopDefault),
+  "pages/admin/contacts/[id].vue": () => import('./_id_-styles._u7EXDFO.mjs').then(interopDefault),
+  "node_modules/nuxt/dist/app/components/error-500.vue": () => import('./error-500-styles.ulHNpcF1.mjs').then(interopDefault),
+  "node_modules/nuxt/dist/app/components/error-404.vue": () => import('./error-404-styles.CiJjK6WX.mjs').then(interopDefault),
+  "components/nosotros/CtaSection.vue": () => import('./CtaSection-styles.JH7Fbmcx.mjs').then(interopDefault),
+  "layouts/default.vue": () => import('./default-styles.NHkn0362.mjs').then(interopDefault),
+  "components/AppHeader.vue": () => import('./default-styles.NHkn0362.mjs').then(interopDefault),
+  "layouts/secondary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
+  "components/AppHeaderSecundary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
+  "components/AppNavbar.vue": () => import('./AppNavbar-styles.CoCselLM.mjs').then(interopDefault),
+  "components/Footer.vue": () => import('./Footer-styles.BSiR2sXA.mjs').then(interopDefault)
+};
+
+export { styles as default };
+//# sourceMappingURL=styles.mjs.map
