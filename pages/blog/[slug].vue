@@ -144,6 +144,11 @@ useSeoMeta({
     ogImageHeight: 630,
     ogImageAlt: () => post.value?.title || 'Blog SysifosWeb',
     ogUrl: () => canonicalUrl.value,
+    // Open Graph — Article namespace
+    articleAuthor: () => postData.value?.user?.name || 'SysifosWeb',
+    articlePublishedTime: () => postData.value?.published_at || postData.value?.created_at || undefined,
+    articleModifiedTime: () => postData.value?.updated_at || undefined,
+    articleSection: () => postData.value?.category?.name || 'Blog',
     // Twitter / X Card
     twitterCard: 'summary_large_image',
     twitterTitle: () => post.value?.title || 'Blog SysifosWeb',
