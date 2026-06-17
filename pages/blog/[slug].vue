@@ -134,6 +134,7 @@ useSeoMeta({
     title: () => post.value ? `${post.value.title} | Blog SysifosWeb` : 'Artículo no encontrado',
     description: () => postData.value?.excerpt || 'Lee nuestro último artículo en el blog de SysifosWeb.',
     // Open Graph (Instagram/Facebook)
+    fbAppId: '1215450019494398',
     ogType: 'article',
     ogSiteName: 'SysifosWeb',
     ogTitle: () => post.value?.title || 'Blog SysifosWeb',

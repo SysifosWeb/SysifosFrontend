@@ -549,7 +549,7 @@ const _routes = [
     name: "blog-slug",
     path: "/blog/:slug()",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./_slug_-C8Ai6jhU.mjs')
+    component: () => import('./_slug_-B1yKXBCu.mjs')
   },
   {
     name: "admin-posts-id",
