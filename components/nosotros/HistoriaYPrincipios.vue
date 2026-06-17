@@ -1,5 +1,6 @@
 <script setup>
 import team from "@/assets/img/saas_product_visual.png";
+import { Medal } from "lucide-vue-next";
 </script>
 
 <template>
@@ -33,11 +34,22 @@ import team from "@/assets/img/saas_product_visual.png";
             </p>
           </div>
 
-          <!-- Founding stat -->
-          <div class="inline-flex items-center gap-4" v-reveal data-delay="300">
-            <span class="text-2xl font-extrabold tracking-tight text-white">2024</span>
-            <span class="w-8 h-px bg-white/10"></span>
-            <span class="text-[0.7rem] font-medium tracking-[0.15em] uppercase text-white/50">Año de fundación</span>
+          <!-- Stats & Awards -->
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6" v-reveal data-delay="300">
+            <!-- Founding stat -->
+            <div class="inline-flex items-center gap-4">
+              <span class="text-2xl font-extrabold tracking-tight text-white">2024</span>
+              <span class="w-8 h-px bg-white/10 hidden sm:block"></span>
+              <span class="text-[0.7rem] font-medium tracking-[0.15em] uppercase text-white/50">Año de fundación</span>
+            </div>
+
+            <!-- Award stat -->
+            <div class="inline-flex items-center gap-3 bg-white/5 px-4 py-2 rounded-full border border-white/10 backdrop-blur-sm">
+              <Medal class="w-5 h-5 text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]" />
+              <span class="text-[0.75rem] font-semibold tracking-wide text-white/90">
+                Tercer lugar en Desafío Genia: Mujeres que Avanzan 2025
+              </span>
+            </div>
           </div>
         </div>
 

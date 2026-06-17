@@ -1,0 +1,8 @@
+const HomeValue_vue_vue_type_style_index_0_scoped_a9a002c8_lang = ".section[data-v-a9a002c8]{overflow:hidden;padding:6rem 0 8rem;position:relative}.connector-line[data-v-a9a002c8]{background:linear-gradient(to right,transparent,var(--border-accent),transparent)}.step-icon-wrap[data-v-a9a002c8]{background:#ffffff0a;border:1px solid hsla(0,0%,100%,.08)}.group:hover .step-icon-wrap[data-v-a9a002c8]{background:#38bdf814;border-color:#38bdf833}.step-icon[data-v-a9a002c8],.step-number[data-v-a9a002c8]{color:var(--accent)}.step-number[data-v-a9a002c8]{background-color:var(--bg-dark);border:1px solid hsla(0,0%,100%,.08);font-family:Inter,sans-serif}.group:hover .card-title[data-v-a9a002c8]{color:var(--accent)}";
+
+const HomeValueStyles_D9uEpmdW = [
+  HomeValue_vue_vue_type_style_index_0_scoped_a9a002c8_lang
+];
+
+export { HomeValueStyles_D9uEpmdW as default };
+//# sourceMappingURL=HomeValue-styles.D9uEpmdW.mjs.map
