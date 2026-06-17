@@ -126,10 +126,10 @@ const filteredPosts = computed(() => {
     <BlogPostGrid :posts="filteredPosts" />
 
     <!-- Highlighted Reading / Cinematic Section -->
-    <BlogCinematicGuide />
+    <!-- <BlogCinematicGuide /> -->
 
     <!-- Newsletter -->
-    <BlogNewsletterSection />
+    <!-- <BlogNewsletterSection /> -->
 
     <NosotrosCtaSection />
   </div>

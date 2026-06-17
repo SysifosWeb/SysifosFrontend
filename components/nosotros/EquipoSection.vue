@@ -1,20 +1,19 @@
 <script setup>
 import { TerminalSquare, Database, Smartphone } from 'lucide-vue-next'
-import diego from '@/assets/img/Diego.png'
 import karen from '@/assets/img/Karen.png'
 import osman from '@/assets/img/Osman.png'
 </script>
 
 <template>
-  <section class="equipo-section relative bg-section-dark overflow-hidden">
+  <section class="py-12 md:py-16 relative bg-section-dark overflow-hidden">
     
     <!-- Ambient -->
     <div class="ambient-orb ambient-orb--cyan"></div>
 
-    <div class="section-container">
+    <div class="relative z-10 w-[90%] max-w-7xl mx-auto flex flex-col gap-20">
 
       <!-- Editorial Header — asymmetric, not centered-generic -->
-      <div class="equipo-header">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-end">
         <div class="equipo-header__left">
           <p class="overline-label" v-reveal data-delay="0">El equipo</p>
           <h2 class="equipo-headline" v-reveal data-delay="100">
@@ -30,29 +29,10 @@ import osman from '@/assets/img/Osman.png'
       </div>
 
       <!-- Team Roster - Cinematic Editorial Layout -->
-      <div class="team-roster">
-
-        <!-- DIEGO -->
-        <div class="roster-card group" v-reveal data-delay="0">
-          <img :src="diego" alt="Diego Araya" class="roster-photo" loading="lazy" />
-          <div class="roster-overlay"></div>
-          
-          <div class="roster-info">
-            <div class="roster-role">
-              <TerminalSquare class="roster-role__icon" />
-              <span class="roster-role__text">Full Stack Developer</span>
-            </div>
-            <h3 class="roster-name">Diego Araya</h3>
-            <p class="roster-bio">
-              Especializado en estructurar y diseñar módulos escalables para aplicaciones web integrales de alta demanda.
-            </p>
-          </div>
-          <!-- Accent line (top) -->
-          <div class="roster-accent-line roster-accent-line--cyan"></div>
-        </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 max-w-5xl mx-auto items-start">
 
         <!-- KAREN -->
-        <div class="roster-card group roster-card--offset" v-reveal data-delay="150">
+        <div class="roster-card group md:mt-14" v-reveal data-delay="150">
           <img :src="karen" alt="Karen Godoy" class="roster-photo" loading="lazy" />
           <div class="roster-overlay"></div>
           
@@ -94,22 +74,6 @@ import osman from '@/assets/img/Osman.png'
 </template>
 
 <style scoped>
-/* ── Section Layout ────────────────────────── */
-.equipo-section {
-  padding: 3rem 0 4rem;
-}
-
-.section-container {
-  position: relative;
-  z-index: 10;
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 5rem;
-}
-
 /* ── Ambient ────────────────────────────────── */
 .ambient-orb {
   position: absolute;
@@ -128,19 +92,6 @@ import osman from '@/assets/img/Osman.png'
 }
 
 /* ── Editorial Header ───────────────────────── */
-.equipo-header {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  align-items: end;
-}
-@media (min-width: 768px) {
-  .equipo-header {
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-  }
-}
-
 .equipo-header__right {
   padding-bottom: 0.5rem;
 }
@@ -179,20 +130,6 @@ import osman from '@/assets/img/Osman.png'
   max-width: 38ch;
 }
 
-/* ── Team Roster (Asymmetric) ───────────────── */
-.team-roster {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2.5rem;
-}
-@media (min-width: 768px) {
-  .team-roster {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    align-items: start;
-  }
-}
-
 /* ── Cinematic Roster Card ──────────────────── */
 .roster-card {
   position: relative;
@@ -216,11 +153,6 @@ import osman from '@/assets/img/Osman.png'
   box-shadow: 0 30px 60px rgba(0,0,0,0.4);
   border-color: rgba(255,255,255,0.15);
 }
-.roster-card--offset { margin-top: 0; }
-@media (min-width: 768px) {
-  .roster-card--offset { margin-top: 3.5rem; } /* Aggressive stagger */
-}
-
 /* ── Top accent line ────────────────────────── */
 .roster-accent-line {
   position: absolute;

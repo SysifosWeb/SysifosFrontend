@@ -4,93 +4,48 @@ import { ArrowRight, CheckCircle2, TrendingUp, Database, Code2, ShoppingBag, Lay
 const services = [
   {
     id: '01',
-    eyebrow: 'Conversión',
-    title: 'Landing Pages',
-    description: 'Embudos de venta diseñados para capturar leads calificados.',
+    eyebrow: 'CONVERSIÓN INMEDIATA',
+    title: 'Páginas Web',
+    description: 'El aliado digital para captar clientes en piloto automático sin perder tiempo.',
     icon: TrendingUp,
     features: [
-      'Copywriting persuasivo',
-      'Diseño orientado a la acción',
-      'Velocidad de carga extrema',
-      'Integración con tu CRM'
+      'Copywriting persuasivo (Textos que atrapan).',
+      'Diseño Mobile-First (Carga ultra fluida en celulares).',
+      'Botón directo a tu WhatsApp o formulario.',
+      'Estructura lista para aparecer en Google.'
     ],
-    ctaText: 'Cotizar Landing Page',
-    ctaLink: 'https://wa.me/56949109970?text=Hola,%20necesito%20una%20Landing%20Page.',
+    ctaText: 'Cotizar desde $200.000 + IVA',
+    ctaLink: 'https://wa.me/56949109970?text=Hola,%20me%20interesa%20una%20Landing%20Page/One%20Page.',
   },
   {
     id: '02',
-    eyebrow: 'Arquitectura',
-    title: 'Bases de Datos',
-    description: 'Estructuras de datos garantizando seguridad bancaria y consultas veloces.',
-    icon: Database,
+    eyebrow: 'LIBERTAD Y VENTAS 24/7',
+    title: 'Tiendas Online',
+    description: 'Tu tienda online construida para vender y cobrar sola, eliminando la gestión manual.',
+    icon: ShoppingBag,
     features: [
-      'Arquitectura Relacional / NoSQL',
-      'Optimización de consultas',
-      'Copias de seguridad automatizadas',
-      'Seguridad y encriptación'
+      'Proceso de compra rápido y fácil para el cliente.',
+      'Conexión automática de inventario y stock.',
+      'Recibe pagos con Tarjetas de Crédito y Débito.',
+      'Panel autoadministrable (Control total desde tu celular).'
     ],
-    ctaText: 'Cotizar Base de Datos',
-    ctaLink: 'https://wa.me/56949109970?text=Hola,%20necesito%20gestión%20de%20Bases%20de%20Datos.',
+    ctaText: 'Automatizar mi Negocio',
+    ctaLink: 'https://wa.me/56949109970?text=Hola,%20me%20interesa%20Desarrollo%20E-commerce%20o%20Plataforma.',
   },
   {
     id: '03',
-    eyebrow: 'Eficiencia',
-    title: 'Software a Medida',
-    description: 'Sistemas que automatizan tareas manuales y reducen costos operativos.',
-    icon: Code2,
+    eyebrow: 'EFICIENCIA & ESCALABILIDAD',
+    title: 'Sistemas y Software a Medida',
+    description: 'Sistemas robustos que reducen costos operativos y blindan la seguridad de tu empresa.',
+    icon: Database,
     features: [
-      'Automatización de procesos',
-      'Paneles de administración',
-      'Conexión mediante APIs',
-      'Soporte técnico dedicado'
+      'Sistemas rápidos y accesibles desde cualquier lugar.',
+      'Automatización de procesos internos pesados.',
+      'Seguridad, encriptación y respaldos automáticos.',
+      'Conexión e integración con tus sistemas actuales.'
     ],
-    ctaText: 'Cotizar Software',
-    ctaLink: 'https://wa.me/56949109970?text=Hola,%20busco%20desarrollo%20de%20Software%20a%20Medida.',
-  },
-  {
-    id: '04',
-    eyebrow: 'Transaccional',
-    title: 'Desarrollo E-commerce',
-    description: 'Tiendas online construidas para vender 24/7 sin límites de stock.',
-    icon: ShoppingBag,
-    features: [
-      'Checkout sin fricción',
-      'Integración de pasarelas de pago',
-      'Gestión de inventarios',
-      'Optimización logística'
-    ],
-    ctaText: 'Cotizar E-commerce',
-    ctaLink: 'https://wa.me/56949109970?text=Hola,%20necesito%20un%20E-commerce.',
-  },
-  {
-    id: '05',
-    eyebrow: 'Corporativo',
-    title: 'Plataformas Web',
-    description: 'Sistemas extensos con gestión de roles para alto volumen de tráfico.',
-    icon: LayoutTemplate,
-    features: [
-      'CMS Empresarial',
-      'Gestión de múltiples usuarios',
-      'Arquitectura escalable (Cloud)',
-      'SEO Técnico avanzado'
-    ],
-    ctaText: 'Cotizar Plataforma',
-    ctaLink: 'https://wa.me/56949109970?text=Hola,%20busco%20una%20Plataforma%20Web.',
-  },
-  {
-    id: '06',
-    eyebrow: 'Impacto',
-    title: 'One Page Sites',
-    description: 'Sitios fluidos e impactantes en una sola pantalla. Ideales para lanzamientos.',
-    icon: Smartphone,
-    features: [
-      'Navegación ultra-fluida',
-      'Animaciones interactivas',
-      'Diseño Mobile-First',
-      'Alto impacto visual'
-    ],
-    ctaText: 'Cotizar One Page',
-    ctaLink: 'https://wa.me/56949109970?text=Hola,%20necesito%20un%20sitio%20One%20Page.',
+    ctaText: 'Solicitar Evaluación Técnica',
+    ctaLink: 'https://wa.me/56949109970?text=Hola,%20necesito%20una%20evaluación%20técnica%20para%20Software%20a%20Medida.',
   }
 ]
 </script>
