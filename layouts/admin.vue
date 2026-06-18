@@ -211,10 +211,23 @@ const routeCurrent = (path) => {
     return route.path.startsWith(path) && path !== '/admin' || (path === '/admin' && route.path === '/admin');
 };
 
-const handleLogout = () => {
-    const token = useCookie('auth_token');
-    token.value = null; // Limpiar token
-    router.push('/admin/login');
+const handleLogout = async () => {
+    const { default: Swal } = await import('sweetalert2')
+    const result = await Swal.fire({
+        title: '¿Cerrar sesión?',
+        text: 'Serás redirigido al login',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar',
+        background: '#1e293b',
+        color: '#fff'
+    })
+    if (result.isConfirmed) {
+        const token = useCookie('auth_token');
+        token.value = null;
+        router.push('/admin/login');
+    }
 };
 
 const toggleDarkMode = () => {

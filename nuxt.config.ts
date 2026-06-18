@@ -45,7 +45,11 @@ export default defineNuxtConfig({
                 { property: 'og:locale', content: 'es_CL' }
             ],
             link: [
-                { rel: 'icon', type: 'image/x-icon', href: '/logo_min.ico' }
+                { rel: 'icon', type: 'image/x-icon', href: '/logo_min.ico' },
+                { rel: 'alternate', href: 'https://www.sysifosweb.cl', hreflang: 'es-CL' },
+                { rel: 'alternate', href: 'https://www.sysifosweb.cl', hreflang: 'es' },
+                { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+                { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
             ],
             script: [
                 // Google Tag Manager — debe ir lo más arriba posible en <head>

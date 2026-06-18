@@ -17,7 +17,7 @@ const {
     pending: postPending,
     error: postError,
     refresh: refreshPost
-} = await useFetch(() => `${apiUrl}blog/${slug.value}`, {
+} = useFetch(() => `${apiUrl}blog/${slug.value}`, {
     key: () => `post-${slug.value}`,
     watch: [slug]
 })
@@ -156,11 +156,44 @@ useSeoMeta({
     twitterImage: () => ogImageUrl.value,
 })
 
-useHead({
-    link: [{ rel: 'canonical', href: canonicalUrl.value }]
+// Article JSON-LD Schema
+const articleSchema = computed(() => {
+    if (!post.value) return null
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: post.value.title,
+        description: postData.value?.excerpt || '',
+        author: {
+            '@type': 'Person',
+            name: post.value.author?.name || 'Sysifos Team'
+        },
+        publisher: {
+            '@type': 'Organization',
+            name: 'Sysifos Web',
+            logo: {
+                '@type': 'ImageObject',
+                url: 'https://www.sysifosweb.cl/img/logo.png'
+            }
+        },
+        datePublished: postData.value?.published_at || postData.value?.created_at,
+        dateModified: postData.value?.updated_at || postData.value?.published_at,
+        image: post.value.image,
+        mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': canonicalUrl.value
+        }
+    }
 })
 
-const { data: relatedResponse } = await useFetch(`${apiUrl}blog`, {
+useHead({
+    link: [{ rel: 'canonical', href: () => canonicalUrl.value }],
+    script: () => articleSchema.value ? [
+        { type: 'application/ld+json', innerHTML: JSON.stringify(articleSchema.value) }
+    ] : []
+})
+
+const { data: relatedResponse } = useFetch(`${apiUrl}blog`, {
     key: 'blog-list'
 })
 const relatedPosts = computed(() => {
