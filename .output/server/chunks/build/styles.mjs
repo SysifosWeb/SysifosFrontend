@@ -1,6 +1,6 @@
 const interopDefault = r => r.default || r || [];
 const styles = {
-  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.CJtFFnHU.mjs').then(interopDefault),
+  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.DCmh1Ynw.mjs').then(interopDefault),
   "pages/index.vue": () => import('./index-styles.CcJoqdQX.mjs').then(interopDefault),
   "components/home/HomeValue.vue": () => import('./HomeValue-styles.iOfSa90Y.mjs').then(interopDefault),
   "components/home/HomeProblems.vue": () => import('./HomeProblems-styles.BrzEF-iF.mjs').then(interopDefault),
@@ -28,8 +28,6 @@ const styles = {
   "pages/admin/posts/[id].vue": () => import('./_id_-styles.Lqb561wa.mjs').then(interopDefault),
   "pages/admin/posts/edit.vue": () => import('./edit-styles.B1mqzLzU.mjs').then(interopDefault),
   "pages/admin/contacts/[id].vue": () => import('./_id_-styles._u7EXDFO.mjs').then(interopDefault),
-  "node_modules/nuxt/dist/app/components/error-404.vue": () => import('./error-404-styles.CiJjK6WX.mjs').then(interopDefault),
-  "node_modules/nuxt/dist/app/components/error-500.vue": () => import('./error-500-styles.ulHNpcF1.mjs').then(interopDefault),
   "components/nosotros/CtaSection.vue": () => import('./CtaSection-styles.JH7Fbmcx.mjs').then(interopDefault),
   "layouts/default.vue": () => import('./default-styles.NHkn0362.mjs').then(interopDefault),
   "components/AppHeader.vue": () => import('./default-styles.NHkn0362.mjs').then(interopDefault),

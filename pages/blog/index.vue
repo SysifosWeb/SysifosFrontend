@@ -18,8 +18,8 @@ setMeta({
   image: '/img/og-blog.jpg'
 })
 
-// Obtener posts reales desde la API
-const { data: blogResponse } = await useFetch(`${apiUrl}blog`, {
+// Obtener posts reales desde la API (sin await para navegación cliente)
+const { data: blogResponse } = useFetch(`${apiUrl}blog`, {
   key: 'blog-index-list'
 })
 

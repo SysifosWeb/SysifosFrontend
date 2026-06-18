@@ -30,6 +30,8 @@ export default defineNuxtConfig({
     },
 
     app: {
+        pageTransition: { name: 'page', mode: 'out-in' },
+        layoutTransition: { name: 'page', mode: 'out-in' },
         head: {
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
@@ -50,6 +52,7 @@ export default defineNuxtConfig({
                 { rel: 'alternate', href: 'https://www.sysifosweb.cl', hreflang: 'es' },
                 { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
                 { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+                { rel: 'alternate', type: 'application/rss+xml', title: 'SysifosWeb Blog RSS', href: '/blog/feed.xml' },
             ],
             script: [
                 // Google Tag Manager — debe ir lo más arriba posible en <head>

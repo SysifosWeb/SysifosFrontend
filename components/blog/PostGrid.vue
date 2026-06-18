@@ -17,8 +17,8 @@ defineProps({
                     :to="`/blog/${post.slug}`"
                     class="group relative flex flex-col rounded-2xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-300 overflow-hidden"
                 >
-                    <div class="relative h-56 overflow-hidden bg-[#0a0f18]">
-                        <img :src="post.image" :alt="post.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100 mix-blend-luminosity hover:mix-blend-normal" />
+                    <div class="relative overflow-hidden bg-[#0a0f18]" style="aspect-ratio: 16/10">
+                        <img :src="post.image" :alt="post.title" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100 mix-blend-luminosity hover:mix-blend-normal" />
                     </div>
                     <div class="p-6 lg:p-8 flex flex-col flex-grow">
                         <div class="flex items-center justify-between mb-4">

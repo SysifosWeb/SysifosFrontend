@@ -52,8 +52,8 @@ defineProps({
                         </span>
                     </div>
                 </div>
-                <div class="lg:w-1/2 relative min-h-[300px] lg:min-h-full overflow-hidden">
-                    <img :src="post.image" :alt="post.title"
+                <div class="lg:w-1/2 relative overflow-hidden" style="min-height: 300px">
+                    <img :src="post.image" :alt="post.title" loading="lazy" decoding="async"
                         class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                     <div
                         class="absolute inset-0 bg-gradient-to-r from-[#05070a] via-transparent to-transparent hidden lg:block">
