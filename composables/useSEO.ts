@@ -34,7 +34,7 @@ export const useSEO = () => {
             title,
             description,
             keywords,
-            image = '/img/og-image.jpg',
+            image = '/img/og-default.jpg',
             url,
             type = 'website',
             author,

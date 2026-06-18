@@ -81,7 +81,7 @@ if (!globalThis.$fetch) {
 if (!("global" in globalThis)) {
   globalThis.global = globalThis;
 }
-const appLayoutTransition = false;
+const appLayoutTransition = { "name": "page", "mode": "out-in" };
 const nuxtLinkDefaults = { "componentName": "NuxtLink" };
 const asyncDataDefaults = { "value": null, "errorValue": null, "deep": true };
 const fetchDefaults = {};
@@ -554,43 +554,43 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-BOqTEVtE.mjs')
+    component: () => import('./index-CI9AxDuj.mjs')
   },
   {
     name: "contacto",
     path: "/contacto",
     meta: __nuxt_page_meta$i || {},
-    component: () => import('./contacto-CTPEYFcl.mjs')
+    component: () => import('./contacto-DHQYdaXR.mjs')
   },
   {
     name: "nosotros",
     path: "/nosotros",
     meta: __nuxt_page_meta$h || {},
-    component: () => import('./nosotros-BKdgaush.mjs')
+    component: () => import('./nosotros-D1B9BlAc.mjs')
   },
   {
     name: "sinapsys",
     path: "/sinapsys",
     meta: __nuxt_page_meta$g || {},
-    component: () => import('./sinapsys-CjJsvFB4.mjs')
+    component: () => import('./sinapsys-Ba5dYexk.mjs')
   },
   {
     name: "portfolio",
     path: "/portfolio",
     meta: __nuxt_page_meta$f || {},
-    component: () => import('./portfolio-CDivwV12.mjs')
+    component: () => import('./portfolio-CJMMgtiW.mjs')
   },
   {
     name: "servicios",
     path: "/servicios",
     meta: __nuxt_page_meta$e || {},
-    component: () => import('./servicios-Dgah_zo5.mjs')
+    component: () => import('./servicios-BK2ZTzqK.mjs')
   },
   {
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./index-C_vj007w.mjs')
+    component: () => import('./index-rTn99U6f.mjs')
   },
   {
     name: "admin",
