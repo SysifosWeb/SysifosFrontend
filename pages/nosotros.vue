@@ -13,7 +13,7 @@ setMeta({
   title: 'Nosotros | Equipo de Desarrollo Web y Software en Chile — SysifosWeb',
   description: 'Somos SysifosWeb, una agencia de desarrollo de software ubicada en Coquimbo, Chile. Nuestro equipo de ingenieros full stack construye soluciones digitales escalables para empresas. Conoce quiénes somos.',
   keywords: 'equipo desarrollo software chile, agencia desarrollo web coquimbo, empresa desarrollo software chile, desarrolladores full stack chile, quiénes somos sysifosweb',
-  image: '/img/og-nosotros.jpg'
+  image: '/img/og-nosotros.png'
 })
 
 setSchema({

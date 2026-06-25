@@ -24,7 +24,7 @@ setMeta({
   title: 'Contacto | Cotiza tu Proyecto Web o Software — SysifosWeb Chile',
   description: 'Contáctanos para cotizar tu página web, tienda online, aplicación o software a medida. Respondemos en menos de 24 horas. Disponible por WhatsApp, email y formulario. Coquimbo, Chile.',
   keywords: 'contacto desarrollo web chile, cotizar página web chile, presupuesto desarrollo web, cotizar software a medida, agencia web coquimbo, contratar desarrolladores chile',
-  image: '/img/og-contacto.jpg'
+  image: '/img/og-contacto.png'
 })
 
 setSchema({

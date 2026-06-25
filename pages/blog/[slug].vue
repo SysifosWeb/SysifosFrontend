@@ -188,6 +188,9 @@ const articleSchema = computed(() => {
 
 useHead({
     link: [{ rel: 'canonical', href: () => canonicalUrl.value }],
+    meta: [
+        { name: 'image', property: 'og:image', content: () => ogImageUrl.value }
+    ],
     script: () => articleSchema.value ? [
         { type: 'application/ld+json', innerHTML: JSON.stringify(articleSchema.value) }
     ] : []

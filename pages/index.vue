@@ -6,7 +6,7 @@ setMeta({
   title: 'SysifosWeb | Desarrollo de Software y Páginas Web en Chile',
   description: 'Creamos software a medida, páginas web profesionales y tiendas online para empresas en Chile. Especialistas en Laravel, Nuxt y arquitecturas escalables. ¡Cotiza gratis hoy!',
   keywords: 'desarrollo de software chile, páginas web profesionales chile, desarrollo web coquimbo, software a medida, tiendas online chile, consultoría tecnológica chile, aplicaciones web empresas',
-  image: '/img/og-home.jpg'
+  image: '/img/og-home.png'
 })
 
 setSchema({

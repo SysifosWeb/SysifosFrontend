@@ -15,7 +15,7 @@ setMeta({
   title: 'Blog | Tecnología, Desarrollo Web y Negocios Digitales — SysifosWeb',
   description: 'Artículos sobre desarrollo web, software, ecommerce, SEO y estrategias digitales para empresas. Aprende cómo escalar tu negocio con tecnología de parte del equipo de SysifosWeb.',
   keywords: 'blog desarrollo web chile, artículos tecnología empresas, tips ecommerce chile, arquitectura de software, marketing digital pymes, SEO para negocios, digitalización empresas',
-  image: '/img/og-blog.jpg'
+  image: '/img/og-blog.png'
 })
 
 // Obtener posts reales desde la API (sin await para navegación cliente)

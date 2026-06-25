@@ -24,7 +24,7 @@ setMeta({
   title: 'Servicios de Desarrollo Web, Ecommerce y Software a Medida | SysifosWeb Chile',
   description: 'Páginas web profesionales, tiendas online, aplicaciones móviles, software a medida y mantenimiento web para empresas en Chile. Trabajamos con Laravel, Vue.js, React y Flutter. Cotiza tu proyecto gratis.',
   keywords: 'servicios desarrollo web chile, diseño páginas web empresas chile, tienda online chile, ecommerce chile, landing pages profesionales, software a medida empresas, aplicaciones móviles chile, mantenimiento web',
-  image: '/img/og-servicios.jpg'
+  image: '/img/og-servicios.png'
 })
 
 setSchema({
