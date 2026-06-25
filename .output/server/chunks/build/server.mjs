@@ -602,7 +602,7 @@ const _routes = [
     name: "admin-login",
     path: "/admin/login",
     meta: __nuxt_page_meta$b || {},
-    component: () => import('./login-BbJTyIAU.mjs')
+    component: () => import('./login-BoyUlbAU.mjs')
   },
   {
     name: "blog-slug",
@@ -903,21 +903,6 @@ const auth_45global = /* @__PURE__ */ defineNuxtRouteMiddleware((to, from) => {
   }
   const token = useCookie("auth_token");
   if (!token.value) {
-    return navigateTo("/admin/login");
-  }
-  try {
-    const parts = token.value.split(".");
-    if (parts.length !== 3) {
-      token.value = null;
-      return navigateTo("/admin/login");
-    }
-    const payload = JSON.parse(atob(parts[1]));
-    if (payload.exp && payload.exp * 1e3 < Date.now()) {
-      token.value = null;
-      return navigateTo("/admin/login");
-    }
-  } catch {
-    token.value = null;
     return navigateTo("/admin/login");
   }
 });
@@ -1561,7 +1546,7 @@ const plugins = [
   reveal_server_uRZrqkPcTOXMVic82VVVMBpGHwPPKeft5_XKNaiP79c
 ];
 const layouts = {
-  admin: defineAsyncComponent(() => import('./admin-Bis6XQpY.mjs').then((m) => m.default || m)),
+  admin: defineAsyncComponent(() => import('./admin-CgZFXDs8.mjs').then((m) => m.default || m)),
   default: defineAsyncComponent(() => import('./default-BT6S-rMJ.mjs').then((m) => m.default || m)),
   hero: defineAsyncComponent(() => import('./hero-BW5EHSoe.mjs').then((m) => m.default || m)),
   secondary: defineAsyncComponent(() => import('./secondary-VGNAyksy.mjs').then((m) => m.default || m))

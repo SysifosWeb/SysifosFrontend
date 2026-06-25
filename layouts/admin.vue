@@ -154,11 +154,11 @@
                                 class="flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-slate-900">
                                 <div class="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center">
                                     <span class="text-white font-medium text-sm">
-                                        A
+                                        {{ (userName || 'Admin').charAt(0).toUpperCase() }}
                                     </span>
                                 </div>
                                 <span class="ml-2 text-gray-700 dark:text-gray-200 font-medium hidden sm:block">
-                                    Admin
+                                    {{ userName || 'Admin' }}
                                 </span>
                                 <svg class="ml-1 h-4 w-4 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
@@ -171,7 +171,7 @@
                             <div v-show="userMenuOpen" @click.away="userMenuOpen = false"
                                 class="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-slate-700 transition">
                                 <div class="px-4 py-2 text-sm text-gray-500 dark:text-gray-400 border-b border-gray-100 dark:border-slate-700">
-                                    admin@sysifos.cl
+                                    {{ userEmail || 'admin@sysifos.cl' }}
                                 </div>
                                 <button @click="handleLogout"
                                     class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors">
@@ -207,6 +207,9 @@ const userMenuOpen = ref(false);
 const isDark = ref(false);
 const newContactsCount = ref(0);
 
+const userEmail = useCookie('user_email');
+const userName = useCookie('user_name');
+
 const routeCurrent = (path) => {
     return route.path.startsWith(path) && path !== '/admin' || (path === '/admin' && route.path === '/admin');
 };
@@ -226,6 +229,10 @@ const handleLogout = async () => {
     if (result.isConfirmed) {
         const token = useCookie('auth_token');
         token.value = null;
+        const emailCookie = useCookie('user_email');
+        emailCookie.value = null;
+        const nameCookie = useCookie('user_name');
+        nameCookie.value = null;
         router.push('/admin/login');
     }
 };

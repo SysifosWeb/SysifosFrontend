@@ -18,6 +18,9 @@ const form = ref({
 
 const config = useRuntimeConfig();
 const errorMessage = ref('');
+const tokenCookie = useCookie('auth_token', { maxAge: 60 * 60 * 24 * 7 }); // Definir de forma síncrona en setup
+const userEmailCookie = useCookie('user_email', { maxAge: 60 * 60 * 24 * 7 }); // Cookie para guardar el email
+const userNameCookie = useCookie('user_name', { maxAge: 60 * 60 * 24 * 7 }); // Cookie para guardar el nombre
 
 // Manejo del Login
 const handleLogin = async () => {
@@ -34,13 +37,17 @@ const handleLogin = async () => {
             }
         });
 
-        // Guardar token en cookie (asume que la API devuelve un 'token' directamente o en 'data')
-        const maxAge = form.value.remember ? 60 * 60 * 24 * 7 : 60 * 60 * 24; // 7 días o 1 día
-        const tokenCookie = useCookie('auth_token', { maxAge });
+        // Guardar token en cookie
         tokenCookie.value = response.token || response?.data?.token || response?.access_token;
+        
+        // Guardar email para mostrarlo en el layout de admin de forma dinámica
+        userEmailCookie.value = response.user?.email || form.value.email;
+        
+        // Guardar nombre para mostrarlo en el layout de admin de forma dinámica
+        userNameCookie.value = response.user?.name || 'Admin';
 
         // Redirigir al área de admin
-        router.push('/admin');
+        await navigateTo('/admin');
     } catch (error) {
         console.error('Error de login:', error);
         const status = error.response?.status || error.status;
