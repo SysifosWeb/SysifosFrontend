@@ -93,14 +93,13 @@ export const useSEO = () => {
             metaTags.push({ name: 'keywords', content: keywords })
         }
 
-        // Article meta tags
+        // Publish date & Modified date for all pages (LinkedIn requires it)
+        const defaultDate = '2024-06-01T12:00:00Z'
+        metaTags.push({ property: 'article:published_time', content: publishedTime || defaultDate })
+        metaTags.push({ property: 'article:modified_time', content: modifiedTime || defaultDate })
+
+        // Article specific meta tags
         if (type === 'article') {
-            if (publishedTime) {
-                metaTags.push({ property: 'article:published_time', content: publishedTime })
-            }
-            if (modifiedTime) {
-                metaTags.push({ property: 'article:modified_time', content: modifiedTime })
-            }
             if (author) {
                 metaTags.push({ property: 'article:author', content: author })
             }
