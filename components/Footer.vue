@@ -21,7 +21,7 @@ import logoBlanco from "@/assets/img/logo-blanco.webp"
         <!-- Bloque izquierdo: Logo + slogan + redes -->
         <div class="lg:col-span-5 flex flex-col gap-6">
         <NuxtLink to="/" class="flex items-center">
-          <img :src="logoBlanco" alt="SysifosWeb Logo" class="h-12 md:h-20 w-auto object-contain" />
+          <img :src="logoBlanco" alt="SysifosWeb Logo" width="200" height="80" class="h-12 md:h-20 w-auto object-contain" />
         </NuxtLink>
           <p class="text-sm leading-relaxed max-w-xs" style="color: var(--text-muted);">
             Diseñamos y construimos plataformas digitales que ayudan a empresas a crecer.
@@ -30,7 +30,7 @@ import logoBlanco from "@/assets/img/logo-blanco.webp"
           <!-- Redes sociales -->
           <div class="flex items-center gap-4 mt-2">
             <!-- Facebook -->
-            <a href="https://www.facebook.com/profile.php?id=61567859694020" target="_blank"
+            <a href="https://www.facebook.com/profile.php?id=61567859694020" target="_blank" aria-label="Facebook"
                class="social-icon w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
                style="background: var(--bg-elevated); border: 1px solid var(--border);">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" style="color: var(--text-muted);">
@@ -38,7 +38,7 @@ import logoBlanco from "@/assets/img/logo-blanco.webp"
               </svg>
             </a>
             <!-- Instagram -->
-            <a href="https://www.instagram.com/sysifosweb_/" target="_blank"
+            <a href="https://www.instagram.com/sysifosweb_/" target="_blank" aria-label="Instagram"
                class="social-icon w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
                style="background: var(--bg-elevated); border: 1px solid var(--border);">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" style="color: var(--text-muted);">
@@ -46,7 +46,7 @@ import logoBlanco from "@/assets/img/logo-blanco.webp"
               </svg>
             </a>
             <!-- LinkedIn -->
-            <a href="https://www.linkedin.com/company/sysifos-web" target="_blank"
+            <a href="https://www.linkedin.com/company/sysifos-web" target="_blank" aria-label="LinkedIn"
                class="social-icon w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
                style="background: var(--bg-elevated); border: 1px solid var(--border);">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" style="color: var(--text-muted);">
@@ -54,7 +54,7 @@ import logoBlanco from "@/assets/img/logo-blanco.webp"
               </svg>
             </a>
             <!-- TikTok -->
-            <a href="https://www.tiktok.com/@sysifosweb" target="_blank"
+            <a href="https://www.tiktok.com/@sysifosweb" target="_blank" aria-label="TikTok"
                class="social-icon w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
                style="background: var(--bg-elevated); border: 1px solid var(--border);">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" style="color: var(--text-muted);">

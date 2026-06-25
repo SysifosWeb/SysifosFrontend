@@ -39,7 +39,7 @@ watch(() => route.fullPath, () => {
       <div class="flex items-center justify-between py-10 lg:py-12">
         <!-- LOGO -->
         <NuxtLink to="/" class="flex items-center">
-          <img :src="logoBlanco" alt="SysifosWeb Logo" class="h-8 md:h-10 w-auto object-contain" />
+          <img :src="logoBlanco" alt="SysifosWeb Logo" width="200" height="40" class="h-8 md:h-10 w-auto object-contain" />
         </NuxtLink>
 
         <!-- MENÚ DESKTOP -->
@@ -89,7 +89,7 @@ watch(() => route.fullPath, () => {
         <div class="absolute inset-0 technical-grid opacity-5 pointer-events-none"></div>
         <div class="flex items-center justify-between mb-24">
            <NuxtLink to="/" @click="closeMenu" class="flex items-center">
-             <img :src="logoBlanco" alt="SysifosWeb Logo" class="h-8 w-auto object-contain" />
+             <img :src="logoBlanco" alt="SysifosWeb Logo" width="200" height="40" class="h-8 w-auto object-contain" />
            </NuxtLink>
            <button @click="closeMenu" class="text-accent">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
