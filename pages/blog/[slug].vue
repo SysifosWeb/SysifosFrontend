@@ -296,7 +296,7 @@ const relatedPosts = computed(() => {
         <!-- Cover Image -->
         <section class="max-w-[1000px] w-[90%] mx-auto mb-16 lg:mb-24 relative z-20">
             <div class="w-full h-[300px] md:h-[500px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
-                <img :src="post.image" :alt="post.title" loading="lazy" decoding="async"
+                <NuxtImg :src="post.image" :alt="post.title" loading="lazy" decoding="async" format="webp"
                     class="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-1000 opacity-80" />
             </div>
         </section>
@@ -389,7 +389,7 @@ const relatedPosts = computed(() => {
                     <NuxtLink v-for="relPost in relatedPosts" :key="relPost.id" :to="`/blog/${relPost.slug}`"
                         class="group relative flex flex-col lg:flex-row rounded-2xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-300 overflow-hidden">
                         <div class="relative overflow-hidden bg-[#0a0f18] lg:w-2/5" style="aspect-ratio: 16/10; min-height: 120px">
-                            <img :src="relPost.image" :alt="relPost.title" loading="lazy" decoding="async"
+                            <NuxtImg :src="relPost.image" :alt="relPost.title" loading="lazy" decoding="async" format="webp"
                                 class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100 mix-blend-luminosity hover:mix-blend-normal" />
                         </div>
                         <div class="p-6 lg:p-8 flex flex-col justify-center lg:w-3/5">

@@ -554,7 +554,7 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-DmteY7rM.mjs')
+    component: () => import('./index-CpsgFrHm.mjs')
   },
   {
     name: "contacto",
@@ -566,7 +566,7 @@ const _routes = [
     name: "nosotros",
     path: "/nosotros",
     meta: __nuxt_page_meta$h || {},
-    component: () => import('./nosotros-GH99V-CO.mjs')
+    component: () => import('./nosotros-CF6BZA7p.mjs')
   },
   {
     name: "sinapsys",
@@ -584,13 +584,13 @@ const _routes = [
     name: "servicios",
     path: "/servicios",
     meta: __nuxt_page_meta$e || {},
-    component: () => import('./servicios-Daipna1I.mjs')
+    component: () => import('./servicios-C1PgneBK.mjs')
   },
   {
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./index-DluI7QSn.mjs')
+    component: () => import('./index-C0bn0olZ.mjs')
   },
   {
     name: "admin",
@@ -608,7 +608,7 @@ const _routes = [
     name: "blog-slug",
     path: "/blog/:slug()",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./_slug_-bmEwPedB.mjs')
+    component: () => import('./_slug_-DYmoTpg5.mjs')
   },
   {
     name: "admin-posts-id",

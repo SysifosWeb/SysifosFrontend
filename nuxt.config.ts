@@ -79,7 +79,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             Inter: [300, 400, 500, 600, 700, 800, 900],
             Poppins: [300, 400, 500, 600, 700, 800, 900]
         },
-        display: 'swap'
+        display: 'swap',
+        preload: true
     },
 
     css: ['~/assets/css/main.css'],

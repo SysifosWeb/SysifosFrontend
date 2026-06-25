@@ -56,7 +56,7 @@ import { Medal } from "lucide-vue-next";
         <!-- Right: Image with editorial frame -->
         <div class="relative group" v-reveal data-delay="200">
           <div class="relative rounded-[20px] overflow-hidden border border-white/5 shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_40px_80px_rgba(0,0,0,0.5)]">
-            <img :src="team" alt="SysifosWeb — Arquitecto de nodo" class="w-full h-[480px] object-cover object-center block brightness-[0.88] contrast-[1.04] transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:brightness-[0.96] group-hover:contrast-[1.02] group-hover:scale-[1.02]" loading="lazy" />
+            <NuxtImg :src="team" alt="SysifosWeb — Arquitecto de nodo" class="w-full h-[480px] object-cover object-center block brightness-[0.88] contrast-[1.04] transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:brightness-[0.96] group-hover:contrast-[1.02] group-hover:scale-[1.02]" loading="lazy" format="webp" />
             <!-- Overlay caption -->
             <div class="absolute bottom-0 inset-x-0 pt-10 pb-5 px-6 bg-gradient-to-t from-[#0b1222]/95 to-transparent flex items-center gap-2.5 text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-white/35">
               <span class="w-[5px] h-[5px] rounded-full bg-accent opacity-70"></span>
