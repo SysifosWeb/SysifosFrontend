@@ -1547,7 +1547,7 @@ const plugins = [
 ];
 const layouts = {
   admin: defineAsyncComponent(() => import('./admin-CgZFXDs8.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-ByuOSec9.mjs').then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import('./default-c6C7vTFD.mjs').then((m) => m.default || m)),
   hero: defineAsyncComponent(() => import('./hero-DsR-Fk0H.mjs').then((m) => m.default || m)),
   secondary: defineAsyncComponent(() => import('./secondary-fb0qw3d3.mjs').then((m) => m.default || m))
 };
