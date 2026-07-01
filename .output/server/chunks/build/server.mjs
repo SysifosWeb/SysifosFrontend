@@ -1547,9 +1547,9 @@ const plugins = [
 ];
 const layouts = {
   admin: defineAsyncComponent(() => import('./admin-CgZFXDs8.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-CNwUxiTv.mjs').then((m) => m.default || m)),
-  hero: defineAsyncComponent(() => import('./hero-C9OqxHvv.mjs').then((m) => m.default || m)),
-  secondary: defineAsyncComponent(() => import('./secondary-ZPPfUNic.mjs').then((m) => m.default || m))
+  default: defineAsyncComponent(() => import('./default-AmlxWE8I.mjs').then((m) => m.default || m)),
+  hero: defineAsyncComponent(() => import('./hero-Dq7fvLzf.mjs').then((m) => m.default || m)),
+  secondary: defineAsyncComponent(() => import('./secondary-Owbtj0gn.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({

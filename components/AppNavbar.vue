@@ -38,12 +38,14 @@ watch(() => route.fullPath, () => {
 </script>
 
 <template>
-  <nav class="fixed top-0 left-0 w-full z-[1002] bg-transparent transition-all duration-500" :class="{ 'bg-[#05070a]/90 backdrop-blur-xl': isScrolled }">
+  <nav class="fixed top-0 left-0 w-full z-[1002] bg-transparent transition-all duration-500"
+    :class="{ 'bg-[#05070a]/90 backdrop-blur-xl': isScrolled }">
     <div class="max-w-[1400px] w-[92%] mx-auto border-b border-white/10">
       <div class="flex items-center justify-between py-10 lg:py-12">
         <!-- LOGO -->
         <NuxtLink to="/" class="flex items-center">
-          <img :src="logoBlanco" alt="SysifosWeb Logo" width="200" height="40" class="h-8 md:h-10 w-auto object-contain" />
+          <img :src="logoBlanco" alt="SysifosWeb Logo" width="200" height="40" class="h-8 md:h-10 w-auto object-contain"
+            fetchpriority="high" />
         </NuxtLink>
 
         <!-- MENÚ DESKTOP -->
@@ -56,16 +58,15 @@ watch(() => route.fullPath, () => {
               { to: '/portfolio', label: 'Portfolio' },
               { to: '/blog', label: 'Blog' }
             ]" :key="item.to">
-              <NuxtLink
-                :to="item.to"
+              <NuxtLink :to="item.to"
                 class="nav-link text-[15px] tracking-widest font-bold text-gray-300 hover:text-white transition-all font-tech uppercase"
-                :class="{ 'text-accent': currentRoute === item.to }"
-              >
+                :class="{ 'text-accent': currentRoute === item.to }">
                 {{ item.label }}
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/contacto" class="ml-6 px-8 py-3 bg-accent text-black font-bold text-[15px] uppercase tracking-widest hover:bg-transparent hover:text-accent border border-accent transition-all font-tech">
+              <NuxtLink to="/contacto"
+                class="ml-6 px-8 py-3 bg-accent text-black font-bold text-[15px] uppercase tracking-widest hover:bg-transparent hover:text-accent border border-accent transition-all font-tech">
                 Contacto
               </NuxtLink>
             </li>
@@ -75,15 +76,13 @@ watch(() => route.fullPath, () => {
         <!-- BOTÓN HAMBURGUESA -->
         <button
           class="lg:hidden text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-          @click="toggleMenu"
-          :aria-expanded="isMenuOpen"
-          aria-controls="mobile-menu"
-          :aria-label="isMenuOpen ? 'Cerrar menú' : 'Abrir menú'"
-        >
+          @click="toggleMenu" :aria-expanded="isMenuOpen" aria-controls="mobile-menu"
+          :aria-label="isMenuOpen ? 'Cerrar menú' : 'Abrir menú'">
           <div class="space-y-1.5" aria-hidden="true">
-             <div class="w-5 h-[1px] bg-accent transition-all" :class="{ 'rotate-45 translate-y-2': isMenuOpen }"></div>
-             <div class="w-5 h-[1px] bg-accent transition-all" :class="{ 'opacity-0': isMenuOpen }"></div>
-             <div class="w-5 h-[1px] bg-accent transition-all" :class="{ '-rotate-45 -translate-y-2': isMenuOpen }"></div>
+            <div class="w-5 h-[1px] bg-accent transition-all" :class="{ 'rotate-45 translate-y-2': isMenuOpen }"></div>
+            <div class="w-5 h-[1px] bg-accent transition-all" :class="{ 'opacity-0': isMenuOpen }"></div>
+            <div class="w-5 h-[1px] bg-accent transition-all" :class="{ '-rotate-45 -translate-y-2': isMenuOpen }">
+            </div>
           </div>
         </button>
       </div>
@@ -91,28 +90,21 @@ watch(() => route.fullPath, () => {
 
     <!-- MENÚ MÓVIL -->
     <Transition name="fade">
-      <div
-        v-if="isMenuOpen"
-        id="mobile-menu"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Menú de navegación"
-        class="fixed inset-0 z-[2000] bg-[#05070a] flex flex-col p-10 overflow-hidden"
-      >
+      <div v-if="isMenuOpen" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación"
+        class="fixed inset-0 z-[2000] bg-[#05070a] flex flex-col p-10 overflow-hidden">
         <div class="absolute inset-0 technical-grid opacity-5 pointer-events-none" aria-hidden="true"></div>
         <div class="flex items-center justify-between mb-24">
-           <NuxtLink to="/" @click="closeMenu" class="flex items-center">
-             <img :src="logoBlanco" alt="SysifosWeb — ir a inicio" width="200" height="40" class="h-8 w-auto object-contain" />
-           </NuxtLink>
-           <button
-             @click="closeMenu"
-             class="text-accent focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-             aria-label="Cerrar menú"
-           >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                 <path stroke-linecap="square" stroke-width="0.5" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-           </button>
+          <NuxtLink to="/" @click="closeMenu" class="flex items-center">
+            <img :src="logoBlanco" alt="SysifosWeb — ir a inicio" width="200" height="40"
+              class="h-8 w-auto object-contain" />
+          </NuxtLink>
+          <button @click="closeMenu" class="text-accent focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+            aria-label="Cerrar menú">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="square" stroke-width="0.5" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
         <nav aria-label="Menú principal móvil">
           <ul class="flex-grow flex flex-col space-y-10">
@@ -124,7 +116,9 @@ watch(() => route.fullPath, () => {
               { to: '/blog', label: 'Blog' },
               { to: '/contacto', label: 'Contacto' }
             ]" :key="item.to">
-              <NuxtLink :to="item.to" class="text-2xl font-bold tracking-widest text-white font-tech uppercase transition-colors hover:text-accent">{{ item.label }}</NuxtLink>
+              <NuxtLink :to="item.to"
+                class="text-2xl font-bold tracking-widest text-white font-tech uppercase transition-colors hover:text-accent">
+                {{ item.label }}</NuxtLink>
             </li>
           </ul>
         </nav>
@@ -137,14 +131,19 @@ watch(() => route.fullPath, () => {
 .font-tech {
   font-family: var(--font-tech);
 }
+
 .technical-grid {
-    background-image: radial-gradient(rgba(0, 242, 255, 0.1) 1px, transparent 0);
-    background-size: 40px 40px;
+  background-image: radial-gradient(rgba(0, 242, 255, 0.1) 1px, transparent 0);
+  background-size: 40px 40px;
 }
-.fade-enter-active, .fade-leave-active {
+
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.5s ease;
 }
-.fade-enter-from, .fade-leave-to {
+
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>

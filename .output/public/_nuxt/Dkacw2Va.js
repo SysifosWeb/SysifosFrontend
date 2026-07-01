@@ -1,1 +1,0 @@
-import{_ as a,a as n}from"./DDFu6FU1.js";import{ab as _,P as c,i as r,m as e,f as l,X as m}from"./ORgZ-4Cv.js";const p={class:"min-h-screen font-sans bg-section-dark"},b={__name:"hero",setup(u){return _(),(o,f)=>{const t=a,s=n;return c(),r("div",p,[e(t,{class:"absolute top-0 left-0 w-full z-50"}),l("main",null,[m(o.$slots,"default")]),e(s)])}}};export{b as default};

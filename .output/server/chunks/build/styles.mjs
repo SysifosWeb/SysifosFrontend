@@ -1,6 +1,6 @@
 const interopDefault = r => r.default || r || [];
 const styles = {
-  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.BYNJGzwy.mjs').then(interopDefault),
+  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.5Ggfnx40.mjs').then(interopDefault),
   "pages/index.vue": () => import('./index-styles.C9qpeztt.mjs').then(interopDefault),
   "components/home/HomeValue.vue": () => import('./HomeValue-styles.iOfSa90Y.mjs').then(interopDefault),
   "components/home/HomeProblems.vue": () => import('./HomeProblems-styles.BrzEF-iF.mjs').then(interopDefault),
@@ -33,7 +33,7 @@ const styles = {
   "components/AppHeader.vue": () => import('./default-styles.CmMc_-XV.mjs').then(interopDefault),
   "layouts/secondary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
   "components/AppHeaderSecundary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
-  "components/AppNavbar.vue": () => import('./AppNavbar-styles.C3ortzWb.mjs').then(interopDefault),
+  "components/AppNavbar.vue": () => import('./AppNavbar-styles.C_9AjqQi.mjs').then(interopDefault),
   "components/Footer.vue": () => import('./Footer-styles.D_RAaINc.mjs').then(interopDefault)
 };
 

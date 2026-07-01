@@ -5,52 +5,61 @@
   ============================================ */
 
   /* --- Fuentes --- */
-  --font-family:  'Inter', sans-serif;
-  --font-tech:    'Inter', sans-serif;
+  --font-family: 'Inter', sans-serif;
+  --font-tech: 'Inter', sans-serif;
 
   /* --- Core Palette --- */
-  --bg-dark:        #0B1222;        /* Azul marino oscuro (fondo base) */
-  --bg-surface:     #1E293B;        /* Superficies (slate-800) */
-  --bg-elevated:    #334155;        /* Elevaciones (slate-700) */
+  --bg-dark: #0B1222;
+  /* Azul marino oscuro (fondo base) */
+  --bg-surface: #1E293B;
+  /* Superficies (slate-800) */
+  --bg-elevated: #334155;
+  /* Elevaciones (slate-700) */
 
   /* --- Accent Colors --- */
-  --accent:         #38BDF8;        /* Cyan suave — SaaS standard */
-  --accent-hover:   #0EA5E9;        /* Cyan hover */
-  --accent-glow:    rgba(56, 189, 248, 0.12);
+  --accent: #38BDF8;
+  /* Cyan suave — SaaS standard */
+  --accent-hover: #0EA5E9;
+  /* Cyan hover */
+  --accent-glow: rgba(56, 189, 248, 0.12);
 
-  --purple:         #6366F1;        /* Índigo — accent secundario */
-  --purple-glow:    rgba(99, 102, 241, 0.1);
+  --purple: #6366F1;
+  /* Índigo — accent secundario */
+  --purple-glow: rgba(99, 102, 241, 0.1);
 
   /* --- Text Colors --- */
-  --text-main:      #F1F5F9;        /* Blanco suave */
-  --text-secondary: #94A3B8;        /* Gris plata */
-  --text-muted:     #8899A6;        /* Gris neutro — mejorado para WCAG AA (ratio 4.6:1) */
+  --text-main: #F1F5F9;
+  /* Blanco suave */
+  --text-secondary: #94A3B8;
+  /* Gris plata */
+  --text-muted: #94A3B8;
+  /* Gris neutro — mejorado para WCAG AA (ratio 4.6:1) */
 
   /* --- Borders --- */
-  --border:         rgba(255, 255, 255, 0.08);
-  --border-accent:  rgba(56, 189, 248, 0.2);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-accent: rgba(56, 189, 248, 0.2);
 
   /* --- Border Radius --- */
-  --radius-sm:    6px;
-  --radius-md:    10px;
-  --radius-lg:    16px;
-  --radius-xl:    24px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
 
   /* --- Legacy Mappings --- */
-  --primary:              var(--accent);
-  --primary-glow:         var(--accent-glow);
-  --secondary:            var(--bg-surface);
-  --surface:              rgba(13, 19, 32, 0.85);
-  --detail-primary:       var(--accent);
-  --detail-secondary:     var(--bg-surface);
-  --detail-dark:          var(--bg-dark);
-  --detail-quaternary:    var(--bg-elevated);
-  --background-light:     #F1F5F9;
-  --background-medium:    var(--bg-surface);
-  --background-dark:      var(--bg-dark);
-  --text-light:           var(--text-main);
-  --text-medium:          var(--text-secondary);
-  --text-dark:            #020617;
+  --primary: var(--accent);
+  --primary-glow: var(--accent-glow);
+  --secondary: var(--bg-surface);
+  --surface: rgba(13, 19, 32, 0.85);
+  --detail-primary: var(--accent);
+  --detail-secondary: var(--bg-surface);
+  --detail-dark: var(--bg-dark);
+  --detail-quaternary: var(--bg-elevated);
+  --background-light: #F1F5F9;
+  --background-medium: var(--bg-surface);
+  --background-dark: var(--bg-dark);
+  --text-light: var(--text-main);
+  --text-medium: var(--text-secondary);
+  --text-dark: #020617;
 }
 
 /* ============================================
@@ -63,8 +72,8 @@
   opacity: 0;
   transform: translateY(30px);
   /* Curva cubic-bezier para un "landing" lento y elegante */
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
