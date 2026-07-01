@@ -59,7 +59,7 @@
             class="cta-primary group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl font-semibold text-[0.9rem]"
             style="background: var(--accent); color: #07101F;">
             <span>Hablemos de tu proyecto</span>
-            <svg class="w-4 h-4 cta-arrow" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 cta-arrow" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </NuxtLink>
@@ -76,7 +76,7 @@
         <div class="hero-enter delay-4 flex flex-wrap items-center gap-x-6 gap-y-3 pt-8"
           style="border-top: 1px solid var(--border);">
           <div v-for="trust in trustItems" :key="trust.label" class="flex items-center gap-2">
-            <svg class="w-3.5 h-3.5 shrink-0" style="color: var(--accent);" fill="none" stroke="currentColor"
+            <svg class="w-3.5 h-3.5 shrink-0" aria-hidden="true" style="color: var(--accent);" fill="none" stroke="currentColor"
               stroke-width="2.5" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
             </svg>
@@ -89,7 +89,7 @@
       <!-- =====================
            COLUMNA DERECHA: Dashboard UI
       ===================== -->
-      <div class="relative hidden lg:flex items-center justify-center mockup-container">
+      <div class="relative hidden lg:flex items-center justify-center mockup-container" aria-hidden="true" role="img" aria-label="Vista previa de un dashboard de analytics">
 
         <!-- Glow de profundidad detrás del panel -->
         <div class="absolute inset-8 rounded-3xl pointer-events-none"

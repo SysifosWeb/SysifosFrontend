@@ -320,40 +320,45 @@ const relatedPosts = computed(() => {
                 <div class="flex items-center gap-3">
                     <span class="text-xs text-white/40 uppercase tracking-widest font-bold mr-2">Compartir:</span>
                     <button @click="shareOnTwitter"
+                        aria-label="Compartir en Twitter/X"
                         class="w-8 h-8 rounded-full bg-white/5 hover:bg-[#1DA1F2]/20 hover:text-[#1DA1F2] flex items-center justify-center transition-colors group">
-                        <svg class="w-4 h-4 text-white group-hover:text-[#1DA1F2] transition-colors" fill="currentColor"
+                        <svg class="w-4 h-4 text-white group-hover:text-[#1DA1F2] transition-colors" aria-hidden="true" fill="currentColor"
                             viewBox="0 0 24 24">
                             <path
                                 d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
                         </svg>
                     </button>
                     <button @click="shareOnLinkedIn"
+                        aria-label="Compartir en LinkedIn"
                         class="w-8 h-8 rounded-full bg-white/5 hover:bg-[#0A66C2]/20 hover:text-[#0A66C2] flex items-center justify-center transition-colors group">
-                        <svg class="w-4 h-4 text-white group-hover:text-[#0A66C2] transition-colors" fill="currentColor"
+                        <svg class="w-4 h-4 text-white group-hover:text-[#0A66C2] transition-colors" aria-hidden="true" fill="currentColor"
                             viewBox="0 0 24 24">
                             <path
                                 d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                         </svg>
                     </button>
                     <button @click="shareOnFacebook"
+                        aria-label="Compartir en Facebook"
                         class="w-8 h-8 rounded-full bg-white/5 hover:bg-[#1877F2]/20 hover:text-[#1877F2] flex items-center justify-center transition-colors group">
-                        <svg class="w-4 h-4 text-white group-hover:text-[#1877F2] transition-colors" fill="currentColor"
+                        <svg class="w-4 h-4 text-white group-hover:text-[#1877F2] transition-colors" aria-hidden="true" fill="currentColor"
                             viewBox="0 0 24 24">
                             <path
                                 d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                         </svg>
                     </button>
                     <button @click="shareOnWhatsApp"
+                        aria-label="Compartir en WhatsApp"
                         class="w-8 h-8 rounded-full bg-white/5 hover:bg-[#25D366]/20 hover:text-[#25D366] flex items-center justify-center transition-colors group">
-                        <svg class="w-4 h-4 text-white group-hover:text-[#25D366] transition-colors" fill="currentColor"
+                        <svg class="w-4 h-4 text-white group-hover:text-[#25D366] transition-colors" aria-hidden="true" fill="currentColor"
                             viewBox="0 0 24 24">
                             <path
                                 d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.993L2 22l5.233-1.237a9.994 9.994 0 004.779 1.217h.004c5.505 0 9.988-4.478 9.989-9.984 0-2.669-1.037-5.176-2.922-7.062A9.935 9.935 0 0012.012 2zm5.882 14.161c-.247.696-1.432 1.34-1.97 1.455-.494.106-1.139.222-3.418-.72-2.73-1.127-4.498-3.92-4.636-4.103-.137-.184-1.109-1.474-1.109-2.812s.696-2.001.942-2.278c.246-.277.534-.347.712-.347.177 0 .356.004.512.011.168.008.396-.067.621.474.233.56.793 1.933.864 2.076.071.144.119.313.028.497-.092.184-.139.299-.277.456-.139.157-.291.341-.416.471-.138.143-.284.298-.124.573.16.276.711 1.173 1.528 1.905 1.053.945 1.93 1.238 2.205 1.382.276.143.438.118.601-.067.163-.186-.71-8.23-8.23-1.107.123-.277.167-.456.123-.655-.044-.199-.163-.318-.44-.456z" />
                         </svg>
                     </button>
                     <button @click="copyToClipboard"
+                        aria-label="Copiar enlace del artículo"
                         class="w-8 h-8 rounded-full bg-white/5 hover:bg-white/20 flex items-center justify-center transition-colors">
-                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 text-white" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
                             </path>

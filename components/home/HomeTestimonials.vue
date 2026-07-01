@@ -17,8 +17,8 @@
         </div>
         <!-- Social proof strip -->
         <div class="proof-strip" v-reveal data-delay="200">
-          <div class="proof-stars">
-            <svg v-for="s in 5" :key="s" class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="#F59E0B">
+          <div class="proof-stars" aria-label="Valoración: 5 estrellas">
+            <svg v-for="s in 5" :key="s" class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="#F59E0B" aria-hidden="true">
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
             </svg>
           </div>
@@ -31,17 +31,17 @@
       <div class="bento-grid">
 
         <!-- FEATURED CARD — left, large -->
-        <div class="bento-card bento-card--featured group" v-reveal data-delay="0">
+        <article class="bento-card bento-card--featured group" v-reveal data-delay="0">
           <!-- Accent top line on hover -->
-          <div class="card-accent-line card-accent-line--cyan"></div>
+          <div class="card-accent-line card-accent-line--cyan" aria-hidden="true"></div>
 
           <!-- Large quote mark -->
-          <span class="quote-mark">"</span>
+          <span class="quote-mark" aria-hidden="true">“</span>
 
           <!-- Quote text — bigger on featured -->
-          <p class="quote-text quote-text--lg">
-            {{ testimonials[0].text }}
-          </p>
+          <blockquote class="quote-text quote-text--lg">
+            <p>{{ testimonials[0].text }}</p>
+          </blockquote>
 
           <!-- Metric — large number display, featured treatment -->
           <div class="metric-block metric-block--featured">
@@ -50,59 +50,59 @@
           </div>
 
           <!-- Author -->
-          <div class="author-row">
-            <div class="author-avatar" :style="{ background: testimonials[0].avatarBg }">
+          <footer class="author-row">
+            <div class="author-avatar" :style="{ background: testimonials[0].avatarBg }" aria-hidden="true">
               {{ testimonials[0].initials }}
             </div>
-            <div>
+            <cite>
               <p class="author-name">{{ testimonials[0].name }}</p>
               <p class="author-company">{{ testimonials[0].company }}</p>
-            </div>
-          </div>
-        </div>
+            </cite>
+          </footer>
+        </article>
 
         <!-- RIGHT COLUMN — two stacked cards -->
         <div class="bento-col-right">
 
           <!-- Card 2 -->
-          <div class="bento-card group" v-reveal data-delay="150">
-            <div class="card-accent-line card-accent-line--purple"></div>
-            <span class="quote-mark quote-mark--sm">"</span>
-            <p class="quote-text">{{ testimonials[1].text }}</p>
+          <article class="bento-card group" v-reveal data-delay="150">
+            <div class="card-accent-line card-accent-line--purple" aria-hidden="true"></div>
+            <span class="quote-mark quote-mark--sm" aria-hidden="true">“</span>
+            <blockquote class="quote-text"><p>{{ testimonials[1].text }}</p></blockquote>
             <div class="metric-block">
               <span class="metric-number metric-number--purple">{{ testimonials[1].metric }}</span>
               <span class="metric-label">{{ testimonials[1].metricLabel }}</span>
             </div>
-            <div class="author-row">
-              <div class="author-avatar" :style="{ background: testimonials[1].avatarBg }">
+            <footer class="author-row">
+              <div class="author-avatar" :style="{ background: testimonials[1].avatarBg }" aria-hidden="true">
                 {{ testimonials[1].initials }}
               </div>
-              <div>
+              <cite>
                 <p class="author-name">{{ testimonials[1].name }}</p>
                 <p class="author-company">{{ testimonials[1].company }}</p>
-              </div>
-            </div>
-          </div>
+              </cite>
+            </footer>
+          </article>
 
           <!-- Card 3 -->
-          <div class="bento-card group" v-reveal data-delay="300">
-            <div class="card-accent-line card-accent-line--cyan"></div>
-            <span class="quote-mark quote-mark--sm">"</span>
-            <p class="quote-text">{{ testimonials[2].text }}</p>
+          <article class="bento-card group" v-reveal data-delay="300">
+            <div class="card-accent-line card-accent-line--cyan" aria-hidden="true"></div>
+            <span class="quote-mark quote-mark--sm" aria-hidden="true">“</span>
+            <blockquote class="quote-text"><p>{{ testimonials[2].text }}</p></blockquote>
             <div class="metric-block">
               <span class="metric-number metric-number--cyan">{{ testimonials[2].metric }}</span>
               <span class="metric-label">{{ testimonials[2].metricLabel }}</span>
             </div>
-            <div class="author-row">
-              <div class="author-avatar" :style="{ background: testimonials[2].avatarBg }">
+            <footer class="author-row">
+              <div class="author-avatar" :style="{ background: testimonials[2].avatarBg }" aria-hidden="true">
                 {{ testimonials[2].initials }}
               </div>
-              <div>
+              <cite>
                 <p class="author-name">{{ testimonials[2].name }}</p>
                 <p class="author-company">{{ testimonials[2].company }}</p>
-              </div>
-            </div>
-          </div>
+              </cite>
+            </footer>
+          </article>
 
         </div>
 

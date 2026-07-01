@@ -21,6 +21,34 @@
 }
 
 /* ============================================
+   PREFERS REDUCED MOTION — Accesibilidad
+   Desactiva animaciones para usuarios con
+   sensibilidad al movimiento (WCAG 2.1 - 2.3.3)
+============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Mostrar elementos reveal inmediatamente sin animación */
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Pausar marquee infinito */
+  .animate-slow-marquee {
+    animation-play-state: paused !important;
+  }
+}
+
+/* ============================================
    RESET & BASE
 ============================================ */
 

@@ -554,7 +554,7 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-CpsgFrHm.mjs')
+    component: () => import('./index-BO0fHGm4.mjs')
   },
   {
     name: "contacto",
@@ -608,7 +608,7 @@ const _routes = [
     name: "blog-slug",
     path: "/blog/:slug()",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./_slug_-DYmoTpg5.mjs')
+    component: () => import('./_slug_-Cor9Hkh5.mjs')
   },
   {
     name: "admin-posts-id",
@@ -1547,9 +1547,9 @@ const plugins = [
 ];
 const layouts = {
   admin: defineAsyncComponent(() => import('./admin-CgZFXDs8.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-c6C7vTFD.mjs').then((m) => m.default || m)),
-  hero: defineAsyncComponent(() => import('./hero-DsR-Fk0H.mjs').then((m) => m.default || m)),
-  secondary: defineAsyncComponent(() => import('./secondary-fb0qw3d3.mjs').then((m) => m.default || m))
+  default: defineAsyncComponent(() => import('./default-CYvLi94_.mjs').then((m) => m.default || m)),
+  hero: defineAsyncComponent(() => import('./hero-D_BOgiHH.mjs').then((m) => m.default || m)),
+  secondary: defineAsyncComponent(() => import('./secondary-DfQesO8e.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({

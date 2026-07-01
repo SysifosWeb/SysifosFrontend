@@ -3,35 +3,41 @@
     <!-- Name -->
     <div>
       <label for="name" class="block text-sm font-medium text-dark-700 mb-2">
-        Nombre completo *
+        Nombre completo <span aria-hidden="true">*</span><span class="sr-only">(requerido)</span>
       </label>
       <input
         id="name"
         v-model="formData.name"
         type="text"
         required
+        aria-required="true"
+        :aria-invalid="!!errors.name"
+        aria-describedby="name-error"
         class="w-full px-4 py-3 rounded-lg border border-dark-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none"
         :class="{ 'border-red-500': errors.name }"
         placeholder="Juan Pérez"
       />
-      <p v-if="errors.name" class="mt-1 text-sm text-red-600">{{ errors.name }}</p>
+      <p v-if="errors.name" id="name-error" role="alert" class="mt-1 text-sm text-red-600">{{ errors.name }}</p>
     </div>
 
     <!-- Email -->
     <div>
       <label for="email" class="block text-sm font-medium text-dark-700 mb-2">
-        Correo electrónico *
+        Correo electrónico <span aria-hidden="true">*</span><span class="sr-only">(requerido)</span>
       </label>
       <input
         id="email"
         v-model="formData.email"
         type="email"
         required
+        aria-required="true"
+        :aria-invalid="!!errors.email"
+        aria-describedby="email-error"
         class="w-full px-4 py-3 rounded-lg border border-dark-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none"
         :class="{ 'border-red-500': errors.email }"
         placeholder="juan@ejemplo.com"
       />
-      <p v-if="errors.email" class="mt-1 text-sm text-red-600">{{ errors.email }}</p>
+      <p v-if="errors.email" id="email-error" role="alert" class="mt-1 text-sm text-red-600">{{ errors.email }}</p>
     </div>
 
     <!-- Phone -->
@@ -51,12 +57,13 @@
     <!-- Service Type -->
     <div>
       <label for="service" class="block text-sm font-medium text-dark-700 mb-2">
-        Tipo de servicio *
+        Tipo de servicio <span aria-hidden="true">*</span><span class="sr-only">(requerido)</span>
       </label>
       <select
         id="service"
         v-model="formData.service"
         required
+        aria-required="true"
         class="w-full px-4 py-3 rounded-lg border border-dark-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none"
       >
         <option value="">Selecciona un servicio</option>
@@ -72,18 +79,21 @@
     <!-- Message -->
     <div>
       <label for="message" class="block text-sm font-medium text-dark-700 mb-2">
-        Mensaje *
+        Mensaje <span aria-hidden="true">*</span><span class="sr-only">(requerido)</span>
       </label>
       <textarea
         id="message"
         v-model="formData.message"
         required
+        aria-required="true"
+        :aria-invalid="!!errors.message"
+        aria-describedby="message-error"
         rows="5"
         class="w-full px-4 py-3 rounded-lg border border-dark-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none resize-none"
         :class="{ 'border-red-500': errors.message }"
         placeholder="Cuéntanos sobre tu proyecto..."
       ></textarea>
-      <p v-if="errors.message" class="mt-1 text-sm text-red-600">{{ errors.message }}</p>
+      <p v-if="errors.message" id="message-error" role="alert" class="mt-1 text-sm text-red-600">{{ errors.message }}</p>
     </div>
 
     <!-- Submit Button -->
@@ -113,7 +123,12 @@
       leave-from-class="opacity-100 scale-100"
       leave-to-class="opacity-0 scale-95"
     >
-      <div v-if="showSuccess" class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+      <div
+        v-if="showSuccess"
+        role="status"
+        aria-live="polite"
+        class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg"
+      >
         <p class="font-medium">¡Mensaje enviado con éxito!</p>
         <p class="text-sm">Nos pondremos en contacto contigo pronto.</p>
       </div>

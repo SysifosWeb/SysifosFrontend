@@ -24,7 +24,7 @@
   /* --- Text Colors --- */
   --text-main:      #F1F5F9;        /* Blanco suave */
   --text-secondary: #94A3B8;        /* Gris plata */
-  --text-muted:     #64748B;        /* Gris neutro */
+  --text-muted:     #8899A6;        /* Gris neutro — mejorado para WCAG AA (ratio 4.6:1) */
 
   /* --- Borders --- */
   --border:         rgba(255, 255, 255, 0.08);

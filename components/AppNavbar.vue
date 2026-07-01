@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import logoBlanco from "@/assets/img/logo-blanco.webp"
 
@@ -24,7 +24,11 @@ const closeMenu = () => {
 
 onMounted(() => {
   isMounted.value = true
-  window.addEventListener('scroll', handleScroll)
+  window.addEventListener('scroll', handleScroll, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
 })
 
 // Cerrar el menú automáticamente al cambiar de ruta
@@ -70,11 +74,13 @@ watch(() => route.fullPath, () => {
 
         <!-- BOTÓN HAMBURGUESA -->
         <button
-          class="lg:hidden text-accent focus:outline-none"
+          class="lg:hidden text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
           @click="toggleMenu"
-          aria-label="Menu"
+          :aria-expanded="isMenuOpen"
+          aria-controls="mobile-menu"
+          :aria-label="isMenuOpen ? 'Cerrar menú' : 'Abrir menú'"
         >
-          <div class="space-y-1.5">
+          <div class="space-y-1.5" aria-hidden="true">
              <div class="w-5 h-[1px] bg-accent transition-all" :class="{ 'rotate-45 translate-y-2': isMenuOpen }"></div>
              <div class="w-5 h-[1px] bg-accent transition-all" :class="{ 'opacity-0': isMenuOpen }"></div>
              <div class="w-5 h-[1px] bg-accent transition-all" :class="{ '-rotate-45 -translate-y-2': isMenuOpen }"></div>
@@ -85,30 +91,43 @@ watch(() => route.fullPath, () => {
 
     <!-- MENÚ MÓVIL -->
     <Transition name="fade">
-      <div v-if="isMenuOpen" class="fixed inset-0 z-[2000] bg-[#05070a] flex flex-col p-10 overflow-hidden">
-        <div class="absolute inset-0 technical-grid opacity-5 pointer-events-none"></div>
+      <div
+        v-if="isMenuOpen"
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menú de navegación"
+        class="fixed inset-0 z-[2000] bg-[#05070a] flex flex-col p-10 overflow-hidden"
+      >
+        <div class="absolute inset-0 technical-grid opacity-5 pointer-events-none" aria-hidden="true"></div>
         <div class="flex items-center justify-between mb-24">
            <NuxtLink to="/" @click="closeMenu" class="flex items-center">
-             <img :src="logoBlanco" alt="SysifosWeb Logo" width="200" height="40" class="h-8 w-auto object-contain" />
+             <img :src="logoBlanco" alt="SysifosWeb — ir a inicio" width="200" height="40" class="h-8 w-auto object-contain" />
            </NuxtLink>
-           <button @click="closeMenu" class="text-accent">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+           <button
+             @click="closeMenu"
+             class="text-accent focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+             aria-label="Cerrar menú"
+           >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                  <path stroke-linecap="square" stroke-width="0.5" d="M6 18L18 6M6 6l12 12" />
               </svg>
            </button>
         </div>
-        <ul class="flex-grow flex flex-col space-y-10">
-          <li v-for="item in [
-            { to: '/', label: 'Inicio' },
-            { to: '/nosotros', label: 'Nosotros' },
-            { to: '/servicios', label: 'Servicios' },
-            { to: '/portfolio', label: 'Portfolio' },
-            { to: '/blog', label: 'Blog' },
-            { to: '/contacto', label: 'Contacto' }
-          ]" :key="item.to">
-            <NuxtLink :to="item.to" class="text-2xl font-bold tracking-widest text-white font-tech uppercase transition-colors hover:text-accent">{{ item.label }}</NuxtLink>
-          </li>
-        </ul>
+        <nav aria-label="Menú principal móvil">
+          <ul class="flex-grow flex flex-col space-y-10">
+            <li v-for="item in [
+              { to: '/', label: 'Inicio' },
+              { to: '/nosotros', label: 'Nosotros' },
+              { to: '/servicios', label: 'Servicios' },
+              { to: '/portfolio', label: 'Portfolio' },
+              { to: '/blog', label: 'Blog' },
+              { to: '/contacto', label: 'Contacto' }
+            ]" :key="item.to">
+              <NuxtLink :to="item.to" class="text-2xl font-bold tracking-widest text-white font-tech uppercase transition-colors hover:text-accent">{{ item.label }}</NuxtLink>
+            </li>
+          </ul>
+        </nav>
       </div>
     </Transition>
   </nav>
