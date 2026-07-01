@@ -1,13 +1,13 @@
 const interopDefault = r => r.default || r || [];
 const styles = {
   "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.5Ggfnx40.mjs').then(interopDefault),
-  "pages/index.vue": () => import('./index-styles.C9qpeztt.mjs').then(interopDefault),
+  "pages/index.vue": () => import('./index-styles.B0UztFct.mjs').then(interopDefault),
   "components/home/HomeValue.vue": () => import('./HomeValue-styles.iOfSa90Y.mjs').then(interopDefault),
   "components/home/HomeProblems.vue": () => import('./HomeProblems-styles.BrzEF-iF.mjs').then(interopDefault),
   "components/home/HomeProposition.vue": () => import('./HomeProposition-styles.DsZ9qvqI.mjs').then(interopDefault),
   "components/home/HomeBusinessUnits.vue": () => import('./HomeBusinessUnits-styles.DHEkRlN5.mjs').then(interopDefault),
-  "components/home/HomeTrust.vue": () => import('./HomeTrust-styles.CYPkUYRw.mjs').then(interopDefault),
-  "components/home/HomeTestimonials.vue": () => import('./HomeTestimonials-styles.DeQ_Bya3.mjs').then(interopDefault),
+  "components/home/HomeTrust.vue": () => import('./HomeTrust-styles.kTvmypEo.mjs').then(interopDefault),
+  "components/home/HomeTestimonials.vue": () => import('./HomeTestimonials-styles.hnQ9lzJJ.mjs').then(interopDefault),
   "components/home/HomeBanner.vue": () => import('./HomeBanner-styles.CrKtXqtq.mjs').then(interopDefault),
   "pages/nosotros.vue": () => import('./nosotros-styles.C1RyPy58.mjs').then(interopDefault),
   "components/nosotros/StorytellingBreak.vue": () => import('./StorytellingBreak-styles.KkNMimdk.mjs').then(interopDefault),
