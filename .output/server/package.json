@@ -27,6 +27,7 @@
     "css-select": "5.2.2",
     "css-tree": "2.3.1",
     "css-what": "6.2.2",
+    "cssfilter": "0.0.10",
     "csso": "5.0.5",
     "defu": "6.1.7",
     "destr": "2.0.5",
@@ -47,6 +48,7 @@
     "ipx": "2.1.1",
     "iron-webcrypto": "1.2.1",
     "is-arrayish": "0.3.4",
+    "lru-cache": "11.4.0",
     "lucide-vue-next": "1.0.0",
     "mdn-data": "2.0.30",
     "node-fetch-native": "1.6.7",
@@ -72,6 +74,7 @@
     "vue": "3.5.34",
     "vue-bundle-renderer": "2.2.0",
     "vue-router": "4.6.4",
-    "xml-naming": "0.1.0"
+    "xml-naming": "0.1.0",
+    "xss": "1.0.15"
   }
 }

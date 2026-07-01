@@ -17,13 +17,62 @@ export default defineNuxtConfig({
         }
     },
 
-    modules: [
-        '@nuxtjs/tailwindcss',
-        '@nuxtjs/google-fonts',
-        '@nuxt/image',
-        '@nuxtjs/sitemap',
-        'nuxt-gtag',
-    ],
+    modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@nuxt/image', '@nuxtjs/sitemap', 'nuxt-gtag', 'nuxt-security'],
+    security: {
+        headers: {
+            contentSecurityPolicy: {
+                'default-src': ["'self'"],
+                'script-src': [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "'unsafe-eval'",
+                    "https://www.googletagmanager.com",
+                    "https://*.googletagmanager.com",
+                    "https://*.google-analytics.com",
+                    "https://*.doubleclick.net",
+                    "https://*.google.com"
+                ],
+                'style-src': [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "https://fonts.googleapis.com"
+                ],
+                'img-src': [
+                    "'self'",
+                    "data:",
+                    "https://upload.wikimedia.org",
+                    "https://www.googletagmanager.com",
+                    "https://*.google-analytics.com",
+                    "https://*.googletagmanager.com",
+                    "https://*.doubleclick.net",
+                    "https://*.google.com",
+                    "https://*.google.cl",
+                    "https://olimpo.sysifosweb.cl",
+                    "https://*.picsum.photos",
+                    "https://picsum.photos"
+                ],
+                'font-src': [
+                    "'self'",
+                    "https://fonts.gstatic.com",
+                    "data:"
+                ],
+                'connect-src': [
+                    "'self'",
+                    "https://*.google-analytics.com",
+                    "https://*.googletagmanager.com",
+                    "https://*.doubleclick.net",
+                    "https://*.google.com"
+                ],
+                'frame-src': [
+                    "'self'",
+                    "https://*.doubleclick.net",
+                    "https://*.google.com"
+                ],
+                'script-src-attr': ["'unsafe-inline'"]
+            },
+            crossOriginEmbedderPolicy: 'unsafe-none'
+        }
+    },
 
     gtag: {
         id: 'G-3BJ0HZ6RSH'
@@ -111,4 +160,3 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         ]
     },
 })
-

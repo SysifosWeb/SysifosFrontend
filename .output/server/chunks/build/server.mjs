@@ -7,12 +7,14 @@ import 'node:http';
 import 'node:https';
 import 'node:events';
 import 'node:buffer';
+import 'lru-cache';
 import 'node:fs';
 import 'node:path';
 import 'node:crypto';
 import 'node:url';
 import 'consola';
 import 'fast-xml-parser';
+import 'xss';
 import 'ipx';
 import 'vue-bundle-renderer/runtime';
 import 'unhead/server';
@@ -496,7 +498,6 @@ function getRouteRules(arg) {
   try {
     return routeRulesMatcher$1(path);
   } catch (e) {
-    console.error("[nuxt] Error matching route rules.", e);
     return {};
   }
 }
@@ -554,7 +555,7 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-B55YK6Cd.mjs')
+    component: () => import('./index-Bxh4N-J6.mjs')
   },
   {
     name: "contacto",
@@ -566,7 +567,7 @@ const _routes = [
     name: "nosotros",
     path: "/nosotros",
     meta: __nuxt_page_meta$h || {},
-    component: () => import('./nosotros-D0ApTzqW.mjs')
+    component: () => import('./nosotros-CwOCuc_e.mjs')
   },
   {
     name: "sinapsys",
@@ -590,13 +591,13 @@ const _routes = [
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./index-C0bn0olZ.mjs')
+    component: () => import('./index-CdsxE3Io.mjs')
   },
   {
     name: "admin",
     path: "/admin",
     meta: __nuxt_page_meta$c || {},
-    component: () => import('./index-CiE33RX6.mjs')
+    component: () => import('./index-nqeThnqF.mjs')
   },
   {
     name: "admin-login",
@@ -608,49 +609,49 @@ const _routes = [
     name: "blog-slug",
     path: "/blog/:slug()",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./_slug_-Cor9Hkh5.mjs')
+    component: () => import('./_slug_-BPe1a0_5.mjs')
   },
   {
     name: "admin-posts-id",
     path: "/admin/posts/:id()",
     meta: __nuxt_page_meta$9 || {},
-    component: () => import('./_id_-DzHq-Dlb.mjs')
+    component: () => import('./_id_-BWb01RB3.mjs')
   },
   {
     name: "admin-posts-edit",
     path: "/admin/posts/edit",
     meta: __nuxt_page_meta$8 || {},
-    component: () => import('./edit-DpIllJTo.mjs')
+    component: () => import('./edit-DxvsGsfC.mjs')
   },
   {
     name: "admin-posts",
     path: "/admin/posts",
     meta: __nuxt_page_meta$7 || {},
-    component: () => import('./index-C4OSUb43.mjs')
+    component: () => import('./index-FPimrzvG.mjs')
   },
   {
     name: "admin-posts-create",
     path: "/admin/posts/create",
     meta: __nuxt_page_meta$6 || {},
-    component: () => import('./create-Bg_G4MEC.mjs')
+    component: () => import('./create-nCWTmuqn.mjs')
   },
   {
     name: "admin-contacts-id",
     path: "/admin/contacts/:id()",
     meta: __nuxt_page_meta$5 || {},
-    component: () => import('./_id_-BWltlP9m.mjs')
+    component: () => import('./_id_-CPZ3Uuyn.mjs')
   },
   {
     name: "admin-contacts",
     path: "/admin/contacts",
     meta: __nuxt_page_meta$4 || {},
-    component: () => import('./index-Ci9cjjXb.mjs')
+    component: () => import('./index-CPEL4olB.mjs')
   },
   {
     name: "admin-categories-id",
     path: "/admin/categories/:id()",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import('./_id_-w1Iu1TS5.mjs')
+    component: () => import('./_id_-CyrQdlaJ.mjs')
   },
   {
     name: "admin-categories-edit",
@@ -662,7 +663,7 @@ const _routes = [
     name: "admin-categories",
     path: "/admin/categories",
     meta: __nuxt_page_meta$1 || {},
-    component: () => import('./index-J0NA8W2o.mjs')
+    component: () => import('./index-6IRo1MPr.mjs')
   },
   {
     name: "admin-categories-create",
@@ -1907,12 +1908,11 @@ const _sfc_main = {
         try {
           errorHandler(err, target, info);
         } catch (handlerError) {
-          console.error("[nuxt] Error in `app.config.errorHandler`", handlerError);
         }
       }
     }
     onErrorCaptured((err, target, info) => {
-      nuxtApp.hooks.callHook("vue:error", err, target, info).catch((hookError) => console.error("[nuxt] Error in `vue:error` hook", hookError));
+      nuxtApp.hooks.callHook("vue:error", err, target, info).catch((hookError) => void 0);
       {
         const p = nuxtApp.runWithContext(() => showError(err));
         onServerPrefetch(() => p);
