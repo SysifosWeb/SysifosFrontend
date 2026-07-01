@@ -554,7 +554,7 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-BO0fHGm4.mjs')
+    component: () => import('./index-CgD09KjJ.mjs')
   },
   {
     name: "contacto",
@@ -566,7 +566,7 @@ const _routes = [
     name: "nosotros",
     path: "/nosotros",
     meta: __nuxt_page_meta$h || {},
-    component: () => import('./nosotros-CF6BZA7p.mjs')
+    component: () => import('./nosotros-D0ApTzqW.mjs')
   },
   {
     name: "sinapsys",
@@ -1547,9 +1547,9 @@ const plugins = [
 ];
 const layouts = {
   admin: defineAsyncComponent(() => import('./admin-CgZFXDs8.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-CYvLi94_.mjs').then((m) => m.default || m)),
-  hero: defineAsyncComponent(() => import('./hero-D_BOgiHH.mjs').then((m) => m.default || m)),
-  secondary: defineAsyncComponent(() => import('./secondary-DfQesO8e.mjs').then((m) => m.default || m))
+  default: defineAsyncComponent(() => import('./default-CNwUxiTv.mjs').then((m) => m.default || m)),
+  hero: defineAsyncComponent(() => import('./hero-C9OqxHvv.mjs').then((m) => m.default || m)),
+  secondary: defineAsyncComponent(() => import('./secondary-ZPPfUNic.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({

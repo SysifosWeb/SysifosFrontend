@@ -6,11 +6,11 @@ import logoBlanco from "@/assets/img/logo-blanco.webp"
   <footer class="relative overflow-hidden bg-section-dark">
 
     <!-- Glows decorativos sutiles -->
-    <div class="absolute pointer-events-none inset-0 overflow-hidden">
-      <div class="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full"
-           style="background: var(--purple); opacity: 0.07; filter: blur(160px);"></div>
-      <div class="absolute top-0 right-0 w-[300px] h-[300px] rounded-full"
-           style="background: var(--accent); opacity: 0.05; filter: blur(140px);"></div>
+    <div class="absolute pointer-events-none inset-0 overflow-hidden" aria-hidden="true">
+      <div class="absolute -bottom-20 -left-20 w-[400px] h-[400px]"
+           style="background: radial-gradient(circle, var(--purple) 0%, transparent 70%); opacity: 0.1;"></div>
+      <div class="absolute top-0 right-0 w-[300px] h-[300px]"
+           style="background: radial-gradient(circle, var(--accent) 0%, transparent 70%); opacity: 0.08;"></div>
     </div>
 
     <div class="relative z-10 w-[88%] max-w-[1340px] mx-auto py-16 pb-8">

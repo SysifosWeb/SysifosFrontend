@@ -1,7 +1,7 @@
 <template>
   <section class="py-16 overflow-hidden relative bg-section-dark">
     <!-- Glow purple sutil -->
-    <div class="absolute top-1/2 left-0 w-[300px] h-[300px] -translate-y-1/2 rounded-full pointer-events-none" style="background: var(--purple); opacity: 0.07; filter: blur(120px);" aria-hidden="true"></div>
+    <div class="absolute top-1/2 left-0 w-[300px] h-[300px] -translate-y-1/2 pointer-events-none" style="background: radial-gradient(circle, var(--purple) 0%, transparent 70%); opacity: 0.1;" aria-hidden="true"></div>
     <div class="w-[88%] max-w-[1340px] mx-auto relative z-20">
       <div class="flex flex-col lg:flex-row items-center gap-12">
         

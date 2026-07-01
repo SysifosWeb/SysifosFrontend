@@ -6,11 +6,11 @@
     ========================================= -->
     <div class="absolute inset-0 pointer-events-none z-0">
       <!-- Glow índigo — superior izquierda, muy difuso -->
-      <div class="absolute -top-60 -left-60 w-[700px] h-[700px] rounded-full"
-        style="background: var(--purple); opacity: 0.12; filter: blur(180px);"></div>
+      <div class="absolute -top-60 -left-60 w-[700px] h-[700px]"
+        style="background: radial-gradient(circle, var(--purple) 0%, transparent 70%); opacity: 0.15;"></div>
       <!-- Glow cyan — inferior derecha, muy difuso -->
-      <div class="absolute bottom-0 right-0 w-[550px] h-[550px] rounded-full"
-        style="background: var(--accent); opacity: 0.08; filter: blur(200px);"></div>
+      <div class="absolute bottom-0 right-0 w-[550px] h-[550px]"
+        style="background: radial-gradient(circle, var(--accent) 0%, transparent 70%); opacity: 0.12;"></div>
       <!-- Gradiente superior sutil para profundidad -->
       <div class="absolute top-0 left-0 right-0 h-px"
         style="background: linear-gradient(to right, transparent, rgba(56,189,248,0.15), transparent);"></div>
@@ -89,11 +89,11 @@
       <!-- =====================
            COLUMNA DERECHA: Dashboard UI
       ===================== -->
-      <div class="relative hidden lg:flex items-center justify-center mockup-container" aria-hidden="true" role="img" aria-label="Vista previa de un dashboard de analytics">
+      <div class="relative hidden lg:flex items-center justify-center mockup-container" aria-hidden="true">
 
         <!-- Glow de profundidad detrás del panel -->
         <div class="absolute inset-8 rounded-3xl pointer-events-none"
-          style="background: radial-gradient(ellipse at 60% 50%, rgba(56,189,248,0.1) 0%, transparent 65%); filter: blur(16px);">
+          style="background: radial-gradient(ellipse at 60% 50%, rgba(56,189,248,0.1) 0%, transparent 65%);">
         </div>
 
         <!-- === Panel Principal del Dashboard === -->

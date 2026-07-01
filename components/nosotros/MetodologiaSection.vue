@@ -133,15 +133,13 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 /* ── Ambient ────────────────────────────────── */
 .ambient-orb {
   position: absolute;
-  border-radius: 9999px;
   pointer-events: none;
-  filter: blur(130px);
 }
 .ambient-orb--indigo {
   width: 500px;
   height: 500px;
-  background: #6366F1;
-  opacity: 0.05;
+  background: radial-gradient(circle, #6366F1 0%, transparent 70%);
+  opacity: 0.1;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

@@ -77,15 +77,13 @@ import osman from '@/assets/img/Osman.png'
 /* ── Ambient ────────────────────────────────── */
 .ambient-orb {
   position: absolute;
-  border-radius: 9999px;
   pointer-events: none;
-  filter: blur(130px);
 }
 .ambient-orb--cyan {
   width: 500px;
   height: 500px;
-  background: #38BDF8;
-  opacity: 0.04;
+  background: radial-gradient(circle, #38BDF8 0%, transparent 70%);
+  opacity: 0.08;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
