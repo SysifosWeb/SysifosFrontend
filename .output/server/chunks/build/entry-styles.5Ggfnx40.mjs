@@ -1,9 +1,9 @@
-import { a as buildAssetsURL } from '../nitro/nitro.mjs';
+import { b as buildAssetsURL } from '../nitro/nitro.mjs';
 import 'node:http';
 import 'node:https';
 import 'node:events';
 import 'node:buffer';
-import 'lru-cache';
+import 'node:diagnostics_channel';
 import 'node:fs';
 import 'node:path';
 import 'node:crypto';

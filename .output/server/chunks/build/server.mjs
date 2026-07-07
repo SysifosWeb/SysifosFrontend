@@ -1,5 +1,5 @@
-import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { defineComponent, shallowRef, getCurrentInstance, provide, cloneVNode, h, createElementBlock, hasInjectionContext, inject, ref, resolveComponent, computed, unref, defineAsyncComponent, shallowReactive, Suspense, Fragment, createApp, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, reactive, effectScope, mergeProps, withCtx, openBlock, createBlock, createTextVNode, getCurrentScope, toRef, nextTick, isReadonly, useSSRContext, isRef, isShallow, isReactive, toRaw } from 'vue';
-import { c as createError$1, A as klona, C as parseQuery, q as getRequestHeader, j as destr, x as isEqual, v as hasProtocol, z as joinURL, D as parseURL, l as encodePath, e as decodePath, n as getContext, H as setCookie, o as getCookie, i as deleteCookie, M as withQuery, y as isScriptProtocol, N as withTrailingSlash, O as withoutTrailingSlash, G as sanitizeStatusCode, $ as $fetch, b as baseURL, h as defu, d as createHooks, m as executeAsync } from '../nitro/nitro.mjs';
+import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { ref, defineComponent, shallowRef, getCurrentInstance, provide, cloneVNode, h, createElementBlock, hasInjectionContext, inject, resolveComponent, computed, unref, defineAsyncComponent, shallowReactive, Suspense, Fragment, createApp, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, reactive, effectScope, mergeProps, withCtx, openBlock, createBlock, createTextVNode, getCurrentScope, toRef, nextTick, isReadonly, useSSRContext, isRef, isShallow, isReactive, toRaw } from 'vue';
+import { c as createError$1, m as klona, n as parseQuery, o as getRequestHeader, q as destr, r as isEqual, t as hasProtocol, v as joinURL, w as parseURL, e as encodePath, x as decodePath, y as getContext, z as setCookie, A as getCookie, B as deleteCookie, C as isScriptProtocol, D as withQuery, E as withTrailingSlash, F as withoutTrailingSlash, G as sanitizeStatusCode, $ as $fetch, H as baseURL, I as defu, J as createHooks, K as executeAsync } from '../nitro/nitro.mjs';
 import { useRoute as useRoute$1, RouterView, createMemoryHistory, createRouter, START_LOCATION } from 'vue-router';
 import { ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode, ssrRenderAttrs, ssrInterpolate } from 'vue/server-renderer';
 import { u as useHead$1, a as useSeoMeta$1, h as headSymbol } from '../routes/renderer.mjs';
@@ -7,7 +7,7 @@ import 'node:http';
 import 'node:https';
 import 'node:events';
 import 'node:buffer';
-import 'lru-cache';
+import 'node:diagnostics_channel';
 import 'node:fs';
 import 'node:path';
 import 'node:crypto';
@@ -103,7 +103,7 @@ function createNuxtApp(options) {
     globalName: "nuxt",
     versions: {
       get nuxt() {
-        return "3.21.6";
+        return "3.21.8";
       },
       get vue() {
         return nuxtApp.vueApp.version;
@@ -359,8 +359,8 @@ const navigateTo = (to, options) => {
       const location2 = isExternal ? toPath : joinURL((/* @__PURE__ */ useRuntimeConfig()).app.baseURL, fullPath);
       const redirect = async function(response) {
         await nuxtApp.callHook("app:redirected");
-        const encodedLoc = encodeForHtmlAttr(location2);
         const encodedHeader = encodeURL(location2, isExternalHost);
+        const encodedLoc = encodeForHtmlAttr(encodedHeader);
         nuxtApp.ssrContext["~renderResponse"] = {
           statusCode: sanitizeStatusCode(options?.redirectCode || 302, 302),
           body: `<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=${encodedLoc}"></head></html>`,
@@ -403,7 +403,8 @@ function resolveRouteObject(to) {
 function encodeURL(location2, isExternalHost = false) {
   const url = new URL(location2, "http://localhost");
   if (!isExternalHost) {
-    return url.pathname + url.search + url.hash;
+    const pathname = url.pathname.replace(/^\/{2,}/, "/");
+    return pathname + url.search + url.hash;
   }
   if (location2.startsWith("//")) {
     return url.toString().replace(url.protocol, "");
@@ -491,12 +492,12 @@ const matcher = /* @__PURE__ */ (() => {
     return r;
   };
 })();
-const _routeRulesMatcher = (path) => defu({}, ...matcher("", path).map((r) => r.data).reverse());
+const _routeRulesMatcher = (path) => defu({}, ...matcher("", typeof path === "string" ? path.toLowerCase() : path).map((r) => r.data).reverse());
 const routeRulesMatcher$1 = _routeRulesMatcher;
 function getRouteRules(arg) {
   const path = typeof arg === "string" ? arg : arg.path;
   try {
-    return routeRulesMatcher$1(path);
+    return routeRulesMatcher$1(path.toLowerCase());
   } catch (e) {
     return {};
   }
@@ -555,121 +556,121 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-BA-nwJVP.mjs')
+    component: () => import('./index-BhiEm5UO.mjs')
   },
   {
     name: "contacto",
     path: "/contacto",
     meta: __nuxt_page_meta$i || {},
-    component: () => import('./contacto-BMttsYIc.mjs')
+    component: () => import('./contacto-BkwM1TYs.mjs')
   },
   {
     name: "nosotros",
     path: "/nosotros",
     meta: __nuxt_page_meta$h || {},
-    component: () => import('./nosotros--rr7frfg.mjs')
+    component: () => import('./nosotros-DzzozRvw.mjs')
   },
   {
     name: "sinapsys",
     path: "/sinapsys",
     meta: __nuxt_page_meta$g || {},
-    component: () => import('./sinapsys-DpMxJT2e.mjs')
+    component: () => import('./sinapsys-VZ7eXq_x.mjs')
   },
   {
     name: "portfolio",
     path: "/portfolio",
     meta: __nuxt_page_meta$f || {},
-    component: () => import('./portfolio-D8Z6_1eq.mjs')
+    component: () => import('./portfolio-DXYUpJyX.mjs')
   },
   {
     name: "servicios",
     path: "/servicios",
     meta: __nuxt_page_meta$e || {},
-    component: () => import('./servicios-DW1JiyAM.mjs')
+    component: () => import('./servicios-DtvpRsFe.mjs')
   },
   {
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./index-BhBLXcl1.mjs')
+    component: () => import('./index-Caq8IX9n.mjs')
   },
   {
     name: "admin",
     path: "/admin",
     meta: __nuxt_page_meta$c || {},
-    component: () => import('./index-nqeThnqF.mjs')
+    component: () => import('./index-BQgt-LBF.mjs')
   },
   {
     name: "admin-login",
     path: "/admin/login",
     meta: __nuxt_page_meta$b || {},
-    component: () => import('./login-BoyUlbAU.mjs')
+    component: () => import('./login-CAp-k7lu.mjs')
   },
   {
     name: "blog-slug",
     path: "/blog/:slug()",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./_slug_-BPe1a0_5.mjs')
+    component: () => import('./_slug_-BBmGVOLv.mjs')
   },
   {
     name: "admin-posts-id",
     path: "/admin/posts/:id()",
     meta: __nuxt_page_meta$9 || {},
-    component: () => import('./_id_-BWb01RB3.mjs')
+    component: () => import('./_id_-CchMhI9m.mjs')
   },
   {
     name: "admin-posts-edit",
     path: "/admin/posts/edit",
     meta: __nuxt_page_meta$8 || {},
-    component: () => import('./edit-DxvsGsfC.mjs')
+    component: () => import('./edit-CWzIlXvj.mjs')
   },
   {
     name: "admin-posts",
     path: "/admin/posts",
     meta: __nuxt_page_meta$7 || {},
-    component: () => import('./index-FPimrzvG.mjs')
+    component: () => import('./index-Dsz1VYMK.mjs')
   },
   {
     name: "admin-posts-create",
     path: "/admin/posts/create",
     meta: __nuxt_page_meta$6 || {},
-    component: () => import('./create-nCWTmuqn.mjs')
+    component: () => import('./create-B6hr_EUl.mjs')
   },
   {
     name: "admin-contacts-id",
     path: "/admin/contacts/:id()",
     meta: __nuxt_page_meta$5 || {},
-    component: () => import('./_id_-CPZ3Uuyn.mjs')
+    component: () => import('./_id_-CU-H5WWk.mjs')
   },
   {
     name: "admin-contacts",
     path: "/admin/contacts",
     meta: __nuxt_page_meta$4 || {},
-    component: () => import('./index-CPEL4olB.mjs')
+    component: () => import('./index-CrY5OyEw.mjs')
   },
   {
     name: "admin-categories-id",
     path: "/admin/categories/:id()",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import('./_id_-CyrQdlaJ.mjs')
+    component: () => import('./_id_-YkWXvoTS.mjs')
   },
   {
     name: "admin-categories-edit",
     path: "/admin/categories/edit",
     meta: __nuxt_page_meta$2 || {},
-    component: () => import('./edit-BZyZlgL_.mjs')
+    component: () => import('./edit-BYj-f0rm.mjs')
   },
   {
     name: "admin-categories",
     path: "/admin/categories",
     meta: __nuxt_page_meta$1 || {},
-    component: () => import('./index-6IRo1MPr.mjs')
+    component: () => import('./index-M0BpVdf5.mjs')
   },
   {
     name: "admin-categories-create",
     path: "/admin/categories/create",
     meta: __nuxt_page_meta || {},
-    component: () => import('./create-CZJq5K16.mjs')
+    component: () => import('./create-zEm0jzet.mjs')
   }
 ];
 const _wrapInTransition = (props, children) => {
@@ -918,7 +919,8 @@ const globalMiddleware = [
   manifest_45route_45rule
 ];
 const namedMiddleware = {};
-const pageIslandRoutes = {};
+Object.assign(/* @__PURE__ */ Object.create(null), {});
+const pageIslandRoutes = Object.assign(/* @__PURE__ */ Object.create(null), {});
 const plugin = /* @__PURE__ */ defineNuxtPlugin({
   name: "nuxt:router",
   enforce: "pre",
@@ -1206,6 +1208,17 @@ function definePayloadReducer(name, reduce) {
   }
 }
 const firstNonUndefined = (...args) => args.find((arg) => arg !== void 0);
+function sanitizeExternalHref(value) {
+  let candidate = value.replace(/[\u0000-\u001f\s]+/g, "");
+  while (candidate.toLowerCase().startsWith("view-source:")) {
+    candidate = candidate.slice("view-source:".length);
+  }
+  const colon = candidate.indexOf(":");
+  if (colon > 0 && isScriptProtocol(candidate.slice(0, colon + 1))) {
+    return null;
+  }
+  return value;
+}
 // @__NO_SIDE_EFFECTS__
 function defineNuxtLink(options) {
   const componentName = options.componentName || "NuxtLink";
@@ -1260,12 +1273,14 @@ function defineNuxtLink(options) {
     const href = computed(() => {
       const effectiveTrailingSlash = unref(props.trailingSlash) ?? options.trailingSlash;
       if (!to.value || isAbsoluteUrl.value || isHashLinkWithoutHashMode(to.value)) {
-        return to.value;
+        const raw = to.value;
+        return typeof raw === "string" ? sanitizeExternalHref(raw) : raw;
       }
       if (isExternal.value) {
         const path = typeof to.value === "object" && "path" in to.value ? resolveRouteObject(to.value) : to.value;
         const href2 = typeof path === "object" ? router.resolve(path).href : path;
-        return applyTrailingSlashBehavior(href2, effectiveTrailingSlash);
+        const safe = typeof href2 === "string" ? sanitizeExternalHref(href2) : href2;
+        return safe === null ? null : applyTrailingSlashBehavior(safe, effectiveTrailingSlash);
       }
       if (typeof to.value === "object") {
         return router.resolve(to.value)?.href ?? null;
@@ -1283,6 +1298,9 @@ function defineNuxtLink(options) {
       isExactActive: link?.isExactActive ?? computed(() => to.value === router.currentRoute.value.path),
       route: link?.route ?? computed(() => router.resolve(to.value)),
       async navigate(_e) {
+        if (href.value === null) {
+          return;
+        }
         await navigateTo(href.value, { replace: unref(props.replace), external: isExternal.value || hasTarget.value });
       }
     };
@@ -1469,7 +1487,7 @@ function defineNuxtLink(options) {
             }
             event.preventDefault();
             try {
-              const encodedHref = encodeRoutePath(href.value);
+              const encodedHref = encodeRoutePath(href.value ?? "");
               return await (props.replace ? router.replace(encodedHref) : router.push(encodedHref));
             } finally {
             }
@@ -1547,10 +1565,10 @@ const plugins = [
   reveal_server_uRZrqkPcTOXMVic82VVVMBpGHwPPKeft5_XKNaiP79c
 ];
 const layouts = {
-  admin: defineAsyncComponent(() => import('./admin-CgZFXDs8.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-BxNh8r-W.mjs').then((m) => m.default || m)),
-  hero: defineAsyncComponent(() => import('./hero-C1PGW0rd.mjs').then((m) => m.default || m)),
-  secondary: defineAsyncComponent(() => import('./secondary-DSYGa9cl.mjs').then((m) => m.default || m))
+  admin: defineAsyncComponent(() => import('./admin-BOFJwiGN.mjs').then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import('./default-C2w5mkd_.mjs').then((m) => m.default || m)),
+  hero: defineAsyncComponent(() => import('./hero-CU7BUqkc.mjs').then((m) => m.default || m)),
+  secondary: defineAsyncComponent(() => import('./secondary-DI1LjKTo.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({
@@ -1967,5 +1985,5 @@ let entry;
 }
 const entry_default = ((ssrContext) => entry(ssrContext));
 
-export { __nuxt_component_0$1 as _, __nuxt_component_0$2 as a, _export_sfc as b, asyncDataDefaults as c, createError as d, entry_default as default, useHead as e, fetchDefaults as f, useNuxtApp as g, useRequestEvent as h, useRequestFetch as i, useRoute as j, useRuntimeConfig as k, useSeoMeta as l, useCookie as u };
+export { _export_sfc as _, __nuxt_component_0$1 as a, useHead as b, useNuxtApp as c, useRuntimeConfig as d, entry_default as default, useRequestEvent as e, asyncDataDefaults as f, createError as g, fetchDefaults as h, useRequestFetch as i, useCookie as j, useSeoMeta as k, __nuxt_component_0$2 as l, useRoute as u };
 //# sourceMappingURL=server.mjs.map

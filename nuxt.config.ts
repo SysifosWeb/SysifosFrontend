@@ -4,6 +4,9 @@ const GTM_ID = 'GTM-TWB2W6T9';
 const GA4_ID = 'G-3BJ0HZ6RSH';
 
 export default defineNuxtConfig({
+    build: {
+        transpile: ['lru-cache']
+    },
     routeRules: {
         '/**': { ssr: true }
     },

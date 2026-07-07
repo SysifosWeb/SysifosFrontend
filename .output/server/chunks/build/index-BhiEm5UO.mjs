@@ -1,0 +1,687 @@
+import { resolveDirective, mergeProps, createVNode, resolveDynamicComponent, unref, withCtx, createTextVNode, openBlock, createBlock, ref, useSSRContext } from 'vue';
+import { ssrRenderComponent, ssrRenderAttrs, ssrGetDirectiveProps, ssrRenderList, ssrRenderVNode, ssrInterpolate, ssrRenderClass, ssrRenderStyle, ssrRenderAttr } from 'vue/server-renderer';
+import { Search, PenTool, Terminal, CheckCircle, Gauge, TrendingDown, Layers, Globe, ShoppingBag, Cpu } from 'lucide-vue-next';
+import { _ as _export_sfc, a as __nuxt_component_0$1 } from './server.mjs';
+import { _ as _sfc_main$8 } from './NuxtImg-LsmFP50K.mjs';
+import { u as useSEO } from './useSEO-D6bVbkIH.mjs';
+import '../nitro/nitro.mjs';
+import 'node:http';
+import 'node:https';
+import 'node:events';
+import 'node:buffer';
+import 'node:diagnostics_channel';
+import 'node:fs';
+import 'node:path';
+import 'node:crypto';
+import 'node:url';
+import 'consola';
+import 'fast-xml-parser';
+import 'xss';
+import 'ipx';
+import 'vue-router';
+import '../routes/renderer.mjs';
+import 'vue-bundle-renderer/runtime';
+import 'unhead/server';
+import 'devalue';
+import 'unhead/plugins';
+import 'unhead/utils';
+
+const _sfc_main$7 = {
+  __name: "HomeValue",
+  __ssrInlineRender: true,
+  setup(__props) {
+    const steps = [
+      {
+        title: "Conversamos",
+        description: "Nos cuentas sobre tu negocio, tus objetivos y lo que necesitas. Sin formularios complicados.",
+        icon: Search
+      },
+      {
+        title: "Dise\xF1amos",
+        description: "Creamos la propuesta visual y la estructura de tu soluci\xF3n. T\xFA la apruebas antes de construir.",
+        icon: PenTool
+      },
+      {
+        title: "Construimos",
+        description: "Desarrollamos con tecnolog\xEDa moderna y te mantenemos informado en cada etapa.",
+        icon: Terminal
+      },
+      {
+        title: "Lanzamos",
+        description: "Tu plataforma sale al mundo. Y seguimos contigo despu\xE9s del lanzamiento.",
+        icon: CheckCircle
+      }
+    ];
+    return (_ctx, _push, _parent, _attrs) => {
+      const _directive_reveal = resolveDirective("reveal");
+      _push(`<section${ssrRenderAttrs(mergeProps({
+        class: "section bg-section-dark",
+        style: { "padding": "4rem 0 5rem" }
+      }, _attrs))} data-v-a9a002c8><div class="max-w-[1400px] w-[92%] mx-auto relative z-10" data-v-a9a002c8><div class="section-header text-center mb-16" data-v-a9a002c8><p${ssrRenderAttrs(mergeProps({
+        class: "section-eyebrow section-eyebrow--purple mb-4",
+        "data-delay": "0"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-a9a002c8>As\xED trabajamos juntos</p><h2${ssrRenderAttrs(mergeProps({
+        class: "section-title text-3xl md:text-4xl",
+        "data-delay": "100"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-a9a002c8> Empezar es m\xE1s f\xE1cil de lo que crees. </h2></div><div class="relative" data-v-a9a002c8><div class="hidden lg:block absolute top-[60px] left-[10%] right-[10%] h-px connector-line" data-v-a9a002c8></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8" data-v-a9a002c8><!--[-->`);
+      ssrRenderList(steps, (step, index) => {
+        _push(`<div${ssrRenderAttrs(mergeProps({
+          key: index,
+          class: "relative group step-item",
+          "data-delay": index * 150
+        }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-a9a002c8><div class="flex flex-col items-center text-center" data-v-a9a002c8><div class="step-icon-wrap w-20 h-20 rounded-2xl flex items-center justify-center mb-10 relative z-10 transition-all duration-300" data-v-a9a002c8>`);
+        ssrRenderVNode(_push, createVNode(resolveDynamicComponent(step.icon), { class: "w-8 h-8 step-icon transition-transform group-hover:scale-110" }, null), _parent);
+        _push(`<div class="step-number absolute -top-3 -right-3 w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-bold" data-v-a9a002c8> 0${ssrInterpolate(index + 1)}</div></div><h3 class="card-title mb-3 transition-colors group-hover:step-title-hover" data-v-a9a002c8>${ssrInterpolate(step.title)}</h3><p class="card-text max-w-[200px]" data-v-a9a002c8>${ssrInterpolate(step.description)}</p></div></div>`);
+      });
+      _push(`<!--]--></div></div></div></section>`);
+    };
+  }
+};
+const _sfc_setup$7 = _sfc_main$7.setup;
+_sfc_main$7.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/home/HomeValue.vue");
+  return _sfc_setup$7 ? _sfc_setup$7(props, ctx) : void 0;
+};
+const __nuxt_component_0 = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-a9a002c8"]]);
+const _sfc_main$6 = {
+  __name: "HomeProblems",
+  __ssrInlineRender: true,
+  setup(__props) {
+    const pains = [
+      {
+        id: 1,
+        icon: Gauge,
+        title: "Tu web tarda en cargar y pierdes clientes antes de que te conozcan",
+        description: "Cada segundo de espera cuesta visitas, confianza y ventas. Una web lenta es una oportunidad perdida antes de comenzar.",
+        solution: "Construimos con velocidad como prioridad desde el primer d\xEDa",
+        iconClass: "pain-icon--cyan",
+        colorClass: "text-accent"
+      },
+      {
+        id: 2,
+        icon: TrendingDown,
+        title: "Inviertes en publicidad pero tu sitio no convierte ese tr\xE1fico en ventas",
+        description: "Atraer visitantes es solo la mitad del trabajo. Sin una estrategia de conversi\xF3n clara, el presupuesto publicitario se pierde.",
+        solution: "Dise\xF1amos cada p\xE1gina con un objetivo: que el visitante act\xFAe",
+        iconClass: "pain-icon--purple",
+        colorClass: "text-purple"
+      },
+      {
+        id: 3,
+        icon: Layers,
+        title: "Tu plataforma actual ya no da abasto con el crecimiento de tu empresa",
+        description: "Lo que funcion\xF3 al principio tiene un l\xEDmite. Cuando tu negocio crece, tu tecnolog\xEDa debe crecer con \xE9l \u2014 no frenarlo.",
+        solution: "Arquitecturas flexibles que evolucionan con tu negocio",
+        iconClass: "pain-icon--cyan",
+        colorClass: "text-accent"
+      }
+    ];
+    return (_ctx, _push, _parent, _attrs) => {
+      const _component_NuxtLink = __nuxt_component_0$1;
+      const _directive_reveal = resolveDirective("reveal");
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "problems-section bg-section-dark" }, _attrs))} data-v-da7d8d3c><div class="section-line-top" data-v-da7d8d3c></div><div class="section-glow-purple glow-bottom-left" data-v-da7d8d3c></div><div class="section-container" data-v-da7d8d3c><div class="text-center mb-12" data-v-da7d8d3c><div${ssrRenderAttrs(mergeProps({
+        class: "eyebrow-badge mx-auto mb-6",
+        "data-delay": "0"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-da7d8d3c><span class="eyebrow-badge__dot" data-v-da7d8d3c></span><span class="eyebrow-badge__text" data-v-da7d8d3c>El problema que frena tu crecimiento</span></div><h2${ssrRenderAttrs(mergeProps({
+        class: "section-title problems-title",
+        "data-delay": "100"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-da7d8d3c> Tu negocio merece m\xE1s que<br class="hidden md:block" data-v-da7d8d3c> un sitio web gen\xE9rico. </h2></div><div class="flex flex-col gap-4" data-v-da7d8d3c><!--[-->`);
+      ssrRenderList(pains, (pain, index) => {
+        _push(`<div${ssrRenderAttrs(mergeProps({
+          key: pain.id,
+          "data-delay": index * 150,
+          class: "pain-card group relative flex flex-col md:flex-row items-start md:items-center gap-6 bg-section-surface card-border"
+        }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-da7d8d3c><div class="step-badge" data-v-da7d8d3c>${ssrInterpolate(String(index + 1).padStart(2, "0"))}</div><div class="${ssrRenderClass([pain.iconClass, "pain-icon shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"])}" data-v-da7d8d3c>`);
+        ssrRenderVNode(_push, createVNode(resolveDynamicComponent(pain.icon), {
+          class: ["w-5 h-5", pain.colorClass],
+          "stroke-width": 1.8
+        }, null), _parent);
+        _push(`</div><div class="flex-1 min-w-0" data-v-da7d8d3c><h3 class="card-title mb-1.5" data-v-da7d8d3c>${ssrInterpolate(pain.title)}</h3><p class="card-text" data-v-da7d8d3c>${ssrInterpolate(pain.description)}</p></div><div class="solution-pill shrink-0 hidden lg:flex" data-v-da7d8d3c>`);
+        ssrRenderVNode(_push, createVNode(resolveDynamicComponent(unref(CheckCircle)), { class: "w-4 h-4 shrink-0 text-accent" }, null), _parent);
+        _push(`<span class="solution-pill__text" data-v-da7d8d3c>${ssrInterpolate(pain.solution)}</span></div><div class="card-hover-glow" data-v-da7d8d3c></div></div>`);
+      });
+      _push(`<!--]--></div><div${ssrRenderAttrs(mergeProps({
+        class: "mt-12 text-center",
+        "data-delay": "400"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-da7d8d3c><p class="card-text mb-5" data-v-da7d8d3c>\xBFTe identificas con alguno de estos problemas?</p>`);
+      _push(ssrRenderComponent(_component_NuxtLink, {
+        to: "/contacto",
+        class: "cta-ghost"
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(` Hablemos de tu proyecto <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-v-da7d8d3c${_scopeId}><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" data-v-da7d8d3c${_scopeId}></path></svg>`);
+          } else {
+            return [
+              createTextVNode(" Hablemos de tu proyecto "),
+              (openBlock(), createBlock("svg", {
+                class: "w-4 h-4",
+                fill: "none",
+                stroke: "currentColor",
+                "stroke-width": "2",
+                viewBox: "0 0 24 24"
+              }, [
+                createVNode("path", {
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  d: "M17 8l4 4m0 0l-4 4m4-4H3"
+                })
+              ]))
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</div></div></section>`);
+    };
+  }
+};
+const _sfc_setup$6 = _sfc_main$6.setup;
+_sfc_main$6.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/home/HomeProblems.vue");
+  return _sfc_setup$6 ? _sfc_setup$6(props, ctx) : void 0;
+};
+const __nuxt_component_1 = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-da7d8d3c"]]);
+const _sfc_main$5 = {
+  __name: "HomeProposition",
+  __ssrInlineRender: true,
+  setup(__props) {
+    const stats = [
+      { number: "+50", label: "Proyectos entregados con \xE9xito" },
+      { number: "98%", label: "Clientes que repiten o nos recomiendan" },
+      { number: "3\xD7", label: "Mejora promedio en conversiones" }
+    ];
+    const differentiators = [
+      {
+        icon: "\u26A1",
+        title: "Ves resultados r\xE1pido",
+        description: "No esperamos meses para mostrarte avances. En 2\u20134 semanas ya tienes algo real funcionando."
+      },
+      {
+        icon: "\u{1F3AF}",
+        title: "Nos importa tu negocio, no solo el c\xF3digo",
+        description: "Medimos el \xE9xito en ventas, leads y crecimiento. No en cu\xE1ntas l\xEDneas de c\xF3digo escribimos."
+      },
+      {
+        icon: "\u{1F512}",
+        title: "Tu plataforma crece contigo",
+        description: "Construimos pensando en el futuro de tu empresa. Sin bloqueos t\xE9cnicos ni reescrituras costosas."
+      },
+      {
+        icon: "\u{1F91D}",
+        title: "Hablas con quien construye",
+        description: "Sin intermediarios. Tienes acceso directo al equipo que trabaja en tu proyecto, siempre."
+      }
+    ];
+    return (_ctx, _push, _parent, _attrs) => {
+      const _component_NuxtLink = __nuxt_component_0$1;
+      const _directive_reveal = resolveDirective("reveal");
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "proposition-section bg-section-dark" }, _attrs))} data-v-0cc5a304><div class="section-glow-cyan glow-right-center" data-v-0cc5a304></div><div class="section-glow-purple glow-bottom-left-sm" data-v-0cc5a304></div><div class="section-container" data-v-0cc5a304><div class="stats-grid" data-v-0cc5a304><!--[-->`);
+      ssrRenderList(stats, (stat, index) => {
+        _push(`<div${ssrRenderAttrs(mergeProps({
+          key: stat.label,
+          class: "text-center md:text-left",
+          "data-delay": index * 150
+        }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-0cc5a304><div class="stat-number" data-v-0cc5a304>${ssrInterpolate(stat.number)}</div><p class="card-text" data-v-0cc5a304>${ssrInterpolate(stat.label)}</p></div>`);
+      });
+      _push(`<!--]--></div><div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center" data-v-0cc5a304><div data-v-0cc5a304><p${ssrRenderAttrs(mergeProps({
+        class: "section-eyebrow section-eyebrow--purple mb-4",
+        "data-delay": "0"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-0cc5a304>Nuestra propuesta de valor</p><h2${ssrRenderAttrs(mergeProps({
+        class: "section-title proposition-title mb-6",
+        "data-delay": "100"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-0cc5a304> No construimos p\xE1ginas web.<br data-v-0cc5a304><span class="text-accent" data-v-0cc5a304>Construimos motores de crecimiento</span> digital para tu empresa. </h2><p${ssrRenderAttrs(mergeProps({
+        class: "section-subtitle mb-10",
+        "data-delay": "200"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-0cc5a304> Cada proyecto que entregamos est\xE1 dise\xF1ado para generar resultados medibles: m\xE1s visitas, m\xE1s conversiones y m\xE1s ventas. </p>`);
+      _push(ssrRenderComponent(_component_NuxtLink, mergeProps({
+        to: "/contacto",
+        class: "cta-primary-btn",
+        "data-delay": "300"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)), {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(` Agenda una asesor\xEDa gratuita <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-0cc5a304${_scopeId}><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" data-v-0cc5a304${_scopeId}></path></svg>`);
+          } else {
+            return [
+              createTextVNode(" Agenda una asesor\xEDa gratuita "),
+              (openBlock(), createBlock("svg", {
+                class: "w-4 h-4",
+                fill: "none",
+                stroke: "currentColor",
+                "stroke-width": "2.5",
+                viewBox: "0 0 24 24"
+              }, [
+                createVNode("path", {
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  d: "M17 8l4 4m0 0l-4 4m4-4H3"
+                })
+              ]))
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</div><div class="flex flex-col gap-4" data-v-0cc5a304><!--[-->`);
+      ssrRenderList(differentiators, (diff, index) => {
+        _push(`<div${ssrRenderAttrs(mergeProps({
+          key: diff.title,
+          "data-delay": index * 150,
+          class: "diff-card flex items-start gap-5"
+        }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-0cc5a304><div class="diff-icon" data-v-0cc5a304>${ssrInterpolate(diff.icon)}</div><div data-v-0cc5a304><h3 class="card-title mb-1" data-v-0cc5a304>${ssrInterpolate(diff.title)}</h3><p class="card-text" data-v-0cc5a304>${ssrInterpolate(diff.description)}</p></div></div>`);
+      });
+      _push(`<!--]--></div></div></div></section>`);
+    };
+  }
+};
+const _sfc_setup$5 = _sfc_main$5.setup;
+_sfc_main$5.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/home/HomeProposition.vue");
+  return _sfc_setup$5 ? _sfc_setup$5(props, ctx) : void 0;
+};
+const __nuxt_component_2 = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-0cc5a304"]]);
+const _sfc_main$4 = {
+  __name: "HomeBusinessUnits",
+  __ssrInlineRender: true,
+  setup(__props) {
+    const services = [
+      {
+        title: "P\xE1ginas web que convierten visitantes en clientes",
+        description: "Dise\xF1amos sitios r\xE1pidos, modernos y estrat\xE9gicamente construidos para llevar a cada visitante hacia la acci\xF3n que necesitas. Sin plantillas, sin atajos.",
+        icon: Globe,
+        features: ["Dise\xF1o a medida", "SEO desde el inicio", "Optimizado para m\xF3vil"],
+        variant: "cyan"
+      },
+      {
+        title: "Tu tienda online lista para vender las 24 horas",
+        description: "Creamos plataformas de venta seguras, f\xE1ciles de administrar y preparadas para escalar cuando tu negocio lo necesite.",
+        icon: ShoppingBag,
+        features: ["Pagos seguros", "Gesti\xF3n de inventario", "Experiencia de compra fluida"],
+        variant: "purple"
+      },
+      {
+        title: "Software hecho exactamente para tu empresa",
+        description: "Cuando las herramientas gen\xE9ricas no son suficientes, construimos la soluci\xF3n exacta que tu negocio necesita para crecer sin fricciones.",
+        icon: Cpu,
+        features: ["Automatizaci\xF3n de procesos", "Integraci\xF3n con sistemas actuales", "Soporte continuo"],
+        variant: "green"
+      }
+    ];
+    return (_ctx, _push, _parent, _attrs) => {
+      const _component_NuxtLink = __nuxt_component_0$1;
+      const _directive_reveal = resolveDirective("reveal");
+      _push(`<section${ssrRenderAttrs(mergeProps({
+        id: "servicios",
+        class: "services-section bg-section-dark"
+      }, _attrs))} data-v-5364e36c><div class="section-glow-purple glow-right-center" data-v-5364e36c></div><div class="section-container" data-v-5364e36c><div class="mb-12 max-w-xl" data-v-5364e36c><div${ssrRenderAttrs(mergeProps({
+        class: "eyebrow-badge mx-auto mb-6",
+        "data-delay": "0"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-5364e36c><span class="eyebrow-badge__dot" data-v-5364e36c></span><span class="eyebrow-badge__text" data-v-5364e36c>Lo que podemos hacer por ti</span></div><h2${ssrRenderAttrs(mergeProps({
+        class: "section-title text-3xl md:text-4xl",
+        "data-delay": "100"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-5364e36c> Soluciones digitales que impulsan tu negocio. </h2></div><div class="grid grid-cols-1 md:grid-cols-3 gap-5" data-v-5364e36c><!--[-->`);
+      ssrRenderList(services, (service, index) => {
+        _push(`<div${ssrRenderAttrs(mergeProps({
+          key: index,
+          "data-delay": index * 150,
+          class: ["service-card group relative flex flex-col p-8 rounded-2xl cursor-default bg-section-surface", `service-card--${service.variant}`]
+        }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-5364e36c><div class="service-top-line absolute top-0 left-8 right-8 h-px rounded-full" data-v-5364e36c></div><div class="service-icon mb-7 w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300" data-v-5364e36c>`);
+        ssrRenderVNode(_push, createVNode(resolveDynamicComponent(service.icon), {
+          class: "w-5 h-5",
+          "stroke-width": 1.8
+        }, null), _parent);
+        _push(`</div><h3 class="card-title mb-3" data-v-5364e36c>${ssrInterpolate(service.title)}</h3><p class="card-text mb-8 flex-1" data-v-5364e36c>${ssrInterpolate(service.description)}</p><div class="flex flex-wrap gap-2 mb-8" data-v-5364e36c><!--[-->`);
+        ssrRenderList(service.features, (feat) => {
+          _push(`<span class="feature-pill" data-v-5364e36c>${ssrInterpolate(feat)}</span>`);
+        });
+        _push(`<!--]--></div><div class="service-cta-wrap pt-5" data-v-5364e36c>`);
+        _push(ssrRenderComponent(_component_NuxtLink, {
+          to: "/contacto",
+          class: "service-cta group/link inline-flex items-center gap-1.5 text-sm font-medium transition-all duration-200"
+        }, {
+          default: withCtx((_, _push2, _parent2, _scopeId) => {
+            if (_push2) {
+              _push2(` Hablemos de tu proyecto <svg class="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-1" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-5364e36c${_scopeId}><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" data-v-5364e36c${_scopeId}></path></svg>`);
+            } else {
+              return [
+                createTextVNode(" Hablemos de tu proyecto "),
+                (openBlock(), createBlock("svg", {
+                  class: "w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-1",
+                  fill: "none",
+                  stroke: "currentColor",
+                  "stroke-width": "2.5",
+                  viewBox: "0 0 24 24"
+                }, [
+                  createVNode("path", {
+                    "stroke-linecap": "round",
+                    "stroke-linejoin": "round",
+                    d: "M17 8l4 4m0 0l-4 4m4-4H3"
+                  })
+                ]))
+              ];
+            }
+          }),
+          _: 2
+        }, _parent));
+        _push(`</div></div>`);
+      });
+      _push(`<!--]--></div><div${ssrRenderAttrs(mergeProps({
+        class: "mt-10 flex justify-end",
+        "data-delay": "300"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-5364e36c>`);
+      _push(ssrRenderComponent(_component_NuxtLink, {
+        to: "/servicios",
+        class: "cta-ghost"
+      }, {
+        default: withCtx((_, _push2, _parent2, _scopeId) => {
+          if (_push2) {
+            _push2(` Ver todos los servicios <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" data-v-5364e36c${_scopeId}><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" data-v-5364e36c${_scopeId}></path></svg>`);
+          } else {
+            return [
+              createTextVNode(" Ver todos los servicios "),
+              (openBlock(), createBlock("svg", {
+                class: "w-4 h-4",
+                fill: "none",
+                stroke: "currentColor",
+                "stroke-width": "2",
+                viewBox: "0 0 24 24"
+              }, [
+                createVNode("path", {
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  d: "M17 8l4 4m0 0l-4 4m4-4H3"
+                })
+              ]))
+            ];
+          }
+        }),
+        _: 1
+      }, _parent));
+      _push(`</div></div></section>`);
+    };
+  }
+};
+const _sfc_setup$4 = _sfc_main$4.setup;
+_sfc_main$4.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/home/HomeBusinessUnits.vue");
+  return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
+};
+const __nuxt_component_3 = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-5364e36c"]]);
+const _sfc_main$3 = {
+  __name: "HomeTrust",
+  __ssrInlineRender: true,
+  setup(__props) {
+    const technologies = [
+      { name: "NUXT", fullName: "Nuxt.js", logo: "https://upload.wikimedia.org/wikipedia/commons/a/ae/Nuxt_logo.svg" },
+      { name: "VUE", fullName: "Vue.js", logo: "https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg" },
+      { name: "REACT", fullName: "React", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" },
+      { name: "NODE", fullName: "Node.js", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg" },
+      { name: "TYPESCRIPT", fullName: "TypeScript", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg" },
+      { name: "TAILWIND", fullName: "Tailwind CSS", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" },
+      { name: "LARAVEL", fullName: "Laravel", logo: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Laravel.svg" },
+      { name: "AWS", fullName: "Amazon Web Services", logo: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" }
+    ];
+    const carouselContainer = ref(null);
+    ref(null);
+    return (_ctx, _push, _parent, _attrs) => {
+      const _component_NuxtImg = _sfc_main$8;
+      const _directive_reveal = resolveDirective("reveal");
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "py-16 overflow-hidden relative bg-section-dark" }, _attrs))} data-v-8925fe4a><div class="absolute top-1/2 left-0 w-[300px] h-[300px] -translate-y-1/2 pointer-events-none" style="${ssrRenderStyle({ "background": "radial-gradient(circle, var(--purple) 0%, transparent 70%)", "opacity": "0.1" })}" aria-hidden="true" data-v-8925fe4a></div><div class="w-[88%] max-w-[1340px] mx-auto relative z-20" data-v-8925fe4a><div class="flex flex-col lg:flex-row items-center gap-12" data-v-8925fe4a><div class="w-full lg:w-[380px] shrink-0 mb-12 lg:mb-0" data-v-8925fe4a><p${ssrRenderAttrs(mergeProps({
+        class: "section-eyebrow section-eyebrow--purple mb-4",
+        "data-delay": "0"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-8925fe4a>Stack tecnol\xF3gico</p><div${ssrRenderAttrs(mergeProps({
+        class: "flex flex-col leading-tight",
+        "data-delay": "100"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-8925fe4a><span class="text-3xl lg:text-4xl font-bold" style="${ssrRenderStyle({ "color": "var(--text-main)", "letter-spacing": "-0.025em", "font-family": "'Inter', sans-serif" })}" data-v-8925fe4a>Tecnolog\xEDa de</span><span class="text-3xl lg:text-4xl font-bold" style="${ssrRenderStyle({ "color": "var(--accent)", "letter-spacing": "-0.025em", "font-family": "'Inter', sans-serif" })}" data-v-8925fe4a>vanguardia.</span><p class="mt-4 text-sm leading-relaxed max-w-[280px]" style="${ssrRenderStyle({ "color": "var(--text-secondary)" })}" data-v-8925fe4a>Construimos con las herramientas que usan las mejores empresas del mundo.</p></div></div><div${ssrRenderAttrs(mergeProps({
+        ref_key: "carouselContainer",
+        ref: carouselContainer,
+        class: "relative flex-grow overflow-hidden py-32",
+        "data-delay": "200"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-8925fe4a><div class="flex flex-nowrap w-max animate-slow-marquee hover:[animation-play-state:paused]" data-v-8925fe4a><!--[-->`);
+      ssrRenderList(2, (set) => {
+        _push(`<div class="flex flex-nowrap" data-v-8925fe4a><!--[-->`);
+        ssrRenderList(technologies, (tech, index) => {
+          _push(`<div class="tech-item relative shrink-0 flex flex-col items-center justify-center w-[160px] lg:w-[240px] transition-all duration-300" data-v-8925fe4a>`);
+          _push(ssrRenderComponent(_component_NuxtImg, {
+            src: tech.logo,
+            alt: "",
+            "aria-hidden": "true",
+            class: "tech-logo h-12 lg:h-16 w-auto object-contain transition-all duration-300",
+            format: "webp",
+            loading: "lazy"
+          }, null, _parent));
+          _push(`<div class="tech-name absolute -bottom-12 left-1/2 -translate-x-1/2 text-[14px] font-bold text-accent opacity-0 transition-opacity tracking-[0.4em] font-mono text-center whitespace-nowrap uppercase" aria-hidden="true" data-v-8925fe4a>${ssrInterpolate(tech.name)}</div></div>`);
+        });
+        _push(`<!--]--></div>`);
+      });
+      _push(`<!--]--></div><div class="absolute inset-y-0 right-0 w-32 to-transparent z-10 pointer-events-none" style="${ssrRenderStyle({ "background": "linear-gradient(to left, var(--bg-dark), transparent)" })}" aria-hidden="true" data-v-8925fe4a></div></div></div></div></section>`);
+    };
+  }
+};
+const _sfc_setup$3 = _sfc_main$3.setup;
+_sfc_main$3.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/home/HomeTrust.vue");
+  return _sfc_setup$3 ? _sfc_setup$3(props, ctx) : void 0;
+};
+const __nuxt_component_4 = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-8925fe4a"]]);
+const _sfc_main$2 = {
+  __name: "HomeTestimonials",
+  __ssrInlineRender: true,
+  setup(__props) {
+    const testimonials = [
+      {
+        name: "Mar\xEDa Rodr\xEDguez",
+        initials: "MR",
+        company: "Gerente General \xB7 Tech Solutions Corp",
+        text: "Antes ten\xEDa una web que no me tra\xEDa nada. Desde que trabajamos con SysifosWeb, nuestras consultas online se triplicaron. El equipo entendi\xF3 exactamente lo que necesitaba y lo ejecutaron con precisi\xF3n.",
+        metric: "3\xD7",
+        metricLabel: "consultas online en 3 meses",
+        avatarBg: "linear-gradient(135deg, #38BDF8, #6366F1)"
+      },
+      {
+        name: "Carlos L\xF3pez",
+        initials: "CL",
+        company: "Founder \xB7 Innovatech",
+        text: "Lanzamos nuestra tienda online en tiempo r\xE9cord. Nuestras ventas crecieron un 40% en el primer trimestre.",
+        metric: "+40%",
+        metricLabel: "en ventas el primer trimestre",
+        avatarBg: "linear-gradient(135deg, #6366F1, #8B5CF6)"
+      },
+      {
+        name: "Ana Silva",
+        initials: "AS",
+        company: "Directora de Operaciones \xB7 Global Systems",
+        text: "El sistema que desarrollaron nos ahorr\xF3 horas de trabajo manual cada semana. Ahora el equipo se enfoca en lo que realmente importa.",
+        metric: "12h",
+        metricLabel: "ahorradas por semana",
+        avatarBg: "linear-gradient(135deg, #34D399, #38BDF8)"
+      }
+    ];
+    return (_ctx, _push, _parent, _attrs) => {
+      const _directive_reveal = resolveDirective("reveal");
+      _push(`<section${ssrRenderAttrs(mergeProps({ class: "testimonials-section relative overflow-hidden bg-section-dark" }, _attrs))} data-v-a1d27242><div class="ambient-orb" data-v-a1d27242></div><div class="section-container" data-v-a1d27242><div class="section-header" data-v-a1d27242><div data-v-a1d27242><p${ssrRenderAttrs(mergeProps({
+        class: "overline-label",
+        "data-delay": "0"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-a1d27242>Clientes</p><h2${ssrRenderAttrs(mergeProps({
+        class: "section-headline",
+        "data-delay": "100"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-a1d27242> Empresas que crecieron<br data-v-a1d27242><em data-v-a1d27242>con nuestra tecnolog\xEDa.</em></h2></div><div${ssrRenderAttrs(mergeProps({
+        class: "proof-strip",
+        "data-delay": "200"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-a1d27242><div class="proof-stars" data-v-a1d27242><!--[-->`);
+      ssrRenderList(5, (s) => {
+        _push(`<svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="#F59E0B" aria-hidden="true" data-v-a1d27242><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" data-v-a1d27242></path></svg>`);
+      });
+      _push(`<!--]--></div><p class="proof-label" data-v-a1d27242>5.0 \xB7 98% clientes satisfechos</p></div></div><div class="bento-grid" data-v-a1d27242><article${ssrRenderAttrs(mergeProps({
+        class: "bento-card bento-card--featured group",
+        "data-delay": "0"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-a1d27242><div class="card-accent-line card-accent-line--cyan" aria-hidden="true" data-v-a1d27242></div><span class="quote-mark" aria-hidden="true" data-v-a1d27242>\u201C</span><blockquote class="quote-text quote-text--lg" data-v-a1d27242><p data-v-a1d27242>${ssrInterpolate(testimonials[0].text)}</p></blockquote><div class="metric-block metric-block--featured" data-v-a1d27242><span class="metric-number metric-number--cyan" data-v-a1d27242>${ssrInterpolate(testimonials[0].metric)}</span><span class="metric-label" data-v-a1d27242>${ssrInterpolate(testimonials[0].metricLabel)}</span></div><footer class="author-row" data-v-a1d27242><div class="author-avatar" style="${ssrRenderStyle({ background: testimonials[0].avatarBg })}" aria-hidden="true" data-v-a1d27242>${ssrInterpolate(testimonials[0].initials)}</div><cite data-v-a1d27242><p class="author-name" data-v-a1d27242>${ssrInterpolate(testimonials[0].name)}</p><p class="author-company" data-v-a1d27242>${ssrInterpolate(testimonials[0].company)}</p></cite></footer></article><div class="bento-col-right" data-v-a1d27242><article${ssrRenderAttrs(mergeProps({
+        class: "bento-card group",
+        "data-delay": "150"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-a1d27242><div class="card-accent-line card-accent-line--purple" aria-hidden="true" data-v-a1d27242></div><span class="quote-mark quote-mark--sm" aria-hidden="true" data-v-a1d27242>\u201C</span><blockquote class="quote-text" data-v-a1d27242><p data-v-a1d27242>${ssrInterpolate(testimonials[1].text)}</p></blockquote><div class="metric-block" data-v-a1d27242><span class="metric-number metric-number--purple" data-v-a1d27242>${ssrInterpolate(testimonials[1].metric)}</span><span class="metric-label" data-v-a1d27242>${ssrInterpolate(testimonials[1].metricLabel)}</span></div><footer class="author-row" data-v-a1d27242><div class="author-avatar" style="${ssrRenderStyle({ background: testimonials[1].avatarBg })}" aria-hidden="true" data-v-a1d27242>${ssrInterpolate(testimonials[1].initials)}</div><cite data-v-a1d27242><p class="author-name" data-v-a1d27242>${ssrInterpolate(testimonials[1].name)}</p><p class="author-company" data-v-a1d27242>${ssrInterpolate(testimonials[1].company)}</p></cite></footer></article><article${ssrRenderAttrs(mergeProps({
+        class: "bento-card group",
+        "data-delay": "300"
+      }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-a1d27242><div class="card-accent-line card-accent-line--cyan" aria-hidden="true" data-v-a1d27242></div><span class="quote-mark quote-mark--sm" aria-hidden="true" data-v-a1d27242>\u201C</span><blockquote class="quote-text" data-v-a1d27242><p data-v-a1d27242>${ssrInterpolate(testimonials[2].text)}</p></blockquote><div class="metric-block" data-v-a1d27242><span class="metric-number metric-number--cyan" data-v-a1d27242>${ssrInterpolate(testimonials[2].metric)}</span><span class="metric-label" data-v-a1d27242>${ssrInterpolate(testimonials[2].metricLabel)}</span></div><footer class="author-row" data-v-a1d27242><div class="author-avatar" style="${ssrRenderStyle({ background: testimonials[2].avatarBg })}" aria-hidden="true" data-v-a1d27242>${ssrInterpolate(testimonials[2].initials)}</div><cite data-v-a1d27242><p class="author-name" data-v-a1d27242>${ssrInterpolate(testimonials[2].name)}</p><p class="author-company" data-v-a1d27242>${ssrInterpolate(testimonials[2].company)}</p></cite></footer></article></div></div></div></section>`);
+    };
+  }
+};
+const _sfc_setup$2 = _sfc_main$2.setup;
+_sfc_main$2.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/home/HomeTestimonials.vue");
+  return _sfc_setup$2 ? _sfc_setup$2(props, ctx) : void 0;
+};
+const __nuxt_component_5 = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-a1d27242"]]);
+const _sfc_main$1 = {};
+function _sfc_ssrRender(_ctx, _push, _parent, _attrs) {
+  const _component_NuxtLink = __nuxt_component_0$1;
+  const _directive_reveal = resolveDirective("reveal");
+  _push(`<section${ssrRenderAttrs(mergeProps({ class: "relative w-full py-32 flex items-center justify-center overflow-hidden group/banner bg-section-dark" }, _attrs))} data-v-36b0907c><div class="absolute inset-0 pointer-events-none z-0" data-v-36b0907c><div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl opacity-20" data-v-36b0907c><svg viewBox="0 0 1000 1000" class="w-full h-full" data-v-36b0907c><g class="portal-lines transition-all duration-1000 group-hover/banner:scale-95 group-hover/banner:opacity-35" stroke="#00f2ff" stroke-width="0.3" data-v-36b0907c><!--[-->`);
+  ssrRenderList(36, (n) => {
+    _push(`<line x1="500" y1="500"${ssrRenderAttr("x2", 500 + Math.cos(n * 10 * Math.PI / 180) * 800)}${ssrRenderAttr("y2", 500 + Math.sin(n * 10 * Math.PI / 180) * 800)} class="transition-all duration-700 portal-ray" data-v-36b0907c></line>`);
+  });
+  _push(`<!--]--><circle cx="500" cy="500" r="150" fill="none" stroke-dasharray="4 8" data-v-36b0907c></circle><circle cx="500" cy="500" r="300" fill="none" stroke-dasharray="2 10" data-v-36b0907c></circle></g></svg></div></div><div class="max-w-[1400px] w-[92%] mx-auto relative z-10 text-center" data-v-36b0907c><p${ssrRenderAttrs(mergeProps({
+    class: "text-sm font-medium mb-4",
+    style: { "color": "var(--text-muted)" },
+    "data-delay": "0"
+  }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-36b0907c>Empieza hoy</p><h2${ssrRenderAttrs(mergeProps({
+    class: "text-3xl md:text-5xl font-bold leading-tight max-w-3xl mx-auto mb-6",
+    style: { "color": "var(--text-main)", "letter-spacing": "-0.025em" },
+    "data-delay": "100"
+  }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-36b0907c> \xBFListo para hacer crecer<br class="hidden md:block" data-v-36b0907c> tu negocio? </h2><p${ssrRenderAttrs(mergeProps({
+    class: "text-lg mb-12 max-w-xl mx-auto",
+    style: { "color": "var(--text-secondary)" },
+    "data-delay": "200"
+  }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-36b0907c> Agenda una llamada de 30 minutos sin costo. Te escuchamos y te decimos honestamente c\xF3mo podemos ayudarte. </p><div${ssrRenderAttrs(mergeProps({
+    class: "flex flex-col items-center gap-5",
+    "data-delay": "300"
+  }, ssrGetDirectiveProps(_ctx, _directive_reveal)))} data-v-36b0907c>`);
+  _push(ssrRenderComponent(_component_NuxtLink, {
+    to: "/contacto",
+    class: "inline-flex items-center gap-2 px-10 py-4 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5",
+    style: { "background": "var(--accent)", "color": "#0b0f1c", "box-shadow": "0 0 24px rgba(56,189,248,0.2)" }
+  }, {
+    default: withCtx((_, _push2, _parent2, _scopeId) => {
+      if (_push2) {
+        _push2(` Agenda tu asesor\xEDa gratuita <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" data-v-36b0907c${_scopeId}><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" data-v-36b0907c${_scopeId}></path></svg>`);
+      } else {
+        return [
+          createTextVNode(" Agenda tu asesor\xEDa gratuita "),
+          (openBlock(), createBlock("svg", {
+            class: "w-4 h-4",
+            fill: "none",
+            stroke: "currentColor",
+            "stroke-width": "2.5",
+            viewBox: "0 0 24 24"
+          }, [
+            createVNode("path", {
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              d: "M17 8l4 4m0 0l-4 4m4-4H3"
+            })
+          ]))
+        ];
+      }
+    }),
+    _: 1
+  }, _parent));
+  _push(`<p class="text-xs" style="${ssrRenderStyle({ "color": "var(--text-muted)" })}" data-v-36b0907c>Sin compromisos \xB7 Sin contratos largos \xB7 Respuesta en 24 horas</p></div></div></section>`);
+}
+const _sfc_setup$1 = _sfc_main$1.setup;
+_sfc_main$1.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/home/HomeBanner.vue");
+  return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
+};
+const __nuxt_component_6 = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["ssrRender", _sfc_ssrRender], ["__scopeId", "data-v-36b0907c"]]);
+const _sfc_main = {
+  __name: "index",
+  __ssrInlineRender: true,
+  setup(__props) {
+    const { setMeta, setSchema } = useSEO();
+    setMeta({
+      title: "SysifosWeb | Desarrollo de Software y P\xE1ginas Web en Chile",
+      description: "Creamos software a medida, p\xE1ginas web profesionales y tiendas online para empresas en Chile. Especialistas en Laravel, Nuxt y arquitecturas escalables. \xA1Cotiza gratis hoy!",
+      keywords: "desarrollo de software chile, p\xE1ginas web profesionales chile, desarrollo web coquimbo, software a medida, tiendas online chile, consultor\xEDa tecnol\xF3gica chile, aplicaciones web empresas",
+      image: "/img/og-home.png"
+    });
+    setSchema({
+      type: "WebPage",
+      data: {
+        name: "SysifosWeb \u2014 Desarrollo de Software y P\xE1ginas Web en Chile",
+        description: "Agencia de desarrollo de software, p\xE1ginas web y ecommerce para empresas en Chile. Laravel, Nuxt, Vue.js y m\xE1s."
+      }
+    });
+    setSchema({
+      type: "LocalBusiness",
+      data: {
+        name: "Sysifos Web",
+        description: "Agencia de desarrollo de software, p\xE1ginas web profesionales y tiendas online en La Serena, Chile. Especialistas en Laravel, Nuxt, Vue.js y React.",
+        telephone: "+56-9-8502-1549",
+        email: "contacto@sysifosweb.cl",
+        addressLocality: "La Serena",
+        addressRegion: "Coquimbo",
+        addressCountry: "CL",
+        openingHours: [
+          { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" }
+        ],
+        priceRange: "$$"
+      }
+    });
+    setSchema({
+      type: "Review",
+      data: {
+        reviews: [
+          {
+            author: "Mar\xEDa Rodr\xEDguez",
+            text: "Antes ten\xEDa una web que no me tra\xEDa nada. Desde que trabajamos con SysifosWeb, nuestras consultas online se triplicaron. El equipo entendi\xF3 exactamente lo que necesitaba y lo ejecutaron con precisi\xF3n.",
+            rating: "5"
+          },
+          {
+            author: "Carlos L\xF3pez",
+            text: "Lanzamos nuestra tienda online en tiempo r\xE9cord. Nuestras ventas crecieron un 40% en el primer trimestre.",
+            rating: "5"
+          },
+          {
+            author: "Ana Silva",
+            text: "El sistema que desarrollaron nos ahorr\xF3 horas de trabajo manual cada semana. Ahora el equipo se enfoca en lo que realmente importa.",
+            rating: "5"
+          }
+        ]
+      }
+    });
+    return (_ctx, _push, _parent, _attrs) => {
+      const _component_HomeValue = __nuxt_component_0;
+      const _component_HomeProblems = __nuxt_component_1;
+      const _component_HomeProposition = __nuxt_component_2;
+      const _component_HomeBusinessUnits = __nuxt_component_3;
+      const _component_HomeTrust = __nuxt_component_4;
+      const _component_HomeTestimonials = __nuxt_component_5;
+      const _component_HomeBanner = __nuxt_component_6;
+      _push(`<!--[-->`);
+      _push(ssrRenderComponent(_component_HomeValue, null, null, _parent));
+      _push(ssrRenderComponent(_component_HomeProblems, null, null, _parent));
+      _push(ssrRenderComponent(_component_HomeProposition, null, null, _parent));
+      _push(ssrRenderComponent(_component_HomeBusinessUnits, null, null, _parent));
+      _push(ssrRenderComponent(_component_HomeTrust, null, null, _parent));
+      _push(ssrRenderComponent(_component_HomeTestimonials, null, null, _parent));
+      _push(ssrRenderComponent(_component_HomeBanner, null, null, _parent));
+      _push(`<!--]-->`);
+    };
+  }
+};
+const _sfc_setup = _sfc_main.setup;
+_sfc_main.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("pages/index.vue");
+  return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
+};
+
+export { _sfc_main as default };
+//# sourceMappingURL=index-BhiEm5UO.mjs.map

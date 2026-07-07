@@ -29,10 +29,10 @@ const styles = {
   "pages/admin/posts/edit.vue": () => import('./edit-styles.B1mqzLzU.mjs').then(interopDefault),
   "pages/admin/contacts/[id].vue": () => import('./_id_-styles._u7EXDFO.mjs').then(interopDefault),
   "components/nosotros/CtaSection.vue": () => import('./CtaSection-styles.JH7Fbmcx.mjs').then(interopDefault),
-  "layouts/default.vue": () => import('./default-styles.CmMc_-XV.mjs').then(interopDefault),
-  "components/AppHeader.vue": () => import('./default-styles.CmMc_-XV.mjs').then(interopDefault),
   "layouts/secondary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
   "components/AppHeaderSecundary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
+  "layouts/default.vue": () => import('./default-styles.CmMc_-XV.mjs').then(interopDefault),
+  "components/AppHeader.vue": () => import('./default-styles.CmMc_-XV.mjs').then(interopDefault),
   "components/AppNavbar.vue": () => import('./AppNavbar-styles.C_9AjqQi.mjs').then(interopDefault),
   "components/Footer.vue": () => import('./Footer-styles.IdzbQkrf.mjs').then(interopDefault)
 };

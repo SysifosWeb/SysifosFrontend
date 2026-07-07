@@ -1,9 +1,9 @@
-import { f as defineEventHandler, I as setHeader } from '../../nitro/nitro.mjs';
+import { d as defineEventHandler, s as setHeader } from '../../nitro/nitro.mjs';
 import 'node:http';
 import 'node:https';
 import 'node:events';
 import 'node:buffer';
-import 'lru-cache';
+import 'node:diagnostics_channel';
 import 'node:fs';
 import 'node:path';
 import 'node:crypto';
