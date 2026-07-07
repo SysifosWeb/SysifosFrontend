@@ -55,7 +55,7 @@ setSchema({
   data: {
     name: 'Sysifos Web',
     description: 'Agencia de desarrollo de software, páginas web profesionales y tiendas online en La Serena, Chile.',
-    telephone: '+56-9-4910-9970',
+    telephone: '+56-9-8502-1549',
     email: 'contacto@sysifosweb.cl',
     addressLocality: 'La Serena',
     addressRegion: 'Coquimbo',

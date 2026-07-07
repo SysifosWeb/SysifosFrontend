@@ -555,43 +555,43 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-Bxh4N-J6.mjs')
+    component: () => import('./index-BA-nwJVP.mjs')
   },
   {
     name: "contacto",
     path: "/contacto",
     meta: __nuxt_page_meta$i || {},
-    component: () => import('./contacto-B8gTYVwk.mjs')
+    component: () => import('./contacto-BMttsYIc.mjs')
   },
   {
     name: "nosotros",
     path: "/nosotros",
     meta: __nuxt_page_meta$h || {},
-    component: () => import('./nosotros-CwOCuc_e.mjs')
+    component: () => import('./nosotros--rr7frfg.mjs')
   },
   {
     name: "sinapsys",
     path: "/sinapsys",
     meta: __nuxt_page_meta$g || {},
-    component: () => import('./sinapsys-BBDd0T5U.mjs')
+    component: () => import('./sinapsys-DpMxJT2e.mjs')
   },
   {
     name: "portfolio",
     path: "/portfolio",
     meta: __nuxt_page_meta$f || {},
-    component: () => import('./portfolio-BV64lG13.mjs')
+    component: () => import('./portfolio-D8Z6_1eq.mjs')
   },
   {
     name: "servicios",
     path: "/servicios",
     meta: __nuxt_page_meta$e || {},
-    component: () => import('./servicios-C1PgneBK.mjs')
+    component: () => import('./servicios-DW1JiyAM.mjs')
   },
   {
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./index-CdsxE3Io.mjs')
+    component: () => import('./index-BhBLXcl1.mjs')
   },
   {
     name: "admin",
@@ -1548,9 +1548,9 @@ const plugins = [
 ];
 const layouts = {
   admin: defineAsyncComponent(() => import('./admin-CgZFXDs8.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-tZodjxDA.mjs').then((m) => m.default || m)),
-  hero: defineAsyncComponent(() => import('./hero-UkwGYfBU.mjs').then((m) => m.default || m)),
-  secondary: defineAsyncComponent(() => import('./secondary-BjAd7HTY.mjs').then((m) => m.default || m))
+  default: defineAsyncComponent(() => import('./default-BxNh8r-W.mjs').then((m) => m.default || m)),
+  hero: defineAsyncComponent(() => import('./hero-C1PGW0rd.mjs').then((m) => m.default || m)),
+  secondary: defineAsyncComponent(() => import('./secondary-DSYGa9cl.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({

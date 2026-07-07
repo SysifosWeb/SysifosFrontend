@@ -6,7 +6,7 @@ import osman from '@/assets/img/Osman.png'
 
 <template>
   <section class="py-12 md:py-16 relative bg-section-dark overflow-hidden">
-    
+
     <!-- Ambient -->
     <div class="ambient-orb ambient-orb--cyan"></div>
 
@@ -17,13 +17,14 @@ import osman from '@/assets/img/Osman.png'
         <div class="equipo-header__left">
           <p class="overline-label" v-reveal data-delay="0">El equipo</p>
           <h2 class="equipo-headline" v-reveal data-delay="100">
-            Las mentes<br/>
+            Las mentes<br />
             <em>detrás del código.</em>
           </h2>
         </div>
         <div class="equipo-header__right">
           <p class="equipo-descriptor" v-reveal data-delay="200">
-            Tres especialistas, un estándar de ingeniería. Construimos software que escala, resiste y evoluciona con tu negocio.
+            Dos especialistas, un estándar de ingeniería. Construimos software que escala, resiste y evoluciona con tu
+            negocio.
           </p>
         </div>
       </div>
@@ -35,7 +36,7 @@ import osman from '@/assets/img/Osman.png'
         <div class="roster-card group md:mt-14" v-reveal data-delay="150">
           <img :src="karen" alt="Karen Godoy" class="roster-photo" loading="lazy" />
           <div class="roster-overlay"></div>
-          
+
           <div class="roster-info">
             <div class="roster-role">
               <Database class="roster-role__icon roster-role__icon--purple" />
@@ -43,7 +44,8 @@ import osman from '@/assets/img/Osman.png'
             </div>
             <h3 class="roster-name">Karen Godoy</h3>
             <p class="roster-bio">
-              Control estructural enfocado en optimización de bases de datos relacionales con eficiencia visual ininterrumpida.
+              Control estructural enfocado en optimización de bases de datos relacionales con eficiencia visual
+              ininterrumpida.
             </p>
           </div>
           <div class="roster-accent-line roster-accent-line--purple"></div>
@@ -53,7 +55,7 @@ import osman from '@/assets/img/Osman.png'
         <div class="roster-card group" v-reveal data-delay="300">
           <img :src="osman" alt="Osman Ahumada" class="roster-photo" loading="lazy" />
           <div class="roster-overlay"></div>
-          
+
           <div class="roster-info">
             <div class="roster-role">
               <Smartphone class="roster-role__icon" />
@@ -79,6 +81,7 @@ import osman from '@/assets/img/Osman.png'
   position: absolute;
   pointer-events: none;
 }
+
 .ambient-orb--cyan {
   width: 500px;
   height: 500px;
@@ -113,6 +116,7 @@ import osman from '@/assets/img/Osman.png'
   color: var(--text-main);
   margin: 0;
 }
+
 .equipo-headline em {
   font-style: normal;
   background: linear-gradient(95deg, #38BDF8 0%, #818CF8 100%);
@@ -131,7 +135,8 @@ import osman from '@/assets/img/Osman.png'
 /* ── Cinematic Roster Card ──────────────────── */
 .roster-card {
   position: relative;
-  height: 480px; /* Tall editorial portrait */
+  height: 480px;
+  /* Tall editorial portrait */
   background: #0d1526;
   border-radius: 20px;
   overflow: hidden;
@@ -143,14 +148,16 @@ import osman from '@/assets/img/Osman.png'
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
-  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease;
-  border: 1px solid rgba(255,255,255,0.05);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
+
 .roster-card:hover {
   transform: translateZ(0) translateY(-6px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.15);
 }
+
 /* ── Top accent line ────────────────────────── */
 .roster-accent-line {
   position: absolute;
@@ -162,9 +169,18 @@ import osman from '@/assets/img/Osman.png'
   transition: opacity 0.4s ease;
   z-index: 20;
 }
-.roster-card:hover .roster-accent-line { opacity: 1; }
-.roster-accent-line--cyan   { background: linear-gradient(to right, transparent, #38BDF8, transparent); }
-.roster-accent-line--purple { background: linear-gradient(to right, transparent, #818CF8, transparent); }
+
+.roster-card:hover .roster-accent-line {
+  opacity: 1;
+}
+
+.roster-accent-line--cyan {
+  background: linear-gradient(to right, transparent, #38BDF8, transparent);
+}
+
+.roster-accent-line--purple {
+  background: linear-gradient(to right, transparent, #818CF8, transparent);
+}
 
 /* ── Cinematic Photo ────────────────────────── */
 .roster-photo {
@@ -182,6 +198,7 @@ import osman from '@/assets/img/Osman.png'
   transition: filter 1s ease, transform 6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   z-index: 1;
 }
+
 .roster-card:hover .roster-photo {
   /* Recovers some warmth and brightness on hover */
   filter: sepia(0.1) hue-rotate(190deg) saturate(0.6) brightness(0.9) contrast(1.1);
@@ -192,13 +209,11 @@ import osman from '@/assets/img/Osman.png'
 .roster-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(11,18,34, 0.98) 0%,
-    rgba(11,18,34, 0.8) 25%,
-    rgba(11,18,34, 0.2) 60%,
-    transparent 100%
-  );
+  background: linear-gradient(to top,
+      rgba(11, 18, 34, 0.98) 0%,
+      rgba(11, 18, 34, 0.8) 25%,
+      rgba(11, 18, 34, 0.2) 60%,
+      transparent 100%);
   z-index: 2;
   pointer-events: none;
 }
@@ -219,13 +234,18 @@ import osman from '@/assets/img/Osman.png'
   gap: 0.5rem;
   margin-bottom: 0.25rem;
 }
+
 .roster-role__icon {
   width: 14px;
   height: 14px;
   color: #38BDF8;
   flex-shrink: 0;
 }
-.roster-role__icon--purple { color: #818CF8; }
+
+.roster-role__icon--purple {
+  color: #818CF8;
+}
+
 .roster-role__text {
   font-size: 0.65rem;
   font-weight: 700;
@@ -233,22 +253,27 @@ import osman from '@/assets/img/Osman.png'
   text-transform: uppercase;
   color: #38BDF8;
 }
-.roster-role__text--purple { color: #818CF8; }
+
+.roster-role__text--purple {
+  color: #818CF8;
+}
 
 .roster-name {
   font-family: 'Inter', sans-serif;
-  font-size: 1.5rem; /* Larger, more editorial */
+  font-size: 1.5rem;
+  /* Larger, more editorial */
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--text-main);
   line-height: 1.1;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.5); /* Helps legibility over images */
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  /* Helps legibility over images */
 }
 
 .roster-bio {
   font-size: 0.82rem;
   line-height: 1.65;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   margin-top: 0.25rem;
 }
 </style>

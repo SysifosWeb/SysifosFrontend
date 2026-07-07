@@ -9,9 +9,9 @@ const styles = {
   "components/home/HomeTrust.vue": () => import('./HomeTrust-styles.kTvmypEo.mjs').then(interopDefault),
   "components/home/HomeTestimonials.vue": () => import('./HomeTestimonials-styles.hnQ9lzJJ.mjs').then(interopDefault),
   "components/home/HomeBanner.vue": () => import('./HomeBanner-styles.CrKtXqtq.mjs').then(interopDefault),
-  "pages/nosotros.vue": () => import('./nosotros-styles.C1RyPy58.mjs').then(interopDefault),
+  "pages/nosotros.vue": () => import('./nosotros-styles.EM4PFBSK.mjs').then(interopDefault),
   "components/nosotros/StorytellingBreak.vue": () => import('./StorytellingBreak-styles.KkNMimdk.mjs').then(interopDefault),
-  "components/nosotros/EquipoSection.vue": () => import('./EquipoSection-styles.CvdzKJu3.mjs').then(interopDefault),
+  "components/nosotros/EquipoSection.vue": () => import('./EquipoSection-styles.DRGBGWIE.mjs').then(interopDefault),
   "components/nosotros/MetodologiaSection.vue": () => import('./MetodologiaSection-styles.BoUZFeHw.mjs').then(interopDefault),
   "pages/portfolio.vue": () => import('./portfolio-styles.Bh8eqdb3.mjs').then(interopDefault),
   "components/portfolio/HeroSection.vue": () => import('./HeroSection-styles.BqojEHeo.mjs').then(interopDefault),
@@ -34,7 +34,7 @@ const styles = {
   "layouts/secondary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
   "components/AppHeaderSecundary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
   "components/AppNavbar.vue": () => import('./AppNavbar-styles.C_9AjqQi.mjs').then(interopDefault),
-  "components/Footer.vue": () => import('./Footer-styles.D_RAaINc.mjs').then(interopDefault)
+  "components/Footer.vue": () => import('./Footer-styles.IdzbQkrf.mjs').then(interopDefault)
 };
 
 export { styles as default };

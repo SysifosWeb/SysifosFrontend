@@ -143,7 +143,7 @@ export const useSEO = () => {
             },
             contactPoint: {
                 '@type': 'ContactPoint',
-                telephone: '+56-9-4910-9970',
+                telephone: '+56-9-8502-1549',
                 contactType: 'customer service',
                 email: 'contacto@sysifosweb.cl',
                 availableLanguage: ['Spanish']
@@ -247,7 +247,7 @@ export const useSEO = () => {
                     name: data.name || 'Sysifos Web',
                     description: data.description || 'Empresa de desarrollo de software, aplicaciones web y soluciones digitales en Chile',
                     url: siteUrl,
-                    telephone: data.telephone || '+56-9-4910-9970',
+                    telephone: data.telephone || '+56-9-8502-1549',
                     email: data.email || 'contacto@sysifosweb.cl',
                     image: data.image || `${siteUrl}/img/logo.png`,
                     address: {

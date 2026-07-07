@@ -5,18 +5,10 @@
       <label for="name" class="block text-sm font-medium text-dark-700 mb-2">
         Nombre completo <span aria-hidden="true">*</span><span class="sr-only">(requerido)</span>
       </label>
-      <input
-        id="name"
-        v-model="formData.name"
-        type="text"
-        required
-        aria-required="true"
-        :aria-invalid="!!errors.name"
+      <input id="name" v-model="formData.name" type="text" required aria-required="true" :aria-invalid="!!errors.name"
         aria-describedby="name-error"
         class="w-full px-4 py-3 rounded-lg border border-dark-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none"
-        :class="{ 'border-red-500': errors.name }"
-        placeholder="Juan Pérez"
-      />
+        :class="{ 'border-red-500': errors.name }" placeholder="Juan Pérez" />
       <p v-if="errors.name" id="name-error" role="alert" class="mt-1 text-sm text-red-600">{{ errors.name }}</p>
     </div>
 
@@ -25,18 +17,10 @@
       <label for="email" class="block text-sm font-medium text-dark-700 mb-2">
         Correo electrónico <span aria-hidden="true">*</span><span class="sr-only">(requerido)</span>
       </label>
-      <input
-        id="email"
-        v-model="formData.email"
-        type="email"
-        required
-        aria-required="true"
-        :aria-invalid="!!errors.email"
-        aria-describedby="email-error"
+      <input id="email" v-model="formData.email" type="email" required aria-required="true"
+        :aria-invalid="!!errors.email" aria-describedby="email-error"
         class="w-full px-4 py-3 rounded-lg border border-dark-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none"
-        :class="{ 'border-red-500': errors.email }"
-        placeholder="juan@ejemplo.com"
-      />
+        :class="{ 'border-red-500': errors.email }" placeholder="juan@ejemplo.com" />
       <p v-if="errors.email" id="email-error" role="alert" class="mt-1 text-sm text-red-600">{{ errors.email }}</p>
     </div>
 
@@ -45,13 +29,9 @@
       <label for="phone" class="block text-sm font-medium text-dark-700 mb-2">
         Teléfono
       </label>
-      <input
-        id="phone"
-        v-model="formData.phone"
-        type="tel"
+      <input id="phone" v-model="formData.phone" type="tel"
         class="w-full px-4 py-3 rounded-lg border border-dark-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none"
-        placeholder="+56 9 1234 5678"
-      />
+        placeholder="+56 9 8502 1549" />
     </div>
 
     <!-- Service Type -->
@@ -59,13 +39,8 @@
       <label for="service" class="block text-sm font-medium text-dark-700 mb-2">
         Tipo de servicio <span aria-hidden="true">*</span><span class="sr-only">(requerido)</span>
       </label>
-      <select
-        id="service"
-        v-model="formData.service"
-        required
-        aria-required="true"
-        class="w-full px-4 py-3 rounded-lg border border-dark-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none"
-      >
+      <select id="service" v-model="formData.service" required aria-required="true"
+        class="w-full px-4 py-3 rounded-lg border border-dark-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none">
         <option value="">Selecciona un servicio</option>
         <option value="web">Desarrollo Web</option>
         <option value="mobile">Aplicación Móvil</option>
@@ -81,33 +56,26 @@
       <label for="message" class="block text-sm font-medium text-dark-700 mb-2">
         Mensaje <span aria-hidden="true">*</span><span class="sr-only">(requerido)</span>
       </label>
-      <textarea
-        id="message"
-        v-model="formData.message"
-        required
-        aria-required="true"
-        :aria-invalid="!!errors.message"
-        aria-describedby="message-error"
-        rows="5"
+      <textarea id="message" v-model="formData.message" required aria-required="true" :aria-invalid="!!errors.message"
+        aria-describedby="message-error" rows="5"
         class="w-full px-4 py-3 rounded-lg border border-dark-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all outline-none resize-none"
-        :class="{ 'border-red-500': errors.message }"
-        placeholder="Cuéntanos sobre tu proyecto..."
-      ></textarea>
-      <p v-if="errors.message" id="message-error" role="alert" class="mt-1 text-sm text-red-600">{{ errors.message }}</p>
+        :class="{ 'border-red-500': errors.message }" placeholder="Cuéntanos sobre tu proyecto..."></textarea>
+      <p v-if="errors.message" id="message-error" role="alert" class="mt-1 text-sm text-red-600">{{ errors.message }}
+      </p>
     </div>
 
     <!-- Submit Button -->
     <div>
-      <button
-        type="submit"
-        :disabled="isSubmitting"
-        class="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
-      >
+      <button type="submit" :disabled="isSubmitting"
+        class="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed">
         <span v-if="!isSubmitting">Enviar mensaje</span>
         <span v-else class="flex items-center justify-center">
-          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            <path class="opacity-75" fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+            </path>
           </svg>
           Enviando...
         </span>
@@ -115,20 +83,11 @@
     </div>
 
     <!-- Success Message -->
-    <Transition
-      enter-active-class="transition duration-300 ease-out"
-      enter-from-class="opacity-0 scale-95"
-      enter-to-class="opacity-100 scale-100"
-      leave-active-class="transition duration-200 ease-in"
-      leave-from-class="opacity-100 scale-100"
-      leave-to-class="opacity-0 scale-95"
-    >
-      <div
-        v-if="showSuccess"
-        role="status"
-        aria-live="polite"
-        class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg"
-      >
+    <Transition enter-active-class="transition duration-300 ease-out" enter-from-class="opacity-0 scale-95"
+      enter-to-class="opacity-100 scale-100" leave-active-class="transition duration-200 ease-in"
+      leave-from-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-95">
+      <div v-if="showSuccess" role="status" aria-live="polite"
+        class="p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
         <p class="font-medium">¡Mensaje enviado con éxito!</p>
         <p class="text-sm">Nos pondremos en contacto contigo pronto.</p>
       </div>
@@ -158,7 +117,7 @@ const showSuccess = ref(false)
 
 const validateForm = () => {
   let isValid = true
-  
+
   // Reset errors
   errors.name = ''
   errors.email = ''
@@ -196,10 +155,10 @@ const handleSubmit = async () => {
   try {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500))
-    
+
     // Show success message
     showSuccess.value = true
-    
+
     // Reset form
     formData.name = ''
     formData.email = ''
