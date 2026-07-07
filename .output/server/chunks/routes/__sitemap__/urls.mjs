@@ -17,12 +17,19 @@ import 'ipx';
 const urls = defineEventHandler(async () => {
   var _a;
   const apiBase = "https://olimpo.sysifosweb.cl/api";
+  const allPosts = [];
   try {
-    const response = await $fetch(
-      `${apiBase}/blog?per_page=500`
-    );
-    const posts = (_a = response == null ? void 0 : response.data) != null ? _a : [];
-    return posts.map((post) => {
+    let currentPage = 1;
+    let lastPage = 1;
+    do {
+      const response = await $fetch(`${apiBase}/blog?page=${currentPage}`);
+      if (response == null ? void 0 : response.data) {
+        allPosts.push(...response.data);
+      }
+      lastPage = ((_a = response == null ? void 0 : response.meta) == null ? void 0 : _a.last_page) || 1;
+      currentPage++;
+    } while (currentPage <= lastPage);
+    return allPosts.map((post) => {
       var _a2, _b;
       return {
         loc: `/blog/${post.slug}`,

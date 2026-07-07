@@ -5,15 +5,27 @@
  */
 export default defineEventHandler(async () => {
   const apiBase = 'https://olimpo.sysifosweb.cl/api'
+  const allPosts: Array<{ slug: string; updated_at?: string; published_at?: string }> = []
 
   try {
-    const response = await $fetch<{ data: Array<{ slug: string; updated_at?: string; published_at?: string }> }>(
-      `${apiBase}/blog?per_page=500`
-    )
+    let currentPage = 1
+    let lastPage = 1
 
-    const posts = response?.data ?? []
+    do {
+      const response = await $fetch<{ 
+        data: Array<{ slug: string; updated_at?: string; published_at?: string }>,
+        meta: { last_page: number }
+      }>(`${apiBase}/blog?page=${currentPage}`)
+      
+      if (response?.data) {
+        allPosts.push(...response.data)
+      }
+      
+      lastPage = response?.meta?.last_page || 1
+      currentPage++
+    } while (currentPage <= lastPage)
 
-    return posts.map((post) => ({
+    return allPosts.map((post) => ({
       loc: `/blog/${post.slug}`,
       lastmod: post.updated_at ?? post.published_at ?? undefined,
       changefreq: 'weekly',
