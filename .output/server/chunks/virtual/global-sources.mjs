@@ -38,6 +38,11 @@ const sources = [
                 "loc": "/blog",
                 "priority": 0.9,
                 "changefreq": "daily"
+            },
+            {
+                "loc": "/sinapsys",
+                "priority": 0.8,
+                "changefreq": "monthly"
             }
         ],
         "sourceType": "user"

@@ -90,7 +90,7 @@ export default defineNuxtConfig({
             htmlAttrs: {
                 lang: 'es'
             },
-            titleTemplate: '%s | SysifosWeb',
+            titleTemplate: '%s',
             meta: [
                 { name: 'format-detection', content: 'telephone=no' },
                 { name: 'theme-color', content: '#1e40af' },
@@ -149,6 +149,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         url: 'https://www.sysifosweb.cl'
     },
     sitemap: {
+        cacheMaxAgeSeconds: 0, // Desactivar caché para ver URLs nuevas al instante
         // Fuente dinámica: Nitro consulta este endpoint para obtener las URLs de artículos
         sources: ['/__sitemap__/urls'],
         exclude: ['/admin/**'],
@@ -160,6 +161,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             { loc: '/portfolio', priority: 0.7, changefreq: 'monthly' },
             { loc: '/contacto', priority: 0.8, changefreq: 'monthly' },
             { loc: '/blog', priority: 0.9, changefreq: 'daily' },
+            { loc: '/sinapsys', priority: 0.8, changefreq: 'monthly' },
         ]
     },
 })
