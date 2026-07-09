@@ -1,1 +1,0 @@
-import{_ as a,a as n}from"./Bthfuhjo.js";import{E as _,o as c,c as r,g as e,a as l,Z as p}from"./DlBqrATk.js";const m={class:"min-h-screen font-sans bg-section-dark"},h={__name:"hero",setup(u){return _(),(o,d)=>{const t=a,s=n;return c(),r("div",m,[e(t,{class:"absolute top-0 left-0 w-full z-50"}),l("main",null,[p(o.$slots,"default")]),e(s)])}}};export{h as default};

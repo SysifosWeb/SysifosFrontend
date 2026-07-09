@@ -19,7 +19,7 @@ defineEmits(['update:modelValue', 'update:searchQuery'])
 <template>
     <section class="py-6 bg-section-dark border-y border-white/5 relative z-10">
         <div class="max-w-[1200px] w-[90%] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-2 overflow-x-auto w-full pb-2 md:pb-0 hide-scrollbar">
+            <div class="flex items-center gap-2 overflow-x-auto w-full pb-2 md:pb-0 hide-scrollbar md:flex-wrap md:overflow-visible">
                 <button
                     v-for="category in categories"
                     :key="category.id"

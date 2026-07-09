@@ -592,85 +592,85 @@ const _routes = [
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./index-Caq8IX9n.mjs')
+    component: () => import('./index-CQHa2ron.mjs')
   },
   {
     name: "admin",
     path: "/admin",
     meta: __nuxt_page_meta$c || {},
-    component: () => import('./index-BQgt-LBF.mjs')
+    component: () => import('./index-CoPge6Fv.mjs')
   },
   {
     name: "admin-login",
     path: "/admin/login",
     meta: __nuxt_page_meta$b || {},
-    component: () => import('./login-CAp-k7lu.mjs')
+    component: () => import('./login-CrxPOq8l.mjs')
   },
   {
     name: "blog-slug",
     path: "/blog/:slug()",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./_slug_-BBmGVOLv.mjs')
+    component: () => import('./_slug_-Bex0t_zu.mjs')
   },
   {
     name: "admin-posts-id",
     path: "/admin/posts/:id()",
     meta: __nuxt_page_meta$9 || {},
-    component: () => import('./_id_-CchMhI9m.mjs')
+    component: () => import('./_id_-CzqlJ16G.mjs')
   },
   {
     name: "admin-posts-edit",
     path: "/admin/posts/edit",
     meta: __nuxt_page_meta$8 || {},
-    component: () => import('./edit-CWzIlXvj.mjs')
+    component: () => import('./edit-C7NZD6Wn.mjs')
   },
   {
     name: "admin-posts",
     path: "/admin/posts",
     meta: __nuxt_page_meta$7 || {},
-    component: () => import('./index-Dsz1VYMK.mjs')
+    component: () => import('./index-C8IhrucH.mjs')
   },
   {
     name: "admin-posts-create",
     path: "/admin/posts/create",
     meta: __nuxt_page_meta$6 || {},
-    component: () => import('./create-B6hr_EUl.mjs')
+    component: () => import('./create-8EoQEbOI.mjs')
   },
   {
     name: "admin-contacts-id",
     path: "/admin/contacts/:id()",
     meta: __nuxt_page_meta$5 || {},
-    component: () => import('./_id_-CU-H5WWk.mjs')
+    component: () => import('./_id_-BsalWsrr.mjs')
   },
   {
     name: "admin-contacts",
     path: "/admin/contacts",
     meta: __nuxt_page_meta$4 || {},
-    component: () => import('./index-CrY5OyEw.mjs')
+    component: () => import('./index-DeSOuzC2.mjs')
   },
   {
     name: "admin-categories-id",
     path: "/admin/categories/:id()",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import('./_id_-YkWXvoTS.mjs')
+    component: () => import('./_id_-Dd3g7a8o.mjs')
   },
   {
     name: "admin-categories-edit",
     path: "/admin/categories/edit",
     meta: __nuxt_page_meta$2 || {},
-    component: () => import('./edit-BYj-f0rm.mjs')
+    component: () => import('./edit-DEs254KA.mjs')
   },
   {
     name: "admin-categories",
     path: "/admin/categories",
     meta: __nuxt_page_meta$1 || {},
-    component: () => import('./index-M0BpVdf5.mjs')
+    component: () => import('./index-CPlIMtC5.mjs')
   },
   {
     name: "admin-categories-create",
     path: "/admin/categories/create",
     meta: __nuxt_page_meta || {},
-    component: () => import('./create-zEm0jzet.mjs')
+    component: () => import('./create-x0KUbq6E.mjs')
   }
 ];
 const _wrapInTransition = (props, children) => {
@@ -1565,7 +1565,7 @@ const plugins = [
   reveal_server_uRZrqkPcTOXMVic82VVVMBpGHwPPKeft5_XKNaiP79c
 ];
 const layouts = {
-  admin: defineAsyncComponent(() => import('./admin-BOFJwiGN.mjs').then((m) => m.default || m)),
+  admin: defineAsyncComponent(() => import('./admin-DyIAOQM-.mjs').then((m) => m.default || m)),
   default: defineAsyncComponent(() => import('./default-C2w5mkd_.mjs').then((m) => m.default || m)),
   hero: defineAsyncComponent(() => import('./hero-CU7BUqkc.mjs').then((m) => m.default || m)),
   secondary: defineAsyncComponent(() => import('./secondary-DI1LjKTo.mjs').then((m) => m.default || m))
@@ -1985,5 +1985,5 @@ let entry;
 }
 const entry_default = ((ssrContext) => entry(ssrContext));
 
-export { _export_sfc as _, __nuxt_component_0$1 as a, useHead as b, useNuxtApp as c, useRuntimeConfig as d, entry_default as default, useRequestEvent as e, asyncDataDefaults as f, createError as g, fetchDefaults as h, useRequestFetch as i, useCookie as j, useSeoMeta as k, __nuxt_component_0$2 as l, useRoute as u };
+export { _export_sfc as _, __nuxt_component_0$1 as a, useHead as b, useNuxtApp as c, useRuntimeConfig as d, entry_default as default, useRequestEvent as e, useRouter as f, asyncDataDefaults as g, createError as h, useCookie as i, fetchDefaults as j, useRequestFetch as k, useSeoMeta as l, __nuxt_component_0$2 as m, useRoute as u };
 //# sourceMappingURL=server.mjs.map

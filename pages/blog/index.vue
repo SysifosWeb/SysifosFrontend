@@ -19,12 +19,40 @@ setMeta({
 })
 
 // Obtener posts reales desde la API (sin await para navegación cliente)
-const { data: blogResponse } = useFetch(`${apiUrl}blog`, {
-  key: 'blog-index-list'
+const route = useRoute()
+const router = useRouter()
+
+const currentPage = computed({
+  get: () => Number(route.query.page) || 1,
+  set: (val) => {
+    router.push({ query: { ...route.query, page: val } })
+    if (process.client) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+})
+
+// Fetch ALL posts to allow frontend filtering and pagination
+const { data: allFetchedPosts, pending } = useAsyncData('all-blog-posts', async () => {
+  const firstPage = await $fetch(`${apiUrl}blog?page=1`)
+  let posts = firstPage.data || []
+  const lastPage = firstPage.last_page || 1
+  
+  if (lastPage > 1) {
+    const promises = []
+    for (let i = 2; i <= lastPage; i++) {
+      promises.push($fetch(`${apiUrl}blog?page=${i}`))
+    }
+    const results = await Promise.all(promises)
+    results.forEach(res => {
+      posts = posts.concat(res.data || [])
+    })
+  }
+  return posts
 })
 
 const allPosts = computed(() => {
-  const posts = blogResponse.value?.data || []
+  const posts = allFetchedPosts.value || []
   return posts.map(p => ({
     id: p.id,
     title: p.title,
@@ -39,7 +67,7 @@ const allPosts = computed(() => {
   }))
 })
 
-// Categorías dinámicas desde los posts
+// Categorías dinámicas desde TODOS los posts
 const categories = computed(() => {
   const catMap = new Map()
   catMap.set('all', { id: 'all', name: 'Todos' })
@@ -53,11 +81,20 @@ const categories = computed(() => {
 
 const selectedCategory = ref('all')
 const searchQuery = ref('')
+const itemsPerPage = 10
 
-const featuredPost = computed(() => allPosts.value.find(p => p.featured) || allPosts.value[0] || null)
+const featuredPost = computed(() => {
+  if (selectedCategory.value !== 'all' || searchQuery.value.trim() !== '' || currentPage.value !== 1) return null
+  return allPosts.value.find(p => p.featured) || allPosts.value[0] || null
+})
 
-const filteredPosts = computed(() => {
-  let posts = allPosts.value.filter(p => p.id !== featuredPost.value?.id)
+// Frontend filtering
+const filteredPostsAll = computed(() => {
+  let posts = allPosts.value
+  
+  if (featuredPost.value) {
+    posts = posts.filter(p => p.id !== featuredPost.value.id)
+  }
 
   if (selectedCategory.value !== 'all') {
     posts = posts.filter(p => p.category?.slug === selectedCategory.value)
@@ -73,6 +110,24 @@ const filteredPosts = computed(() => {
 
   return posts
 })
+
+const totalPages = computed(() => {
+  return Math.ceil(filteredPostsAll.value.length / itemsPerPage) || 1
+})
+
+// Reset to page 1 when filters change
+watch([selectedCategory, searchQuery], () => {
+  if (currentPage.value !== 1) {
+    currentPage.value = 1
+  }
+})
+
+// Paginated posts for the current view
+const filteredPosts = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage
+  const end = start + itemsPerPage
+  return filteredPostsAll.value.slice(start, end)
+})
 </script>
 
 <template>
@@ -87,6 +142,29 @@ const filteredPosts = computed(() => {
 
     <!-- Articles Grid -->
     <BlogPostGrid :posts="filteredPosts" />
+
+    <!-- Pagination -->
+    <div v-if="totalPages > 1" class="flex justify-center items-center gap-4 py-12 bg-section-dark">
+      <button 
+        @click="currentPage > 1 ? currentPage-- : null"
+        :disabled="currentPage === 1"
+        class="px-5 py-2.5 text-sm font-semibold text-white bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+      >
+        &larr; Anterior
+      </button>
+      
+      <div class="flex items-center gap-2">
+        <span class="text-white/80 text-sm font-medium">Página {{ currentPage }} de {{ totalPages }}</span>
+      </div>
+      
+      <button 
+        @click="currentPage < totalPages ? currentPage++ : null"
+        :disabled="currentPage === totalPages"
+        class="px-5 py-2.5 text-sm font-semibold text-white bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+      >
+        Siguiente &rarr;
+      </button>
+    </div>
 
     <!-- Newsletter -->
     <!-- <BlogNewsletterSection /> -->
