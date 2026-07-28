@@ -119,7 +119,7 @@ setSchema({
         </p>
 
         <a class="mt-8 inline-flex items-center gap-2 bg-[#00f2ff]/10 hover:bg-[#00f2ff] border border-[#00f2ff]/50 text-[#00f2ff] hover:text-[#0a0e17] font-mono text-[15px] uppercase tracking-widest py-3 px-6 transition-all duration-300 shadow-[0_0_15px_rgba(0,242,255,0.1)] hover:shadow-[0_0_20px_rgba(0,242,255,0.4)]"
-          href="https://wa.me/56949109970?text=¡Hola!%20Quiero%20más%20información%20sobre%20sus%20servicios"
+          href="https://wa.me/56985021549?text=¡Hola!%20Quiero%20más%20información%20sobre%20sus%20servicios"
           target="_blank">
           ESTABLECER_CONEXION_WSP >
         </a>

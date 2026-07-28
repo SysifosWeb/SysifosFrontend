@@ -17,9 +17,9 @@ const styles = {
   "components/portfolio/HeroSection.vue": () => import('./HeroSection-styles.BqojEHeo.mjs').then(interopDefault),
   "components/portfolio/GridSection.vue": () => import('./GridSection-styles.BvFVHGoq.mjs').then(interopDefault),
   "components/portfolio/StatsSection.vue": () => import('./StatsSection-styles.Bk-XIwBk.mjs').then(interopDefault),
-  "pages/servicios.vue": () => import('./servicios-styles.CfgQ1y8h.mjs').then(interopDefault),
+  "pages/servicios.vue": () => import('./servicios-styles.B3crXzI9.mjs').then(interopDefault),
   "components/servicios/HeroSection.vue": () => import('./HeroSection-styles.xX9nCbo-.mjs').then(interopDefault),
-  "components/servicios/ListSection.vue": () => import('./ListSection-styles.B9TUoTLm.mjs').then(interopDefault),
+  "components/servicios/ListSection.vue": () => import('./ListSection-styles.BgkyI6JE.mjs').then(interopDefault),
   "components/servicios/ProcesoSection.vue": () => import('./ProcesoSection-styles.CQTjLApN.mjs').then(interopDefault),
   "components/servicios/TechStackSection.vue": () => import('./TechStackSection-styles.C7L4155j.mjs').then(interopDefault),
   "pages/blog/index.vue": () => import('./index-styles.C1UsRtWV.mjs').then(interopDefault),
@@ -28,13 +28,13 @@ const styles = {
   "pages/admin/posts/[id].vue": () => import('./_id_-styles.Lqb561wa.mjs').then(interopDefault),
   "pages/admin/posts/edit.vue": () => import('./edit-styles.B1mqzLzU.mjs').then(interopDefault),
   "pages/admin/contacts/[id].vue": () => import('./_id_-styles._u7EXDFO.mjs').then(interopDefault),
-  "components/nosotros/CtaSection.vue": () => import('./CtaSection-styles.JH7Fbmcx.mjs').then(interopDefault),
-  "layouts/secondary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
-  "components/AppHeaderSecundary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
+  "components/nosotros/CtaSection.vue": () => import('./CtaSection-styles.EfC0EA8Z.mjs').then(interopDefault),
   "layouts/default.vue": () => import('./default-styles.CmMc_-XV.mjs').then(interopDefault),
   "components/AppHeader.vue": () => import('./default-styles.CmMc_-XV.mjs').then(interopDefault),
-  "components/AppNavbar.vue": () => import('./AppNavbar-styles.C_9AjqQi.mjs').then(interopDefault),
-  "components/Footer.vue": () => import('./Footer-styles.IdzbQkrf.mjs').then(interopDefault)
+  "layouts/secondary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
+  "components/AppHeaderSecundary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
+  "components/Footer.vue": () => import('./Footer-styles.IdzbQkrf.mjs').then(interopDefault),
+  "components/AppNavbar.vue": () => import('./AppNavbar-styles.C_9AjqQi.mjs').then(interopDefault)
 };
 
 export { styles as default };
