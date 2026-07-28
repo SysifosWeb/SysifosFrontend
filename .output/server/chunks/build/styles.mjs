@@ -33,8 +33,8 @@ const styles = {
   "components/AppHeader.vue": () => import('./default-styles.CmMc_-XV.mjs').then(interopDefault),
   "layouts/secondary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
   "components/AppHeaderSecundary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
-  "components/Footer.vue": () => import('./Footer-styles.IdzbQkrf.mjs').then(interopDefault),
-  "components/AppNavbar.vue": () => import('./AppNavbar-styles.C_9AjqQi.mjs').then(interopDefault)
+  "components/AppNavbar.vue": () => import('./AppNavbar-styles.C_9AjqQi.mjs').then(interopDefault),
+  "components/Footer.vue": () => import('./Footer-styles.IdzbQkrf.mjs').then(interopDefault)
 };
 
 export { styles as default };

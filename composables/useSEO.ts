@@ -125,7 +125,7 @@ export const useSEO = () => {
      */
     const setSchema = (schemaConfig: SchemaConfig) => {
         const { type, data = {} } = schemaConfig
-        const siteUrl = 'https://sysifosweb.cl'
+        const siteUrl = 'https://www.sysifosweb.cl'
 
         // Schema base de Organization (siempre presente)
         const organizationSchema = {

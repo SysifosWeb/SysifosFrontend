@@ -10,7 +10,7 @@ const links = [
   {
     title: 'Página Web',
     desc: 'NODO_PRINCIPAL.',
-    url: 'https://sysifosweb.cl/',
+    url: 'https://www.sysifosweb.cl/',
     icon: GlobeAltIcon,
     bg: 'bg-[#00f2ff]/10',
     color: 'text-[#00f2ff]',
@@ -19,7 +19,7 @@ const links = [
   {
     title: 'Portafolio',
     desc: 'HISTORIAL_OPERATIVO.',
-    url: 'https://sysifosweb.cl/portfolio',
+    url: 'https://www.sysifosweb.cl/portfolio',
     icon: BriefcaseIcon,
     bg: 'bg-[#00f2ff]/10',
     color: 'text-[#00f2ff]',

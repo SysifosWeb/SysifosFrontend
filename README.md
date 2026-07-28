@@ -1,6 +1,6 @@
 # Sysifosweb Clone - Nuxt 3
 
-Clone del sitio web oficial de Sysifosweb (https://sysifosweb.cl/) desarrollado con Nuxt 3.
+Clone del sitio web oficial de Sysifosweb (https://www.sysifosweb.cl/) desarrollado con Nuxt 3.
 
 ## 🚀 Tecnologías
 

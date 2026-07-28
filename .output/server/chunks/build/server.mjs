@@ -556,43 +556,43 @@ const _routes = [
   {
     name: "index",
     path: "/",
-    component: () => import('./index-BhiEm5UO.mjs')
+    component: () => import('./index-CFsAANGf.mjs')
   },
   {
     name: "contacto",
     path: "/contacto",
     meta: __nuxt_page_meta$i || {},
-    component: () => import('./contacto-B7L8r4wv.mjs')
+    component: () => import('./contacto-C4oOiRB9.mjs')
   },
   {
     name: "nosotros",
     path: "/nosotros",
     meta: __nuxt_page_meta$h || {},
-    component: () => import('./nosotros-uXlD1El5.mjs')
+    component: () => import('./nosotros-DrzlfLXP.mjs')
   },
   {
     name: "sinapsys",
     path: "/sinapsys",
     meta: __nuxt_page_meta$g || {},
-    component: () => import('./sinapsys-C74U4SBh.mjs')
+    component: () => import('./sinapsys-CX-Sr7TJ.mjs')
   },
   {
     name: "portfolio",
     path: "/portfolio",
     meta: __nuxt_page_meta$f || {},
-    component: () => import('./portfolio-DXYUpJyX.mjs')
+    component: () => import('./portfolio-C5ZhtD72.mjs')
   },
   {
     name: "servicios",
     path: "/servicios",
     meta: __nuxt_page_meta$e || {},
-    component: () => import('./servicios-CICZ2znV.mjs')
+    component: () => import('./servicios-CuMKnpZ0.mjs')
   },
   {
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./index-uit__6pJ.mjs')
+    component: () => import('./index-D8mXKfwm.mjs')
   },
   {
     name: "admin",
