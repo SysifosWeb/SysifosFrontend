@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     },
     image: {
         domains: ['olimpo.sysifosweb.cl', 'picsum.photos'],
-        format: ['webp','avif'],
+        format: ['webp', 'avif'],
         screens: { xs: 320, sm: 640, md: 768, lg: 1024, xl: 1280 }
     },
     experimental: {
@@ -100,6 +100,7 @@ export default defineNuxtConfig({
     gtag: {
         id: 'G-3BJ0HZ6RSH',
         loadingStrategy: 'defer',
+        config: { anonymize_ip: true },
         // Google Consent Mode v2: estado por defecto denegado hasta que el
         // usuario otorgue su consentimiento desde el banner de cookies.
         initCommands: [
