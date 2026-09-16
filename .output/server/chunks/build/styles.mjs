@@ -1,6 +1,6 @@
 const interopDefault = r => r.default || r || [];
 const styles = {
-  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.uaMrePYp.mjs').then(interopDefault),
+  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.5RsibxWO.mjs').then(interopDefault),
   "pages/index.vue": () => import('./index-styles.CO7vGYsn.mjs').then(interopDefault),
   "components/home/HomeValue.vue": () => import('./HomeValue-styles.iOfSa90Y.mjs').then(interopDefault),
   "components/home/HomeProblems.vue": () => import('./HomeProblems-styles.BrzEF-iF.mjs').then(interopDefault),
@@ -24,8 +24,8 @@ const styles = {
   "pages/admin/posts/[id].vue": () => import('./_id_-styles.DJ7fUbHK.mjs').then(interopDefault),
   "pages/admin/posts/edit.vue": () => import('./edit-styles.B1mqzLzU.mjs').then(interopDefault),
   "pages/admin/contacts/[id].vue": () => import('./_id_-styles._u7EXDFO.mjs').then(interopDefault),
-  "components/home/HomeTrust.vue": () => import('./HomeTrust-styles.VcyIJtQg.mjs').then(interopDefault),
   "components/home/HomeBusinessUnits.vue": () => import('./HomeBusinessUnits-styles.D6Lb29RF.mjs').then(interopDefault),
+  "components/home/HomeTrust.vue": () => import('./HomeTrust-styles.VcyIJtQg.mjs').then(interopDefault),
   "components/home/HomeTestimonials.vue": () => import('./HomeTestimonials-styles.BBokI21Z.mjs').then(interopDefault),
   "components/home/HomeBanner.vue": () => import('./HomeBanner-styles.CHOTR3tr.mjs').then(interopDefault),
   "components/nosotros/CtaSection.vue": () => import('./CtaSection-styles.EfC0EA8Z.mjs').then(interopDefault),
@@ -35,7 +35,7 @@ const styles = {
   "components/AppHeaderSecundary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
   "components/AppNavbar.vue": () => import('./AppNavbar-styles.C_9AjqQi.mjs').then(interopDefault),
   "components/Footer.vue": () => import('./Footer-styles.BX-UnDKW.mjs').then(interopDefault),
-  "components/CookieConsent.vue": () => import('./CookieConsent-styles.ST0MBVb3.mjs').then(interopDefault)
+  "components/CookieConsent.vue": () => import('./CookieConsent-styles.BhndL_dZ.mjs').then(interopDefault)
 };
 
 export { styles as default };

@@ -1,8 +1,15 @@
 import { ref } from 'vue'
 
 const CONSENT_KEY = 'sysifos_cookie_consent'
+const CONSENT_VERSION = '1.0'
 
 export type ConsentDecision = 'accepted' | 'rejected' | null
+
+interface ConsentRecord {
+  decision: ConsentDecision
+  timestamp: string
+  version: string
+}
 
 const consent = ref<ConsentDecision>(null)
 const bannerVisible = ref(false)
@@ -11,11 +18,15 @@ function readStored(): ConsentDecision {
   if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
     return null
   }
-  const value = localStorage.getItem(CONSENT_KEY)
-  if (value === 'accepted' || value === 'rejected') {
-    return value
+  const stored = localStorage.getItem(CONSENT_KEY)
+  if (!stored) return null
+  
+  try {
+    const record = JSON.parse(stored) as ConsentRecord
+    return record.decision
+  } catch {
+    return null
   }
-  return null
 }
 
 export function useCookieConsent() {
@@ -35,14 +46,23 @@ export function useCookieConsent() {
 
   function accept() {
     consent.value = 'accepted'
-    localStorage.setItem(CONSENT_KEY, 'accepted')
+    localStorage.setItem(CONSENT_KEY, JSON.stringify({
+      decision: 'accepted',
+      timestamp: new Date().toISOString(),
+      version: CONSENT_VERSION
+    }))
     bannerVisible.value = false
     syncConsent('accepted')
+    firePageView()
   }
 
   function reject() {
     consent.value = 'rejected'
-    localStorage.setItem(CONSENT_KEY, 'rejected')
+    localStorage.setItem(CONSENT_KEY, JSON.stringify({
+      decision: 'rejected',
+      timestamp: new Date().toISOString(),
+      version: CONSENT_VERSION
+    }))
     bannerVisible.value = false
     syncConsent('rejected')
   }
@@ -69,4 +89,19 @@ function syncConsent(decision: ConsentDecision) {
       ad_personalization: decision === 'accepted' ? 'granted' : 'denied',
     })
   }
+}
+
+function firePageView() {
+  if (typeof window === 'undefined') {
+    return
+  }
+  const gtag = (window as any).gtag
+  if (typeof gtag !== 'function') {
+    return
+  }
+  gtag('event', 'page_view', {
+    page_location: window.location.href,
+    page_title: document.title,
+    page_path: window.location.pathname,
+  })
 }

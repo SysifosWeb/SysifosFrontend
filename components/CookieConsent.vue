@@ -14,30 +14,31 @@ const { bannerVisible, accept, reject } = useCookieConsent()
       <div class="flex flex-col gap-4">
         <div>
           <h2 id="cookie-title" class="text-sm font-bold text-white mb-2">
-            Cookies y protección de datos
+            Hagamos tu experiencia mejor 💡
           </h2>
           <p id="cookie-desc" class="text-xs text-white/60 leading-relaxed">
-            Usamos cookies necesarias para el funcionamiento del sitio y, con tu
-            consentimiento, cookies de analítica para mejorar tu experiencia. Puedes
-            gestionar tus preferencias o consultar nuestra
+            Usamos cookies para que el sitio funcione bien y para entender cómo lo
+            visitas. Con tu "Aceptar", la analítica nos ayuda a mejorar el contenido
+            que te interesa y a ofrecerte información más útil. Es anónimo, seguro y
+            puedes cambiar de opinión cuando quieras. Más detalles en nuestra
             <NuxtLink to="/privacidad" class="text-sky-400 underline hover:text-sky-300">
               Política de Privacidad
             </NuxtLink>.
           </p>
         </div>
 
-        <div class="flex items-center gap-3">
+        <div class="flex flex-col gap-2">
           <button
             @click="accept"
-            class="flex-1 py-2.5 rounded-lg bg-white text-black font-semibold text-xs hover:bg-gray-200 transition-colors"
+            class="w-full py-2.5 rounded-lg bg-white text-black font-semibold text-xs hover:bg-gray-200 hover:scale-[1.02] transition-all"
           >
-            Aceptar
+            ¡Entendido, aceptar!
           </button>
           <button
             @click="reject"
-            class="flex-1 py-2.5 rounded-lg border border-white/15 text-white/80 font-semibold text-xs hover:bg-white/5 transition-colors"
+            class="w-full py-2 rounded-lg text-white/50 font-medium text-[0.7rem] hover:text-white/80 hover:bg-white/5 transition-colors"
           >
-            Rechazar
+            No, solo lo necesario
           </button>
         </div>
       </div>
