@@ -68,6 +68,7 @@ export default defineNuxtConfig({
                     "https://*.googletagmanager.com",
                     "https://*.doubleclick.net",
                     "https://*.google.com",
+                    "https://pagead2.googlesyndication.com",
                     "https://*.google.cl",
                     "https://olimpo.sysifosweb.cl",
                     "https://*.picsum.photos",
@@ -84,6 +85,7 @@ export default defineNuxtConfig({
                     "https://*.googletagmanager.com",
                     "https://*.doubleclick.net",
                     "https://*.google.com",
+                    "https://pagead2.googlesyndication.com",
                     "https://olimpo.sysifosweb.cl"
                 ],
                 'frame-src': [
