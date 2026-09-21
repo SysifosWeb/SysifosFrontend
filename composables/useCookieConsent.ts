@@ -75,13 +75,25 @@ export function useCookieConsent() {
   }
 }
 
-function syncConsent(decision: ConsentDecision) {
+// nuxt-gtag no expone window.gtag (su función es privada del módulo),
+// por lo que se usa el stub oficial de Google que encola comandos en dataLayer.
+function getGtag(): ((...args: any[]) => void) | null {
   if (typeof window === 'undefined') {
-    return
+    return null
   }
-  // Google Consent Mode v2
-  const gtag = (window as any).gtag
-  if (typeof gtag === 'function') {
+  const w = window as any
+  w.dataLayer = w.dataLayer || []
+  if (typeof w.gtag !== 'function') {
+    w.gtag = function gtag() {
+      w.dataLayer.push(arguments)
+    }
+  }
+  return w.gtag
+}
+
+function syncConsent(decision: ConsentDecision) {
+  const gtag = getGtag()
+  if (gtag) {
     gtag('consent', 'update', {
       ad_storage: decision === 'accepted' ? 'granted' : 'denied',
       analytics_storage: decision === 'accepted' ? 'granted' : 'denied',
@@ -92,11 +104,8 @@ function syncConsent(decision: ConsentDecision) {
 }
 
 function firePageView() {
-  if (typeof window === 'undefined') {
-    return
-  }
-  const gtag = (window as any).gtag
-  if (typeof gtag !== 'function') {
+  const gtag = getGtag()
+  if (!gtag) {
     return
   }
   gtag('event', 'page_view', {
