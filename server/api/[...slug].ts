@@ -8,10 +8,11 @@ export default defineEventHandler(async (event) => {
   try {
     return await proxyRequest(event, target)
   } catch (error) {
-    console.error(`[API Proxy Error] ${target}:`, error.message || error)
+    const proxyError = error as { message?: string; response?: { status?: number; statusText?: string } }
+    console.error(`[API Proxy Error] ${target}:`, proxyError.message || error)
     throw createError({
-      statusCode: error.response?.status || 502,
-      statusMessage: error.response?.statusText || 'Bad Gateway'
+      statusCode: proxyError.response?.status || 502,
+      statusMessage: proxyError.response?.statusText || 'Bad Gateway'
     })
   }
 })

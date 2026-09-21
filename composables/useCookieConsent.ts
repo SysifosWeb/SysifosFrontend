@@ -14,6 +14,8 @@ interface ConsentRecord {
 const consent = ref<ConsentDecision>(null)
 const bannerVisible = ref(false)
 
+let cancelScheduledBanner: (() => void) | null = null
+
 function readStored(): ConsentDecision {
   if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
     return null
@@ -38,13 +40,17 @@ export function useCookieConsent() {
       syncConsent(stored)
     } else {
       consent.value = null
-      bannerVisible.value = true
       // Default: denegar hasta que el usuario decida.
       syncConsent('rejected')
+      // Banner diferido: no interrumpe la primera impresión. Se muestra tras
+      // la primera interacción real (clic, teclado, scroll de lectura) o tras
+      // 10 segundos, cuando el usuario ya recibió valor del sitio.
+      scheduleBanner()
     }
   }
 
   function accept() {
+    cancelScheduledBanner?.()
     consent.value = 'accepted'
     localStorage.setItem(CONSENT_KEY, JSON.stringify({
       decision: 'accepted',
@@ -57,6 +63,7 @@ export function useCookieConsent() {
   }
 
   function reject() {
+    cancelScheduledBanner?.()
     consent.value = 'rejected'
     localStorage.setItem(CONSENT_KEY, JSON.stringify({
       decision: 'rejected',
@@ -73,6 +80,47 @@ export function useCookieConsent() {
     accept,
     reject,
   }
+}
+
+function scheduleBanner() {
+  if (cancelScheduledBanner) {
+    return
+  }
+
+  const show = () => {
+    cleanup()
+    if (consent.value === null) {
+      bannerVisible.value = true
+    }
+  }
+
+  const onFirstInteraction = () => show()
+
+  const onScroll = () => {
+    // Solo un scroll de lectura real cuenta como interacción.
+    if (window.scrollY > 200) {
+      show()
+    }
+  }
+
+  const timer = window.setTimeout(show, 10000)
+  const options: AddEventListenerOptions = { passive: true }
+
+  document.addEventListener('click', onFirstInteraction, options)
+  document.addEventListener('keydown', onFirstInteraction, options)
+  document.addEventListener('touchstart', onFirstInteraction, options)
+  window.addEventListener('scroll', onScroll, options)
+
+  function cleanup() {
+    window.clearTimeout(timer)
+    document.removeEventListener('click', onFirstInteraction, options)
+    document.removeEventListener('keydown', onFirstInteraction, options)
+    document.removeEventListener('touchstart', onFirstInteraction, options)
+    window.removeEventListener('scroll', onScroll, options)
+    cancelScheduledBanner = null
+  }
+
+  cancelScheduledBanner = cleanup
 }
 
 // nuxt-gtag no expone window.gtag (su función es privada del módulo),
