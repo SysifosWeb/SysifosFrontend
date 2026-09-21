@@ -27,10 +27,11 @@ const ____slug_ = defineEventHandler(async (event) => {
   try {
     return await proxyRequest(event, target);
   } catch (error) {
-    console.error(`[API Proxy Error] ${target}:`, error.message || error);
+    const proxyError = error;
+    console.error(`[API Proxy Error] ${target}:`, proxyError.message || error);
     throw createError({
-      statusCode: ((_a = error.response) == null ? void 0 : _a.status) || 502,
-      statusMessage: ((_b = error.response) == null ? void 0 : _b.statusText) || "Bad Gateway"
+      statusCode: ((_a = proxyError.response) == null ? void 0 : _a.status) || 502,
+      statusMessage: ((_b = proxyError.response) == null ? void 0 : _b.statusText) || "Bad Gateway"
     });
   }
 });
