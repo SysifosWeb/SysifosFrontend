@@ -14,13 +14,14 @@ const { bannerVisible, accept, reject } = useCookieConsent()
       <div class="flex flex-col gap-4">
         <div>
           <h2 id="cookie-title" class="text-sm font-bold text-white mb-2">
-            Hagamos tu experiencia mejor 💡
+            Tu lectura nos enseña 💡
           </h2>
           <p id="cookie-desc" class="text-xs text-white/60 leading-relaxed">
-            Usamos cookies para que el sitio funcione bien y para entender cómo lo
-            visitas. Con tu "Aceptar", la analítica nos ayuda a mejorar el contenido
-            que te interesa y a ofrecerte información más útil. Es anónimo, seguro y
-            puedes cambiar de opinión cuando quieras. Más detalles en nuestra
+            Con tu permiso medimos qué artículos se leen (Google Analytics,
+            <strong class="text-white/80">sin publicidad personalizada</strong>
+            y sin compartir tus datos con terceros) para seguir publicando
+            contenido como el que estás leyendo. Puedes cambiar de opinión
+            cuando quieras. Más detalles en nuestra
             <NuxtLink to="/privacidad" class="text-sky-400 underline hover:text-sky-300">
               Política de Privacidad
             </NuxtLink>.
@@ -32,13 +33,13 @@ const { bannerVisible, accept, reject } = useCookieConsent()
             @click="accept"
             class="w-full py-2.5 rounded-lg bg-white text-black font-semibold text-xs hover:bg-gray-200 hover:scale-[1.02] transition-all"
           >
-            ¡Entendido, aceptar!
+            Aceptar medición
           </button>
           <button
             @click="reject"
-            class="w-full py-2 rounded-lg text-white/50 font-medium text-[0.7rem] hover:text-white/80 hover:bg-white/5 transition-colors"
+            class="w-full py-2 rounded-lg border border-white/15 text-white/70 font-medium text-[0.7rem] hover:text-white hover:bg-white/5 transition-colors"
           >
-            No, solo lo necesario
+            Solo lo necesario
           </button>
         </div>
       </div>

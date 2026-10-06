@@ -1,6 +1,6 @@
 const interopDefault = r => r.default || r || [];
 const styles = {
-  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.5RsibxWO.mjs').then(interopDefault),
+  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.BgbQ-fZ8.mjs').then(interopDefault),
   "pages/index.vue": () => import('./index-styles.CO7vGYsn.mjs').then(interopDefault),
   "components/home/HomeValue.vue": () => import('./HomeValue-styles.iOfSa90Y.mjs').then(interopDefault),
   "components/home/HomeProblems.vue": () => import('./HomeProblems-styles.BrzEF-iF.mjs').then(interopDefault),
@@ -34,8 +34,8 @@ const styles = {
   "layouts/secondary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
   "components/AppHeaderSecundary.vue": () => import('./secondary-styles.BTaaHlmf.mjs').then(interopDefault),
   "components/AppNavbar.vue": () => import('./AppNavbar-styles.C_9AjqQi.mjs').then(interopDefault),
-  "components/Footer.vue": () => import('./Footer-styles.BX-UnDKW.mjs').then(interopDefault),
-  "components/CookieConsent.vue": () => import('./CookieConsent-styles.BhndL_dZ.mjs').then(interopDefault)
+  "components/Footer.vue": () => import('./Footer-styles._uQkSApd.mjs').then(interopDefault),
+  "components/CookieConsent.vue": () => import('./CookieConsent-styles.C3Q_Nouo.mjs').then(interopDefault)
 };
 
 export { styles as default };

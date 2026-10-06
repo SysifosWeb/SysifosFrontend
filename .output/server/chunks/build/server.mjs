@@ -1605,9 +1605,9 @@ const plugins = [
 ];
 const layouts = {
   admin: defineAsyncComponent(() => import('./admin-Dsb0y0Dj.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-uiNqTUIw.mjs').then((m) => m.default || m)),
-  hero: defineAsyncComponent(() => import('./hero-CymFFxMV.mjs').then((m) => m.default || m)),
-  secondary: defineAsyncComponent(() => import('./secondary-Bo_dCYpk.mjs').then((m) => m.default || m))
+  default: defineAsyncComponent(() => import('./default-C-g9ByrC.mjs').then((m) => m.default || m)),
+  hero: defineAsyncComponent(() => import('./hero--JhYt7KB.mjs').then((m) => m.default || m)),
+  secondary: defineAsyncComponent(() => import('./secondary-DZXJ6q4C.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({

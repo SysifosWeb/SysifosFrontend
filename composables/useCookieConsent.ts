@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 
 const CONSENT_KEY = 'sysifos_cookie_consent'
-const CONSENT_VERSION = '1.0'
+const CONSENT_VERSION = '1.1'
 
 export type ConsentDecision = 'accepted' | 'rejected' | null
 
@@ -15,6 +15,7 @@ const consent = ref<ConsentDecision>(null)
 const bannerVisible = ref(false)
 
 let cancelScheduledBanner: (() => void) | null = null
+let initialized = false
 
 function readStored(): ConsentDecision {
   if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
@@ -22,7 +23,7 @@ function readStored(): ConsentDecision {
   }
   const stored = localStorage.getItem(CONSENT_KEY)
   if (!stored) return null
-  
+
   try {
     const record = JSON.parse(stored) as ConsentRecord
     return record.decision
@@ -31,8 +32,18 @@ function readStored(): ConsentDecision {
   }
 }
 
+function writeStored(decision: 'accepted' | 'rejected') {
+  localStorage.setItem(CONSENT_KEY, JSON.stringify({
+    decision,
+    timestamp: new Date().toISOString(),
+    version: CONSENT_VERSION
+  }))
+}
+
 export function useCookieConsent() {
-  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined' && !initialized) {
+    initialized = true
+
     const stored = readStored()
     if (stored !== null) {
       consent.value = stored
@@ -42,36 +53,38 @@ export function useCookieConsent() {
       consent.value = null
       // Default: denegar hasta que el usuario decida.
       syncConsent('rejected')
-      // Banner diferido: no interrumpe la primera impresión. Se muestra tras
-      // la primera interacción real (clic, teclado, scroll de lectura) o tras
-      // 10 segundos, cuando el usuario ya recibió valor del sitio.
+      // Banner diferido: se muestra al llegar al 30% de la página
+      // (mitad típica del artículo) o a los 45 s, lo que ocurra primero.
       scheduleBanner()
+    }
+
+    // Los CTA de "Configurar cookies" (#cookies) reabren el banner
+    // desde cualquier página o artículo.
+    window.addEventListener('hashchange', handleCookieHash)
+    if (window.location.hash === '#cookies') {
+      handleCookieHash()
     }
   }
 
   function accept() {
     cancelScheduledBanner?.()
     consent.value = 'accepted'
-    localStorage.setItem(CONSENT_KEY, JSON.stringify({
-      decision: 'accepted',
-      timestamp: new Date().toISOString(),
-      version: CONSENT_VERSION
-    }))
+    writeStored('accepted')
     bannerVisible.value = false
     syncConsent('accepted')
+    trackDecision('accepted')
+    stripCookiesHash()
     firePageView()
   }
 
   function reject() {
     cancelScheduledBanner?.()
     consent.value = 'rejected'
-    localStorage.setItem(CONSENT_KEY, JSON.stringify({
-      decision: 'rejected',
-      timestamp: new Date().toISOString(),
-      version: CONSENT_VERSION
-    }))
+    writeStored('rejected')
     bannerVisible.value = false
     syncConsent('rejected')
+    trackDecision('rejected')
+    stripCookiesHash()
   }
 
   return {
@@ -79,6 +92,18 @@ export function useCookieConsent() {
     bannerVisible,
     accept,
     reject,
+  }
+}
+
+function handleCookieHash() {
+  if (window.location.hash !== '#cookies') return
+  cancelScheduledBanner?.()
+  bannerVisible.value = true
+}
+
+function stripCookiesHash() {
+  if (window.location.hash === '#cookies') {
+    history.replaceState(null, '', window.location.pathname + window.location.search)
   }
 }
 
@@ -94,33 +119,61 @@ function scheduleBanner() {
     }
   }
 
-  const onFirstInteraction = () => show()
-
+  // Sin triggers de click/teclado/touch: interrumpen la lectura.
+  // En su lugar, profundidad de scroll y tiempo de permanencia.
   const onScroll = () => {
-    // Solo un scroll de lectura real cuenta como interacción.
-    if (window.scrollY > 200) {
+    const doc = document.documentElement
+    const progress = (window.scrollY + window.innerHeight) / doc.scrollHeight
+    if (progress >= 0.3) {
       show()
     }
   }
 
-  const timer = window.setTimeout(show, 10000)
+  const timer = window.setTimeout(show, 45000)
   const options: AddEventListenerOptions = { passive: true }
 
-  document.addEventListener('click', onFirstInteraction, options)
-  document.addEventListener('keydown', onFirstInteraction, options)
-  document.addEventListener('touchstart', onFirstInteraction, options)
   window.addEventListener('scroll', onScroll, options)
 
   function cleanup() {
     window.clearTimeout(timer)
-    document.removeEventListener('click', onFirstInteraction, options)
-    document.removeEventListener('keydown', onFirstInteraction, options)
-    document.removeEventListener('touchstart', onFirstInteraction, options)
     window.removeEventListener('scroll', onScroll, options)
     cancelScheduledBanner = null
   }
 
   cancelScheduledBanner = cleanup
+}
+
+// Registra la decisión para medir la tasa de aceptación real.
+// - Aceptación: además se envía evento a GA4.
+// - Rechazo: no puede llegar a GA4 (analytics_storage denied),
+//   por lo que se registra en el backend vía /api/consent.
+function trackDecision(decision: 'accepted' | 'rejected') {
+  if (decision === 'accepted') {
+    const gtag = getGtag()
+    if (gtag) {
+      gtag('event', 'consent_accepted', { page_path: window.location.pathname })
+    }
+  }
+
+  try {
+    const payload = JSON.stringify({
+      decision,
+      path: window.location.pathname,
+      ts: Date.now(),
+    })
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/consent', new Blob([payload], { type: 'application/json' }))
+    } else {
+      fetch('/api/consent', {
+        method: 'POST',
+        body: payload,
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+      })
+    }
+  } catch {
+    // Sin red no hay registro, pero la decisión local ya quedó guardada.
+  }
 }
 
 // nuxt-gtag no expone window.gtag (su función es privada del módulo),

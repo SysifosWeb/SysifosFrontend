@@ -140,6 +140,10 @@ import logoBlanco from "@/assets/img/logo-blanco.webp"
             style="color: var(--text-muted);">
             Política de Privacidad
           </NuxtLink>
+          <a href="#cookies" class="nav-link text-xs transition-colors duration-200"
+            style="color: var(--text-muted);">
+            Configurar cookies
+          </a>
           <p class="text-xs" style="color: var(--text-muted);">
             Hecho con ♥ en Coquimbo, Chile
           </p>
