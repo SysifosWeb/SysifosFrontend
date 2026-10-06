@@ -179,7 +179,7 @@ const filteredPosts = computed(() => {
     </div>
 
     <!-- Newsletter -->
-    <!-- <BlogNewsletterSection /> -->
+    <BlogNewsletterSection />
 
     <NosotrosCtaSection />
   </div>

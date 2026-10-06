@@ -3,6 +3,7 @@ import { ref, reactive } from 'vue'
 import { Mail, Phone, MapPin, Clock, MessageSquare, Send, X, ExternalLink } from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
+const { gtag } = useGtag()
 
 const form = reactive({
   name: '',
@@ -61,12 +62,22 @@ const submitForm = async (event) => {
         company: form.company || null,
         subject: form.subject,
         message: form.message,
-        consent: form.consent
+        consent: form.consent,
+        source: 'contact_form'
       })
     })
 
     const data = await response.json()
     if (response.ok) {
+      // Lead real: solo aquí se mide (antes disparaba en cada vista de página)
+      if (gtag) {
+        gtag('event', 'generate_lead', { method: 'contact_form' })
+        gtag('event', 'conversion', {
+          'send_to': 'AW-17809723983/Xs8DCL2-sNIbEM-kq6xc',
+          'value': 1.0,
+          'currency': 'CLP'
+        })
+      }
       showSuccess.value = true
       form.name = ''
       form.email = ''

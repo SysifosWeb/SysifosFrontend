@@ -582,7 +582,7 @@ const _routes = [
     name: "contacto",
     path: "/contacto",
     meta: __nuxt_page_meta$j || {},
-    component: () => import('./contacto-B_l10oNy.mjs')
+    component: () => import('./contacto-DCrf6mto.mjs')
   },
   {
     name: "nosotros",
@@ -606,13 +606,13 @@ const _routes = [
     name: "servicios",
     path: "/servicios",
     meta: __nuxt_page_meta$f || {},
-    component: () => import('./servicios-D_IAGViz.mjs')
+    component: () => import('./servicios-BZSlPRzH.mjs')
   },
   {
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$e || {},
-    component: () => import('./index-CoWRQtPl.mjs')
+    component: () => import('./index-DExNsgs3.mjs')
   },
   {
     name: "privacidad",
