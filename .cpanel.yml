@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export GIT_TERMINAL_PROMPT=0
+    - /bin/touch /home/sysifosw/repositories/SysifosFrontend/tmp/restart.txt
