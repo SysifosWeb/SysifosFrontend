@@ -1,6 +1,6 @@
-import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { ref, defineComponent, shallowRef, getCurrentInstance, provide, cloneVNode, h, createElementBlock, hasInjectionContext, inject, resolveComponent, computed, unref, defineAsyncComponent, shallowReactive, Suspense, Fragment, createApp, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, reactive, effectScope, mergeProps, withCtx, openBlock, createBlock, createTextVNode, getCurrentScope, toRef, nextTick, isReadonly, useSSRContext, isRef, isShallow, isReactive, toRaw } from 'vue';
+import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { ref, defineComponent, shallowRef, getCurrentInstance, provide, cloneVNode, h, createElementBlock, hasInjectionContext, inject, resolveComponent, getCurrentScope, computed, unref, defineAsyncComponent, shallowReactive, createApp, isVNode, createCommentVNode, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, reactive, effectScope, mergeProps, withCtx, openBlock, createBlock, createTextVNode, toRef, Suspense, nextTick, Fragment, isReadonly, useSSRContext, isRef, isShallow, isReactive, toRaw } from 'vue';
 import { w as useHead$1, c as createError$1, x as klona, y as useSeoMeta$1, z as parseQuery, A as headSymbol, B as getRequestHeader, C as destr, D as isEqual, E as hasProtocol, F as joinURL, G as parseURL, H as encodePath, I as decodePath, J as getContext, K as setCookie, L as getCookie, M as deleteCookie, O as isScriptProtocol, P as withQuery, Q as withTrailingSlash, R as withoutTrailingSlash, S as sanitizeStatusCode, $ as $fetch, T as baseURL, U as defu, V as createHooks, W as executeAsync } from '../nitro/nitro.mjs';
-import { useRoute as useRoute$1, RouterView, createMemoryHistory, createRouter, START_LOCATION } from 'vue-router';
+import { useRoute as useRoute$1, RouterView, START_LOCATION, createMemoryHistory, createRouter } from 'vue-router';
 import { ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode, ssrRenderAttrs, ssrInterpolate } from 'vue/server-renderer';
 import 'node:http';
 import 'node:https';
@@ -82,7 +82,7 @@ if (!("global" in globalThis)) {
   globalThis.global = globalThis;
 }
 const appLayoutTransition = { "name": "page", "mode": "out-in" };
-const nuxtLinkDefaults = { "componentName": "NuxtLink" };
+const nuxtLinkDefaults = { "componentName": "NuxtLink", "prefetch": true, "prefetchOn": { "visibility": true } };
 const asyncDataDefaults = { "value": null, "errorValue": null, "deep": true };
 const fetchDefaults = {};
 const appId = "nuxt-app";
@@ -101,7 +101,7 @@ function createNuxtApp(options) {
     globalName: "nuxt",
     versions: {
       get nuxt() {
-        return "3.21.8";
+        return "3.21.11";
       },
       get vue() {
         return nuxtApp.vueApp.version;
@@ -303,9 +303,23 @@ globalThis._importMeta_.url.replace(/\/app\/.*$/, "/");
 const useRouter = () => {
   return useNuxtApp()?.$router;
 };
+function isScopeWithinInstance(instance) {
+  const instanceScope = instance.scope;
+  let scope = getCurrentScope();
+  while (scope) {
+    if (scope === instanceScope) {
+      return true;
+    }
+    scope = scope.parent;
+  }
+  return false;
+}
 const useRoute = () => {
   if (hasInjectionContext()) {
-    return inject(PageRouteSymbol, useNuxtApp()._route);
+    const instance = getCurrentInstance();
+    if (!instance || isScopeWithinInstance(instance)) {
+      return inject(PageRouteSymbol, useNuxtApp()._route);
+    }
   }
   return useNuxtApp()._route;
 };
@@ -471,49 +485,223 @@ const unhead_k2P3m_ZDyjlr2mMYnoDPwavjsDN8hBlk9cFai0bbopU = /* @__PURE__ */ defin
     nuxtApp.vueApp.use(head);
   }
 });
+const ROUTE_KEY_PARENTHESES_RE$1 = /(:\w+)\([^)]+\)/g;
+const ROUTE_KEY_SYMBOLS_RE$1 = /(:\w+)[?+*]/g;
+const ROUTE_KEY_NORMAL_RE$1 = /:\w+/g;
+const interpolatePath = (route, match) => {
+  return match.path.replace(ROUTE_KEY_PARENTHESES_RE$1, "$1").replace(ROUTE_KEY_SYMBOLS_RE$1, "$1").replace(ROUTE_KEY_NORMAL_RE$1, (r) => route.params[r.slice(1)]?.toString() || "");
+};
+const generateRouteKey$1 = (routeProps, override) => {
+  const matchedRoute = routeProps.route.matched.find((m) => m.components?.default === routeProps.Component.type);
+  const source = matchedRoute?.meta.key ?? (matchedRoute && interpolatePath(routeProps.route, matchedRoute));
+  return typeof source === "function" ? source(routeProps.route) : source;
+};
 function toArray$1(value) {
   return Array.isArray(value) ? value : [value];
 }
-const matcher = /* @__PURE__ */ (() => {
+const _wrapInTransition = (props, children) => {
+  return { default: () => children.default?.() };
+};
+const ROUTE_KEY_PARENTHESES_RE = /(:\w+)\([^)]+\)/g;
+const ROUTE_KEY_SYMBOLS_RE = /(:\w+)[?+*]/g;
+const ROUTE_KEY_NORMAL_RE = /:\w+/g;
+function generateRouteKey(route) {
+  const source = route?.meta.key ?? route.path.replace(ROUTE_KEY_PARENTHESES_RE, "$1").replace(ROUTE_KEY_SYMBOLS_RE, "$1").replace(ROUTE_KEY_NORMAL_RE, (r) => route.params[r.slice(1)]?.toString() || "");
+  return typeof source === "function" ? source(route) : source;
+}
+function isChangingPage(to, from) {
+  if (to === from || from === START_LOCATION) {
+    return false;
+  }
+  if (generateRouteKey(to) !== generateRouteKey(from)) {
+    return true;
+  }
+  const areComponentsSame = to.matched.every(
+    (comp, index) => comp.components && comp.components.default === from.matched[index]?.components?.default
+  );
+  if (areComponentsSame) {
+    return false;
+  }
+  return true;
+}
+const VALID_TAG_RE = /^[a-z][a-z0-9-]*$/i;
+function sanitizeTag(tag, fallback) {
+  return tag && VALID_TAG_RE.test(tag) ? tag : fallback;
+}
+function toArray(value) {
+  return Array.isArray(value) ? value : [value];
+}
+function _mergeTransitionProps(routeProps) {
+  const _props = [];
+  for (const prop of routeProps) {
+    if (!prop) {
+      continue;
+    }
+    _props.push({
+      ...prop,
+      onAfterLeave: prop.onAfterLeave ? toArray(prop.onAfterLeave) : void 0,
+      onBeforeLeave: prop.onBeforeLeave ? toArray(prop.onBeforeLeave) : void 0
+    });
+  }
+  return defu(..._props);
+}
+const routerOptions0 = {
+  scrollBehavior(to, from, savedPosition) {
+    const nuxtApp = useNuxtApp();
+    const router = useRouter();
+    const hashScrollBehaviour = router.options?.scrollBehaviorType ?? "auto";
+    if (to.path.replace(/\/$/, "") === from.path.replace(/\/$/, "")) {
+      if (from.hash && !to.hash) {
+        return { left: 0, top: 0 };
+      }
+      if (to.hash) {
+        return { el: to.hash, top: _getHashElementScrollMarginTop(to.hash), behavior: hashScrollBehaviour };
+      }
+      return false;
+    }
+    const routeAllowsScrollToTop = typeof to.meta.scrollToTop === "function" ? to.meta.scrollToTop(to, from) : to.meta.scrollToTop;
+    if (routeAllowsScrollToTop === false) {
+      return false;
+    }
+    if (from === START_LOCATION) {
+      return _calculatePosition(to, from, savedPosition, hashScrollBehaviour);
+    }
+    return new Promise((resolve) => {
+      const doScroll = () => {
+        requestAnimationFrame(() => {
+          if (router.currentRoute.value.fullPath !== to.fullPath) {
+            resolve(false);
+            return;
+          }
+          resolve(_calculatePosition(to, from, savedPosition, hashScrollBehaviour));
+        });
+      };
+      nuxtApp.hooks.hookOnce("page:loading:end", () => {
+        const transitionPromise = nuxtApp["~transitionPromise"];
+        if (transitionPromise) {
+          transitionPromise.then(doScroll);
+        } else {
+          doScroll();
+        }
+      });
+    });
+  }
+};
+function _getHashElementScrollMarginTop(selector) {
+  try {
+    const elem = (void 0).querySelector(selector);
+    if (elem) {
+      return (Number.parseFloat(getComputedStyle(elem).scrollMarginTop) || 0) + (Number.parseFloat(getComputedStyle((void 0).documentElement).scrollPaddingTop) || 0);
+    }
+  } catch {
+  }
+  return 0;
+}
+function _calculatePosition(to, from, savedPosition, defaultHashScrollBehaviour) {
+  if (savedPosition) {
+    return savedPosition;
+  }
+  if (to.hash) {
+    return {
+      el: to.hash,
+      top: _getHashElementScrollMarginTop(to.hash),
+      behavior: isChangingPage(to, from) ? defaultHashScrollBehaviour : "instant"
+    };
+  }
+  return {
+    left: 0,
+    top: 0
+  };
+}
+const configRouterOptions = {
+  hashMode: false,
+  scrollBehaviorType: "auto"
+};
+const routerOptions = {
+  ...configRouterOptions,
+  ...routerOptions0
+};
+const sensitiveMatcher = /* @__PURE__ */ (() => {
   const $0 = { prerender: true }, $1 = { ssr: true }, $2 = {};
   return (m, p) => {
     let r = [];
-    if (p.charCodeAt(p.length - 1) === 47) p = p.slice(0, -1) || "/";
-    if (p === "/") {
-      r.unshift({ data: $0 });
+    if (p.charCodeAt(p.length - 1) === 47) p = p.slice(0, -1);
+    if (p === "") {
+      r.push({ data: $0 });
     } else if (p === "/servicios") {
-      r.unshift({ data: $0 });
+      r.push({ data: $0 });
     } else if (p === "/nosotros") {
-      r.unshift({ data: $0 });
+      r.push({ data: $0 });
     } else if (p === "/portfolio") {
-      r.unshift({ data: $0 });
+      r.push({ data: $0 });
     } else if (p === "/contacto") {
-      r.unshift({ data: $0 });
+      r.push({ data: $0 });
     } else if (p === "/blog") {
-      r.unshift({ data: $1 });
+      r.push({ data: $1 });
     } else if (p === "/__sitemap__/style.xsl") {
-      r.unshift({ data: $2 });
+      r.push({ data: $2 });
     } else if (p === "/sitemap.xml") {
-      r.unshift({ data: $2 });
-    }
-    let s = p.split("/"), l = s.length;
-    if (l > 1) {
-      if (s[1] === "blog") {
-        r.unshift({ data: $1, params: { "_": s.slice(2).join("/") } });
-      } else if (s[1] === "admin") {
-        r.unshift({ data: $1, params: { "_": s.slice(2).join("/") } });
+      r.push({ data: $2 });
+    } else if (p.charCodeAt(p.length - 1) === 47) {
+      if (p === "/") {
+        r.push({ data: $0 });
+      } else if (p === "/servicios/") {
+        r.push({ data: $0 });
+      } else if (p === "/nosotros/") {
+        r.push({ data: $0 });
+      } else if (p === "/portfolio/") {
+        r.push({ data: $0 });
+      } else if (p === "/contacto/") {
+        r.push({ data: $0 });
+      } else if (p === "/blog/") {
+        r.push({ data: $1 });
+      } else if (p === "/__sitemap__/style.xsl/") {
+        r.push({ data: $2 });
+      } else if (p === "/sitemap.xml/") {
+        r.push({ data: $2 });
       }
     }
-    r.unshift({ data: $2, params: { "_": s.slice(1).join("/") } });
-    return r;
+    let s = p.split("/");
+    if (s.length > 1 && s[s.length - 1] === "") {
+      s.pop();
+      p = p.slice(0, -1);
+    }
+    let l = s.length;
+    if (l > 1) {
+      if (s[1] === "blog") {
+        r.push({ data: $1, params: { "_": p.slice(6) } });
+      } else if (s[1] === "admin") {
+        r.push({ data: $1, params: { "_": p.slice(7) } });
+      }
+    }
+    r.push({ data: $2, params: { "_": p.slice(1) } });
+    return r.reverse();
   };
 })();
-const _routeRulesMatcher = (path) => defu({}, ...matcher("", typeof path === "string" ? path.toLowerCase() : path).map((r) => r.data).reverse());
+const foldedMatcher = sensitiveMatcher;
+const decodeRoutePath = function decodeRoutePath2(path) {
+  if (!path.includes("%")) return path;
+  const queryIndex = path.indexOf("?");
+  const pathname = queryIndex === -1 ? path : path.slice(0, queryIndex);
+  try {
+    return queryIndex === -1 ? decodeURI(pathname) : decodeURI(pathname) + path.slice(queryIndex);
+  } catch {
+    return path;
+  }
+};
+const normalizePath = (path, fold) => {
+  if (typeof path !== "string") {
+    return path;
+  }
+  const decoded = decodeRoutePath(path);
+  return fold ? decoded.toLowerCase() : decoded;
+};
+const _routeRulesMatcher = (path) => routerOptions.sensitive ? defu({}, ...sensitiveMatcher("", normalizePath(path, false)).map((r) => r.data).reverse()) : defu({}, ...foldedMatcher("", normalizePath(path, true)).map((r) => r.data).reverse());
 const routeRulesMatcher$2 = _routeRulesMatcher;
 function getRouteRules(arg) {
   const path = typeof arg === "string" ? arg : arg.path;
   try {
-    return routeRulesMatcher$2(path.toLowerCase());
+    return routeRulesMatcher$2(path);
   } catch (e) {
     return {};
   }
@@ -612,7 +800,7 @@ const _routes = [
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$e || {},
-    component: () => import('./index-DExNsgs3.mjs')
+    component: () => import('./index-Cyd_Nhd7.mjs')
   },
   {
     name: "privacidad",
@@ -624,7 +812,7 @@ const _routes = [
     name: "admin",
     path: "/admin",
     meta: __nuxt_page_meta$c || {},
-    component: () => import('./index-c4-LNx3M.mjs')
+    component: () => import('./index-jLN5OPPq.mjs')
   },
   {
     name: "admin-login",
@@ -636,49 +824,49 @@ const _routes = [
     name: "blog-slug",
     path: "/blog/:slug()",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./_slug_-DDVXmJME.mjs')
+    component: () => import('./_slug_-Ba5aj3B0.mjs')
   },
   {
     name: "admin-posts-id",
     path: "/admin/posts/:id()",
     meta: __nuxt_page_meta$9 || {},
-    component: () => import('./_id_-ClYGdeKC.mjs')
+    component: () => import('./_id_-CM0XlI_z.mjs')
   },
   {
     name: "admin-posts-edit",
     path: "/admin/posts/edit",
     meta: __nuxt_page_meta$8 || {},
-    component: () => import('./edit-dRVKBHfq.mjs')
+    component: () => import('./edit-h4cRFm2A.mjs')
   },
   {
     name: "admin-posts",
     path: "/admin/posts",
     meta: __nuxt_page_meta$7 || {},
-    component: () => import('./index-DQ1Enm4D.mjs')
+    component: () => import('./index-C4Ra0_8x.mjs')
   },
   {
     name: "admin-posts-create",
     path: "/admin/posts/create",
     meta: __nuxt_page_meta$6 || {},
-    component: () => import('./create-BLRtCWmx.mjs')
+    component: () => import('./create-BZVUPI64.mjs')
   },
   {
     name: "admin-contacts-id",
     path: "/admin/contacts/:id()",
     meta: __nuxt_page_meta$5 || {},
-    component: () => import('./_id_-C7vJ0Pe2.mjs')
+    component: () => import('./_id_-BKTvxFDt.mjs')
   },
   {
     name: "admin-contacts",
     path: "/admin/contacts",
     meta: __nuxt_page_meta$4 || {},
-    component: () => import('./index-BW4LRIBX.mjs')
+    component: () => import('./index-BO2198mn.mjs')
   },
   {
     name: "admin-categories-id",
     path: "/admin/categories/:id()",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import('./_id_-7cGkR-bQ.mjs')
+    component: () => import('./_id_-CJYjdhJQ.mjs')
   },
   {
     name: "admin-categories-edit",
@@ -690,7 +878,7 @@ const _routes = [
     name: "admin-categories",
     path: "/admin/categories",
     meta: __nuxt_page_meta$1 || {},
-    component: () => import('./index-CvolphmO.mjs')
+    component: () => import('./index-DvLJEk_C.mjs')
   },
   {
     name: "admin-categories-create",
@@ -699,118 +887,7 @@ const _routes = [
     component: () => import('./create-V4Y8MsGE.mjs')
   }
 ];
-const _wrapInTransition = (props, children) => {
-  return { default: () => children.default?.() };
-};
-const ROUTE_KEY_PARENTHESES_RE = /(:\w+)\([^)]+\)/g;
-const ROUTE_KEY_SYMBOLS_RE = /(:\w+)[?+*]/g;
-const ROUTE_KEY_NORMAL_RE = /:\w+/g;
-function generateRouteKey(route) {
-  const source = route?.meta.key ?? route.path.replace(ROUTE_KEY_PARENTHESES_RE, "$1").replace(ROUTE_KEY_SYMBOLS_RE, "$1").replace(ROUTE_KEY_NORMAL_RE, (r) => route.params[r.slice(1)]?.toString() || "");
-  return typeof source === "function" ? source(route) : source;
-}
-function isChangingPage(to, from) {
-  if (to === from || from === START_LOCATION) {
-    return false;
-  }
-  if (generateRouteKey(to) !== generateRouteKey(from)) {
-    return true;
-  }
-  const areComponentsSame = to.matched.every(
-    (comp, index) => comp.components && comp.components.default === from.matched[index]?.components?.default
-  );
-  if (areComponentsSame) {
-    return false;
-  }
-  return true;
-}
-function toArray(value) {
-  return Array.isArray(value) ? value : [value];
-}
-function _mergeTransitionProps(routeProps) {
-  const _props = [];
-  for (const prop of routeProps) {
-    if (!prop) {
-      continue;
-    }
-    _props.push({
-      ...prop,
-      onAfterLeave: prop.onAfterLeave ? toArray(prop.onAfterLeave) : void 0,
-      onBeforeLeave: prop.onBeforeLeave ? toArray(prop.onBeforeLeave) : void 0
-    });
-  }
-  return defu(..._props);
-}
-const routerOptions0 = {
-  scrollBehavior(to, from, savedPosition) {
-    const nuxtApp = useNuxtApp();
-    const hashScrollBehaviour = useRouter().options?.scrollBehaviorType ?? "auto";
-    if (to.path.replace(/\/$/, "") === from.path.replace(/\/$/, "")) {
-      if (from.hash && !to.hash) {
-        return { left: 0, top: 0 };
-      }
-      if (to.hash) {
-        return { el: to.hash, top: _getHashElementScrollMarginTop(to.hash), behavior: hashScrollBehaviour };
-      }
-      return false;
-    }
-    const routeAllowsScrollToTop = typeof to.meta.scrollToTop === "function" ? to.meta.scrollToTop(to, from) : to.meta.scrollToTop;
-    if (routeAllowsScrollToTop === false) {
-      return false;
-    }
-    if (from === START_LOCATION) {
-      return _calculatePosition(to, from, savedPosition, hashScrollBehaviour);
-    }
-    return new Promise((resolve) => {
-      const doScroll = () => {
-        requestAnimationFrame(() => resolve(_calculatePosition(to, from, savedPosition, hashScrollBehaviour)));
-      };
-      nuxtApp.hooks.hookOnce("page:loading:end", () => {
-        const transitionPromise = nuxtApp["~transitionPromise"];
-        if (transitionPromise) {
-          transitionPromise.then(doScroll);
-        } else {
-          doScroll();
-        }
-      });
-    });
-  }
-};
-function _getHashElementScrollMarginTop(selector) {
-  try {
-    const elem = (void 0).querySelector(selector);
-    if (elem) {
-      return (Number.parseFloat(getComputedStyle(elem).scrollMarginTop) || 0) + (Number.parseFloat(getComputedStyle((void 0).documentElement).scrollPaddingTop) || 0);
-    }
-  } catch {
-  }
-  return 0;
-}
-function _calculatePosition(to, from, savedPosition, defaultHashScrollBehaviour) {
-  if (savedPosition) {
-    return savedPosition;
-  }
-  if (to.hash) {
-    return {
-      el: to.hash,
-      top: _getHashElementScrollMarginTop(to.hash),
-      behavior: isChangingPage(to, from) ? defaultHashScrollBehaviour : "instant"
-    };
-  }
-  return {
-    left: 0,
-    top: 0
-  };
-}
-const configRouterOptions = {
-  hashMode: false,
-  scrollBehaviorType: "auto"
-};
-const routerOptions = {
-  ...configRouterOptions,
-  ...routerOptions0
-};
-const validate = /* @__PURE__ */ defineNuxtRouteMiddleware(async (to, from) => {
+const validate = /* @__PURE__ */ defineNuxtRouteMiddleware(async (to) => {
   let __temp, __restore;
   if (!to.meta?.validate) {
     return;
@@ -994,7 +1071,11 @@ const plugin = /* @__PURE__ */ defineNuxtPlugin({
       const lastTo = to.matched.at(-1)?.components?.default;
       const lastFrom = from.matched.at(-1)?.components?.default;
       if (lastTo === lastFrom) {
-        syncCurrentRoute();
+        const toKey = generateRouteKey$1({ route: to, Component: { type: lastTo } });
+        const fromKey = generateRouteKey$1({ route: from, Component: { type: lastFrom } });
+        if (toKey === fromKey) {
+          syncCurrentRoute();
+        }
         return;
       }
       if (to.matched.length < from.matched.length && to.matched.every((m, i) => m.components?.default === from.matched[i]?.components?.default)) {
@@ -1018,6 +1099,9 @@ const plugin = /* @__PURE__ */ defineNuxtPlugin({
     if (!nuxtApp.ssrContext?.islandContext || isServerPage) {
       router.afterEach(async (to, _from, failure) => {
         delete nuxtApp._processingMiddleware;
+        {
+          delete nuxtApp._middlewareTo;
+        }
         if (failure) {
           await nuxtApp.callHook("page:loading:end");
         }
@@ -1047,6 +1131,8 @@ const plugin = /* @__PURE__ */ defineNuxtPlugin({
     if (nuxtApp.ssrContext?.islandContext && !isServerPage) {
       return { provide: { router } };
     }
+    function pushErroredRoute(to) {
+    }
     const initialLayout = nuxtApp.payload.state._layout;
     router.beforeEach(async (to, from) => {
       await nuxtApp.callHook("page:loading:start");
@@ -1055,6 +1141,9 @@ const plugin = /* @__PURE__ */ defineNuxtPlugin({
         to.meta.layout = initialLayout;
       }
       nuxtApp._processingMiddleware = true;
+      {
+        nuxtApp._middlewareTo = to;
+      }
       if (!nuxtApp.ssrContext?.islandContext || isServerPage) {
         const middlewareEntries = /* @__PURE__ */ new Set([...globalMiddleware, ...nuxtApp._middleware.global]);
         for (const component of to.matched) {
@@ -1103,6 +1192,7 @@ const plugin = /* @__PURE__ */ defineNuxtPlugin({
             if (result) {
               if (isNuxtError(result) && result.fatal) {
                 await nuxtApp.runWithContext(() => showError(result));
+                pushErroredRoute(to);
               }
               return result;
             }
@@ -1131,6 +1221,9 @@ const plugin = /* @__PURE__ */ defineNuxtPlugin({
     }
     router.onError(async () => {
       delete nuxtApp._processingMiddleware;
+      {
+        delete nuxtApp._middlewareTo;
+      }
       await nuxtApp.callHook("page:loading:end");
     });
     router.afterEach((to) => {
@@ -1150,7 +1243,9 @@ const plugin = /* @__PURE__ */ defineNuxtPlugin({
         if ("name" in resolvedInitialRoute) {
           resolvedInitialRoute.name = void 0;
         }
-        if (hasDeferredRoute) ;
+        const pluginNavigatedAway = false;
+        if (pluginNavigatedAway) ;
+        else if (hasDeferredRoute) ;
         else {
           await router.replace({
             ...resolvedInitialRoute,
@@ -1197,7 +1292,7 @@ const __nuxt_component_0$2 = defineComponent({
         return h(slot);
       }
       const fallbackStr = props.fallback || props.placeholder || "";
-      const fallbackTag = props.fallbackTag || props.placeholderTag || "span";
+      const fallbackTag = sanitizeTag(props.fallbackTag || props.placeholderTag, "span");
       return createElementBlock(fallbackTag, attrs, fallbackStr);
     };
   }
@@ -1448,6 +1543,17 @@ function defineNuxtLink(options) {
           };
           if (!props.custom) {
             routerLinkProps.rel = props.rel || void 0;
+            if (useNuxtApp().ssrContext?.islandContext) {
+              const flags = [];
+              if (props.replace) {
+                flags.push("replace");
+              }
+              const prefetchOnVisibility = typeof props.prefetchOn === "string" ? props.prefetchOn === "visibility" : props.prefetchOn?.visibility ?? options.prefetchOn?.visibility;
+              if (prefetchOnVisibility && (props.prefetch ?? options.prefetch) !== false && props.noPrefetch !== true) {
+                flags.push("prefetch");
+              }
+              routerLinkProps["data-internal"] = flags.join(" ");
+            }
           }
           return h(
             resolveComponent("RouterLink"),
@@ -1525,6 +1631,9 @@ function defineNuxtLink(options) {
 }
 const __nuxt_component_0$1 = /* @__PURE__ */ defineNuxtLink(nuxtLinkDefaults);
 function applyTrailingSlashBehavior(to, trailingSlash) {
+  if (trailingSlash !== "append" && trailingSlash !== "remove") {
+    return to;
+  }
   const normalizeFn = trailingSlash === "append" ? withTrailingSlash : withoutTrailingSlash;
   const hasProtocolDifferentFromHttp = hasProtocol(to) && !to.startsWith("http");
   if (hasProtocolDifferentFromHttp) {
@@ -1553,7 +1662,7 @@ const _0_siteConfig_tU0SxKrPeVRXWcGu2sOnIfhNDbYiKNfDCvYZhRueG0Q = /* @__PURE__ *
     };
   }
 });
-const VALID_ISLAND_KEY_RE = /^[a-z][a-z\d-]*_[a-z\d]+$/i;
+const VALID_ISLAND_KEY_RE = /^[a-z][\w-]*_[a-z\d]+$/i;
 function isValidIslandKey(key) {
   return typeof key === "string" && VALID_ISLAND_KEY_RE.test(key) && key.length <= 100;
 }
@@ -1735,6 +1844,7 @@ const LayoutProvider = defineComponent({
     }
     const injectedRoute = inject(PageRouteSymbol);
     const isNotWithinNuxtPage = injectedRoute && injectedRoute === useRoute();
+    const enclosingLayout = inject(LayoutMetaSymbol, null);
     if (isNotWithinNuxtPage) {
       const vueRouterRoute = useRoute$1();
       const reactiveChildRoute = {};
@@ -1743,7 +1853,8 @@ const LayoutProvider = defineComponent({
         Object.defineProperty(reactiveChildRoute, key, {
           enumerable: true,
           get: () => {
-            return props.isRenderingNewLayout(props.name) ? vueRouterRoute[key] : injectedRoute[key];
+            const useEagerRoute = props.isRenderingNewLayout(props.name) && (!enclosingLayout || enclosingLayout.isCurrent(vueRouterRoute));
+            return useEagerRoute ? vueRouterRoute[key] : injectedRoute[key];
           }
         });
       }
@@ -1825,7 +1936,7 @@ const __nuxt_component_1 = defineComponent({
     nuxtApp.deferHydration();
     return () => {
       return h(RouterView, { name: props.name, route: props.route, ...attrs }, {
-        default: (routeProps) => {
+        default: markStableSlot((routeProps) => {
           return h(Suspense, { suspensible: true }, {
             default() {
               return h(RouteProvider, {
@@ -1835,11 +1946,25 @@ const __nuxt_component_1 = defineComponent({
               });
             }
           });
-        }
+        })
       });
     };
   }
 });
+function markStableSlot(fn) {
+  const wrapped = ((routeProps) => {
+    const result = fn(routeProps);
+    if (Array.isArray(result)) {
+      return result;
+    }
+    if (result == null || !isVNode(result)) {
+      return [createCommentVNode()];
+    }
+    return [result];
+  });
+  wrapped._n = true;
+  return wrapped;
+}
 function normalizeSlot(slot, data) {
   const slotContent = slot(data);
   return slotContent.length === 1 ? h(slotContent[0]) : h(Fragment, void 0, slotContent);
@@ -1950,7 +2075,7 @@ const _sfc_main = {
   __name: "nuxt-root",
   __ssrInlineRender: true,
   setup(__props) {
-    const IslandRenderer = defineAsyncComponent(() => import('./island-renderer-CBgi1KdG.mjs').then((r) => r.default || r));
+    const IslandRenderer = defineAsyncComponent(() => import('./island-renderer-CxCrqx7I.mjs').then((r) => r.default || r));
     const nuxtApp = useNuxtApp();
     nuxtApp.deferHydration();
     nuxtApp.ssrContext.url;

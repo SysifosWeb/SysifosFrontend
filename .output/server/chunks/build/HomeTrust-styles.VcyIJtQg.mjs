@@ -1,8 +1,0 @@
-const HomeTrust_vue_vue_type_style_index_0_scoped_9dc7f0ac_lang = "@keyframes slow-marquee-9dc7f0ac{0%{transform:translate(0)}to{transform:translate(-50%)}}.animate-slow-marquee[data-v-9dc7f0ac]{animation:slow-marquee-9dc7f0ac 30s linear infinite}.font-tech[data-v-9dc7f0ac]{font-family:Space Grotesk,sans-serif}.tech-item[data-v-9dc7f0ac]{will-change:transform,opacity}";
-
-const HomeTrustStyles_VcyIJtQg = [
-  HomeTrust_vue_vue_type_style_index_0_scoped_9dc7f0ac_lang
-];
-
-export { HomeTrustStyles_VcyIJtQg as default };
-//# sourceMappingURL=HomeTrust-styles.VcyIJtQg.mjs.map
