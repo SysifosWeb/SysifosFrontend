@@ -34,7 +34,13 @@ const { data: categoriesResponse, pending, refresh } = await useFetch(() => `${c
 })
 
 // Since useFetch with unref query might auto-fetch, let's just use it declaratively
-const categories = computed(() => categoriesResponse.value?.data ? categoriesResponse.value : { data: [], links: [], from: 0, to: 0, total: 0 })
+const categories = computed(() => {
+    const r = categoriesResponse.value
+    if (!r?.data) return { data: [], links: [], from: 0, to: 0, total: 0 }
+    // La API devuelve links como objeto {first,last,prev,next}; los botones
+    // de paginación (array de {url,label,active}) viven en meta.links
+    return { ...r, links: Array.isArray(r.links) ? r.links : (r.meta?.links || []) }
+})
 
 const search = () => {
     filters.page = 1

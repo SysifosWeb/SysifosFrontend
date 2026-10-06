@@ -842,7 +842,7 @@ const _routes = [
     name: "admin-posts",
     path: "/admin/posts",
     meta: __nuxt_page_meta$7 || {},
-    component: () => import('./index-C4Ra0_8x.mjs')
+    component: () => import('./index-CddmRLJS.mjs')
   },
   {
     name: "admin-posts-create",
@@ -860,7 +860,7 @@ const _routes = [
     name: "admin-contacts",
     path: "/admin/contacts",
     meta: __nuxt_page_meta$4 || {},
-    component: () => import('./index-BO2198mn.mjs')
+    component: () => import('./index-Bjmbiun2.mjs')
   },
   {
     name: "admin-categories-id",
@@ -878,7 +878,7 @@ const _routes = [
     name: "admin-categories",
     path: "/admin/categories",
     meta: __nuxt_page_meta$1 || {},
-    component: () => import('./index-DvLJEk_C.mjs')
+    component: () => import('./index-Dbu6ZD16.mjs')
   },
   {
     name: "admin-categories-create",

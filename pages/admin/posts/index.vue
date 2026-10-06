@@ -54,7 +54,13 @@ const { data: categoriesResponse } = await useFetch(() => `${config.public.apiUr
     }
 })
 
-const posts = computed(() => postsResponse.value?.data ? postsResponse.value : { data: [], links: [], from: 0, to: 0, total: 0 })
+const posts = computed(() => {
+    const r = postsResponse.value
+    if (!r?.data) return { data: [], links: [], from: 0, to: 0, total: 0 }
+    // La API devuelve links como objeto {first,last,prev,next}; los botones
+    // de paginación (array de {url,label,active}) viven en meta.links
+    return { ...r, links: Array.isArray(r.links) ? r.links : (r.meta?.links || []) }
+})
 const categories = computed(() => categoriesResponse.value?.data || [])
 
 // Detectar si hay filtros activos

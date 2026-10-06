@@ -30,7 +30,13 @@ const { data: contactsResponse, pending, refresh } = await useFetch(() => `${con
     watch: false
 })
 
-const contacts = computed(() => contactsResponse.value?.data ? contactsResponse.value : { data: [], links: [], from: 0, to: 0, total: 0 })
+const contacts = computed(() => {
+    const r = contactsResponse.value
+    if (!r?.data) return { data: [], links: [], from: 0, to: 0, total: 0 }
+    // La API devuelve links como objeto {first,last,prev,next}; los botones
+    // de paginación (array de {url,label,active}) viven en meta.links
+    return { ...r, links: Array.isArray(r.links) ? r.links : (r.meta?.links || []) }
+})
 
 const clearFilters = () => {
     filters.search = "";
