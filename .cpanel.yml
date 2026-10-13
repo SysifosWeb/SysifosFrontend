@@ -2,3 +2,4 @@ deployment:
   tasks:
     - export GIT_TERMINAL_PROMPT=0
     - /bin/touch /home/sysifosw/repositories/SysifosFrontend/tmp/restart.txt
+    - PATH=/usr/local/bin:/usr/bin:/usr/sbin:/bin:/sbin:$PATH cloudlinux-selector restart --json --interpreter nodejs --app-root repositories/SysifosFrontend
