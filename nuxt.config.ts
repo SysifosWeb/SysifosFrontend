@@ -7,6 +7,11 @@ export default defineNuxtConfig({
     build: {
         transpile: []
     },
+    nitro: {
+        externals: {
+            inline: ['vuedraggable', 'sortablejs']
+        }
+    },
     image: {
         domains: ['olimpo.sysifosweb.cl', 'picsum.photos'],
         format: ['webp', 'avif'],
@@ -34,9 +39,18 @@ export default defineNuxtConfig({
     devtools: { enabled: false },
 
     runtimeConfig: {
+        apiBase: 'https://olimpo.sysifosweb.cl/api/',
         public: {
             apiUrl: '/api/',
             tinymceApiKey: process.env.NUXT_PUBLIC_TINYMCE_API_KEY || 'no-api-key'
+        }
+    },
+
+    // NUXT_API selecciona el backend de desarrollo; producción conserva la API remota.
+    // NUXT_API_BASE permite sobrescribir runtimeConfig.apiBase al ejecutar el servidor.
+    $development: {
+        runtimeConfig: {
+            apiBase: process.env.NUXT_API || 'http://127.0.0.1:8000/api/'
         }
     },
 

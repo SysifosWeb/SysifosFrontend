@@ -1,4 +1,4 @@
-import { d as defineEventHandler, g as getRequestURL, p as proxyRequest, c as createError } from '../../nitro/nitro.mjs';
+import { d as defineEventHandler, g as getRequestURL, p as proxyRequest, c as createError, u as useRuntimeConfig } from '../../nitro/nitro.mjs';
 import 'node:http';
 import 'node:https';
 import 'node:events';
@@ -21,9 +21,11 @@ import 'ipx';
 
 const ____slug_ = defineEventHandler(async (event) => {
   var _a, _b;
+  const config = useRuntimeConfig();
   const reqUrl = getRequestURL(event);
   const path = reqUrl.pathname.replace("/api/", "");
-  const target = `https://olimpo.sysifosweb.cl/api/${path}${reqUrl.search}`;
+  const base = `${(config.apiBase || "https://olimpo.sysifosweb.cl/api/").replace(/\/+$/, "")}/`;
+  const target = `${base}${path}${reqUrl.search}`;
   try {
     return await proxyRequest(event, target);
   } catch (error) {

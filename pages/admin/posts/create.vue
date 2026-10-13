@@ -179,13 +179,13 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                 <div class="flex items-center justify-between">
                     <div>
                         <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Crear Nuevo Post</h1>
-                        <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                             Completa la información para crear un nuevo post en el blog
                         </p>
                     </div>
                     <div class="flex items-center space-x-3">
                         <button @click="saveDraft" :disabled="processing || !form.title"
-                            class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50">
+                            class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-400 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50">
                             <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3-3m0 0l-3 3m3-3v12" />
@@ -212,7 +212,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                     <div class="grid grid-cols-1 gap-6">
                         <!-- Título -->
                         <div>
-                            <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 Título *
                             </label>
                             <input id="title" v-model="form.title" @blur="generateSlug" type="text" required
@@ -225,19 +225,19 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
 
                         <!-- Slug -->
                         <div>
-                            <label for="slug" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            <label for="slug" class="block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 Slug (URL amigable)
                             </label>
                             <div class="mt-1 flex rounded-md shadow-sm">
                                 <span
-                                    class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-gray-300 dark:text-gray-300 text-sm">
+                                    class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-700 text-gray-500 dark:text-gray-400 text-sm">
                                     /blog/
                                 </span>
                                 <input id="slug" v-model="form.slug" type="text"
                                     class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white focus:border-blue-500 focus:ring-blue-500"
                                     placeholder="se-genera-automaticamente" />
                             </div>
-                            <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                 Se genera automáticamente si se deja vacío
                             </p>
                             <p v-if="errors.slug" class="mt-2 text-sm text-red-600">
@@ -247,7 +247,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
 
                         <!-- Categoría -->
                         <div>
-                            <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 Categoría *
                             </label>
                             <select id="category_id" v-model="form.category_id" required
@@ -264,15 +264,15 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
 
                         <!-- Extracto -->
                         <div>
-                            <label for="excerpt" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                            <label for="excerpt" class="block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 Extracto
-                                <span class="text-gray-300 dark:text-gray-300 font-normal">({{ excerptLength }}/500)</span>
+                                <span class="text-gray-500 dark:text-gray-400 font-normal">({{ excerptLength }}/500)</span>
                             </label>
                             <textarea id="excerpt" v-model="form.excerpt" @blur="generateMetaDescription" rows="3"
                                 maxlength="500"
                                 class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                 placeholder="Breve descripción del post..."></textarea>
-                            <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                 Resumen corto que aparecerá en las listas de posts
                             </p>
                             <p v-if="errors.excerpt" class="mt-2 text-sm text-red-600">
@@ -287,7 +287,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                     <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Contenido</h2>
 
                     <div>
-                        <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-2">
                             Contenido del Post *
                         </label>
                         <ClientOnly>
@@ -330,7 +330,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                     <div class="space-y-4">
                         <div v-if="!previewImage" class="border-2 border-dashed border-gray-300 dark:border-slate-600 rounded-lg p-6">
                             <div class="text-center">
-                                <svg class="mx-auto h-12 w-12 text-gray-300 dark:text-gray-300" stroke="currentColor" fill="none"
+                                <svg class="mx-auto h-12 w-12 text-gray-500 dark:text-gray-400" stroke="currentColor" fill="none"
                                     viewBox="0 0 48 48">
                                     <path
                                         d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
@@ -344,7 +344,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                                         <input id="featured_image" type="file" accept="image/*"
                                             @change="handleImageUpload" class="sr-only" />
                                     </label>
-                                    <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">PNG, JPG, GIF hasta 2MB</p>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">PNG, JPG, GIF hasta 2MB</p>
                                 </div>
                             </div>
                         </div>
@@ -379,19 +379,19 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                             <div class="flex items-center">
                                 <input id="featured" v-model="form.featured" type="checkbox"
                                     class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 dark:border-slate-600 dark:bg-slate-900 rounded" />
-                                <label for="featured" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                                <label for="featured" class="ml-2 block text-sm text-gray-900 dark:text-gray-400">
                                     Marcar como post destacado
                                 </label>
                             </div>
 
                             <!-- Fecha de publicación -->
                             <div>
-                                <label for="published_at" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <label for="published_at" class="block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Fecha de publicación
                                 </label>
                                 <input id="published_at" v-model="form.published_at" type="datetime-local"
                                     class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500" />
-                                <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                     Deja vacío para publicar inmediatamente
                                 </p>
                             </div>
@@ -403,7 +403,7 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
 
                             <!-- Meta título -->
                             <div>
-                                <label for="meta_title" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <label for="meta_title" class="block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Meta título
                                 </label>
                                 <input id="meta_title" v-model="form.meta_title" type="text" maxlength="255"
@@ -417,9 +417,9 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
 
                             <!-- Meta descripción -->
                             <div>
-                                <label for="meta_description" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <label for="meta_description" class="block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Meta descripción
-                                    <span class="text-gray-300 dark:text-gray-300 font-normal">({{ metaDescriptionLength }}/500)</span>
+                                    <span class="text-gray-500 dark:text-gray-400 font-normal">({{ metaDescriptionLength }}/500)</span>
                                 </label>
                                 <textarea id="meta_description" v-model="form.meta_description" rows="3" maxlength="500"
                                     class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
@@ -432,13 +432,13 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
 
                             <!-- Meta keywords -->
                             <div>
-                                <label for="meta_keywords" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                <label for="meta_keywords" class="block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Palabras clave
                                 </label>
                                 <input id="meta_keywords" v-model="form.meta_keywords" type="text"
                                     class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                     placeholder="palabra1, palabra2, palabra3" />
-                                <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                     Separa las palabras con comas
                                 </p>
                             </div>
@@ -449,17 +449,17 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                 <!-- Botones de acción -->
                 <div class="bg-white dark:bg-slate-800 rounded-lg shadow p-6 border border-gray-100 dark:border-slate-700">
                     <div class="flex flex-col sm:flex-row items-center justify-between">
-                        <div class="text-sm text-gray-300 dark:text-gray-300 mb-4 sm:mb-0">
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-4 sm:mb-0">
                             * Campos obligatorios
                         </div>
                         <div class="flex items-center space-x-3 w-full sm:w-auto">
                             <NuxtLink to="/admin/posts"
-                                class="inline-flex justify-center items-center px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 w-full sm:w-auto">
+                                class="inline-flex justify-center items-center px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-400 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 w-full sm:w-auto">
                                 Cancelar
                             </NuxtLink>
                             <button @click="saveDraft" type="button" :disabled="processing || !form.title"
-                                class="inline-flex justify-center items-center px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 w-full sm:w-auto">
-                                <svg v-if="processing" class="animate-spin -ml-1 mr-2 h-4 w-4 text-gray-700 dark:text-gray-300"
+                                class="inline-flex justify-center items-center px-4 py-2 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-400 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 w-full sm:w-auto">
+                                <svg v-if="processing" class="animate-spin -ml-1 mr-2 h-4 w-4 text-gray-700 dark:text-gray-400"
                                     fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                         stroke-width="4"></circle>

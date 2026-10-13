@@ -104,7 +104,7 @@ const submit = async () => {
                 <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
                     Editar Categoría
                 </h1>
-                <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                     Modifica los campos que necesites actualizar
                 </p>
             </div>
@@ -129,7 +129,7 @@ const submit = async () => {
             <form @submit.prevent="submit" class="p-6 space-y-6">
                 <!-- Nombre -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Nombre</label>
                     <input v-model="form.name" @blur="generateSlug" type="text" required
                         class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.name }" />
@@ -138,18 +138,18 @@ const submit = async () => {
 
                 <!-- Slug -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Slug (URL)</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Slug (URL)</label>
                     <input v-model="form.slug" type="text" required
                         class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.slug }" />
-                    <p class="mt-1 text-xs text-gray-300 dark:text-gray-300">Se usará en la URL: /blog/categoria/{slug}
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Se usará en la URL: /blog/categoria/{slug}
                     </p>
                     <p v-if="errors.slug" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors.slug[0] }}</p>
                 </div>
 
                 <!-- Descripción -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descripción</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Descripción</label>
                     <textarea v-model="form.description" rows="3"
                         class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.description }"></textarea>
@@ -160,12 +160,12 @@ const submit = async () => {
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <!-- Color -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Color
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Color
                             representativo</label>
                         <div class="flex items-center space-x-3">
                             <input v-model="form.color" type="color"
                                 class="h-10 w-20 rounded border border-gray-300 dark:border-slate-600 cursor-pointer p-0" />
-                            <span class="text-sm font-mono text-gray-300 dark:text-gray-300">{{ form.color }}</span>
+                            <span class="text-sm font-mono text-gray-500 dark:text-gray-400">{{ form.color }}</span>
                         </div>
                         <p v-if="errors.color" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors.color[0] }}
                         </p>
@@ -173,7 +173,7 @@ const submit = async () => {
 
                     <!-- Orden -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Orden</label>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Orden</label>
                         <input v-model="form.sort_order" type="number" min="0" required
                             class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.sort_order }" />
@@ -186,7 +186,7 @@ const submit = async () => {
                         <label class="flex items-center cursor-pointer">
                             <input v-model="form.active" type="checkbox"
                                 class="h-5 w-5 rounded border-gray-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500 bg-white dark:bg-slate-900" />
-                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">
+                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-400">
                                 Categoría activa
                             </span>
                         </label>

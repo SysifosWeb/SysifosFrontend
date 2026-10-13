@@ -155,7 +155,7 @@ const isPublished = computed(() => form.status === 'published');
                         <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
                             Editar Post
                         </h1>
-                        <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                             Modifica la información del post
                         </p>
                     </div>
@@ -193,7 +193,7 @@ const isPublished = computed(() => form.status === 'published');
                             </div>
                             <div class="p-6 space-y-6">
                                 <div>
-                                    <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
                                         Título *
                                     </label>
                                     <input id="title" v-model="form.title" type="text" required
@@ -205,13 +205,13 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="slug" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    <label for="slug" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
                                         Slug *
                                     </label>
                                     <input id="slug" v-model="form.slug" type="text" required
                                         class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         placeholder="slug-del-post" />
-                                    <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                         URL: /blog/{{ form.slug }}
                                     </p>
                                     <div v-if="errors.slug" class="mt-1 text-sm text-red-600">
@@ -220,7 +220,7 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="excerpt" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    <label for="excerpt" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
                                         Extracto
                                     </label>
                                     <textarea id="excerpt" v-model="form.excerpt" rows="3"
@@ -232,7 +232,7 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-2">
                                         Contenido *
                                     </label>
                                     <ClientOnly>
@@ -278,7 +278,7 @@ const isPublished = computed(() => form.status === 'published');
                             </div>
                             <div class="p-6 space-y-6">
                                 <div>
-                                    <label for="meta_title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    <label for="meta_title" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
                                         Meta Título
                                     </label>
                                     <input id="meta_title" v-model="form.meta_title" type="text"
@@ -290,7 +290,7 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="meta_description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    <label for="meta_description" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
                                         Meta Descripción
                                     </label>
                                     <textarea id="meta_description" v-model="form.meta_description" rows="3"
@@ -302,13 +302,13 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="meta_keywords" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    <label for="meta_keywords" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
                                         Palabras Clave
                                     </label>
                                     <input id="meta_keywords" v-model="form.meta_keywords" type="text"
                                         class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         placeholder="palabra1, palabra2, palabra3" />
-                                    <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
                                         Separa las palabras con comas
                                     </p>
                                     <div v-if="errors.meta_keywords" class="mt-1 text-sm text-red-600">
@@ -329,7 +329,7 @@ const isPublished = computed(() => form.status === 'published');
                             </div>
                             <div class="p-6 space-y-6">
                                 <div>
-                                    <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
                                         Estado
                                     </label>
                                     <select id="status" v-model="form.status"
@@ -345,7 +345,7 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                    <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
                                         Categoría
                                     </label>
                                     <select id="category_id" v-model="form.category_id"
@@ -362,7 +362,7 @@ const isPublished = computed(() => form.status === 'published');
 
                                 <div>
                                     <label for="featured_image_url"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                        class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
                                         Imagen Destacada (URL)
                                     </label>
                                     <input id="featured_image_url" v-model="form.featured_image_url" type="url"
@@ -376,7 +376,7 @@ const isPublished = computed(() => form.status === 'published');
                                 <div class="flex items-center">
                                     <input id="featured" v-model="form.featured" type="checkbox"
                                         class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-slate-600 dark:bg-slate-900 rounded" />
-                                    <label for="featured" class="ml-2 block text-sm text-gray-900 dark:text-gray-300">
+                                    <label for="featured" class="ml-2 block text-sm text-gray-900 dark:text-gray-400">
                                         Post destacado
                                     </label>
                                 </div>

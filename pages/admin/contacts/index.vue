@@ -1,6 +1,9 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
+import {
+    Search, X, Eye, MailOpen, Archive, Inbox, RotateCcw,
+} from 'lucide-vue-next';
 
 definePageMeta({ layout: 'admin' })
 
@@ -37,6 +40,8 @@ const contacts = computed(() => {
     // de paginación (array de {url,label,active}) viven en meta.links
     return { ...r, links: Array.isArray(r.links) ? r.links : (r.meta?.links || []) }
 })
+
+const hasActiveFilters = computed(() => filters.search || filters.status);
 
 const clearFilters = () => {
     filters.search = "";
@@ -102,12 +107,12 @@ const archiveContact = async (contact) => {
 
 const getStatusClass = (status) => {
     const statusClasses = {
-        'new': 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-        'read': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
-        'replied': 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
-        'archived': 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300'
+        'new': 'bg-red-50 text-red-700 ring-red-600/10 dark:bg-red-500/10 dark:text-red-400 dark:ring-red-400/20',
+        'read': 'bg-amber-50 text-amber-700 ring-amber-600/10 dark:bg-amber-500/10 dark:text-amber-400 dark:ring-amber-400/20',
+        'replied': 'bg-emerald-50 text-emerald-700 ring-emerald-600/10 dark:bg-emerald-500/10 dark:text-emerald-400 dark:ring-emerald-400/20',
+        'archived': 'bg-slate-100 text-slate-600 ring-slate-500/10 dark:bg-slate-800 dark:text-slate-400 dark:ring-slate-400/20'
     };
-    return statusClasses[status] || 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300';
+    return statusClasses[status] || 'bg-slate-100 text-slate-600 ring-slate-500/10 dark:bg-slate-800 dark:text-slate-400 dark:ring-slate-400/20';
 };
 
 const getStatusText = (status) => {
@@ -118,7 +123,7 @@ const getStatusText = (status) => {
         'archived': 'Archivado'
     };
     return statusTexts[status] || 'Desconocido';
-};
+}
 
 const formatDate = (date) => {
     if (!date) return '-';
@@ -154,196 +159,169 @@ const goToPage = (url) => {
 <template>
     <div>
         <!-- Header -->
-        <div class="mb-6 flex items-center justify-between">
+        <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
             <div>
-                <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Contactos</h1>
-                <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
-                    Gestiona los mensajes de contacto de tu sitio principal
-                </p>
+                <h1 class="font-display text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">Contactos</h1>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Gestiona los mensajes de contacto de tu sitio principal</p>
             </div>
         </div>
 
         <!-- Filtros -->
-        <div class="bg-white dark:bg-slate-800 rounded-lg shadow mb-6 border border-gray-100 dark:border-slate-700">
-            <div class="p-6">
-                <form @submit.prevent="search" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Buscar</label>
-                        <input v-model="filters.search" type="text" placeholder="Nombre, email, asunto..."
-                            class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500" />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Estado</label>
-                        <select v-model="filters.status" @change="search"
-                            class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            <option value="">Todos</option>
-                            <option value="new">Nuevo</option>
-                            <option value="read">Leído</option>
-                            <option value="replied">Respondido</option>
-                            <option value="archived">Archivado</option>
-                        </select>
-                    </div>
-                    <div class="flex items-end space-x-3">
-                        <button type="submit"
-                            class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
-                            Filtrar
-                        </button>
-                        <button type="button" @click="clearFilters"
-                            class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 transition">
-                            Limpiar
-                        </button>
-                    </div>
-                </form>
-            </div>
+        <div class="mb-6 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200/60 sm:p-5 dark:bg-slate-900 dark:ring-slate-800">
+            <form @submit.prevent="search" class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div class="relative md:col-span-2">
+                    <Search class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                    <input v-model="filters.search" type="text" placeholder="Nombre, email, asunto…" class="!pl-10" />
+                </div>
+                <div class="flex items-center gap-2.5">
+                    <select v-model="filters.status" @change="search" class="flex-1">
+                        <option value="">Todos</option>
+                        <option value="new">Nuevo</option>
+                        <option value="read">Leído</option>
+                        <option value="replied">Respondido</option>
+                        <option value="archived">Archivado</option>
+                    </select>
+                    <button v-if="hasActiveFilters" type="button" @click="clearFilters" title="Limpiar filtros"
+                        class="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-xl text-slate-500 ring-1 ring-slate-200 transition-colors hover:bg-slate-50 hover:text-slate-700 dark:text-slate-400 dark:ring-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200">
+                        <X class="h-4 w-4" />
+                    </button>
+                </div>
+            </form>
         </div>
 
         <!-- Loading -->
-        <div v-if="pending" class="flex justify-center my-12">
-            <svg class="animate-spin h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                </path>
-            </svg>
+        <div v-if="pending" class="flex h-64 items-center justify-center">
+            <div class="h-10 w-10 animate-spin rounded-full border-4 border-sky-200 border-t-sky-500 dark:border-slate-700 dark:border-t-sky-400" />
         </div>
 
-        <!-- Tabla -->
-        <div v-else
-            class="bg-white dark:bg-slate-800 rounded-lg shadow overflow-hidden border border-gray-100 dark:border-slate-700">
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
-                    <thead class="bg-gray-50 dark:bg-slate-900/50">
-                        <tr>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
-                                Contacto</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
-                                Asunto</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
-                                Estado</th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
-                                Fecha</th>
-                            <th
-                                class="px-6 py-3 text-right text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
-                                Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
-                        <tr v-for="contact in contacts.data" :key="contact.id"
-                            class="hover:bg-gray-50 dark:hover:bg-slate-700/50">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900 dark:text-white">{{ contact.name }}</div>
-                                <div class="text-sm text-gray-300 dark:text-gray-300">{{ contact.email }}</div>
-                            </td>
-                            <td class="px-6 py-4">
-                                <div class="text-sm text-gray-900 dark:text-white line-clamp-1"
-                                    :title="contact.subject">{{ contact.subject }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                    :class="getStatusClass(contact.status)">
-                                    {{ getStatusText(contact.status) }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 dark:text-gray-300">
-                                {{ formatDate(contact.created_at) }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <div class="flex items-center justify-end space-x-2">
-                                    <NuxtLink :to="'/admin/contacts/' + contact.id"
-                                        class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
-                                        title="Ver detalle">
-                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                    </NuxtLink>
-                                    <button v-if="contact.status === 'new'" @click="markAsRead(contact)"
-                                        class="text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300"
-                                        title="Marcar como leído">
-                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76" />
-                                        </svg>
-                                    </button>
-                                    <button v-if="contact.status !== 'archived'" @click="archiveContact(contact)"
-                                        class="text-gray-300 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-200"
-                                        title="Archivar">
-                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr v-if="contacts.data.length === 0">
-                            <td colspan="5" class="px-6 py-12 text-center text-gray-300 dark:text-gray-300">
-                                No se encontraron contactos.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <template v-else>
+            <!-- Empty state -->
+            <div v-if="contacts.data.length === 0"
+                class="flex flex-col items-center justify-center gap-3 rounded-2xl bg-white px-6 py-16 text-center shadow-sm ring-1 ring-slate-200/60 dark:bg-slate-900 dark:ring-slate-800">
+                <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-500/10">
+                    <Inbox class="h-7 w-7 text-sky-500" />
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-900 dark:text-white">Sin contactos</p>
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">No se encontraron mensajes con los filtros actuales</p>
+                </div>
+                <button v-if="hasActiveFilters" @click="clearFilters"
+                    class="mt-1 inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-sky-600 ring-1 ring-sky-200 transition-colors hover:bg-sky-50 dark:text-sky-400 dark:ring-sky-500/30 dark:hover:bg-sky-500/10">
+                    <RotateCcw class="h-4 w-4" /> Limpiar filtros
+                </button>
             </div>
 
-            <!-- Paginación -->
-            <div v-if="contacts.last_page > 1"
-                class="bg-white dark:bg-slate-800 px-4 py-3 border-t border-gray-200 dark:border-slate-700 sm:px-6">
-                <!-- (Same logic as categories/posts pagination) -->
-                <div class="flex items-center justify-between">
+            <!-- Tabla -->
+            <div v-else class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/60 dark:bg-slate-900 dark:ring-slate-800">
+                <div class="overflow-x-auto scrollbar-thin">
+                    <table class="min-w-full divide-y divide-slate-100 dark:divide-slate-800">
+                        <thead>
+                            <tr class="bg-slate-50/80 dark:bg-slate-800/40">
+                                <th class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Contacto</th>
+                                <th class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Asunto</th>
+                                <th class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Estado</th>
+                                <th class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Fecha</th>
+                                <th class="px-6 py-3.5 text-right text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                            <tr v-for="contact in contacts.data" :key="contact.id"
+                                class="group/row transition-colors hover:bg-slate-50/80 dark:hover:bg-slate-800/40">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sky-50 text-sm font-bold text-sky-600 dark:bg-sky-500/10 dark:text-sky-400">
+                                            {{ contact.name?.charAt(0).toUpperCase() }}
+                                        </div>
+                                        <div class="min-w-0">
+                                            <div class="text-sm font-semibold text-slate-900 group-hover/row:text-sky-600 dark:text-white dark:group-hover/row:text-sky-400">{{ contact.name }}</div>
+                                            <div class="truncate text-xs text-slate-500 dark:text-slate-400">{{ contact.email }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="max-w-xs truncate text-sm text-slate-700 dark:text-slate-300" :title="contact.subject">
+                                        {{ contact.subject }}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1"
+                                        :class="getStatusClass(contact.status)">
+                                        <span class="h-1.5 w-1.5 rounded-full"
+                                            :class="{
+                                                'bg-red-500': contact.status === 'new',
+                                                'bg-amber-500': contact.status === 'read',
+                                                'bg-emerald-500': contact.status === 'replied',
+                                                'bg-slate-400': contact.status === 'archived',
+                                            }" />
+                                        {{ getStatusText(contact.status) }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+                                    {{ formatDate(contact.created_at) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center justify-end gap-1">
+                                        <NuxtLink :to="'/admin/contacts/' + contact.id" title="Ver detalle"
+                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-sky-50 hover:text-sky-600 dark:hover:bg-sky-500/10 dark:hover:text-sky-400">
+                                            <Eye class="h-4 w-4" />
+                                        </NuxtLink>
+                                        <button v-if="contact.status === 'new'" @click="markAsRead(contact)" title="Marcar como leído"
+                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-amber-50 hover:text-amber-600 dark:hover:bg-amber-500/10 dark:hover:text-amber-400">
+                                            <MailOpen class="h-4 w-4" />
+                                        </button>
+                                        <button v-if="contact.status !== 'archived'" @click="archiveContact(contact)" title="Archivar"
+                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-200">
+                                            <Archive class="h-4 w-4" />
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginación -->
+                <div v-if="contacts.last_page > 1"
+                    class="flex items-center justify-between border-t border-slate-100 bg-slate-50/50 px-4 py-3 dark:border-slate-800 dark:bg-slate-800/30 sm:px-6">
                     <div class="flex-1 flex justify-between sm:hidden">
                         <button v-if="contacts.prev_page_url" @click="goToPage(contacts.prev_page_url)"
-                            class="relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700">
+                            class="inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800">
                             Anterior
                         </button>
                         <button v-if="contacts.next_page_url" @click="goToPage(contacts.next_page_url)"
-                            class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700">
+                            class="ml-3 inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800">
                             Siguiente
                         </button>
                     </div>
                     <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                        <div>
-                            <p class="text-sm text-gray-700 dark:text-gray-300">
-                                Mostrando
-                                <span class="font-medium dark:text-white">{{ contacts.from }}</span>
-                                a
-                                <span class="font-medium dark:text-white">{{ contacts.to }}</span>
-                                de
-                                <span class="font-medium dark:text-white">{{ contacts.total }}</span>
-                                resultados
-                            </p>
-                        </div>
-                        <div>
-                            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
-                                <template v-for="(link, index) in contacts.links" :key="index">
-                                    <button v-if="link && link.url" @click="goToPage(link.url)" :class="[
-                                        'relative inline-flex items-center px-4 py-2 border text-sm font-medium',
-                                        link.active
-                                            ? 'z-10 bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-600 dark:text-blue-400'
-                                            : 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 text-gray-300 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700',
-                                        index === 0 ? 'rounded-l-md' : '',
-                                        index === contacts.links.length - 1 ? 'rounded-r-md' : '',
-                                    ]" v-html="link.label">
-                                    </button>
-                                    <span v-else-if="link" :class="[
-                                        'relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-sm font-medium text-gray-300',
-                                        index === 0 ? 'rounded-l-md' : '',
-                                        index === contacts.links.length - 1 ? 'rounded-r-md' : '',
-                                    ]" v-html="link.label">
-                                    </span>
-                                </template>
-                            </nav>
-                        </div>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">
+                            Mostrando
+                            <span class="font-semibold text-slate-900 dark:text-white">{{ contacts.from }}</span>
+                            a
+                            <span class="font-semibold text-slate-900 dark:text-white">{{ contacts.to }}</span>
+                            de
+                            <span class="font-semibold text-slate-900 dark:text-white">{{ contacts.total }}</span>
+                            resultados
+                        </p>
+                        <nav class="relative z-0 inline-flex -space-x-px rounded-xl shadow-sm">
+                            <template v-for="(link, index) in contacts.links" :key="index">
+                                <button v-if="link && link.url" @click="goToPage(link.url)" :class="[
+                                    'relative inline-flex items-center border px-3.5 py-2 text-sm font-medium transition-colors first:rounded-l-xl last:rounded-r-xl',
+                                    link.active
+                                        ? 'z-10 border-sky-500 bg-sky-50 text-sky-700 dark:border-sky-400/40 dark:bg-sky-500/15 dark:text-sky-300'
+                                        : 'border-slate-200 bg-white text-slate-500 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:bg-slate-800',
+                                ]" v-html="link.label">
+                                </button>
+                                <span v-else-if="link"
+                                    class="relative inline-flex items-center border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm font-medium text-slate-300 first:rounded-l-xl last:rounded-r-xl dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-600"
+                                    v-html="link.label">
+                                </span>
+                            </template>
+                        </nav>
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
     </div>
 </template>
 

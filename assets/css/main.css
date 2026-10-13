@@ -271,8 +271,83 @@ input, textarea, select {
 .group:hover .card-hover-glow { opacity: 1; }
 
 /* ============================================
+   ADMIN — Sistema de estilos del panel
+   ============================================ */
+
+/* Scrollbar sutil para paneles del admin */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 9999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.6); }
+
+/* Controles de formulario con estética moderna (specificity 0 via :where,
+   así los componentes pueden sobreescribir con clases Tailwind normales) */
+:where(.admin-scope) :where(input[type="text"]),
+:where(.admin-scope) :where(input[type="email"]),
+:where(.admin-scope) :where(input[type="password"]),
+:where(.admin-scope) :where(input[type="number"]),
+:where(.admin-scope) :where(input[type="date"]),
+:where(.admin-scope) :where(input[type="datetime-local"]),
+:where(.admin-scope) :where(input[type="url"]),
+:where(.admin-scope) :where(textarea),
+:where(.admin-scope) :where(select) {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  background-color: #fff;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #0f172a;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
+}
+:where(.admin-scope) :where(input)::placeholder,
+:where(.admin-scope) :where(textarea)::placeholder {
+  color: #94a3b8;
+}
+
+:where(.dark .admin-scope) :where(input[type="text"]),
+:where(.dark .admin-scope) :where(input[type="email"]),
+:where(.dark .admin-scope) :where(input[type="password"]),
+:where(.dark .admin-scope) :where(input[type="number"]),
+:where(.dark .admin-scope) :where(input[type="date"]),
+:where(.dark .admin-scope) :where(input[type="datetime-local"]),
+:where(.dark .admin-scope) :where(input[type="url"]),
+:where(.dark .admin-scope) :where(textarea),
+:where(.dark .admin-scope) :where(select) {
+  background-color: #0f172a;
+  border-color: #1e293b;
+  color: #e2e8f0;
+  box-shadow: none;
+}
+:where(.dark .admin-scope) :where(input)::placeholder,
+:where(.dark .admin-scope) :where(textarea)::placeholder {
+  color: #475569;
+}
+:where(.dark .admin-scope) :where(select option) {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+:where(.admin-scope) :where(input:focus),
+:where(.admin-scope) :where(textarea:focus),
+:where(.admin-scope) :where(select:focus) {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+}
+
+/* ============================================
    BOTONES GLOBALES
-============================================ */
+   ============================================ */
 
 /* CTA Ghost — fondo elevado con borde */
 .cta-ghost {

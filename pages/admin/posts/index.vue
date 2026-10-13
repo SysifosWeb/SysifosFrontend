@@ -1,8 +1,12 @@
 <script setup>
-import { reactive, computed, watch } from "vue";
+import { reactive, computed, watch, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
 import delivery from "@/assets/img/delivery.png";
 import Swal from 'sweetalert2';
+import {
+    Plus, Search, RotateCcw, Eye, Pencil, Star, Trash2,
+    CloudUpload, CloudDownload, FileText, Inbox, X, SlidersHorizontal,
+} from 'lucide-vue-next';
 
 const Toast = Swal.mixin({
     toast: true,
@@ -24,7 +28,7 @@ const router = useRouter()
 const filters = reactive({
     search: "",
     status: "",
-    category_id: "",
+    category_id: String(useRoute().query.category_id || ""),
     featured: "",
     page: 1
 });
@@ -65,7 +69,7 @@ const categories = computed(() => categoriesResponse.value?.data || [])
 
 // Detectar si hay filtros activos
 const hasActiveFilters = computed(() => {
-    return filters.search || filters.status || filters.category || filters.featured;
+    return filters.search || filters.status || filters.category_id || filters.featured;
 });
 
 const search = () => {
@@ -87,6 +91,7 @@ const autoFilter = () => {
 };
 
 let searchTimeout = null;
+onBeforeUnmount(() => clearTimeout(searchTimeout));
 watch(() => filters.search, (newValue) => {
     if (searchTimeout) {
         clearTimeout(searchTimeout);
@@ -153,7 +158,7 @@ const deletePost = async (post) => {
         text: `Se eliminará el post "${post.title}"`,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3b82f6',
+        confirmButtonColor: '#0ea5e9',
         cancelButtonColor: '#ef4444',
         confirmButtonText: 'Sí, eliminar',
         cancelButtonText: 'Cancelar',
@@ -182,9 +187,9 @@ const deletePost = async (post) => {
 const getStatusClass = (status) => {
     return (
         {
-            draft: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
-            published: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
-        }[status] || "bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300"
+            draft: "bg-amber-50 text-amber-700 ring-amber-600/10 dark:bg-amber-500/10 dark:text-amber-400 dark:ring-amber-400/20",
+            published: "bg-emerald-50 text-emerald-700 ring-emerald-600/10 dark:bg-emerald-500/10 dark:text-emerald-400 dark:ring-emerald-400/20",
+        }[status] || "bg-slate-100 text-slate-600 ring-slate-500/10 dark:bg-slate-800 dark:text-slate-400 dark:ring-slate-400/20"
     );
 };
 
@@ -228,303 +233,252 @@ const goToPage = (url) => {
 
 <template>
     <div>
-        <!-- Header con botón de crear -->
-        <div class="mb-6 flex items-center justify-between">
+        <!-- Header -->
+        <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
             <div>
-                <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
+                <h1 class="font-display text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">
                     Posts del Blog
                 </h1>
-                <p class="mt-1 text-sm text-gray-300 dark:text-gray-300">
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     Gestiona todos los posts de tu blog
                 </p>
             </div>
             <NuxtLink to="/admin/posts/create"
-                class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                </svg>
+                class="inline-flex items-center gap-2 rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-sky-500/25 transition-all hover:bg-sky-600 hover:shadow-sky-600/25">
+                <Plus class="h-4 w-4" />
                 Nuevo Post
             </NuxtLink>
         </div>
 
         <!-- Filtros -->
-        <div class="bg-white dark:bg-slate-800 rounded-lg shadow mb-6 border border-gray-100 dark:border-slate-700">
-            <div class="p-6">
-                <form @submit.prevent="search" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <!-- Búsqueda -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Buscar</label>
-                        <input v-model="filters.search" type="text" placeholder="Título, contenido..."
-                            class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500" />
-                    </div>
+        <div
+            class="mb-6 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200/60 sm:p-5 dark:bg-slate-900 dark:ring-slate-800">
+            <form @submit.prevent="search" class="grid grid-cols-1 gap-4 md:grid-cols-4">
+                <!-- Búsqueda -->
+                <div class="relative">
+                    <Search
+                        class="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+                    <input v-model="filters.search" type="text" placeholder="Título, contenido…"
+                        class="!pl-10" />
+                </div>
 
-                    <!-- Estado -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Estado</label>
-                        <select v-model="filters.status" @change="autoFilter"
-                            class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            <option value="">Todos los estados</option>
-                            <option value="draft">Borrador</option>
-                            <option value="published">Publicado</option>
-                        </select>
-                    </div>
+                <!-- Estado -->
+                <div>
+                    <select v-model="filters.status" @change="autoFilter">
+                        <option value="">Todos los estados</option>
+                        <option value="draft">Borrador</option>
+                        <option value="published">Publicado</option>
+                    </select>
+                </div>
 
-                    <!-- Categoría -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Categoría</label>
-                        <select v-model="filters.category_id" @change="autoFilter"
-                            class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            <option value="">Todas las categorías</option>
-                            <option v-for="category in categories" :key="category.id" :value="category.id">
-                                {{ category.name }}
-                            </option>
-                        </select>
-                    </div>
+                <!-- Categoría -->
+                <div>
+                    <select v-model="filters.category_id" @change="autoFilter">
+                        <option value="">Todas las categorías</option>
+                        <option v-for="category in categories" :key="category.id" :value="category.id">
+                            {{ category.name }}
+                        </option>
+                    </select>
+                </div>
 
-                    <!-- Destacado -->
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Destacado</label>
-                        <select v-model="filters.featured" @change="autoFilter"
-                            class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                            <option value="">Todos</option>
-                            <option value="1">Solo destacados</option>
-                            <option value="0">No destacados</option>
-                        </select>
-                    </div>
-
-                    <!-- Botones y estadísticas -->
-                    <div class="md:col-span-4 flex items-center justify-between">
-                        <div class="flex items-center space-x-3">
-                            <button type="submit"
-                                class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                                Filtrar
-                            </button>
-                            <button type="button" @click="clearFilters" v-if="hasActiveFilters"
-                                class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                                Limpiar Filtros
-                            </button>
-                        </div>
-
-                        <!-- Estadísticas de filtros -->
-                        <div class="text-sm text-gray-300 dark:text-gray-300">
-                            <span class="font-medium dark:text-white">{{ posts.total }}</span>
-                            {{ posts.total === 1 ? 'post encontrado' : 'posts encontrados' }}
-                            <span v-if="hasActiveFilters" class="ml-2 text-blue-600 dark:text-blue-400">
-                                (filtrado)
-                            </span>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                <!-- Destacado -->
+                <div class="flex items-center gap-2.5">
+                    <select v-model="filters.featured" @change="autoFilter" class="flex-1">
+                        <option value="">Todos</option>
+                        <option value="1">Solo destacados</option>
+                        <option value="0">No destacados</option>
+                    </select>
+                    <button v-if="hasActiveFilters" type="button" @click="clearFilters" title="Limpiar filtros"
+                        class="flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-xl text-slate-500 ring-1 ring-slate-200 transition-colors hover:bg-slate-50 hover:text-slate-700 dark:text-slate-400 dark:ring-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200">
+                        <X class="h-4 w-4" />
+                    </button>
+                </div>
+            </form>
         </div>
 
         <!-- Loading state -->
-        <div v-if="pending" class="flex justify-center my-12">
-            <svg class="animate-spin h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                </path>
-            </svg>
+        <div v-if="pending" class="flex h-64 items-center justify-center">
+            <div
+                class="h-10 w-10 animate-spin rounded-full border-4 border-sky-200 border-t-sky-500 dark:border-slate-700 dark:border-t-sky-400" />
         </div>
 
-        <!-- Tabla de posts -->
-        <div v-else
-            class="bg-white dark:bg-slate-800 rounded-lg shadow overflow-hidden border border-gray-100 dark:border-slate-700">
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
-                    <thead class="bg-gray-50 dark:bg-slate-900/50">
-                        <tr>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
-                                Post
-                            </th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
-                                Categoría
-                            </th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
-                                Estado
-                            </th>
-                            <th
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
-                                Fecha
-                            </th>
-                            <th
-                                class="px-6 py-3 text-right text-xs font-medium text-gray-300 dark:text-gray-300 uppercase tracking-wider">
-                                Acciones
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
-                        <tr v-for="post in posts.data" :key="post.id"
-                            class="hover:bg-gray-50 dark:hover:bg-slate-700/50">
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-12 w-12">
-                                        <img :src="post.featured_image_url ? post.featured_image_url : delivery"
-                                            :alt="post.title" class="h-12 w-12 rounded-lg object-cover" />
-                                    </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900 dark:text-white">
-                                            {{ post.title }}
-                                        </div>
-                                        <div class="text-sm text-gray-300 dark:text-gray-300">
-                                            por
-                                            {{ post.user?.name || "Usuario" }}
-                                        </div>
-                                        <div v-if="post.featured"
-                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400 mt-1">
-                                            ⭐ Destacado
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span v-if="post.category"
-                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                    :style="{
-                                        backgroundColor: post.category.color ? post.category.color + '20' : '#e5e7eb',
-                                        color: post.category.color || '#374151',
-                                    }">
-                                    {{ post.category.name }}
-                                </span>
-                                <span v-else class="text-gray-300 dark:text-gray-300">Sin categoría</span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                    :class="getStatusClass(post.status)">
-                                    {{ getStatusText(post.status) }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300 dark:text-gray-300">
-                                {{ formatDate(post.created_at) }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <div class="flex items-center justify-end space-x-2">
-                                    <!-- Ver -->
-                                    <NuxtLink v-if="post.id" :to="'/admin/posts/' + post.id"
-                                        class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300"
-                                        title="Ver post">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                    </NuxtLink>
-
-                                    <!-- Editar -->
-                                    <NuxtLink v-if="post.id" :to="'/admin/posts/edit?id=' + post.id"
-                                        class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300"
-                                        title="Editar post">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
-                                    </NuxtLink>
-
-                                    <!-- Toggle Destacado -->
-                                    <button @click="toggleFeatured(post)" :class="post.featured
-                                        ? 'text-yellow-600 dark:text-yellow-400 hover:text-yellow-900 dark:hover:text-yellow-300'
-                                        : 'text-gray-300 dark:text-gray-300 hover:text-yellow-600 dark:hover:text-yellow-400'
-                                        " :title="post.featured
-                                            ? 'Quitar de destacados'
-                                            : 'Marcar como destacado'
-                                            ">
-                                        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                                            <path
-                                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                                        </svg>
-                                    </button>
-
-                                    <!-- Toggle Publicación -->
-                                    <button v-if="post.status === 'draft'" @click="publishPost(post)"
-                                        class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300"
-                                        title="Publicar">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M5 13l4 4L19 7" />
-                                        </svg>
-                                    </button>
-                                    <button v-else @click="unpublishPost(post)"
-                                        class="text-orange-600 dark:text-orange-400 hover:text-orange-900 dark:hover:text-orange-300"
-                                        title="Despublicar">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 4h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17.294 15M10 14l4-2 4-2m-8 4l-2 2m2-2l2 2" />
-                                        </svg>
-                                    </button>
-
-                                    <!-- Eliminar -->
-                                    <button @click="deletePost(post)"
-                                        class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300"
-                                        title="Eliminar post">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <template v-else>
+            <!-- Empty state -->
+            <div v-if="posts.data.length === 0"
+                class="flex flex-col items-center justify-center gap-3 rounded-2xl bg-white px-6 py-16 text-center shadow-sm ring-1 ring-slate-200/60 dark:bg-slate-900 dark:ring-slate-800">
+                <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-500/10">
+                    <Inbox class="h-7 w-7 text-sky-500" />
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-900 dark:text-white">Sin resultados</p>
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                        No se encontraron posts con los filtros actuales
+                    </p>
+                </div>
+                <button v-if="hasActiveFilters" @click="clearFilters"
+                    class="mt-1 inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold text-sky-600 ring-1 ring-sky-200 transition-colors hover:bg-sky-50 dark:text-sky-400 dark:ring-sky-500/30 dark:hover:bg-sky-500/10">
+                    <RotateCcw class="h-4 w-4" /> Limpiar filtros
+                </button>
             </div>
 
-            <!-- Paginación -->
-            <div v-if="posts.links && posts.links.length > 3"
-                class="bg-white dark:bg-slate-800 px-4 py-3 border-t border-gray-200 dark:border-slate-700 sm:px-6">
-                <!-- (Same logic as categories pagination) -->
-                <div class="flex items-center justify-between">
+            <!-- Tabla de posts -->
+            <div v-else class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/60 dark:bg-slate-900 dark:ring-slate-800">
+                <div class="overflow-x-auto scrollbar-thin">
+                    <table class="min-w-full divide-y divide-slate-100 dark:divide-slate-800">
+                        <thead>
+                            <tr class="bg-slate-50/80 dark:bg-slate-800/40">
+                                <th
+                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                    Post
+                                </th>
+                                <th
+                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                    Categoría
+                                </th>
+                                <th
+                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                    Estado
+                                </th>
+                                <th
+                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                    Fecha
+                                </th>
+                                <th
+                                    class="px-6 py-3.5 text-right text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                            <tr v-for="post in posts.data" :key="post.id"
+                                class="group/row transition-colors hover:bg-slate-50/80 dark:hover:bg-slate-800/40">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <img :src="post.featured_image_url ? post.featured_image_url : delivery"
+                                            :alt="post.title"
+                                            class="h-12 w-12 rounded-xl object-cover ring-1 ring-slate-200/60 dark:ring-slate-700" />
+                                        <div class="ml-4">
+                                            <div class="text-sm font-semibold text-slate-900 group-hover/row:text-sky-600 dark:text-white dark:group-hover/row:text-sky-400">
+                                                {{ post.title }}
+                                            </div>
+                                            <div class="text-xs text-slate-500 dark:text-slate-400">
+                                                por {{ post.user?.name || "Usuario" }}
+                                            </div>
+                                            <span v-if="post.featured"
+                                                class="mt-1 inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-700 ring-1 ring-amber-600/10 dark:bg-amber-500/10 dark:text-amber-400 dark:ring-amber-400/20">
+                                                <Star class="h-3 w-3" /> Destacado
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span v-if="post.category"
+                                        class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold"
+                                        :style="{
+                                            backgroundColor: post.category.color ? post.category.color + '1a' : '#f1f5f9',
+                                            color: post.category.color || '#475569',
+                                        }">
+                                        <span class="h-1.5 w-1.5 rounded-full"
+                                            :style="{ backgroundColor: post.category.color || '#94a3b8' }" />
+                                        {{ post.category.name }}
+                                    </span>
+                                    <span v-else class="text-xs text-slate-400 dark:text-slate-500">Sin categoría</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1"
+                                        :class="getStatusClass(post.status)">
+                                        <span class="h-1.5 w-1.5 rounded-full"
+                                            :class="post.status === 'published' ? 'bg-emerald-500' : 'bg-amber-500'" />
+                                        {{ getStatusText(post.status) }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
+                                    {{ formatDate(post.created_at) }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center justify-end gap-1">
+                                        <!-- Ver -->
+                                        <NuxtLink v-if="post.id" :to="'/admin/posts/' + post.id" title="Ver post"
+                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-sky-50 hover:text-sky-600 dark:hover:bg-sky-500/10 dark:hover:text-sky-400">
+                                            <Eye class="h-4 w-4" />
+                                        </NuxtLink>
+
+                                        <!-- Editar -->
+                                        <NuxtLink v-if="post.id" :to="'/admin/posts/edit?id=' + post.id" title="Editar post"
+                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-500/10 dark:hover:text-indigo-400">
+                                            <Pencil class="h-4 w-4" />
+                                        </NuxtLink>
+
+                                        <!-- Toggle Destacado -->
+                                        <button @click="toggleFeatured(post)" :title="post.featured
+                                            ? 'Quitar de destacados'
+                                            : 'Marcar como destacado'"
+                                            class="flex h-8 w-8 items-center justify-center rounded-lg transition-colors"
+                                            :class="post.featured
+                                                ? 'text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-500/10'
+                                                : 'text-slate-300 hover:bg-amber-50 hover:text-amber-500 dark:text-slate-600 dark:hover:bg-amber-500/10 dark:hover:text-amber-400'">
+                                            <Star class="h-4 w-4" :fill="post.featured ? 'currentColor' : 'none'" />
+                                        </button>
+
+                                        <!-- Toggle Publicación -->
+                                        <button v-if="post.status === 'draft'" @click="publishPost(post)" title="Publicar"
+                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-emerald-50 hover:text-emerald-600 dark:hover:bg-emerald-500/10 dark:hover:text-emerald-400">
+                                            <CloudUpload class="h-4 w-4" />
+                                        </button>
+                                        <button v-else @click="unpublishPost(post)" title="Despublicar"
+                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-orange-50 hover:text-orange-600 dark:hover:bg-orange-500/10 dark:hover:text-orange-400">
+                                            <CloudDownload class="h-4 w-4" />
+                                        </button>
+
+                                        <!-- Eliminar -->
+                                        <button @click="deletePost(post)" title="Eliminar post"
+                                            class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-500/10 dark:hover:text-red-400">
+                                            <Trash2 class="h-4 w-4" />
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Paginación -->
+                <div v-if="posts.links && posts.links.length > 3"
+                    class="flex items-center justify-between border-t border-slate-100 bg-slate-50/50 px-4 py-3 dark:border-slate-800 dark:bg-slate-800/30 sm:px-6">
                     <div class="flex-1 flex justify-between sm:hidden">
                         <button v-if="posts.prev_page_url" @click="goToPage(posts.prev_page_url)"
-                            class="relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700">
+                            class="inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800">
                             Anterior
                         </button>
                         <button v-if="posts.next_page_url" @click="goToPage(posts.next_page_url)"
-                            class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700">
+                            class="ml-3 inline-flex items-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800">
                             Siguiente
                         </button>
                     </div>
                     <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                         <div>
-                            <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <p class="text-sm text-slate-500 dark:text-slate-400">
                                 Mostrando
-                                <span class="font-medium dark:text-white">{{ posts.from }}</span>
+                                <span class="font-semibold text-slate-900 dark:text-white">{{ posts.from }}</span>
                                 a
-                                <span class="font-medium dark:text-white">{{ posts.to }}</span>
+                                <span class="font-semibold text-slate-900 dark:text-white">{{ posts.to }}</span>
                                 de
-                                <span class="font-medium dark:text-white">{{ posts.total }}</span>
+                                <span class="font-semibold text-slate-900 dark:text-white">{{ posts.total }}</span>
                                 resultados
                             </p>
                         </div>
                         <div>
-                            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                            <nav class="relative z-0 inline-flex -space-x-px rounded-xl shadow-sm">
                                 <template v-for="(link, index) in posts.links" :key="index">
                                     <button v-if="link && link.url" @click="goToPage(link.url)" :class="[
-                                        'relative inline-flex items-center px-4 py-2 border text-sm font-medium',
+                                        'relative inline-flex items-center border px-3.5 py-2 text-sm font-medium transition-colors first:rounded-l-xl last:rounded-r-xl',
                                         link.active
-                                            ? 'z-10 bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-600 dark:text-blue-400'
-                                            : 'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600 text-gray-300 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700',
-                                        index === 0 ? 'rounded-l-md' : '',
-                                        index === posts.links.length - 1 ? 'rounded-r-md' : '',
+                                            ? 'z-10 border-sky-500 bg-sky-50 text-sky-700 dark:border-sky-400/40 dark:bg-sky-500/15 dark:text-sky-300'
+                                            : 'border-slate-200 bg-white text-slate-500 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400 dark:hover:bg-slate-800',
                                     ]" v-html="link.label">
                                     </button>
                                     <span v-else-if="link" :class="[
-                                        'relative inline-flex items-center px-4 py-2 border border-gray-300 dark:border-slate-600 bg-gray-50 dark:bg-slate-900 text-sm font-medium text-gray-300',
-                                        index === 0 ? 'rounded-l-md' : '',
-                                        index === posts.links.length - 1 ? 'rounded-r-md' : '',
+                                        'relative inline-flex items-center border border-slate-200 bg-slate-50 px-3.5 py-2 text-sm font-medium text-slate-300 first:rounded-l-xl last:rounded-r-xl dark:border-slate-700 dark:bg-slate-800/50 dark:text-slate-600',
                                     ]" v-html="link.label">
                                     </span>
                                 </template>
@@ -533,7 +487,7 @@ const goToPage = (url) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
     </div>
 </template>
 

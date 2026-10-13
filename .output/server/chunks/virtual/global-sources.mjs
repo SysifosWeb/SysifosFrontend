@@ -83,6 +83,9 @@ const sources = [
                 "loc": "/admin/posts"
             },
             {
+                "loc": "/admin/kanban"
+            },
+            {
                 "loc": "/admin/posts/create"
             },
             {
