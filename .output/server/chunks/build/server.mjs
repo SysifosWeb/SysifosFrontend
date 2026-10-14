@@ -706,49 +706,61 @@ function getRouteRules(arg) {
     return {};
   }
 }
-const __nuxt_page_meta$k = {
+const __nuxt_page_meta$l = {
   layout: "hero",
   title: "Contacto"
 };
-const __nuxt_page_meta$j = {
+const __nuxt_page_meta$k = {
   layout: "secondary",
   title: "Nosotros"
 };
-const __nuxt_page_meta$i = {
+const __nuxt_page_meta$j = {
   layout: "landing"
 };
-const __nuxt_page_meta$h = {
+const __nuxt_page_meta$i = {
   layout: "hero",
   title: "Portfolio"
 };
-const __nuxt_page_meta$g = {
+const __nuxt_page_meta$h = {
   layout: "hero",
   title: "Servicios"
 };
-const __nuxt_page_meta$f = {
+const __nuxt_page_meta$g = {
   layout: "hero",
   title: "Blog & Insights"
 };
-const __nuxt_page_meta$e = {
+const __nuxt_page_meta$f = {
   layout: "hero",
   title: "Política de Privacidad"
 };
-const __nuxt_page_meta$d = { layout: "admin" };
-const __nuxt_page_meta$c = {
+const __nuxt_page_meta$e = { layout: "admin" };
+const __nuxt_page_meta$d = {
   layout: false
 };
-const __nuxt_page_meta$b = {
+const __nuxt_page_meta$c = {
   layout: "hero"
 };
+const __nuxt_page_meta$b = { layout: "admin" };
 const __nuxt_page_meta$a = { layout: "admin" };
-const __nuxt_page_meta$9 = { layout: "admin" };
-const __nuxt_page_meta$8 = {
+const __nuxt_page_meta$9 = {
   layout: "admin"
+};
+const __nuxt_page_meta$8 = {
+  layout: "admin",
+  middleware: (to) => {
+    const id = typeof to.query.project === "string" ? Number(to.query.project) : NaN;
+    if (!Number.isSafeInteger(id) || id <= 0) return;
+    const query = { ...to.query };
+    delete query.project;
+    return navigateTo({ path: `/admin/kanban/${id}`, query }, { replace: true });
+  }
 };
 const __nuxt_page_meta$7 = { layout: "admin" };
 const __nuxt_page_meta$6 = { layout: "admin" };
 const __nuxt_page_meta$5 = { layout: "admin" };
-const __nuxt_page_meta$4 = { layout: "admin" };
+const __nuxt_page_meta$4 = {
+  layout: "admin"
+};
 const __nuxt_page_meta$3 = {
   layout: "admin"
 };
@@ -756,7 +768,8 @@ const __nuxt_page_meta$2 = {
   layout: "admin"
 };
 const __nuxt_page_meta$1 = {
-  layout: "admin"
+  layout: "admin",
+  validate: (route2) => typeof route2.params.project === "string" && /^[1-9]\d*$/.test(route2.params.project) && Number.isSafeInteger(Number(route2.params.project))
 };
 const __nuxt_page_meta = {
   layout: "admin"
@@ -770,122 +783,128 @@ const _routes = [
   {
     name: "contacto",
     path: "/contacto",
-    meta: __nuxt_page_meta$k || {},
+    meta: __nuxt_page_meta$l || {},
     component: () => import('./contacto-DCrf6mto.mjs')
   },
   {
     name: "nosotros",
     path: "/nosotros",
-    meta: __nuxt_page_meta$j || {},
+    meta: __nuxt_page_meta$k || {},
     component: () => import('./nosotros-CsUs0rpj.mjs')
   },
   {
     name: "sinapsys",
     path: "/sinapsys",
-    meta: __nuxt_page_meta$i || {},
+    meta: __nuxt_page_meta$j || {},
     component: () => import('./sinapsys-Cv2eHLec.mjs')
   },
   {
     name: "portfolio",
     path: "/portfolio",
-    meta: __nuxt_page_meta$h || {},
+    meta: __nuxt_page_meta$i || {},
     component: () => import('./portfolio-DzLv7u9b.mjs')
   },
   {
     name: "servicios",
     path: "/servicios",
-    meta: __nuxt_page_meta$g || {},
+    meta: __nuxt_page_meta$h || {},
     component: () => import('./servicios-BZSlPRzH.mjs')
   },
   {
     name: "blog",
     path: "/blog",
-    meta: __nuxt_page_meta$f || {},
+    meta: __nuxt_page_meta$g || {},
     component: () => import('./index-Cyd_Nhd7.mjs')
   },
   {
     name: "privacidad",
     path: "/privacidad",
-    meta: __nuxt_page_meta$e || {},
+    meta: __nuxt_page_meta$f || {},
     component: () => import('./privacidad-F_BoY0kY.mjs')
   },
   {
     name: "admin",
     path: "/admin",
-    meta: __nuxt_page_meta$d || {},
+    meta: __nuxt_page_meta$e || {},
     component: () => import('./index-CMI5qNNW.mjs')
   },
   {
     name: "admin-login",
     path: "/admin/login",
-    meta: __nuxt_page_meta$c || {},
+    meta: __nuxt_page_meta$d || {},
     component: () => import('./login-B6vviAWl.mjs')
   },
   {
     name: "blog-slug",
     path: "/blog/:slug()",
-    meta: __nuxt_page_meta$b || {},
+    meta: __nuxt_page_meta$c || {},
     component: () => import('./_slug_-Ba5aj3B0.mjs')
   },
   {
     name: "admin-posts-id",
     path: "/admin/posts/:id()",
-    meta: __nuxt_page_meta$a || {},
+    meta: __nuxt_page_meta$b || {},
     component: () => import('./_id_-BQdCAbQE.mjs')
   },
   {
     name: "admin-posts-edit",
     path: "/admin/posts/edit",
-    meta: __nuxt_page_meta$9 || {},
+    meta: __nuxt_page_meta$a || {},
     component: () => import('./edit-_o1y1cjr.mjs')
   },
   {
     name: "admin-posts",
     path: "/admin/posts",
-    meta: __nuxt_page_meta$8 || {},
+    meta: __nuxt_page_meta$9 || {},
     component: () => import('./index-B7msSIML.mjs')
   },
   {
     name: "admin-kanban",
     path: "/admin/kanban",
-    meta: __nuxt_page_meta$7 || {},
-    component: () => import('./index-Dch0jktt.mjs')
+    meta: __nuxt_page_meta$8 || {},
+    component: () => import('./index-B9h-ds6h.mjs')
   },
   {
     name: "admin-posts-create",
     path: "/admin/posts/create",
-    meta: __nuxt_page_meta$6 || {},
+    meta: __nuxt_page_meta$7 || {},
     component: () => import('./create-Cj7KB0tU.mjs')
   },
   {
     name: "admin-contacts-id",
     path: "/admin/contacts/:id()",
-    meta: __nuxt_page_meta$5 || {},
+    meta: __nuxt_page_meta$6 || {},
     component: () => import('./_id_-Ckz3tugn.mjs')
   },
   {
     name: "admin-contacts",
     path: "/admin/contacts",
-    meta: __nuxt_page_meta$4 || {},
+    meta: __nuxt_page_meta$5 || {},
     component: () => import('./index-CvWW4rSs.mjs')
   },
   {
     name: "admin-categories-id",
     path: "/admin/categories/:id()",
-    meta: __nuxt_page_meta$3 || {},
+    meta: __nuxt_page_meta$4 || {},
     component: () => import('./_id_-D1GNwobX.mjs')
   },
   {
     name: "admin-categories-edit",
     path: "/admin/categories/edit",
-    meta: __nuxt_page_meta$2 || {},
+    meta: __nuxt_page_meta$3 || {},
     component: () => import('./edit-Dh1bfe8r.mjs')
   },
   {
     name: "admin-categories",
     path: "/admin/categories",
-    meta: __nuxt_page_meta$1 || {},
+    meta: __nuxt_page_meta$2 || {},
     component: () => import('./index-DURSMAwo.mjs')
+  },
+  {
+    name: "admin-kanban-project",
+    path: "/admin/kanban/:project()",
+    meta: __nuxt_page_meta$1 || {},
+    component: () => import('./_project_-VUEj3ERY.mjs')
   },
   {
     name: "admin-categories-create",
@@ -1720,7 +1739,7 @@ const plugins = [
   prerender_server_sqIxOBipVr4FbVMA9kqWL0wT8FPop6sKAXLVfifsJzk
 ];
 const layouts = {
-  admin: defineAsyncComponent(() => import('./admin-Cfn-V6gQ.mjs').then((m) => m.default || m)),
+  admin: defineAsyncComponent(() => import('./admin-CiN9WIBg.mjs').then((m) => m.default || m)),
   default: defineAsyncComponent(() => import('./default-C-g9ByrC.mjs').then((m) => m.default || m)),
   hero: defineAsyncComponent(() => import('./hero--JhYt7KB.mjs').then((m) => m.default || m)),
   secondary: defineAsyncComponent(() => import('./secondary-DZXJ6q4C.mjs').then((m) => m.default || m))

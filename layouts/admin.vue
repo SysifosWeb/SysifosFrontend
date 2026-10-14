@@ -179,7 +179,8 @@ const navGroups = [
 const pageTitle = computed(() => {
     const p = route.path;
     if (p === '/admin' || p === '/admin/') return 'Dashboard';
-    if (p.startsWith('/admin/kanban')) return 'Kanban';
+    if (p === '/admin/kanban' || p === '/admin/kanban/') return 'Proyectos Kanban';
+    if (p.startsWith('/admin/kanban/')) return 'Tablero Kanban';
     if (p.startsWith('/admin/posts')) {
         if (p.endsWith('/create')) return 'Nuevo Post';
         if (p.includes('/edit')) return 'Editar Post';
