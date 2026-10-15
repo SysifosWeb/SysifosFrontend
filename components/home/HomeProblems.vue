@@ -142,19 +142,19 @@ const pains = [
 }
 
 .pain-card:hover {
-  border-color: rgba(56, 189, 248, 0.25);
+  border-color: rgba(var(--decoration-rgb), 0.25);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 /* ── Ícono de pain (colores por variante) ── */
 .pain-icon--cyan {
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: rgba(var(--decoration-rgb), 0.08);
+  border: 1px solid rgba(var(--decoration-rgb), 0.2);
 }
 
 .pain-icon--purple {
-  background: rgba(99, 102, 241, 0.08);
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  background: rgba(var(--decoration-rgb), 0.08);
+  border: 1px solid rgba(var(--decoration-rgb), 0.2);
 }
 
 .text-purple { color: var(--purple); }

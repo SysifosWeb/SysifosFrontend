@@ -21,7 +21,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div v-for="(service, index) in services" :key="index"
              v-reveal :data-delay="index * 150"
-             class="service-card group relative flex flex-col p-8 rounded-2xl cursor-default bg-section-surface"
+             class="service-card group relative flex flex-col p-8 rounded-2xl cursor-default impulso-closing bg-section-dark"
              :class="`service-card--${service.variant}`">
 
           <!-- Línea top accent al hover -->
@@ -126,13 +126,13 @@ const services = [
 
 /* ── Service Card ────────────────────────── */
 .service-card {
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(var(--neutral-rgb), 0.07);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .service-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.13);
+  border-color: rgba(var(--neutral-rgb), 0.13);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 }
 
@@ -145,17 +145,17 @@ const services = [
 .service-card:hover .service-top-line { opacity: 1; }
 
 /* ── Variantes de color por servicio ─────── */
-.service-card--cyan  .service-icon { background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.18); color: #38BDF8; }
-.service-card--cyan  .service-top-line { background: #38BDF8; }
-.service-card--cyan  .service-cta { color: #38BDF8; }
+.service-card--cyan  .service-icon { background: rgba(var(--decoration-rgb), 0.08); border: 1px solid rgba(var(--decoration-rgb), 0.18); color: var(--accent); }
+.service-card--cyan  .service-top-line { background: var(--accent); }
+.service-card--cyan  .service-cta { color: var(--accent); }
 
-.service-card--purple .service-icon { background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.18); color: #6366F1; }
-.service-card--purple .service-top-line { background: #6366F1; }
-.service-card--purple .service-cta { color: #6366F1; }
+.service-card--purple .service-icon { background: rgba(var(--decoration-rgb), 0.08); border: 1px solid rgba(var(--decoration-rgb), 0.18); color: var(--accent); }
+.service-card--purple .service-top-line { background: var(--accent); }
+.service-card--purple .service-cta { color: var(--accent); }
 
-.service-card--green  .service-icon { background: rgba(52, 211, 153, 0.08); border: 1px solid rgba(52, 211, 153, 0.18); color: #34D399; }
-.service-card--green  .service-top-line { background: #34D399; }
-.service-card--green  .service-cta { color: #34D399; }
+.service-card--green  .service-icon { background: rgba(var(--decoration-rgb), 0.08); border: 1px solid rgba(var(--decoration-rgb), 0.18); color: var(--accent); }
+.service-card--green  .service-top-line { background: var(--accent); }
+.service-card--green  .service-cta { color: var(--accent); }
 
 /* ── Feature pills ───────────────────────── */
 .feature-pill {
@@ -163,13 +163,13 @@ const services = [
   font-weight: 500;
   padding: 0.2rem 0.75rem;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(var(--neutral-rgb), 0.05);
   color: var(--text-muted);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(var(--neutral-rgb), 0.07);
 }
 
 /* ── CTA interno ─────────────────────────── */
 .service-cta-wrap {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(var(--neutral-rgb), 0.06);
 }
 </style>

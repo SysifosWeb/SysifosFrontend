@@ -70,11 +70,11 @@
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.04em;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .hero-accent {
-  background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.3) 100%);
+  background: linear-gradient(135deg, var(--heading-gradient-start) 0%, var(--heading-gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

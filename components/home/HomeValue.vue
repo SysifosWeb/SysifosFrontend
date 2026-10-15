@@ -83,12 +83,12 @@ const steps = [
 
 /* Ícono wrapper */
 .step-icon-wrap {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(var(--neutral-rgb), 0.04);
+  border: 1px solid rgba(var(--neutral-rgb), 0.08);
 }
 .group:hover .step-icon-wrap {
-  background: rgba(56, 189, 248, 0.08);
-  border-color: rgba(56, 189, 248, 0.2);
+  background: rgba(var(--decoration-rgb), 0.08);
+  border-color: rgba(var(--decoration-rgb), 0.2);
 }
 
 /* Ícono */
@@ -99,7 +99,7 @@ const steps = [
 /* Número de paso */
 .step-number {
   background-color: var(--bg-dark);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(var(--neutral-rgb), 0.08);
   color: var(--accent);
   font-family: 'Inter', sans-serif;
 }

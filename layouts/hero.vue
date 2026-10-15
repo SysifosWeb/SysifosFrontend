@@ -3,7 +3,7 @@ const route = useRoute()
 </script>
 
 <template>
-  <div class="min-h-screen font-sans bg-section-dark">
+  <div class="min-h-screen font-sans impulso-hybrid bg-section-dark">
     <AppNavbar class="absolute top-0 left-0 w-full z-50"/>
     <main>
       <slot />

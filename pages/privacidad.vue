@@ -17,24 +17,24 @@ setMeta({
   <div class="bg-section-dark min-h-screen py-24 lg:py-32">
     <div class="w-[90%] max-w-[900px] mx-auto">
       <div class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-content mb-4 tracking-tight">
           Política de Privacidad
         </h1>
-        <p class="text-white/50 text-sm">Última actualización: 1 de diciembre de 2026</p>
+        <p class="text-subdued text-sm">Última actualización: 1 de diciembre de 2026</p>
       </div>
 
-      <div class="space-y-10 text-white/70 leading-relaxed text-[0.95rem]">
+      <div class="space-y-10 text-subdued leading-relaxed text-[0.95rem]">
         <section>
-          <h2 class="text-2xl font-bold text-white mb-3">1. Responsable del tratamiento</h2>
+          <h2 class="text-2xl font-bold text-content mb-3">1. Responsable del tratamiento</h2>
           <p>
             SysifosWeb (Sysifos), con domicilio en La Serena, Región de Coquimbo, Chile, es el
             responsable del tratamiento de los datos personales que se recaban a través de este
-            sitio web. Correo de contacto: <span class="text-sky-400">contacto@sysifosweb.cl</span>.
+            sitio web. Correo de contacto: <span class="text-accent">contacto@sysifosweb.cl</span>.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-3">2. Marco legal</h2>
+          <h2 class="text-2xl font-bold text-content mb-3">2. Marco legal</h2>
           <p>
             El tratamiento de datos personales se realiza de conformidad con la Ley N° 19.628 sobre
             Protección de la Vida Privada, y su modificación mediante la Ley N° 21.719, que establece
@@ -44,7 +44,7 @@ setMeta({
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-3">3. Datos que recabamos</h2>
+          <h2 class="text-2xl font-bold text-content mb-3">3. Datos que recabamos</h2>
           <p class="mb-3">Podemos recabar las siguientes categorías de datos personales:</p>
           <ul class="list-disc pl-6 space-y-2">
             <li>Datos de identificación: nombre y apellidos.</li>
@@ -55,7 +55,7 @@ setMeta({
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-3">4. Finalidades y bases legales</h2>
+          <h2 class="text-2xl font-bold text-content mb-3">4. Finalidades y bases legales</h2>
           <p class="mb-3">Tratamos tus datos personales para las siguientes finalidades:</p>
           <ul class="list-disc pl-6 space-y-2">
             <li>Responder a tus solicitudes de contacto y cotización (base legal: consentimiento).</li>
@@ -66,7 +66,7 @@ setMeta({
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-3">5. Consentimiento</h2>
+          <h2 class="text-2xl font-bold text-content mb-3">5. Consentimiento</h2>
           <p>
             Al completar y enviar el formulario de contacto, aceptas el tratamiento de tus datos
             personales para las finalidades descritas. El consentimiento queda registrado junto con
@@ -76,7 +76,7 @@ setMeta({
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-3">6. Plazo de conservación</h2>
+          <h2 class="text-2xl font-bold text-content mb-3">6. Plazo de conservación</h2>
           <p>
             Conservamos tus datos únicamente por el tiempo necesario para cumplir las finalidades
             descritas y las obligaciones legales aplicables. Los datos técnicos de navegación (IP y
@@ -86,24 +86,24 @@ setMeta({
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-3">7. Derechos del titular</h2>
+          <h2 class="text-2xl font-bold text-content mb-3">7. Derechos del titular</h2>
           <p class="mb-3">Puedes ejercer en cualquier momento los siguientes derechos:</p>
           <ul class="list-disc pl-6 space-y-2">
-            <li><span class="text-white font-medium">Acceso:</span> solicitar información sobre tus datos tratados.</li>
-            <li><span class="text-white font-medium">Rectificación:</span> corregir datos inexactos o incompletos.</li>
-            <li><span class="text-white font-medium">Supresión (cancelación):</span> eliminar tus datos cuando proceda.</li>
-            <li><span class="text-white font-medium">Oposición:</span> oponerte al tratamiento para fines específicos.</li>
-            <li><span class="text-white font-medium">Portabilidad:</span> recibir tus datos en un formato estructurado.</li>
+            <li><span class="text-content font-medium">Acceso:</span> solicitar información sobre tus datos tratados.</li>
+            <li><span class="text-content font-medium">Rectificación:</span> corregir datos inexactos o incompletos.</li>
+            <li><span class="text-content font-medium">Supresión (cancelación):</span> eliminar tus datos cuando proceda.</li>
+            <li><span class="text-content font-medium">Oposición:</span> oponerte al tratamiento para fines específicos.</li>
+            <li><span class="text-content font-medium">Portabilidad:</span> recibir tus datos en un formato estructurado.</li>
           </ul>
           <p class="mt-3">
             Para ejercer estos derechos, escríbenos a
-            <span class="text-sky-400">contacto@sysifosweb.cl</span> indicando tu solicitud y datos de
+            <span class="text-accent">contacto@sysifosweb.cl</span> indicando tu solicitud y datos de
             identificación. Responderemos dentro de los plazos legales establecidos.
           </p>
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-3">8. Destinatarios y transferencias</h2>
+          <h2 class="text-2xl font-bold text-content mb-3">8. Destinatarios y transferencias</h2>
           <p>
             No vendemos ni cedemos tus datos personales a terceros con fines comerciales. Podremos
             compartir tus datos con proveedores de servicios tecnológicos (por ejemplo, alojamiento y
@@ -113,7 +113,7 @@ setMeta({
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-3">9. Seguridad</h2>
+          <h2 class="text-2xl font-bold text-content mb-3">9. Seguridad</h2>
           <p>
             Adoptamos medidas técnicas y organizativas para proteger tus datos personales contra el
             acceso no autorizado, la pérdida, alteración o divulgación indebida.
@@ -121,7 +121,7 @@ setMeta({
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-3">10. Cookies</h2>
+          <h2 class="text-2xl font-bold text-content mb-3">10. Cookies</h2>
           <p>
             Este sitio puede utilizar cookies y tecnologías similares para su correcto funcionamiento
             y para fines de analítica. Podrás gestionar tus preferencias y otorgar o rechazar tu
@@ -130,10 +130,10 @@ setMeta({
         </section>
 
         <section>
-          <h2 class="text-2xl font-bold text-white mb-3">11. Contacto y reclamaciones</h2>
+          <h2 class="text-2xl font-bold text-content mb-3">11. Contacto y reclamaciones</h2>
           <p>
             Para cualquier consulta sobre esta política o sobre el tratamiento de tus datos, contáctanos
-            en <span class="text-sky-400">contacto@sysifosweb.cl</span>. Asimismo, tienes derecho a
+            en <span class="text-accent">contacto@sysifosweb.cl</span>. Asimismo, tienes derecho a
             presentar una reclamación ante la Agencia de Protección de Datos Personales de Chile.
           </p>
         </section>

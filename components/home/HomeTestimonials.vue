@@ -126,7 +126,7 @@ const testimonials = [
     text: 'Antes tenía una web que no me traía nada. Desde que trabajamos con SysifosWeb, nuestras consultas online se triplicaron. El equipo entendió exactamente lo que necesitaba y lo ejecutaron con precisión.',
     metric: '3×',
     metricLabel: 'consultas online en 3 meses',
-    avatarBg: 'linear-gradient(135deg, #38BDF8, #6366F1)'
+    avatarBg: 'linear-gradient(135deg, var(--accent), var(--accent))'
   },
   {
     name: 'Carlos López',
@@ -135,7 +135,7 @@ const testimonials = [
     text: 'Lanzamos nuestra tienda online en tiempo récord. Nuestras ventas crecieron un 40% en el primer trimestre.',
     metric: '+40%',
     metricLabel: 'en ventas el primer trimestre',
-    avatarBg: 'linear-gradient(135deg, #6366F1, #8B5CF6)'
+    avatarBg: 'linear-gradient(135deg, var(--accent), var(--accent))'
   },
   {
     name: 'Ana Silva',
@@ -144,7 +144,7 @@ const testimonials = [
     text: 'El sistema que desarrollaron nos ahorró horas de trabajo manual cada semana. Ahora el equipo se enfoca en lo que realmente importa.',
     metric: '12h',
     metricLabel: 'ahorradas por semana',
-    avatarBg: 'linear-gradient(135deg, #34D399, #38BDF8)'
+    avatarBg: 'linear-gradient(135deg, var(--accent), var(--accent))'
   }
 ]
 </script>
@@ -162,7 +162,7 @@ const testimonials = [
   top: 50%;
   right: -150px;
   transform: translateY(-50%);
-  background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.05) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, rgba(var(--decoration-rgb), 0.05) 0%, transparent 70%);
   pointer-events: none;
   border-radius: 9999px;
 }
@@ -217,7 +217,7 @@ const testimonials = [
 
 .section-headline em {
   font-style: normal;
-  background: linear-gradient(95deg, #38BDF8 0%, #818CF8 100%);
+  background: linear-gradient(95deg, var(--heading-gradient-end) 0%, var(--heading-gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -280,8 +280,8 @@ const testimonials = [
 /* ── Bento Card ─────────────────────────────── */
 .bento-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(var(--neutral-rgb), 0.025);
+  border: 1px solid rgba(var(--neutral-rgb), 0.07);
   border-radius: 20px;
   padding: 2.25rem;
   display: flex;
@@ -292,7 +292,7 @@ const testimonials = [
 }
 
 .bento-card:hover {
-  border-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(var(--neutral-rgb), 0.12);
   transform: translateY(-4px);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
 }
@@ -319,11 +319,11 @@ const testimonials = [
 }
 
 .card-accent-line--cyan {
-  background: linear-gradient(to right, transparent, rgba(56, 189, 248, 0.6), transparent);
+  background: linear-gradient(to right, transparent, rgba(var(--decoration-rgb), 0.6), transparent);
 }
 
 .card-accent-line--purple {
-  background: linear-gradient(to right, transparent, rgba(129, 140, 248, 0.6), transparent);
+  background: linear-gradient(to right, transparent, rgba(var(--decoration-rgb), 0.6), transparent);
 }
 
 /* ── Quote Mark ─────────────────────────────── */
@@ -331,7 +331,7 @@ const testimonials = [
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 4rem;
   line-height: 0.5;
-  color: rgba(56, 189, 248, 0.15);
+  color: rgba(var(--decoration-rgb), 0.15);
   display: block;
   user-select: none;
   flex-shrink: 0;
@@ -361,8 +361,8 @@ const testimonials = [
   flex-direction: column;
   gap: 0.2rem;
   padding: 1.25rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(var(--neutral-rgb), 0.06);
+  border-bottom: 1px solid rgba(var(--neutral-rgb), 0.06);
 }
 
 .metric-block--featured {
@@ -378,11 +378,11 @@ const testimonials = [
 }
 
 .metric-number--cyan {
-  color: #38BDF8;
+  color: var(--accent);
 }
 
 .metric-number--purple {
-  color: #818CF8;
+  color: var(--accent);
 }
 
 .metric-label {

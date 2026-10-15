@@ -4,7 +4,7 @@ import ansar from '@/assets/img/ansar.gif';
 </script>
 
 <template>
-  <section class="relative bg-section-surface py-20 lg:py-28 overflow-hidden border-b border-white/5">
+  <section class="relative bg-section-surface py-20 lg:py-28 overflow-hidden border-b border-line">
     
     <div class="section-glow-purple glow-center-left"></div>
 
@@ -49,15 +49,15 @@ import ansar from '@/assets/img/ansar.gif';
               <!-- Stats Matrix -->
               <div class="grid grid-cols-3 gap-4 mt-2" v-reveal data-delay="400">
                   <div class="card-border bg-section-dark p-5 flex flex-col items-center justify-center text-center">
-                      <div class="text-2xl font-bold text-white mb-1">98<span class="text-accent">%</span></div>
+                      <div class="text-2xl font-bold text-content mb-1">98<span class="text-accent">%</span></div>
                       <div class="text-[10px] font-semibold text-muted uppercase tracking-wider">Performance</div>
                   </div>
                   <div class="card-border bg-section-dark p-5 flex flex-col items-center justify-center text-center">
-                      <div class="text-2xl font-bold text-white mb-1">50<span class="text-accent">+</span></div>
+                      <div class="text-2xl font-bold text-content mb-1">50<span class="text-accent">+</span></div>
                       <div class="text-[10px] font-semibold text-muted uppercase tracking-wider">Nodos Sync</div>
                   </div>
                   <div class="card-border bg-section-dark p-5 flex flex-col items-center justify-center text-center">
-                      <div class="text-2xl font-bold text-white mb-1">30<span class="text-accent">%</span></div>
+                      <div class="text-2xl font-bold text-content mb-1">30<span class="text-accent">%</span></div>
                       <div class="text-[10px] font-semibold text-muted uppercase tracking-wider">Conversión</div>
                   </div>
               </div>
@@ -74,17 +74,17 @@ import ansar from '@/assets/img/ansar.gif';
           <div class="lg:col-span-7 relative group flex flex-col" v-reveal data-delay="300">
               
               <!-- Main Visual -->
-              <div class="relative overflow-hidden h-full min-h-[400px] rounded-2xl border border-white/10 shadow-2xl bg-section-dark">
+              <div class="impulso-closing relative overflow-hidden h-full min-h-[400px] rounded-2xl border border-line shadow-2xl bg-section-dark">
                   <NuxtImg :src="ansar" alt="Demostración Ansar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
                   
                   <!-- Gradient Overlay Bottom -->
-                  <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#0a0e17] via-[#0a0e17]/40 to-transparent opacity-90"></div>
+                  <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#102b46] via-[#102b46]/40 to-transparent opacity-90"></div>
 
                   <!-- Tech Stack Floating inside image -->
                   <div class="absolute bottom-6 left-6 flex flex-wrap gap-2 z-30">
-                      <span class="px-3 py-1.5 rounded-lg bg-accent text-[#0a0e17] text-[11px] font-bold uppercase tracking-wider">Laravel</span>
-                      <span class="px-3 py-1.5 rounded-lg bg-[#0a0e17] text-white border border-white/10 text-[11px] font-semibold uppercase tracking-wider">Vue.js</span>
-                      <span class="px-3 py-1.5 rounded-lg bg-[#0a0e17] text-white border border-white/10 text-[11px] font-semibold uppercase tracking-wider">MySQL</span>
+                      <span class="px-3 py-1.5 rounded-lg bg-accent text-action text-[11px] font-bold uppercase tracking-wider">Laravel</span>
+                      <span class="px-3 py-1.5 rounded-lg bg-panel text-content border border-line text-[11px] font-semibold uppercase tracking-wider">Vue.js</span>
+                      <span class="px-3 py-1.5 rounded-lg bg-panel text-content border border-line text-[11px] font-semibold uppercase tracking-wider">MySQL</span>
                   </div>
               </div>
               

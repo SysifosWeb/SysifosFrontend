@@ -147,7 +147,7 @@ export default defineNuxtConfig({
                 { property: 'og:locale', content: 'es_CL' }
             ],
             link: [
-                { rel: 'icon', type: 'image/x-icon', href: '/logo_min.ico' },
+                { rel: 'icon', type: 'image/svg+xml', href: '/img/brand/mark.svg' },
                 { rel: 'alternate', href: 'https://sysifosweb.cl', hreflang: 'es-CL' },
                 { rel: 'alternate', href: 'https://sysifosweb.cl', hreflang: 'es' },
                 { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

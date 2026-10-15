@@ -1,9 +1,5 @@
-<script setup>
-import logoBlanco from "@/assets/img/logo-blanco.webp"
-</script>
-
 <template>
-  <footer class="relative overflow-hidden bg-section-dark">
+  <footer class="relative overflow-hidden bg-section-dark impulso-closing">
 
     <!-- Glows decorativos sutiles -->
     <div class="absolute pointer-events-none inset-0 overflow-hidden" aria-hidden="true">
@@ -21,8 +17,7 @@ import logoBlanco from "@/assets/img/logo-blanco.webp"
         <!-- Bloque izquierdo: Logo + slogan + redes -->
         <div class="lg:col-span-5 flex flex-col gap-6">
           <NuxtLink to="/" class="flex items-center">
-            <img :src="logoBlanco" alt="SysifosWeb Logo" width="200" height="80"
-              class="h-12 md:h-20 w-auto object-contain" />
+            <BrandLogo class="h-12 md:h-20 w-auto aspect-[403/80]" />
           </NuxtLink>
           <p class="text-sm leading-relaxed max-w-xs" style="color: var(--text-muted);">
             Diseñamos y construimos plataformas digitales que ayudan a empresas a crecer.

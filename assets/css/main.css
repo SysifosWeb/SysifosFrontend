@@ -181,8 +181,8 @@ input, textarea, select {
   gap: 0.5rem;
   padding: 0.375rem 1rem;
   border-radius: 9999px;
-  background: rgba(56, 189, 248, 0.08);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: rgba(var(--decoration-rgb), 0.08);
+  border: 1px solid rgba(var(--decoration-rgb), 0.2);
 }
 
 .eyebrow-badge__dot {
@@ -266,7 +266,7 @@ input, textarea, select {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
-  background: linear-gradient(to right, rgba(56,189,248,0.03), transparent);
+  background: linear-gradient(to right, rgba(var(--decoration-rgb), 0.03), transparent);
 }
 .group:hover .card-hover-glow { opacity: 1; }
 
@@ -378,13 +378,13 @@ input, textarea, select {
   font-weight: 600;
   font-size: 0.875rem;
   background: var(--accent);
-  color: #07101F;
+  color: var(--button-text);
   border: none;
   transition: all 0.2s cubic-bezier(0.16,1,0.3,1);
 }
 .cta-primary-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(56,189,248,0.25);
+  box-shadow: 0 8px 24px rgba(var(--decoration-rgb), 0.25);
 }
 
 
@@ -402,7 +402,7 @@ input, textarea, select {
 
 /* Gradiente de texto */
 .text-gradient {
-  background: linear-gradient(135deg, var(--text-main) 0%, var(--accent) 100%);
+  background: linear-gradient(135deg, var(--text-main) 0%, var(--heading-gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -481,4 +481,24 @@ input, textarea, select {
   background: var(--accent-hover);
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Keep rich blog content readable in the site's current palette. */
+.impulso-article {
+  --tw-prose-body: var(--text-secondary);
+  --tw-prose-headings: var(--text-main);
+  --tw-prose-lead: var(--text-secondary);
+  --tw-prose-links: var(--accent);
+  --tw-prose-bold: var(--text-main);
+  --tw-prose-counters: var(--text-secondary);
+  --tw-prose-bullets: var(--accent);
+  --tw-prose-hr: var(--border);
+  --tw-prose-quotes: var(--text-main);
+  --tw-prose-quote-borders: var(--border-accent);
+  --tw-prose-captions: var(--text-secondary);
+  --tw-prose-code: var(--text-main);
+  --tw-prose-pre-code: #F5F9FD;
+  --tw-prose-pre-bg: #102B46;
+  --tw-prose-th-borders: var(--border);
+  --tw-prose-td-borders: var(--border);
 }

@@ -103,34 +103,34 @@ const submitForm = async (event) => {
 </script>
 
 <template>
-  <section class="relative bg-section-dark py-20 lg:py-32 overflow-hidden border-b border-white/5">
+  <section class="relative bg-section-dark py-20 lg:py-32 overflow-hidden border-b border-line">
 
     <!-- Ambient glows -->
     <div
-      class="absolute rounded-full pointer-events-none blur-[120px] w-[500px] h-[500px] bg-sky-400 opacity-5 -top-40 -left-40">
+      class="absolute rounded-full pointer-events-none blur-[120px] w-[500px] h-[500px] bg-accent opacity-5 -top-40 -left-40">
     </div>
     <div
-      class="absolute rounded-full pointer-events-none blur-[120px] w-[400px] h-[400px] bg-indigo-500 opacity-5 top-[30%] -right-20">
+      class="absolute rounded-full pointer-events-none blur-[120px] w-[400px] h-[400px] bg-accent opacity-5 top-[30%] -right-20">
     </div>
 
     <!-- Alertas -->
     <div v-if="showSuccess"
-      class="fixed top-24 right-4 z-50 rounded-xl bg-[#0b1222] p-4 border border-accent/30 shadow-[0_8px_32px_rgba(56,189,248,0.2)]">
+      class="fixed top-24 right-4 z-50 rounded-xl bg-panel p-4 border border-accent/30 shadow-[0_8px_32px_rgba(var(--decoration-rgb), 0.2)]">
       <div class="flex items-center gap-3">
         <span class="text-accent animate-pulse font-bold">✓</span>
-        <p class="text-sm text-white/80 mb-0 font-medium">Mensaje enviado exitosamente. Te contactaremos pronto.</p>
-        <button @click="showSuccess = false" class="ml-4 text-white/40 hover:text-white transition-colors">
+        <p class="text-sm text-content mb-0 font-medium">Mensaje enviado exitosamente. Te contactaremos pronto.</p>
+        <button @click="showSuccess = false" class="ml-4 text-subdued hover:text-content transition-colors">
           <X class="w-4 h-4" />
         </button>
       </div>
     </div>
 
     <div v-if="showError"
-      class="fixed top-24 right-4 z-50 rounded-xl bg-[#0b1222] p-4 border border-red-500/30 shadow-[0_8px_32px_rgba(239,68,68,0.2)]">
+      class="fixed top-24 right-4 z-50 rounded-xl bg-panel p-4 border border-red-500/30 shadow-[0_8px_32px_rgba(239,68,68,0.2)]">
       <div class="flex items-center gap-3">
         <span class="text-red-500 font-bold">!</span>
         <p class="text-sm text-red-400 mb-0 font-medium">{{ errorMessage }}</p>
-        <button @click="showError = false" class="ml-4 text-white/40 hover:text-white transition-colors">
+        <button @click="showError = false" class="ml-4 text-subdued hover:text-content transition-colors">
           <X class="w-4 h-4" />
         </button>
       </div>
@@ -143,12 +143,12 @@ const submitForm = async (event) => {
         <div class="lg:col-span-3 relative" v-reveal data-delay="0">
           <!-- Glassmorphism Card -->
           <div
-            class="relative p-8 lg:p-12 rounded-[2rem] border border-white/5 bg-white/[0.02] shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl">
+            class="relative p-8 lg:p-12 rounded-[2rem] border border-line bg-panel shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl">
             <div class="mb-10">
-              <h2 class="text-3xl font-extrabold text-white mb-3 tracking-tight">
+              <h2 class="text-3xl font-extrabold text-content mb-3 tracking-tight">
                 Cuéntanos tu idea.
               </h2>
-              <p class="text-white/60 text-sm">Nuestros ingenieros revisarán tus requerimientos y te contactarán a la
+              <p class="text-subdued text-sm">Nuestros ingenieros revisarán tus requerimientos y te contactarán a la
                 brevedad.</p>
             </div>
 
@@ -156,56 +156,56 @@ const submitForm = async (event) => {
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Inputs premium -->
                 <div class="space-y-2">
-                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-white/50">Nombre</label>
+                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-subdued">Nombre</label>
                   <input v-model="form.name" type="text" required placeholder="Tu nombre"
-                    class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-sky-400/50 focus:bg-black/40 transition-all duration-300">
+                    class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
                 <div class="space-y-2">
-                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-white/50">Email *</label>
+                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-subdued">Email *</label>
                   <input v-model="form.email" type="email" required placeholder="tu@email.com"
-                    class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-sky-400/50 focus:bg-black/40 transition-all duration-300">
+                    class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
-                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-white/50">Empresa
+                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-subdued">Empresa
                     (Opcional)</label>
                   <input v-model="form.company" type="text" placeholder="Tu empresa"
-                    class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-sky-400/50 focus:bg-black/40 transition-all duration-300">
+                    class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
                 <div class="space-y-2 hidden">
                   <!-- Invisible phone field to keep the model intact if backend requires it but we don't force it -->
                   <input v-model="form.phone" type="tel">
                 </div>
                 <div class="space-y-2">
-                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-white/50">Asunto *</label>
+                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-subdued">Asunto *</label>
                   <input v-model="form.subject" type="text" required placeholder="¿En qué te podemos ayudar?"
-                    class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-sky-400/50 focus:bg-black/40 transition-all duration-300">
+                    class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
               </div>
 
               <div class="space-y-2">
-                <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-white/50">Detalles del Proyecto
+                <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-subdued">Detalles del Proyecto
                   *</label>
                 <textarea v-model="form.message" rows="4" required placeholder="¿Qué te gustaría construir?"
-                  class="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3.5 text-white placeholder-white/20 focus:outline-none focus:border-sky-400/50 focus:bg-black/40 transition-all duration-300 resize-y min-h-[120px]"></textarea>
+                  class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300 resize-y min-h-[120px]"></textarea>
               </div>
 
               <!-- Consentimiento de datos personales -->
               <div class="space-y-2">
                 <label class="flex items-start gap-3 cursor-pointer select-none">
-                  <input v-model="form.consent" type="checkbox" class="mt-1 w-4 h-4 rounded border-white/20 bg-black/20 accent-sky-500">
-                  <span class="text-sm text-white/70 leading-relaxed">
+                  <input v-model="form.consent" type="checkbox" class="mt-1 w-4 h-4 rounded border-line bg-quiet accent-accent">
+                  <span class="text-sm text-subdued leading-relaxed">
                     Acepto que mis datos personales sean tratados de acuerdo a la
-                    <NuxtLink to="/privacidad" class="text-sky-400 underline hover:text-sky-300 transition-colors">Política de Privacidad</NuxtLink>
+                    <NuxtLink to="/privacidad" class="text-accent underline hover:text-accent transition-colors">Política de Privacidad</NuxtLink>
                     y autorizo a Sysifos a contactarme sobre mi consulta. Puedo ejercer mis derechos de acceso, rectificación, cancelación y oposición cuando lo desee.
                   </span>
                 </label>
               </div>
 
               <button type="submit" :disabled="isSubmitting"
-                class="w-full py-4 mt-2 rounded-xl bg-white text-black font-bold text-sm hover:bg-gray-200 transition-colors flex items-center justify-center group"
+                class="w-full py-4 mt-2 rounded-xl bg-accent text-action font-bold text-sm hover:bg-quiet hover:text-content transition-colors flex items-center justify-center group"
                 :class="isSubmitting ? 'opacity-50 cursor-not-allowed' : ''">
                 {{ isSubmitting ? 'Enviando...' : 'Comenzar colaboración' }}
                 <Send v-if="!isSubmitting" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -217,48 +217,48 @@ const submitForm = async (event) => {
         <!-- Info Section (Col-span-2) -->
         <div class="lg:col-span-2 flex flex-col justify-center gap-8" v-reveal data-delay="150">
           <div class="mb-4">
-            <h3 class="text-2xl font-bold text-white mb-2">Siempre a tu alcance.</h3>
-            <p class="text-sm text-white/60 leading-relaxed">Respondemos en menos de 24 hrs. Trabajamos de manera remota
+            <h3 class="text-2xl font-bold text-content mb-2">Siempre a tu alcance.</h3>
+            <p class="text-sm text-subdued leading-relaxed">Respondemos en menos de 24 hrs. Trabajamos de manera remota
               con empresas en todo Chile y Latinoamérica, creando plataformas escalables y confiables.</p>
           </div>
 
           <div class="space-y-8">
             <div class="flex items-center gap-4 group">
               <div
-                class="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center group-hover:border-sky-400/50 group-hover:bg-sky-400/10 transition-colors flex-shrink-0">
-                <Mail class="w-5 h-5 text-sky-400" />
+                class="w-12 h-12 rounded-full border border-line bg-panel flex items-center justify-center group-hover:border-accent/50 group-hover:bg-accent/10 transition-colors flex-shrink-0">
+                <Mail class="w-5 h-5 text-accent" />
               </div>
               <div>
-                <p class="text-[0.65rem] font-bold uppercase tracking-wider text-white/40 mb-1">Email Directo</p>
-                <p class="text-sm text-white font-medium">contacto@sysifosweb.cl</p>
+                <p class="text-[0.65rem] font-bold uppercase tracking-wider text-subdued mb-1">Email Directo</p>
+                <p class="text-sm text-content font-medium">contacto@sysifosweb.cl</p>
               </div>
             </div>
 
             <div class="flex items-center gap-4 group">
               <div
-                class="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center group-hover:border-indigo-400/50 group-hover:bg-indigo-400/10 transition-colors flex-shrink-0">
-                <Clock class="w-5 h-5 text-indigo-400" />
+                class="w-12 h-12 rounded-full border border-line bg-panel flex items-center justify-center group-hover:border-accent/50 group-hover:bg-accent/10 transition-colors flex-shrink-0">
+                <Clock class="w-5 h-5 text-accent" />
               </div>
               <div>
-                <p class="text-[0.65rem] font-bold uppercase tracking-wider text-white/40 mb-1">Soporte y Respuesta</p>
-                <p class="text-sm text-white font-medium">Lun - Vie, 09:00 a 18:00 hrs</p>
+                <p class="text-[0.65rem] font-bold uppercase tracking-wider text-subdued mb-1">Soporte y Respuesta</p>
+                <p class="text-sm text-content font-medium">Lun - Vie, 09:00 a 18:00 hrs</p>
               </div>
             </div>
           </div>
 
-          <div class="pt-6 border-t border-white/5">
+          <div class="pt-6 border-t border-line">
             <!-- WhatsApp CTA -->
             <a href="https://wa.me/56985021549" target="_blank"
-              class="block w-full p-6 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] hover:border-white/10 transition-all group">
+              class="block w-full p-6 rounded-2xl border border-line bg-panel hover:bg-panel hover:border-line transition-all group">
               <div class="flex justify-between items-center mb-2">
-                <h4 class="text-white font-bold text-sm flex items-center gap-2">
+                <h4 class="text-content font-bold text-sm flex items-center gap-2">
                   <MessageSquare class="w-4 h-4 text-green-400" /> WhatsApp
                 </h4>
                 <span
                   class="text-green-400 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold uppercase tracking-wider">Abrir
                   chat &rarr;</span>
               </div>
-              <p class="text-xs text-white/50">¿Prefieres un mensaje rápido? Escríbenos y conversemos directamente.</p>
+              <p class="text-xs text-subdued">¿Prefieres un mensaje rápido? Escríbenos y conversemos directamente.</p>
             </a>
           </div>
         </div>

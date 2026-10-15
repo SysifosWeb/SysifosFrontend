@@ -20,7 +20,7 @@
         </h1>
 
         <div class="relative max-w-xl mx-auto" v-reveal data-delay="200">
-            <p class="section-subtitle text-lg text-white/70 font-medium">
+            <p class="section-subtitle text-lg text-subdued font-medium">
                 No construimos simples webs; desarrollamos infraestructuras digitales de alto rendimiento. Descubre cómo ayudamos a empresas a optimizar sus procesos, multiplicar su conversión y liderar su sector mediante ingeniería de software premium.
             </p>
         </div>

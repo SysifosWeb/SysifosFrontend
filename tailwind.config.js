@@ -12,6 +12,14 @@ export default {
         extend: {
             colors: {
                 accent: 'var(--accent)',
+                content: 'var(--text-main)',
+                subdued: 'var(--text-secondary)',
+                panel: 'var(--bg-surface)',
+                quiet: 'var(--bg-elevated)',
+                line: 'var(--border)',
+                action: 'var(--button-text)',
+                'heading-start': 'var(--heading-gradient-start)',
+                'heading-end': 'var(--heading-gradient-end)',
                 secondary: 'var(--secondary)',
                 primary: 'var(--primary)',
                 detail: {

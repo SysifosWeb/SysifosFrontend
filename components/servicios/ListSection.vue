@@ -59,7 +59,7 @@ const services = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
 
         <div v-for="(item, index) in services" :key="item.id" v-reveal :data-delay="index * 100"
-          class="group relative flex flex-col p-8 lg:p-10 rounded-3xl bg-white/[0.02] backdrop-blur-md border border-white/5 overflow-hidden transition-all duration-500 hover:bg-white/[0.04] hover:border-white/15 hover:shadow-2xl hover:shadow-accent/5 hover:-translate-y-1">
+          class="group relative flex flex-col p-8 lg:p-10 rounded-3xl bg-panel backdrop-blur-md border border-line overflow-hidden transition-all duration-500 hover:bg-panel hover:border-line hover:shadow-2xl hover:shadow-accent/5 hover:-translate-y-1">
 
           <!-- Persistent top glowing border effect -->
           <div
@@ -69,7 +69,7 @@ const services = [
           <!-- Header -->
           <div class="flex justify-between items-start mb-6 relative z-10">
             <div
-              class="w-14 h-14 rounded-2xl bg-white/5 shadow-[0_0_20px_rgba(255,255,255,0.02)] flex items-center justify-center border border-white/10 text-accent group-hover:scale-110 group-hover:bg-accent/10 group-hover:border-accent/30 group-hover:shadow-[0_0_30px_rgba(56,189,248,0.15)] transition-all duration-500">
+              class="w-14 h-14 rounded-2xl bg-panel shadow-[0_0_20px_rgba(var(--neutral-rgb), 0.02)] flex items-center justify-center border border-line text-accent group-hover:scale-110 group-hover:bg-accent/10 group-hover:border-accent/30 group-hover:shadow-[0_0_30px_rgba(var(--decoration-rgb), 0.15)] transition-all duration-500">
               <component :is="item.icon" class="w-7 h-7 drop-shadow-lg" />
             </div>
             <span
@@ -79,17 +79,17 @@ const services = [
           </div>
 
           <!-- Titles -->
-          <h3 class="text-2xl font-bold tracking-tight text-white mb-3 relative z-10">
+          <h3 class="text-2xl font-bold tracking-tight text-content mb-3 relative z-10">
             {{ item.title }}
           </h3>
-          <p class="text-white/60 text-sm leading-relaxed mb-6 h-10 relative z-10">
+          <p class="text-subdued text-sm leading-relaxed mb-6 h-10 relative z-10">
             {{ item.description }}
           </p>
 
           <!-- Ticket Divider (Dashed) -->
           <div class="relative w-full my-6 flex items-center z-10">
             <div
-              class="w-full border-t border-dashed border-white/10 group-hover:border-white/20 transition-colors duration-500">
+              class="w-full border-t border-dashed border-line group-hover:border-line transition-colors duration-500">
             </div>
           </div>
 
@@ -98,7 +98,7 @@ const services = [
             <p class="text-[11px] font-bold text-accent/60 uppercase tracking-widest mb-4">¿Qué incluye?</p>
             <ul class="flex flex-col gap-3">
               <li v-for="feature in item.features" :key="feature"
-                class="flex items-start gap-3 text-sm text-white/80 font-medium">
+                class="flex items-start gap-3 text-sm text-content font-medium">
                 <!-- Ticket / Checkmark Design -->
                 <div class="relative flex items-center justify-center mt-0.5">
                   <!-- Resplandor sutil del ticket -->
@@ -117,7 +117,7 @@ const services = [
 
           <!-- Call to Action -->
           <a :href="item.ctaLink" target="_blank"
-            class="w-full relative z-10 flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 bg-white/5 text-white hover:bg-accent hover:text-black border border-white/10 hover:border-accent">
+            class="w-full relative z-10 flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 bg-panel text-content hover:bg-accent hover:text-action border border-line hover:border-accent">
             {{ item.ctaText }}
             <ArrowRight class="w-4 h-4" />
           </a>

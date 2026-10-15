@@ -1,11 +1,11 @@
 <template>
-  <section class="relative w-full py-32 flex items-center justify-center overflow-hidden group/banner bg-section-dark">
+  <section class="relative w-full py-32 flex items-center justify-center overflow-hidden group/banner bg-section-dark impulso-closing">
     
     <!-- Visualización "Data Portal" (Fondo Tenue) -->
     <div class="absolute inset-0 pointer-events-none z-0">
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl opacity-20">
         <svg viewBox="0 0 1000 1000" class="w-full h-full">
-          <g class="portal-lines transition-all duration-1000 group-hover/banner:scale-95 group-hover/banner:opacity-35" stroke="#00f2ff" stroke-width="0.3">
+          <g class="portal-lines transition-all duration-1000 group-hover/banner:scale-95 group-hover/banner:opacity-35" stroke="var(--accent)" stroke-width="0.3">
             <line x1="500" y1="500" v-for="n in 36" :key="'line-'+n" 
                   :x2="500 + Math.cos(n * 10 * Math.PI/180) * 800" 
                   :y2="500 + Math.sin(n * 10 * Math.PI/180) * 800" 
@@ -29,7 +29,7 @@
       <div class="flex flex-col items-center gap-5" v-reveal data-delay="300">
         <NuxtLink to="/contacto" 
                   class="inline-flex items-center gap-2 px-10 py-4 rounded-xl font-semibold text-sm transition-all duration-200 hover:-translate-y-0.5"
-                  style="background: var(--accent); color: #0b0f1c; box-shadow: 0 0 24px rgba(56,189,248,0.2);">
+                  style="background: var(--accent); color: var(--button-text); box-shadow: 0 0 24px rgba(var(--decoration-rgb), 0.2);">
           Agenda tu asesoría gratuita
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>

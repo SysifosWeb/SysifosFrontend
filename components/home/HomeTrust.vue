@@ -113,7 +113,7 @@ const updateSpotlight = () => {
       item.style.zIndex = '30'
       item.style.opacity = '1'
 
-      logo.style.filter = `grayscale(0) brightness(1) drop-shadow(0 0 ${25 * power}px rgba(0, 242, 255, 0.9))`
+      logo.style.filter = `grayscale(0) brightness(1) drop-shadow(0 0 ${25 * power}px rgba(var(--decoration-rgb), 0.9))`
       logo.style.opacity = '1'
 
       name.style.opacity = power > 0.7 ? '1' : '0'

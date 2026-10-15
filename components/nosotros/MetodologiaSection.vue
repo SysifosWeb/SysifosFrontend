@@ -138,7 +138,7 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 .ambient-orb--indigo {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, #6366F1 0%, transparent 70%);
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
   opacity: 0.1;
   top: 50%;
   left: 50%;
@@ -181,7 +181,7 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 }
 .metodologia-headline em {
   font-style: normal;
-  background: linear-gradient(95deg, #38BDF8 0%, #818CF8 100%);
+  background: linear-gradient(95deg, var(--heading-gradient-end) 0%, var(--heading-gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -218,7 +218,7 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
   color: var(--text-muted);
   margin-bottom: 2.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  border-bottom: 1px solid rgba(var(--neutral-rgb), 0.07);
 }
 
 /* ── Process Timeline ───────────────────────── */
@@ -246,14 +246,14 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
   border-radius: 50%;
   flex-shrink: 0;
 }
-.step-node--cyan   { background: #38BDF8; box-shadow: 0 0 8px rgba(56,189,248,0.4); }
-.step-node--purple { background: #818CF8; box-shadow: 0 0 8px rgba(129,140,248,0.4); }
+.step-node--cyan   { background: var(--accent); box-shadow: 0 0 8px rgba(var(--decoration-rgb), 0.4); }
+.step-node--purple { background: var(--accent); box-shadow: 0 0 8px rgba(var(--decoration-rgb), 0.4); }
 
 .step-line {
   width: 1px;
   flex: 1;
   min-height: 3rem;
-  background: rgba(255,255,255,0.08);
+  background: rgba(var(--neutral-rgb), 0.08);
   margin-top: 8px;
 }
 
@@ -290,11 +290,11 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
   justify-content: space-between;
   gap: 1rem;
   padding: 1.25rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(var(--neutral-rgb), 0.06);
   transition: background 0.2s ease;
 }
 .stack-row:first-child {
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(var(--neutral-rgb), 0.06);
 }
 
 .stack-row__layer {
@@ -322,8 +322,8 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
-.stack-row__tech--cyan   { color: #38BDF8; }
-.stack-row__tech--purple { color: #818CF8; }
+.stack-row__tech--cyan   { color: var(--accent); }
+.stack-row__tech--purple { color: var(--accent); }
 
 .stack-note {
   margin-top: 1.75rem;

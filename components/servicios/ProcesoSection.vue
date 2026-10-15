@@ -47,12 +47,12 @@ const steps = [
     <div class="section-container relative z-20 text-center mb-24 lg:mb-32">
         <div class="inline-flex items-center gap-3 mb-8" v-reveal data-delay="0">
           <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-          <span class="text-sm font-extrabold tracking-[0.2em] text-white/50 uppercase">El Camino al Éxito</span>
+          <span class="text-sm font-extrabold tracking-[0.2em] text-subdued uppercase">El Camino al Éxito</span>
           <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
         </div>
-        <h2 class="text-5xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[0.95] text-white" v-reveal data-delay="100">
+        <h2 class="text-5xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[0.95] text-content" v-reveal data-delay="100">
           No hacemos webs. <br/>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-accent to-blue-500">Construimos imperios.</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-heading-start via-heading-end to-heading-end">Construimos imperios.</span>
         </h2>
     </div>
 
@@ -63,16 +63,16 @@ const steps = [
                  class="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 relative" v-reveal :data-delay="200">
                 
                 <!-- Line Connector for Desktop -->
-                <div v-if="index !== steps.length - 1" class="hidden lg:block absolute left-1/2 top-full w-px h-48 bg-gradient-to-b from-white/10 to-transparent -translate-x-1/2 z-0"></div>
+                <div v-if="index !== steps.length - 1" class="hidden lg:block absolute left-1/2 top-full w-px h-48 bg-gradient-to-b from-line to-transparent -translate-x-1/2 z-0"></div>
 
                 <!-- Text Content -->
                 <div class="flex-1 w-full" :class="{'lg:order-2': step.align === 'left'}">
                    <div class="flex items-center gap-6 mb-8">
-                      <span class="text-7xl lg:text-8xl font-black text-transparent" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15);">{{ step.id }}</span>
+                      <span class="text-7xl lg:text-8xl font-black text-transparent" style="-webkit-text-stroke: 1px rgba(var(--neutral-rgb), 0.15);">{{ step.id }}</span>
                       <div class="h-px w-24 bg-accent/50 hidden md:block"></div>
                    </div>
-                   <h3 class="text-4xl lg:text-5xl font-extrabold text-white mb-6 tracking-tight">{{ step.title }}</h3>
-                   <p class="text-lg lg:text-xl text-white/60 leading-relaxed font-medium max-w-lg">{{ step.description }}</p>
+                   <h3 class="text-4xl lg:text-5xl font-extrabold text-content mb-6 tracking-tight">{{ step.title }}</h3>
+                   <p class="text-lg lg:text-xl text-subdued leading-relaxed font-medium max-w-lg">{{ step.description }}</p>
                 </div>
 
                 <!-- Visual Content -->
@@ -80,7 +80,7 @@ const steps = [
                    <!-- Ambient Glow behind image -->
                    <div class="absolute inset-0 bg-accent/10 blur-[60px] rounded-full transform scale-90"></div>
                    
-                   <div class="relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/10 aspect-[4/3] group shadow-2xl">
+                   <div class="relative rounded-3xl overflow-hidden bg-panel border border-line aspect-[4/3] group shadow-2xl">
                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 mix-blend-multiply"></div>
                        <img :src="step.image" :alt="step.title" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-90 group-hover:opacity-100" loading="lazy" />
                    </div>

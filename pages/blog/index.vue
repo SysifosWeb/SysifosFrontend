@@ -160,19 +160,19 @@ const filteredPosts = computed(() => {
       <button 
         @click="currentPage > 1 ? currentPage-- : null"
         :disabled="currentPage === 1"
-        class="px-5 py-2.5 text-sm font-semibold text-white bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        class="px-5 py-2.5 text-sm font-semibold text-content bg-panel border border-line rounded-full hover:bg-panel hover:border-line disabled:opacity-30 disabled:cursor-not-allowed transition-all"
       >
         &larr; Anterior
       </button>
       
       <div class="flex items-center gap-2">
-        <span class="text-white/80 text-sm font-medium">Página {{ currentPage }} de {{ totalPages }}</span>
+        <span class="text-content text-sm font-medium">Página {{ currentPage }} de {{ totalPages }}</span>
       </div>
       
       <button 
         @click="currentPage < totalPages ? currentPage++ : null"
         :disabled="currentPage === totalPages"
-        class="px-5 py-2.5 text-sm font-semibold text-white bg-white/5 border border-white/10 rounded-full hover:bg-white/10 hover:border-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+        class="px-5 py-2.5 text-sm font-semibold text-content bg-panel border border-line rounded-full hover:bg-panel hover:border-line disabled:opacity-30 disabled:cursor-not-allowed transition-all"
       >
         Siguiente &rarr;
       </button>

@@ -72,17 +72,17 @@ const submitForm = async (event) => {
 </script>
 
 <template>
-    <section class="py-20 bg-section-dark border-t border-white/5">
+    <section class="py-20 bg-section-dark border-t border-line">
         <div class="max-w-2xl mx-auto text-center px-6">
-            <div class="w-16 h-16 mx-auto bg-white/5 rounded-2xl border border-white/10 flex items-center justify-center mb-6">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z"></path></svg>
+            <div class="w-16 h-16 mx-auto bg-panel rounded-2xl border border-line flex items-center justify-center mb-6">
+                <svg class="w-6 h-6 text-content" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z"></path></svg>
             </div>
-            <h3 class="text-2xl lg:text-3xl font-bold text-white mb-4">Recibe insights tecnológicos</h3>
-            <p class="text-white/50 text-sm mb-8">Únete a nuestra lista para recibir artículos mensuales sobre arquitectura web y escalabilidad. Sin spam.</p>
+            <h3 class="text-2xl lg:text-3xl font-bold text-content mb-4">Recibe insights tecnológicos</h3>
+            <p class="text-subdued text-sm mb-8">Únete a nuestra lista para recibir artículos mensuales sobre arquitectura web y escalabilidad. Sin spam.</p>
 
             <form @submit="submitForm" class="flex flex-col sm:flex-row gap-3">
-                <input v-model="form.email" type="email" placeholder="tu@email.com" autocomplete="email" class="flex-grow bg-white/5 border border-white/10 rounded-xl px-5 py-3.5 text-white placeholder-white/30 focus:outline-none focus:border-sky-400/50 transition-colors" required>
-                <button type="submit" :disabled="isSubmitting" class="px-6 py-3.5 rounded-xl bg-white text-black font-bold text-sm hover:bg-gray-200 transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
+                <input v-model="form.email" type="email" placeholder="tu@email.com" autocomplete="email" class="flex-grow bg-panel border border-line rounded-xl px-5 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 transition-colors" required>
+                <button type="submit" :disabled="isSubmitting" class="px-6 py-3.5 rounded-xl bg-accent text-action font-bold text-sm hover:bg-quiet hover:text-content transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
                     {{ isSubmitting ? 'Enviando...' : 'Suscribirse' }}
                 </button>
                 <!-- Honeypot anti-bots: invisible para humanos -->
@@ -91,10 +91,10 @@ const submitForm = async (event) => {
 
             <!-- Consentimiento obligatorio (Ley 21.719) -->
             <label class="flex items-start gap-3 cursor-pointer select-none text-left mt-5">
-                <input v-model="form.consent" type="checkbox" class="mt-1 w-4 h-4 rounded border-white/20 bg-black/20 accent-sky-500">
-                <span class="text-xs text-white/50 leading-relaxed">
+                <input v-model="form.consent" type="checkbox" class="mt-1 w-4 h-4 rounded border-line bg-quiet accent-accent">
+                <span class="text-xs text-subdued leading-relaxed">
                     Acepto que mis datos personales sean tratados para enviarme el boletín, de acuerdo a la
-                    <NuxtLink to="/privacidad" class="text-sky-400 underline hover:text-sky-300 transition-colors">Política de Privacidad</NuxtLink>.
+                    <NuxtLink to="/privacidad" class="text-accent underline hover:text-accent transition-colors">Política de Privacidad</NuxtLink>.
                     Puedo darme de baja en cualquier momento.
                 </span>
             </label>

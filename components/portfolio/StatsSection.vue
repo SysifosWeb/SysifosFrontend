@@ -18,15 +18,15 @@ const stats = [
         
         <div v-for="(stat, index) in stats" :key="stat.label" class="card-border bg-section-dark p-10 flex flex-col items-center text-center relative group transition-colors hover:border-accent/30" v-reveal :data-delay="index * 150">
           
-          <div class="w-16 h-16 rounded-xl bg-section-surface border border-white/10 flex items-center justify-center mb-6 transition-all group-hover:bg-accent/10 group-hover:border-accent/30">
+          <div class="w-16 h-16 rounded-xl bg-section-surface border border-line flex items-center justify-center mb-6 transition-all group-hover:bg-accent/10 group-hover:border-accent/30">
             <component :is="stat.icon" class="w-8 h-8 text-accent opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" />
           </div>
           
-          <div class="text-4xl md:text-5xl font-bold text-white mb-3">
+          <div class="text-4xl md:text-5xl font-bold text-content mb-3">
               {{ stat.value }}
           </div>
           
-          <div class="text-xs font-semibold uppercase tracking-wider text-muted group-hover:text-white transition-colors">
+          <div class="text-xs font-semibold uppercase tracking-wider text-muted group-hover:text-content transition-colors">
               {{ stat.label }}
           </div>
 

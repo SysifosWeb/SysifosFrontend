@@ -18,7 +18,7 @@ defineProps({
             <div class="section-glow-cyan glow-bottom-right"></div>
             <!-- Gradiente superior -->
             <div class="absolute top-0 left-0 right-0 h-px"
-                 style="background: linear-gradient(to right, transparent, rgba(56,189,248,0.15), transparent);"></div>
+                 style="background: linear-gradient(to right, transparent, rgba(var(--decoration-rgb), 0.15), transparent);"></div>
         </div>
         
         <div class="w-full relative z-10 custom-container flex items-center pt-20">
@@ -28,7 +28,7 @@ defineProps({
                     <span class="eyebrow-badge__dot"></span>
                     <span class="eyebrow-badge__text">SysifosWeb</span>
                 </div>
-                <h1 class="section-title text-4xl md:text-5xl lg:text-6xl text-white">
+                <h1 class="section-title text-4xl md:text-5xl lg:text-6xl text-content">
                   {{ title }}<span class="text-accent">.</span>
                 </h1>
             </div>

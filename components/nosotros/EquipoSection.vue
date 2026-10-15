@@ -33,7 +33,7 @@ import osman from '@/assets/img/Osman.png'
       <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 max-w-5xl mx-auto items-start">
 
         <!-- KAREN -->
-        <div class="roster-card group md:mt-14" v-reveal data-delay="150">
+        <div class="roster-card impulso-closing group md:mt-14" v-reveal data-delay="150">
           <img :src="karen" alt="Karen Godoy" class="roster-photo" loading="lazy" />
           <div class="roster-overlay"></div>
 
@@ -52,7 +52,7 @@ import osman from '@/assets/img/Osman.png'
         </div>
 
         <!-- OSMAN -->
-        <div class="roster-card group" v-reveal data-delay="300">
+        <div class="roster-card impulso-closing group" v-reveal data-delay="300">
           <img :src="osman" alt="Osman Ahumada" class="roster-photo" loading="lazy" />
           <div class="roster-overlay"></div>
 
@@ -85,7 +85,7 @@ import osman from '@/assets/img/Osman.png'
 .ambient-orb--cyan {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, #38BDF8 0%, transparent 70%);
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
   opacity: 0.08;
   top: 40%;
   left: 50%;
@@ -119,7 +119,7 @@ import osman from '@/assets/img/Osman.png'
 
 .equipo-headline em {
   font-style: normal;
-  background: linear-gradient(95deg, #38BDF8 0%, #818CF8 100%);
+  background: linear-gradient(95deg, var(--heading-gradient-end) 0%, var(--heading-gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -137,7 +137,7 @@ import osman from '@/assets/img/Osman.png'
   position: relative;
   height: 480px;
   /* Tall editorial portrait */
-  background: #0d1526;
+  background: #102B46;
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -149,13 +149,13 @@ import osman from '@/assets/img/Osman.png'
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(var(--neutral-rgb), 0.05);
 }
 
 .roster-card:hover {
   transform: translateZ(0) translateY(-6px);
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(var(--neutral-rgb), 0.15);
 }
 
 /* ── Top accent line ────────────────────────── */
@@ -175,11 +175,11 @@ import osman from '@/assets/img/Osman.png'
 }
 
 .roster-accent-line--cyan {
-  background: linear-gradient(to right, transparent, #38BDF8, transparent);
+  background: linear-gradient(to right, transparent, var(--heading-gradient-end), transparent);
 }
 
 .roster-accent-line--purple {
-  background: linear-gradient(to right, transparent, #818CF8, transparent);
+  background: linear-gradient(to right, transparent, var(--heading-gradient-end), transparent);
 }
 
 /* ── Cinematic Photo ────────────────────────── */
@@ -210,9 +210,9 @@ import osman from '@/assets/img/Osman.png'
   position: absolute;
   inset: 0;
   background: linear-gradient(to top,
-      rgba(11, 18, 34, 0.98) 0%,
-      rgba(11, 18, 34, 0.8) 25%,
-      rgba(11, 18, 34, 0.2) 60%,
+      rgba(16, 43, 70, 0.98) 0%,
+      rgba(16, 43, 70, 0.8) 25%,
+      rgba(16, 43, 70, 0.2) 60%,
       transparent 100%);
   z-index: 2;
   pointer-events: none;
@@ -238,12 +238,12 @@ import osman from '@/assets/img/Osman.png'
 .roster-role__icon {
   width: 14px;
   height: 14px;
-  color: #38BDF8;
+  color: var(--accent);
   flex-shrink: 0;
 }
 
 .roster-role__icon--purple {
-  color: #818CF8;
+  color: var(--accent);
 }
 
 .roster-role__text {
@@ -251,11 +251,11 @@ import osman from '@/assets/img/Osman.png'
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #38BDF8;
+  color: var(--accent);
 }
 
 .roster-role__text--purple {
-  color: #818CF8;
+  color: var(--accent);
 }
 
 .roster-name {
@@ -273,7 +273,7 @@ import osman from '@/assets/img/Osman.png'
 .roster-bio {
   font-size: 0.82rem;
   line-height: 1.65;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(var(--neutral-rgb), 0.7);
   margin-top: 0.25rem;
 }
 </style>

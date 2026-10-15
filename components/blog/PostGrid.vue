@@ -15,34 +15,34 @@ defineProps({
                     v-for="post in posts"
                     :key="post.id"
                     :to="`/blog/${post.slug}`"
-                    class="group relative flex flex-col rounded-2xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-white/10 transition-all duration-300 overflow-hidden"
+                    class="group relative flex flex-col rounded-2xl border border-line bg-panel hover:bg-panel hover:border-line transition-all duration-300 overflow-hidden"
                 >
-                    <div class="relative overflow-hidden bg-[#0a0f18]" style="aspect-ratio: 16/10">
+                    <div class="relative overflow-hidden bg-panel" style="aspect-ratio: 16/10">
                         <img :src="post.image" :alt="post.title" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100 mix-blend-luminosity hover:mix-blend-normal" />
                     </div>
                     <div class="p-6 lg:p-8 flex flex-col flex-grow">
                         <div class="flex items-center justify-between mb-4">
-                            <span class="text-[0.65rem] font-bold uppercase tracking-wider text-sky-400">{{ post.category.name }}</span>
-                            <span class="text-[0.65rem] font-medium text-white/40">{{ post.reading_time }}</span>
+                            <span class="text-[0.65rem] font-bold uppercase tracking-wider text-accent">{{ post.category.name }}</span>
+                            <span class="text-[0.65rem] font-medium text-subdued">{{ post.reading_time }}</span>
                         </div>
                         
-                        <h3 class="text-xl font-bold text-white mb-3 leading-snug group-hover:text-sky-400 transition-colors line-clamp-2 break-words">
+                        <h3 class="text-xl font-bold text-content mb-3 leading-snug group-hover:text-accent transition-colors line-clamp-2 break-words">
                             {{ post.title }}
                         </h3>
                         
-                        <p class="text-sm text-white/50 mb-6 flex-grow line-clamp-3 leading-relaxed break-words">{{ post.excerpt }}</p>
+                        <p class="text-sm text-subdued mb-6 flex-grow line-clamp-3 leading-relaxed break-words">{{ post.excerpt }}</p>
                         
-                        <div class="flex items-center justify-between pt-6 border-t border-white/5 mt-auto">
-                            <span class="text-xs text-white/40">{{ post.date }}</span>
-                            <span class="text-xs font-bold text-white group-hover:translate-x-1 transition-transform">Leer &rarr;</span>
+                        <div class="flex items-center justify-between pt-6 border-t border-line mt-auto">
+                            <span class="text-xs text-subdued">{{ post.date }}</span>
+                            <span class="text-xs font-bold text-content group-hover:translate-x-1 transition-transform">Leer &rarr;</span>
                         </div>
                     </div>
                 </NuxtLink>
             </div>
             
-            <div v-if="posts.length === 0" class="text-center py-20 border border-white/5 rounded-2xl bg-white/[0.01]">
-                <h3 class="text-lg font-bold text-white mb-2">No hay artículos aquí</h3>
-                <p class="text-sm text-white/50">Pronto publicaremos contenido en esta categoría.</p>
+            <div v-if="posts.length === 0" class="text-center py-20 border border-line rounded-2xl bg-panel">
+                <h3 class="text-lg font-bold text-content mb-2">No hay artículos aquí</h3>
+                <p class="text-sm text-subdued">Pronto publicaremos contenido en esta categoría.</p>
             </div>
         </div>
     </section>

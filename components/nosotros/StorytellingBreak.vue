@@ -62,9 +62,9 @@ defineProps({
   border-radius: 9999px;
   pointer-events: none;
 }
-.ambient-orb--cyan { background: radial-gradient(circle, rgba(56,189,248,0.06) 0%, transparent 60%); }
-.ambient-orb--purple { background: radial-gradient(circle, rgba(129,140,248,0.05) 0%, transparent 60%); }
-.ambient-orb--indigo { background: radial-gradient(circle, rgba(99,102,241,0.05) 0%, transparent 60%); }
+.ambient-orb--cyan { background: radial-gradient(circle, rgba(var(--decoration-rgb), 0.06) 0%, transparent 60%); }
+.ambient-orb--purple { background: radial-gradient(circle, rgba(var(--decoration-rgb), 0.05) 0%, transparent 60%); }
+.ambient-orb--indigo { background: radial-gradient(circle, rgba(var(--decoration-rgb), 0.05) 0%, transparent 60%); }
 
 .story-overline {
   font-family: 'Space Grotesk', sans-serif;
@@ -100,14 +100,14 @@ defineProps({
 }
 :deep(.story-headline .accent-gradient) {
   font-style: normal;
-  background: linear-gradient(110deg, #38BDF8 0%, #818CF8 100%);
+  background: linear-gradient(110deg, var(--heading-gradient-end) 0%, var(--heading-gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 :deep(.story-headline .accent-metallic) {
   font-style: normal;
-  background: linear-gradient(110deg, #9ca3af 0%, #ffffff 100%);
+  background: linear-gradient(110deg, #9ca3af 0%, var(--heading-gradient-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
