@@ -48,6 +48,18 @@
   }
 }
 
+/*============================================
+   PROGRESSIVE ENHANCEMENT — reveal sin JS
+   Sin scripting el contenido nunca debe quedar oculto
+============================================ */
+@media (scripting: none) {
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 /* ============================================
    RESET & BASE
 ============================================ */
@@ -63,8 +75,13 @@ body {
   color: var(--text-main);
   font-family: var(--font-family);
   overflow-x: hidden;
-  line-height: 1.6;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-padding-bottom: calc(var(--floating-control-size) + 3rem);
 }
 
 input, textarea, select {
@@ -79,7 +96,7 @@ input, textarea, select {
 /* Eyebrow: etiqueta pequeña sobre los títulos */
 .section-eyebrow {
   font-family: var(--font-family);
-  font-size: 0.7rem;
+  font-size: var(--fs-overline);
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -90,23 +107,25 @@ input, textarea, select {
 .section-title {
   font-family: var(--font-family);
   font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -0.025em;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-h2);
   color: var(--text-main);
+  text-wrap: balance;
 }
 
 /* Párrafo descriptivo bajo el título de sección */
 .section-subtitle {
   font-family: var(--font-family);
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   color: var(--text-secondary);
 }
 
 /* Título dentro de cards */
 .card-title {
   font-family: var(--font-family);
-  font-size: 1rem;
+  font-size: clamp(1.125rem, 1.05rem + 0.2vw, 1.25rem);
   font-weight: 600;
   line-height: 1.3;
   color: var(--text-main);
@@ -115,8 +134,8 @@ input, textarea, select {
 /* Texto descriptivo dentro de cards */
 .card-text {
   font-family: var(--font-family);
-  font-size: 0.875rem;
-  line-height: 1.65;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   color: var(--text-secondary);
 }
 
@@ -194,7 +213,7 @@ input, textarea, select {
 }
 
 .eyebrow-badge__text {
-  font-size: 0.7rem;
+  font-size: var(--fs-overline);
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -252,7 +271,7 @@ input, textarea, select {
 }
 
 .solution-pill__text {
-  font-size: 0.75rem;
+  font-size: var(--fs-small);
   font-weight: 500;
   line-height: 1.4;
   color: var(--text-secondary);
@@ -354,8 +373,8 @@ input, textarea, select {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
-  border-radius: var(--radius-lg);
+  padding: var(--btn-py) var(--btn-px);
+  border-radius: var(--btn-radius);
   font-weight: 600;
   font-size: 0.875rem;
   background: var(--bg-elevated);
@@ -373,8 +392,8 @@ input, textarea, select {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem 2rem;
-  border-radius: var(--radius-lg);
+  padding: var(--btn-py) var(--btn-px);
+  border-radius: var(--btn-radius);
   font-weight: 600;
   font-size: 0.875rem;
   background: var(--accent);
@@ -385,6 +404,99 @@ input, textarea, select {
 .cta-primary-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(var(--decoration-rgb), 0.25);
+}
+
+/* ============================================
+   SISTEMA DE BOTONES — geometría única
+   (usar .btn-primary / .btn-secondary)
+   En @layer components para que las utilidades
+   de Tailwind puedan sobrescribir si hace falta.
+============================================ */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1;
+    padding: var(--btn-py) var(--btn-px);
+    border-radius: var(--btn-radius);
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+      background-color 0.2s ease, border-color 0.2s ease,
+      color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--button-text);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    background: var(--accent-hover);
+    box-shadow: 0 8px 24px rgba(var(--decoration-rgb), 0.25);
+  }
+  .btn-secondary {
+    background: var(--bg-elevated);
+    color: var(--text-main);
+    border-color: var(--border);
+  }
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-accent);
+  }
+  .btn:disabled,
+  .btn[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* ============================================
+   FOCO VISIBLE — Accesibilidad (WCAG 2.4.7)
+   :where() mantiene la especificidad en 0
+============================================ */
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset);
+}
+
+/* Shared floating action. The cookie banner moves above it on narrow screens. */
+.whatsapp-float {
+  position: fixed;
+  right: var(--floating-control-offset);
+  bottom: var(--floating-control-offset);
+  z-index: 100;
+  display: flex;
+  width: var(--floating-control-size);
+  height: var(--floating-control-size);
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  border-radius: 9999px;
+  background: #25D366;
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(16, 43, 70, 0.24);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(16, 43, 70, 0.3);
+}
+
+@media (max-width: 639px) {
+  .whatsapp-float {
+    right: var(--floating-control-mobile-offset);
+    bottom: var(--floating-control-mobile-offset);
+  }
 }
 
 
@@ -419,7 +531,7 @@ input, textarea, select {
   letter-spacing: -0.02em;
 }
 
-/* Contenedor máximo global */
+/* Contenedor máximo global (legacy) */
 .custom-container {
   width: 100%;
   max-width: 1400px;
@@ -427,6 +539,20 @@ input, textarea, select {
   margin-right: auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+/* Contenedor canónico del sitio — usar en secciones nuevas.
+   88% + max 1340px coincide con AppHeader/Footer para alinear
+   logo, titulares y contenido en el mismo eje.
+   (nombre .site-container para no chocar con los .section-container
+   scoped de cada sección) */
+@layer components {
+  .site-container {
+    width: 88%;
+    max-width: var(--container-max);
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 /* ============================================

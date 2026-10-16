@@ -51,6 +51,87 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
 
+  /* --- Layout / Contenedor (semántico) --- */
+  --container-max: 1340px;
+  --container-pad: 1.5rem;
+  /* --- Ritmo vertical de sección (fluido) --- */
+  --section-py-sm: clamp(3rem, 6vw, 5rem);
+  --section-py: clamp(4.5rem, 8vw, 7.5rem);
+  --section-py-lg: clamp(6rem, 10vw, 9rem);
+
+  /* --- Escala tipográfica modular — base 16px, razón ~1.25 --- */
+  /* Nivel        min        max        rol */
+  /* small        14px       15px       metadatos / overline (suelo 14px) */
+  /* body         16px       17px       texto corrido (base) */
+  /* lead         20px       22px       entradilla / destacado (base × 1.25) */
+  /* h3           24px       28px       subtítulo */
+  /* h2           30px       36px       título de sección */
+  /* h1           36px       44px       título de página */
+  /* hero         40px       60.8px     titular principal (display) */
+  --fs-small: clamp(0.875rem, 0.85rem + 0.1vw, 0.9375rem);
+  --fs-body: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --fs-lead: clamp(1.25rem, 1.18rem + 0.3vw, 1.375rem);
+  --fs-h3: clamp(1.5rem, 1.42rem + 0.5vw, 1.75rem);
+  --fs-h2: clamp(1.875rem, 1.75rem + 0.65vw, 2.25rem);
+  --fs-h1: clamp(2.25rem, 2.05rem + 0.9vw, 2.75rem);
+  --fs-hero: clamp(2.5rem, 1.85rem + 3.25vw, 3.8rem);
+  --fs-page-hero: clamp(2rem, 1.6rem + 2vw, 3.5rem);
+
+  /* Altura de línea por nivel */
+  --lh-hero: 1.05;
+  --lh-h1: 1.1;
+  --lh-h2: 1.15;
+  --lh-h3: 1.2;
+  --lh-lead: 1.4;
+  --lh-body: 1.6;
+  --lh-small: 1.5;
+  --lh-overline: 1.2;
+
+  /* Peso tipográfico */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 800;
+  --fw-hero: var(--fw-bold);
+  --fw-h1: var(--fw-bold);
+  --fw-h2: var(--fw-bold);
+  --fw-h3: var(--fw-semibold);
+  --fw-lead: var(--fw-regular);
+  --fw-body: var(--fw-regular);
+  --fw-small: var(--fw-medium);
+  --fw-overline: var(--fw-semibold);
+
+  /* Interletrado por nivel (se tensa al crecer el tamaño) */
+  --ls-hero: -0.035em;
+  --ls-h1: -0.03em;
+  --ls-h2: -0.025em;
+  --ls-h3: -0.02em;
+  --ls-lead: 0;
+  --ls-body: 0;
+  --ls-small: 0;
+  --ls-overline: 0.18em;
+
+  /* Etiquetas de contexto: mismo suelo legible que el texto pequeño. */
+  --fs-overline: var(--fs-small);
+
+  /* Aliases (compatibilidad) */
+  --fs-display: var(--fs-hero);
+
+  /* --- Botones (tokens de componente) --- */
+  --btn-radius: 12px;
+  --btn-py: 0.875rem;
+  --btn-px: 1.75rem;
+
+  /* Controles persistentes: evita que widgets fijos oculten contenido o foco. */
+  --floating-control-size: 3.5rem;
+  --floating-control-offset: 1.5rem;
+  --floating-control-mobile-offset: 1rem;
+
+  /* --- Foco visible (accesibilidad) --- */
+  --focus-width: 2px;
+  --focus-offset: 2px;
+
   /* --- Legacy Mappings --- */
   --primary: var(--accent);
   --primary-glow: var(--accent-glow);

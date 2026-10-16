@@ -9,10 +9,9 @@
       <!-- ═══ HEADER ═══ -->
       <div class="section-header">
         <div>
-          <p class="overline-label" v-reveal data-delay="0">Clientes</p>
+          <p class="section-eyebrow mb-4" v-reveal data-delay="0">Clientes</p>
           <h2 class="section-headline" v-reveal data-delay="100">
-            Empresas que crecieron<br />
-            <em>con nuestra tecnología.</em>
+            Empresas que crecieron con nuestra tecnología.
           </h2>
         </div>
         <!-- Social proof strip -->
@@ -126,7 +125,7 @@ const testimonials = [
     text: 'Antes tenía una web que no me traía nada. Desde que trabajamos con SysifosWeb, nuestras consultas online se triplicaron. El equipo entendió exactamente lo que necesitaba y lo ejecutaron con precisión.',
     metric: '3×',
     metricLabel: 'consultas online en 3 meses',
-    avatarBg: 'linear-gradient(135deg, var(--accent), var(--accent))'
+    avatarBg: 'var(--accent)'
   },
   {
     name: 'Carlos López',
@@ -135,7 +134,7 @@ const testimonials = [
     text: 'Lanzamos nuestra tienda online en tiempo récord. Nuestras ventas crecieron un 40% en el primer trimestre.',
     metric: '+40%',
     metricLabel: 'en ventas el primer trimestre',
-    avatarBg: 'linear-gradient(135deg, var(--accent), var(--accent))'
+    avatarBg: 'var(--accent)'
   },
   {
     name: 'Ana Silva',
@@ -144,7 +143,7 @@ const testimonials = [
     text: 'El sistema que desarrollaron nos ahorró horas de trabajo manual cada semana. Ahora el equipo se enfoca en lo que realmente importa.',
     metric: '12h',
     metricLabel: 'ahorradas por semana',
-    avatarBg: 'linear-gradient(135deg, var(--accent), var(--accent))'
+    avatarBg: 'var(--accent)'
   }
 ]
 </script>
@@ -195,19 +194,9 @@ const testimonials = [
   }
 }
 
-.overline-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 1rem;
-  display: block;
-}
-
 .section-headline {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-size: var(--fs-h2);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -217,10 +206,7 @@ const testimonials = [
 
 .section-headline em {
   font-style: normal;
-  background: linear-gradient(95deg, var(--heading-gradient-end) 0%, var(--heading-gradient-end) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent);
 }
 
 /* Social proof strip */
@@ -245,7 +231,7 @@ const testimonials = [
 }
 
 .proof-label {
-  font-size: 0.7rem;
+  font-size: var(--fs-small);
   color: var(--text-muted);
   letter-spacing: 0.04em;
 }
@@ -282,19 +268,18 @@ const testimonials = [
   position: relative;
   background: rgba(var(--neutral-rgb), 0.025);
   border: 1px solid rgba(var(--neutral-rgb), 0.07);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   padding: 2.25rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   overflow: hidden;
-  transition: border-color 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 
 .bento-card:hover {
   border-color: rgba(var(--neutral-rgb), 0.12);
-  transform: translateY(-4px);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  background: var(--bg-elevated);
 }
 
 /* Featured card — extra padding and taller */
@@ -343,15 +328,15 @@ const testimonials = [
 
 /* ── Quote Text ─────────────────────────────── */
 .quote-text {
-  font-size: 0.9rem;
-  line-height: 1.75;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   color: var(--text-secondary);
   flex: 1;
 }
 
 .quote-text--lg {
-  font-size: 1.05rem;
-  line-height: 1.75;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
 }
 
 /* ── Metric Block ───────────────────────────── */
@@ -386,7 +371,7 @@ const testimonials = [
 }
 
 .metric-label {
-  font-size: 0.7rem;
+  font-size: var(--fs-small);
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -417,7 +402,7 @@ const testimonials = [
 }
 
 .author-name {
-  font-size: 0.825rem;
+  font-size: var(--fs-small);
   font-weight: 600;
   color: var(--text-main);
   line-height: 1.2;
@@ -425,7 +410,7 @@ const testimonials = [
 }
 
 .author-company {
-  font-size: 0.7rem;
+  font-size: var(--fs-small);
   color: var(--text-muted);
   letter-spacing: 0.02em;
 }

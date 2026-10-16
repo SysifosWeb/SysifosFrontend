@@ -1,18 +1,12 @@
 <template>
   <section id="servicios" class="services-section bg-section-dark">
 
-    <!-- Glow morado sutil -->
-    <div class="section-glow-purple glow-right-center"></div>
-
     <div class="section-container">
 
       <!-- Header -->
       <div class="mb-12 max-w-xl">
-        <div class="eyebrow-badge mx-auto mb-6" v-reveal data-delay="0">
-          <span class="eyebrow-badge__dot"></span>
-          <span class="eyebrow-badge__text">Lo que podemos hacer por ti</span>
-        </div>
-        <h2 class="section-title text-3xl md:text-4xl" v-reveal data-delay="100">
+        <p class="section-eyebrow mb-4" v-reveal data-delay="0">Lo que podemos hacer por ti</p>
+        <h2 class="section-title" v-reveal data-delay="100">
           Soluciones digitales que impulsan tu negocio.
         </h2>
       </div>
@@ -21,11 +15,8 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div v-for="(service, index) in services" :key="index"
              v-reveal :data-delay="index * 150"
-             class="service-card group relative flex flex-col p-8 rounded-2xl cursor-default impulso-closing bg-section-dark"
+             class="service-card group relative flex flex-col p-8 cursor-default bg-section-surface"
              :class="`service-card--${service.variant}`">
-
-          <!-- Línea top accent al hover -->
-          <div class="service-top-line absolute top-0 left-8 right-8 h-px rounded-full"></div>
 
           <!-- Ícono -->
           <div class="service-icon mb-7 w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300">
@@ -115,34 +106,17 @@ const services = [
   margin: 0 auto;
 }
 
-/* ── Glow ────────────────────────────────── */
-.glow-right-center {
-  width: 350px;
-  height: 350px;
-  top: 50%;
-  right: -80px;
-  transform: translateY(-50%);
-}
-
 /* ── Service Card ────────────────────────── */
 .service-card {
-  border: 1px solid rgba(var(--neutral-rgb), 0.07);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 
 .service-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(var(--neutral-rgb), 0.13);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  border-color: var(--border-accent);
+  background: var(--bg-elevated);
 }
-
-/* ── Línea top de acento ─────────────────── */
-.service-top-line {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.service-card:hover .service-top-line { opacity: 1; }
 
 /* ── Variantes de color por servicio ─────── */
 .service-card--cyan  .service-icon { background: rgba(var(--decoration-rgb), 0.08); border: 1px solid rgba(var(--decoration-rgb), 0.18); color: var(--accent); }
@@ -159,17 +133,17 @@ const services = [
 
 /* ── Feature pills ───────────────────────── */
 .feature-pill {
-  font-size: 0.6875rem;
+  font-size: var(--fs-small);
   font-weight: 500;
   padding: 0.2rem 0.75rem;
-  border-radius: 9999px;
-  background: rgba(var(--neutral-rgb), 0.05);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
   color: var(--text-muted);
   border: 1px solid rgba(var(--neutral-rgb), 0.07);
 }
 
 /* ── CTA interno ─────────────────────────── */
 .service-cta-wrap {
-  border-top: 1px solid rgba(var(--neutral-rgb), 0.06);
+  margin-top: auto;
 }
 </style>

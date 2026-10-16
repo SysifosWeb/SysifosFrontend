@@ -1,10 +1,6 @@
 <template>
   <section class="proposition-section bg-section-dark">
 
-    <!-- Glows decorativos -->
-    <div class="section-glow-cyan glow-right-center"></div>
-    <div class="section-glow-purple glow-bottom-left-sm"></div>
-
     <div class="section-container">
 
       <!-- Stats superiores -->
@@ -22,11 +18,10 @@
         <div>
           <p class="section-eyebrow section-eyebrow--purple mb-4" v-reveal data-delay="0">Nuestra propuesta de valor</p>
           <h2 class="section-title proposition-title mb-6" v-reveal data-delay="100">
-            No construimos páginas web.<br/>
-            <span class="text-accent">Construimos motores de crecimiento</span> digital para tu empresa.
+            Construimos motores de crecimiento digital.
           </h2>
           <p class="section-subtitle mb-10" v-reveal data-delay="200">
-            Cada proyecto que entregamos está diseñado para generar resultados medibles:
+            No construimos páginas web. Cada proyecto que entregamos está diseñado para generar resultados medibles:
             más visitas, más conversiones y más ventas.
           </p>
           <NuxtLink to="/contacto" class="cta-primary-btn" v-reveal data-delay="300">
@@ -42,7 +37,7 @@
           <div v-for="(diff, index) in differentiators" :key="diff.title"
                v-reveal :data-delay="index * 150"
                class="diff-card flex items-start gap-5">
-            <div class="diff-icon">{{ diff.icon }}</div>
+            <div class="diff-icon"><component :is="diff.icon" class="w-5 h-5" aria-hidden="true" /></div>
             <div>
               <h3 class="card-title mb-1">{{ diff.title }}</h3>
               <p class="card-text">{{ diff.description }}</p>
@@ -56,6 +51,8 @@
 </template>
 
 <script setup>
+import { Handshake, LockKeyhole, Target, Zap } from 'lucide-vue-next'
+
 const stats = [
   { number: '+50', label: 'Proyectos entregados con éxito' },
   { number: '98%', label: 'Clientes que repiten o nos recomiendan' },
@@ -64,22 +61,22 @@ const stats = [
 
 const differentiators = [
   {
-    icon: '⚡',
+    icon: Zap,
     title: 'Ves resultados rápido',
     description: 'No esperamos meses para mostrarte avances. En 2–4 semanas ya tienes algo real funcionando.'
   },
   {
-    icon: '🎯',
+    icon: Target,
     title: 'Nos importa tu negocio, no solo el código',
     description: 'Medimos el éxito en ventas, leads y crecimiento. No en cuántas líneas de código escribimos.'
   },
   {
-    icon: '🔒',
+    icon: LockKeyhole,
     title: 'Tu plataforma crece contigo',
     description: 'Construimos pensando en el futuro de tu empresa. Sin bloqueos técnicos ni reescrituras costosas.'
   },
   {
-    icon: '🤝',
+    icon: Handshake,
     title: 'Hablas con quien construye',
     description: 'Sin intermediarios. Tienes acceso directo al equipo que trabaja en tu proyecto, siempre.'
   }
@@ -103,21 +100,6 @@ const differentiators = [
 }
 
 /* ── Glows posicionados ──────────────────── */
-.glow-right-center {
-  width: 400px;
-  height: 400px;
-  top: 50%;
-  right: -60px;
-  transform: translateY(-50%);
-}
-
-.glow-bottom-left-sm {
-  width: 300px;
-  height: 300px;
-  bottom: 0;
-  left: 0;
-}
-
 /* ── Stats ───────────────────────────────── */
 .stats-grid {
   display: grid;
@@ -125,7 +107,6 @@ const differentiators = [
   gap: 1.5rem;
   margin-bottom: 3rem;
   padding-bottom: 3rem;
-  border-bottom: 1px solid var(--border);
 }
 
 @media (min-width: 768px) {
@@ -134,7 +115,7 @@ const differentiators = [
 
 .stat-number {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: var(--fs-hero);
   font-weight: 700;
   letter-spacing: -0.04em;
   color: var(--accent);
@@ -143,8 +124,7 @@ const differentiators = [
 
 /* ── Título ──────────────────────────────── */
 .proposition-title {
-  font-size: clamp(1.75rem, 3.5vw, 3rem);
-  line-height: 1.1;
+  max-width: 22ch;
 }
 
 
@@ -155,10 +135,10 @@ const differentiators = [
   border-radius: var(--radius-lg);
   background: var(--bg-surface);
   border: 1px solid var(--border);
-  transition: transform 0.25s ease;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 
-.diff-card:hover { transform: translateX(-4px); }
+.diff-card:hover { border-color: var(--border-accent); background: var(--bg-elevated); }
 
 .diff-icon {
   width: 2.5rem;
@@ -168,7 +148,7 @@ const differentiators = [
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  color: var(--accent);
   flex-shrink: 0;
 }
 </style>

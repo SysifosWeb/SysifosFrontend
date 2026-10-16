@@ -20,7 +20,7 @@
          CONTENT: Grid 2 columnas
     ========================================= -->
     <div
-      class="relative z-10 w-[88%] max-w-[1340px] mx-auto pt-36 pb-24 grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-20 xl:gap-28 items-center">
+      class="relative z-10 site-container pt-36 pb-24 grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-20 xl:gap-28 items-center">
 
       <!-- =====================
            COLUMNA IZQUIERDA
@@ -39,15 +39,13 @@
         <!-- H1 — Titular principal -->
         <h1 class="hero-enter delay-1 font-bold leading-[1.06] mb-5"
           style="font-size: clamp(2.4rem, 5vw, 3.8rem); color: var(--text-main); letter-spacing: -0.035em; font-family: 'Inter', sans-serif;">
-          Tu negocio necesita<br />
-          una plataforma digital<br />
-          <span class="hero-accent">que trabaje por ti.</span>
+          Tu plataforma trabaja por ti.
         </h1>
 
         <!-- Subtexto refinado -->
         <p class="hero-enter delay-2 text-[1.08rem] leading-[1.75] mb-10 max-w-[460px]"
           style="color: var(--text-secondary);">
-          Somos el equipo de tecnología detrás de empresas que crecen.
+          Tu negocio necesita una plataforma digital que trabaje por ti. Somos el equipo de tecnología detrás de empresas que crecen.
           Diseñamos, construimos y escalamos plataformas web que generan resultados reales.
         </p>
 
@@ -66,8 +64,8 @@
             </svg>
           </a>
 
-          <!-- CTA Secundario: Contacto -->
-          <NuxtLink to="/contacto"
+          <!-- CTA Secundario: Portfolio -->
+          <NuxtLink to="/portfolio"
             class="cta-secondary inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-medium text-[0.9rem]"
             style="color: var(--text-main); border: 1px solid var(--border);">
             Ver portfolio

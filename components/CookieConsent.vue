@@ -6,7 +6,7 @@ const { bannerVisible, accept, reject } = useCookieConsent()
   <Transition name="cookie">
     <div
       v-if="bannerVisible"
-      class="impulso-closing fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-[9999] rounded-2xl border border-white/10 bg-[#102b46]/95 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] p-6"
+      class="impulso-closing fixed bottom-20 left-4 right-4 sm:bottom-6 sm:left-auto sm:right-24 sm:max-w-md z-[9999] rounded-2xl border border-white/10 bg-[#102b46]/95 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] p-6"
       role="dialog"
       aria-labelledby="cookie-title"
       aria-describedby="cookie-desc"
@@ -14,7 +14,7 @@ const { bannerVisible, accept, reject } = useCookieConsent()
       <div class="flex flex-col gap-4">
         <div>
           <h2 id="cookie-title" class="text-sm font-bold text-white mb-2">
-            Tu lectura nos enseña 💡
+            Tu lectura nos enseña
           </h2>
           <p id="cookie-desc" class="text-xs text-white/60 leading-relaxed">
             Con tu permiso medimos qué artículos se leen (Google Analytics,

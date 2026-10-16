@@ -51,7 +51,7 @@ const services = [
 </script>
 
 <template>
-  <section class="relative bg-section-dark py-8 lg:py-16 overflow-hidden">
+  <section class="relative bg-section-dark py-12 lg:py-20 overflow-hidden">
 
     <div class="section-container relative z-10">
 
@@ -59,56 +59,36 @@ const services = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
 
         <div v-for="(item, index) in services" :key="item.id" v-reveal :data-delay="index * 100"
-          class="group relative flex flex-col p-8 lg:p-10 rounded-3xl bg-panel backdrop-blur-md border border-line overflow-hidden transition-all duration-500 hover:bg-panel hover:border-line hover:shadow-2xl hover:shadow-accent/5 hover:-translate-y-1">
-
-          <!-- Persistent top glowing border effect -->
-          <div
-            class="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-accent/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-          </div>
+          class="group relative flex flex-col p-8 lg:p-10 rounded-2xl bg-panel border border-line overflow-hidden transition-colors duration-300 hover:bg-quiet hover:border-accent/30">
 
           <!-- Header -->
           <div class="flex justify-between items-start mb-6 relative z-10">
             <div
-              class="w-14 h-14 rounded-2xl bg-panel shadow-[0_0_20px_rgba(var(--neutral-rgb), 0.02)] flex items-center justify-center border border-line text-accent group-hover:scale-110 group-hover:bg-accent/10 group-hover:border-accent/30 group-hover:shadow-[0_0_30px_rgba(var(--decoration-rgb), 0.15)] transition-all duration-500">
-              <component :is="item.icon" class="w-7 h-7 drop-shadow-lg" />
+               class="w-14 h-14 rounded-2xl bg-quiet flex items-center justify-center border border-line text-accent transition-colors duration-300 group-hover:bg-accent/10 group-hover:border-accent/30">
+               <component :is="item.icon" class="w-7 h-7" />
             </div>
             <span
-              class="text-[10px] font-extrabold tracking-widest text-accent uppercase bg-accent/10 px-3 py-1 rounded-full border border-accent/20">
+               class="text-small font-semibold text-accent">
               {{ item.eyebrow }}
             </span>
           </div>
 
           <!-- Titles -->
-          <h3 class="text-2xl font-bold tracking-tight text-content mb-3 relative z-10">
+           <h3 class="text-h3 text-content mb-3 relative z-10">
             {{ item.title }}
           </h3>
-          <p class="text-subdued text-sm leading-relaxed mb-6 h-10 relative z-10">
+           <p class="text-subdued text-body leading-relaxed mb-6 relative z-10">
             {{ item.description }}
           </p>
 
-          <!-- Ticket Divider (Dashed) -->
-          <div class="relative w-full my-6 flex items-center z-10">
-            <div
-              class="w-full border-t border-dashed border-line group-hover:border-line transition-colors duration-500">
-            </div>
-          </div>
-
           <!-- Features (What you get) -->
           <div class="flex-grow mb-8 relative z-10">
-            <p class="text-[11px] font-bold text-accent/60 uppercase tracking-widest mb-4">¿Qué incluye?</p>
+             <p class="text-small font-semibold text-accent mb-4">¿Qué incluye?</p>
             <ul class="flex flex-col gap-3">
               <li v-for="feature in item.features" :key="feature"
-                class="flex items-start gap-3 text-sm text-content font-medium">
-                <!-- Ticket / Checkmark Design -->
-                <div class="relative flex items-center justify-center mt-0.5">
-                  <!-- Resplandor sutil del ticket -->
-                  <div
-                    class="absolute inset-0 bg-accent/20 rounded-full blur-[4px] group-hover:blur-[6px] transition-all">
-                  </div>
-                  <div
-                    class="relative w-5 h-5 rounded-full bg-gradient-to-br from-accent/20 to-transparent border border-accent/40 flex items-center justify-center shadow-inner">
-                    <CheckCircle2 class="w-3 h-3 text-accent" />
-                  </div>
+                class="flex items-start gap-3 text-body text-content font-medium">
+                <div class="flex items-center justify-center mt-0.5">
+                  <CheckCircle2 class="w-5 h-5 text-accent" />
                 </div>
                 <span class="leading-tight">{{ feature }}</span>
               </li>
@@ -117,7 +97,7 @@ const services = [
 
           <!-- Call to Action -->
           <a :href="item.ctaLink" target="_blank"
-            class="w-full relative z-10 flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 bg-panel text-content hover:bg-accent hover:text-action border border-line hover:border-accent">
+            class="btn btn-secondary w-full relative z-10 py-3.5 hover:bg-accent hover:text-action hover:border-accent">
             {{ item.ctaText }}
             <ArrowRight class="w-4 h-4" />
           </a>

@@ -21,7 +21,7 @@ defineProps({
                  style="background: linear-gradient(to right, transparent, rgba(var(--decoration-rgb), 0.15), transparent);"></div>
         </div>
         
-        <div class="w-full relative z-10 custom-container flex items-center pt-20">
+        <div class="relative z-10 site-container flex items-center pt-20">
             <!-- Left Text Block -->
             <div class="flex flex-col items-center md:items-start text-center md:text-left w-full">
                 <div class="eyebrow-badge mb-6">
@@ -38,13 +38,8 @@ defineProps({
 
 <style scoped>
 .secondary-header-container {
-    height: 350px;
-}
-
-.custom-container {
-    width: 90%;
-    max-width: 1340px;
-    margin: 0 auto;
+    min-height: 350px;
+    padding-bottom: 2.5rem;
 }
 
 .glow-top-left {

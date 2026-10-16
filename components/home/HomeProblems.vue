@@ -1,22 +1,13 @@
 <template>
   <section class="problems-section bg-section-dark">
 
-    <!-- Línea decorativa top -->
-    <div class="section-line-top"></div>
-
-    <!-- Glow morado bottom-left -->
-    <div class="section-glow-purple glow-bottom-left"></div>
-
     <div class="section-container">
 
       <!-- Header -->
       <div class="text-center mb-12">
-        <div class="eyebrow-badge mx-auto mb-6" v-reveal data-delay="0">
-          <span class="eyebrow-badge__dot"></span>
-          <span class="eyebrow-badge__text">El problema que frena tu crecimiento</span>
-        </div>
+        <p class="section-eyebrow mb-4" v-reveal data-delay="0">El problema que frena tu crecimiento</p>
         <h2 class="section-title problems-title" v-reveal data-delay="100">
-          Tu negocio merece más que<br class="hidden md:block"/> un sitio web genérico.
+          Tu negocio merece más que un sitio web genérico.
         </h2>
       </div>
 
@@ -25,11 +16,6 @@
         <div v-for="(pain, index) in pains" :key="pain.id"
              v-reveal :data-delay="index * 150"
              class="pain-card group relative flex flex-col md:flex-row items-start md:items-center gap-6 bg-section-surface card-border">
-
-          <!-- Número -->
-          <div class="step-badge">
-            {{ String(index + 1).padStart(2, '0') }}
-          </div>
 
           <!-- Ícono con color dinámico por tipo -->
           <div class="pain-icon shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
@@ -119,31 +105,22 @@ const pains = [
   margin: 0 auto;
 }
 
-/* ── Glow posicionado ────────────────────── */
-.glow-bottom-left {
-  width: 400px;
-  height: 400px;
-  bottom: -80px;
-  left: -80px;
-}
-
 /* ── Título ──────────────────────────────── */
 .problems-title {
-  font-size: clamp(1.75rem, 4vw, 3rem);
-  max-width: 700px;
+  max-width: 24ch;
   margin: 0 auto;
 }
 
 /* ── Pain card ───────────────────────────── */
 .pain-card {
   padding: 1.75rem 2rem;
-  border-radius: 1rem;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  border-radius: var(--radius-lg);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
 }
 
 .pain-card:hover {
-  border-color: rgba(var(--decoration-rgb), 0.25);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border-color: var(--border-accent);
+  background: var(--bg-elevated);
 }
 
 /* ── Ícono de pain (colores por variante) ── */

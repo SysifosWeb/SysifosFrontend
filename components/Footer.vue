@@ -9,7 +9,7 @@
         style="background: radial-gradient(circle, var(--accent) 0%, transparent 70%); opacity: 0.08;"></div>
     </div>
 
-    <div class="relative z-10 w-[88%] max-w-[1340px] mx-auto py-16 pb-8">
+    <div class="relative z-10 site-container py-16 pb-8">
 
       <!-- Grid principal -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-12" style="border-bottom: 1px solid var(--border);">

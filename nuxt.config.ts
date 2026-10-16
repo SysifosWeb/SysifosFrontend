@@ -154,6 +154,11 @@ export default defineNuxtConfig({
                 { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
                 { rel: 'preconnect', href: 'https://www.googletagmanager.com' },
                 { rel: 'alternate', type: 'application/rss+xml', title: 'SysifosWeb Blog RSS', href: '/blog/feed.xml' },
+            ],
+            // Progressive enhancement: si JS no está disponible, el contenido
+            // animado con v-reveal nunca debe quedar oculto.
+            noscript: [
+                { innerHTML: '.reveal-item{opacity:1 !important;transform:none !important}' }
             ]
         }
     },

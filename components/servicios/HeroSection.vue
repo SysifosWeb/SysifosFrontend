@@ -4,19 +4,12 @@
 <template>
   <section class="hero-section bg-section-dark pt-32 lg:pt-48 pb-16 lg:pb-24">
 
-    <!-- Ambient Glow -->
-    <div class="section-glow-cyan glow-center"></div>
-
     <div class="section-container text-center flex flex-col items-center">
         
-        <div class="eyebrow-badge mx-auto mb-8" v-reveal data-delay="0">
-          <span class="eyebrow-badge__dot"></span>
-          <span class="eyebrow-badge__text">Soluciones Digitales</span>
-        </div>
+        <p class="section-eyebrow mb-6" v-reveal data-delay="0">Soluciones digitales</p>
 
         <h1 class="hero-headline mb-8" v-reveal data-delay="100">
-          Construido para escalar.<br/>
-          <span class="hero-accent">Diseñado para liderar.</span>
+          Construido para escalar. Diseñado para liderar.
         </h1>
 
         <div class="relative max-w-2xl mx-auto mb-10" v-reveal data-delay="200">
@@ -55,35 +48,28 @@
   margin: 0 auto;
 }
 
-.glow-center {
-  width: 800px;
-  height: 800px;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.06;
-}
-
 .hero-headline {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(3rem, 6.5vw, 5.5rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
+  font-family: var(--font-family);
+  font-size: var(--fs-page-hero);
+  font-weight: var(--fw-hero);
+  line-height: var(--lh-hero);
+  letter-spacing: var(--ls-hero);
   color: var(--text-main);
-}
-
-.hero-accent {
-  background: linear-gradient(135deg, var(--heading-gradient-start) 0%, var(--heading-gradient-end) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  max-inline-size: 21ch;
+  text-wrap: balance;
 }
 
 .hero-subtitle {
-  font-size: clamp(1.1rem, 2vw, 1.25rem);
-  line-height: 1.6;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
   color: var(--text-secondary);
   font-weight: 400;
+}
+
+@media (max-width: 480px) {
+  .hero-headline {
+    font-size: 1.75rem;
+    max-inline-size: none;
+  }
 }
 </style>

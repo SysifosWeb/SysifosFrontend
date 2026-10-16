@@ -41,18 +41,10 @@ const steps = [
 <template>
   <section class="relative bg-section-dark py-16 lg:py-24 overflow-hidden">
     
-    <!-- Cinematic Lighting -->
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1000px] bg-accent/5 rounded-[100%] blur-[120px] pointer-events-none"></div>
-
-    <div class="section-container relative z-20 text-center mb-24 lg:mb-32">
-        <div class="inline-flex items-center gap-3 mb-8" v-reveal data-delay="0">
-          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-          <span class="text-sm font-extrabold tracking-[0.2em] text-subdued uppercase">El Camino al Éxito</span>
-          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-        </div>
-        <h2 class="text-5xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[0.95] text-content" v-reveal data-delay="100">
-          No hacemos webs. <br/>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-heading-start via-heading-end to-heading-end">Construimos imperios.</span>
+    <div class="section-container relative z-20 text-center mb-16 lg:mb-24">
+        <p class="section-eyebrow mb-6" v-reveal data-delay="0">El camino al resultado</p>
+        <h2 class="section-title process-title mx-auto" v-reveal data-delay="100">
+           No hacemos webs. Construimos imperios.
         </h2>
     </div>
 
@@ -62,27 +54,16 @@ const steps = [
             <div v-for="(step, index) in steps" :key="step.id" 
                  class="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 relative" v-reveal :data-delay="200">
                 
-                <!-- Line Connector for Desktop -->
-                <div v-if="index !== steps.length - 1" class="hidden lg:block absolute left-1/2 top-full w-px h-48 bg-gradient-to-b from-line to-transparent -translate-x-1/2 z-0"></div>
-
                 <!-- Text Content -->
                 <div class="flex-1 w-full" :class="{'lg:order-2': step.align === 'left'}">
-                   <div class="flex items-center gap-6 mb-8">
-                      <span class="text-7xl lg:text-8xl font-black text-transparent" style="-webkit-text-stroke: 1px rgba(var(--neutral-rgb), 0.15);">{{ step.id }}</span>
-                      <div class="h-px w-24 bg-accent/50 hidden md:block"></div>
-                   </div>
-                   <h3 class="text-4xl lg:text-5xl font-extrabold text-content mb-6 tracking-tight">{{ step.title }}</h3>
-                   <p class="text-lg lg:text-xl text-subdued leading-relaxed font-medium max-w-lg">{{ step.description }}</p>
+                    <h3 class="text-h2 text-content mb-6">{{ step.title }}</h3>
+                    <p class="text-lead text-subdued max-w-lg">{{ step.description }}</p>
                 </div>
 
                 <!-- Visual Content -->
                 <div class="flex-1 w-full relative" :class="{'lg:order-1': step.align === 'left'}">
-                   <!-- Ambient Glow behind image -->
-                   <div class="absolute inset-0 bg-accent/10 blur-[60px] rounded-full transform scale-90"></div>
-                   
-                   <div class="relative rounded-3xl overflow-hidden bg-panel border border-line aspect-[4/3] group shadow-2xl">
-                       <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10 mix-blend-multiply"></div>
-                       <img :src="step.image" :alt="step.title" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000 opacity-90 group-hover:opacity-100" loading="lazy" />
+                    <div class="relative rounded-2xl overflow-hidden bg-panel border border-line aspect-[4/3] group">
+                        <img :src="step.image" :alt="step.title" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" loading="lazy" />
                    </div>
                 </div>
 
@@ -99,4 +80,6 @@ const steps = [
   max-width: 1300px;
   margin: 0 auto;
 }
+
+.process-title { max-width: 20ch; }
 </style>

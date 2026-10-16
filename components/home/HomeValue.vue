@@ -1,11 +1,11 @@
 <template>
-  <section class="section bg-section-dark" style="padding: 4rem 0 5rem;">
+  <section class="section bg-section-dark">
     <div class="max-w-[1400px] w-[92%] mx-auto relative z-10">
 
       <!-- Header centrado -->
       <div class="section-header text-center mb-16">
         <p class="section-eyebrow section-eyebrow--purple mb-4" v-reveal data-delay="0">Así trabajamos juntos</p>
-        <h2 class="section-title text-3xl md:text-4xl" v-reveal data-delay="100">
+        <h2 class="section-title" v-reveal data-delay="100">
           Empezar es más fácil de lo que crees.
         </h2>
       </div>
@@ -19,11 +19,8 @@
             <div class="flex flex-col items-center text-center">
 
               <!-- Ícono -->
-              <div class="step-icon-wrap w-20 h-20 rounded-2xl flex items-center justify-center mb-10 relative z-10 transition-all duration-300">
+              <div class="step-icon-wrap w-20 h-20 rounded-2xl flex items-center justify-center mb-6 relative z-10 transition-all duration-300">
                 <component :is="step.icon" class="w-8 h-8 step-icon transition-transform group-hover:scale-110"/>
-                <div class="step-number absolute -top-3 -right-3 w-8 h-8 rounded-full flex items-center justify-center text-[13px] font-bold">
-                  0{{ index + 1 }}
-                </div>
               </div>
 
               <h3 class="card-title mb-3 transition-colors group-hover:step-title-hover">
@@ -77,9 +74,7 @@ const steps = [
 }
 
 /* Línea conectora */
-.connector-line {
-  background: linear-gradient(to right, transparent, var(--border-accent), transparent);
-}
+.connector-line { background: var(--border); }
 
 /* Ícono wrapper */
 .step-icon-wrap {
@@ -94,14 +89,6 @@ const steps = [
 /* Ícono */
 .step-icon {
   color: var(--accent);
-}
-
-/* Número de paso */
-.step-number {
-  background-color: var(--bg-dark);
-  border: 1px solid rgba(var(--neutral-rgb), 0.08);
-  color: var(--accent);
-  font-family: 'Inter', sans-serif;
 }
 
 /* Hover en el título de la card */

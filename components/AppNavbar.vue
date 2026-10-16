@@ -1,13 +1,17 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
 const isMounted = ref(false)
+const menuRef = ref(null)
+let lastFocused = null
 const route = useRoute()
 
 const currentRoute = computed(() => route.path)
+
+const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 20
@@ -21,6 +25,34 @@ const closeMenu = () => {
   isMenuOpen.value = false
 }
 
+// Atrapa el foco dentro del menú móvil y cierra con Escape
+const handleKeydown = (event) => {
+  if (event.key === 'Escape') {
+    closeMenu()
+    return
+  }
+  if (event.key !== 'Tab' || !menuRef.value) return
+
+  const nodes = Array.from(menuRef.value.querySelectorAll(FOCUSABLE))
+    .filter((el) => el.offsetParent !== null || el === document.activeElement)
+  if (!nodes.length) return
+
+  const first = nodes[0]
+  const last = nodes[nodes.length - 1]
+
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault()
+    last.focus()
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault()
+    first.focus()
+  }
+}
+
+const lockBodyScroll = (lock) => {
+  document.body.style.overflow = lock ? 'hidden' : ''
+}
+
 onMounted(() => {
   isMounted.value = true
   window.addEventListener('scroll', handleScroll, { passive: true })
@@ -28,6 +60,24 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
+  document.removeEventListener('keydown', handleKeydown)
+  lockBodyScroll(false)
+})
+
+// Gestiona foco, bloqueo de scroll y ciclo de tabulación del menú móvil
+watch(isMenuOpen, async (open) => {
+  if (open) {
+    lastFocused = document.activeElement
+    lockBodyScroll(true)
+    document.addEventListener('keydown', handleKeydown)
+    await nextTick()
+    const nodes = menuRef.value?.querySelectorAll(FOCUSABLE)
+    if (nodes && nodes.length) nodes[0].focus()
+  } else {
+    lockBodyScroll(false)
+    document.removeEventListener('keydown', handleKeydown)
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus()
+  }
 })
 
 // Cerrar el menú automáticamente al cambiar de ruta
@@ -39,7 +89,7 @@ watch(() => route.fullPath, () => {
 <template>
   <nav class="fixed top-0 left-0 w-full z-[1002] bg-transparent transition-all duration-500"
     :class="{ 'nav-scrolled backdrop-blur-xl': isScrolled }">
-    <div class="max-w-[1400px] w-[92%] mx-auto border-b border-[var(--border)]">
+    <div class="site-container border-b border-[var(--border)]">
       <div class="flex items-center justify-between py-10 lg:py-12">
         <!-- LOGO -->
         <NuxtLink to="/" class="flex items-center">
@@ -64,7 +114,7 @@ watch(() => route.fullPath, () => {
             </li>
             <li>
               <NuxtLink to="/contacto"
-                class="ml-6 px-8 py-3 bg-accent text-[var(--button-text,#102B46)] font-bold text-[15px] uppercase tracking-widest hover:bg-transparent hover:text-accent border border-accent transition-all font-tech">
+                class="btn btn-primary ml-6 text-[13px] uppercase tracking-widest font-tech">
                 Contacto
               </NuxtLink>
             </li>
@@ -73,7 +123,7 @@ watch(() => route.fullPath, () => {
 
         <!-- BOTÓN HAMBURGUESA -->
         <button
-          class="lg:hidden text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
+          class="lg:hidden text-accent rounded-sm"
           @click="toggleMenu" :aria-expanded="isMenuOpen" aria-controls="mobile-menu"
           :aria-label="isMenuOpen ? 'Cerrar menú' : 'Abrir menú'">
           <div class="space-y-1.5" aria-hidden="true">
@@ -88,15 +138,15 @@ watch(() => route.fullPath, () => {
 
     <!-- MENÚ MÓVIL -->
     <Transition name="fade">
-      <div v-if="isMenuOpen" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación"
-        class="fixed inset-0 z-[2000] bg-[var(--bg-dark)] flex flex-col p-10 overflow-hidden">
+      <div v-if="isMenuOpen" id="mobile-menu" ref="menuRef" role="dialog" aria-modal="true"
+        aria-label="Menú de navegación" tabindex="-1"
+        class="fixed inset-0 z-[2000] bg-[var(--bg-dark)] flex flex-col p-10 overflow-y-auto">
         <div class="absolute inset-0 technical-grid opacity-5 pointer-events-none" aria-hidden="true"></div>
         <div class="flex items-center justify-between mb-24">
           <NuxtLink to="/" @click="closeMenu" class="flex items-center">
             <BrandLogo class="h-8 md:h-10 w-auto aspect-[403/80]" />
           </NuxtLink>
-          <button @click="closeMenu" class="text-accent focus-visible:ring-2 focus-visible:ring-accent rounded-sm"
-            aria-label="Cerrar menú">
+          <button @click="closeMenu" class="text-accent rounded-sm" aria-label="Cerrar menú">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
               stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="square" stroke-width="0.5" d="M6 18L18 6M6 6l12 12" />

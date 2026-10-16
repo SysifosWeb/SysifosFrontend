@@ -1,36 +1,24 @@
 <script setup>
-import { ArrowRight, Sparkles } from 'lucide-vue-next'
+import { ArrowRight } from 'lucide-vue-next'
 </script>
 
 <template>
   <section class="relative py-20 lg:py-32 overflow-hidden bg-section-dark impulso-closing">
 
-    <!-- Cinematic Ambient Light -->
-    <div
-      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-accent/10 rounded-full blur-[150px] pointer-events-none">
-    </div>
-
     <div class="section-container relative z-10 flex flex-col items-center text-center">
 
-      <!-- Eyebrow -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-panel border border-line mb-8" v-reveal
-        data-delay="0">
-        <Sparkles class="w-4 h-4 text-accent" />
-        <span class="text-xs font-bold tracking-widest text-content uppercase">Únete a la nueva era digital</span>
-      </div>
+      <p class="section-eyebrow mb-6" v-reveal data-delay="0">Únete a la nueva era digital</p>
 
       <!-- Headline -->
-      <h2 class="text-5xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[1] text-content mb-8" v-reveal
+      <h2 class="section-title cta-title text-content mb-8" v-reveal
         data-delay="100">
-        Tu empresa está lista para escalar.<br />
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-heading-start via-heading-end to-heading-end">Tu tecnología
-          también debería estarlo.</span>
+        Tu empresa está lista para escalar.
       </h2>
 
       <!-- Subtext -->
-      <p class="text-lg md:text-2xl text-subdued font-medium leading-relaxed max-w-3xl mb-12" v-reveal
+      <p class="text-lead text-subdued max-w-3xl mb-12" v-reveal
         data-delay="200">
-        Deja de perder ingresos por culpa de sistemas lentos o estáticos. Asóciate con nosotros y transformemos tu
+        Tu tecnología también debería estarlo. Deja de perder ingresos por culpa de sistemas lentos o estáticos. Asóciate con nosotros y transformemos tu
         operación en una máquina de crecimiento, ventas y eficiencia automatizada.
       </p>
 
@@ -39,9 +27,9 @@ import { ArrowRight, Sparkles } from 'lucide-vue-next'
         <!-- Botón Principal (Primary) -->
         <a href="https://wa.me/56985021549?text=Hola,%20busco%20un%20partner%20tecnológico%20para%20escalar%20mi%20empresa."
           target="_blank"
-          class="group relative flex items-center justify-center gap-3 px-8 py-4 bg-accent text-action rounded-2xl font-bold text-lg hover:bg-accent hover:text-action transition-all duration-500 hover:scale-105">
+          class="btn btn-primary px-8 py-4 text-base">
           Empezar la Transformación
-          <ArrowRight class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight class="w-5 h-5" />
         </a>
       </div>
 
@@ -67,4 +55,6 @@ import { ArrowRight, Sparkles } from 'lucide-vue-next'
   max-width: 1200px;
   margin: 0 auto;
 }
+
+.cta-title { max-width: 24ch; }
 </style>
