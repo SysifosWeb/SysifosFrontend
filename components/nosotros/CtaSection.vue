@@ -7,8 +7,6 @@ import { ArrowRight } from 'lucide-vue-next'
 
     <div class="section-container relative z-10 flex flex-col items-center text-center">
 
-      <p class="section-eyebrow mb-6" v-reveal data-delay="0">Únete a la nueva era digital</p>
-
       <!-- Headline -->
       <h2 class="section-title cta-title text-content mb-8" v-reveal
         data-delay="100">

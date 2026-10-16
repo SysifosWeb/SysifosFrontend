@@ -1,32 +1,22 @@
 <script setup>
-import { ShieldCheck, Zap, Activity } from 'lucide-vue-next'
-
 const stats = [
-    { label: 'Proyectos Entregados', value: '24', icon: Zap },
-    { label: 'Disponibilidad Activa', value: '100%', icon: Activity },
-    { label: 'Clientes Satisfechos', value: '15+', icon: ShieldCheck }
+    { label: 'Proyectos entregados', value: '24' },
+    { label: 'Disponibilidad activa', value: '100%' },
+    { label: 'Clientes satisfechos', value: '15+' }
 ]
 </script>
 
 <template>
   <section class="relative bg-section-dark py-12 lg:py-16 overflow-hidden">
-    
-    <div class="section-glow-cyan glow-bottom-right"></div>
-
     <div class="section-container relative z-10">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         
-        <div v-for="(stat, index) in stats" :key="stat.label" class="card-border bg-section-dark p-10 flex flex-col items-center text-center relative group transition-colors hover:border-accent/30" v-reveal :data-delay="index * 150">
-          
-          <div class="w-16 h-16 rounded-xl bg-section-surface border border-line flex items-center justify-center mb-6 transition-all group-hover:bg-accent/10 group-hover:border-accent/30">
-            <component :is="stat.icon" class="w-8 h-8 text-accent opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" />
-          </div>
-          
+        <div v-for="(stat, index) in stats" :key="stat.label" class="portfolio-stat" v-reveal :data-delay="index * 150">
           <div class="text-4xl md:text-5xl font-bold text-content mb-3">
               {{ stat.value }}
           </div>
           
-          <div class="text-xs font-semibold uppercase tracking-wider text-muted group-hover:text-content transition-colors">
+          <div class="text-small font-medium text-muted">
               {{ stat.label }}
           </div>
 
@@ -45,11 +35,5 @@ const stats = [
   max-width: 1200px;
   margin: 0 auto;
 }
-
-.glow-bottom-right {
-  width: 400px;
-  height: 400px;
-  bottom: -100px;
-  right: -100px;
-}
+.portfolio-stat { background: var(--bg-surface); border-radius: var(--radius-md); padding: clamp(2rem, 5vw, 3rem); display: flex; flex-direction: column; align-items: center; text-align: center; }
 </style>

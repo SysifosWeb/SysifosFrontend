@@ -5,16 +5,12 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 <template>
   <section class="metodologia-section relative overflow-hidden">
     
-    <!-- Ambient -->
-    <div class="ambient-orb ambient-orb--indigo"></div>
-
     <div class="section-container">
       
       <!-- ═══ SECTION HEADER ═══ -->
       <!-- Left-aligned, not centered — breaks symmetry for rhythm -->
       <div class="metodologia-header">
         <div>
-          <p class="overline-label" v-reveal data-delay="0">Cómo trabajamos</p>
           <h2 class="metodologia-headline" v-reveal data-delay="100">
             Operativa<br/>
             <em>estandarizada.</em>
@@ -138,8 +134,8 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 .ambient-orb--indigo {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-  opacity: 0.1;
+  background: var(--bg-surface);
+  opacity: 0;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -160,31 +156,17 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
   }
 }
 
-.overline-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 1.25rem;
-  display: block;
-}
-
 .metodologia-headline {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-h1);
+  line-height: var(--lh-h1);
+  letter-spacing: var(--ls-h1);
   color: var(--text-main);
   margin: 0;
 }
 .metodologia-headline em {
   font-style: normal;
-  background: linear-gradient(95deg, var(--heading-gradient-end) 0%, var(--heading-gradient-end) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent);
 }
 
 .metodologia-descriptor {
@@ -211,14 +193,10 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 
 /* ── Column Label ───────────────────────────── */
 .col-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 2.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(var(--neutral-rgb), 0.07);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--accent);
+  margin-bottom: 2rem;
 }
 
 /* ── Process Timeline ───────────────────────── */
@@ -246,14 +224,13 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
   border-radius: 50%;
   flex-shrink: 0;
 }
-.step-node--cyan   { background: var(--accent); box-shadow: 0 0 8px rgba(var(--decoration-rgb), 0.4); }
-.step-node--purple { background: var(--accent); box-shadow: 0 0 8px rgba(var(--decoration-rgb), 0.4); }
+.step-node--cyan, .step-node--purple { background: var(--accent); }
 
 .step-line {
-  width: 1px;
+  width: 2px;
   flex: 1;
   min-height: 3rem;
-  background: rgba(var(--neutral-rgb), 0.08);
+  background: var(--bg-elevated);
   margin-top: 8px;
 }
 
@@ -290,11 +267,10 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
   justify-content: space-between;
   gap: 1rem;
   padding: 1.25rem 0;
-  border-bottom: 1px solid rgba(var(--neutral-rgb), 0.06);
-  transition: background 0.2s ease;
-}
-.stack-row:first-child {
-  border-top: 1px solid rgba(var(--neutral-rgb), 0.06);
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  padding-inline: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .stack-row__layer {

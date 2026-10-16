@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SysifosWeb — Escala tipográfica</title>
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 2rem; background: #F7F8FB; color: #102B46; font-family: var(--font-family); }
+    .row { margin-bottom: 1.5rem; }
+    .tag { font-family: monospace; font-size: 12px; color: #52677F; }
+    [data-level] { display: block; }
+    [data-level="hero"] { font-size: var(--fs-hero); line-height: var(--lh-hero); letter-spacing: var(--ls-hero); font-weight: var(--fw-hero); }
+    [data-level="h1"] { font-size: var(--fs-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); font-weight: var(--fw-h1); }
+    [data-level="h2"] { font-size: var(--fs-h2); line-height: var(--lh-h2); letter-spacing: var(--ls-h2); font-weight: var(--fw-h2); }
+    [data-level="h3"] { font-size: var(--fs-h3); line-height: var(--lh-h3); letter-spacing: var(--ls-h3); font-weight: var(--fw-h3); }
+    [data-level="lead"] { font-size: var(--fs-lead); line-height: var(--lh-lead); font-weight: var(--fw-lead); }
+    [data-level="body"] { font-size: var(--fs-body); line-height: var(--lh-body); font-weight: var(--fw-body); }
+    [data-level="small"] { font-size: var(--fs-small); line-height: var(--lh-small); font-weight: var(--fw-small); }
+  </style>
+</head>
+<body>
+  <div class="row"><span class="tag">hero</span><span data-level="hero">Plataformas que trabajan por ti</span></div>
+  <div class="row"><span class="tag">h1</span><span data-level="h1">Diseño y desarrollo digital</span></div>
+  <div class="row"><span class="tag">h2</span><span data-level="h2">Soluciones a medida</span></div>
+  <div class="row"><span class="tag">h3</span><span data-level="h3">E-commerce y software</span></div>
+  <div class="row"><span class="tag">lead</span><span data-level="lead">Somos el equipo de tecnología detrás de empresas que crecen.</span></div>
+  <div class="row"><span class="tag">body</span><span data-level="body">Diseñamos, construimos y escalamos plataformas web que generan resultados reales.</span></div>
+  <div class="row"><span class="tag">small</span><span data-level="small">Overline / metadatos legibles a 14px mínimo.</span></div>
+</body>
+</html>

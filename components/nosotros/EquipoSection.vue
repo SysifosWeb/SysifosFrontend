@@ -7,18 +7,14 @@ import osman from '@/assets/img/Osman.png'
 <template>
   <section class="py-12 md:py-16 relative bg-section-dark overflow-hidden">
 
-    <!-- Ambient -->
-    <div class="ambient-orb ambient-orb--cyan"></div>
-
     <div class="relative z-10 w-[90%] max-w-7xl mx-auto flex flex-col gap-20">
 
       <!-- Editorial Header — asymmetric, not centered-generic -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-end">
         <div class="equipo-header__left">
-          <p class="overline-label" v-reveal data-delay="0">El equipo</p>
           <h2 class="equipo-headline" v-reveal data-delay="100">
-            Las mentes<br />
-            <em>detrás del código.</em>
+            El equipo que<br />
+            <em>hace que suceda.</em>
           </h2>
         </div>
         <div class="equipo-header__right">
@@ -85,8 +81,8 @@ import osman from '@/assets/img/Osman.png'
 .ambient-orb--cyan {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-  opacity: 0.08;
+  background: var(--bg-surface);
+  opacity: 0;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -97,32 +93,18 @@ import osman from '@/assets/img/Osman.png'
   padding-bottom: 0.5rem;
 }
 
-.overline-label {
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 1.25rem;
-  display: block;
-}
-
 .equipo-headline {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-h1);
+  line-height: var(--lh-h1);
+  letter-spacing: var(--ls-h1);
   color: var(--text-main);
   margin: 0;
 }
 
 .equipo-headline em {
   font-style: normal;
-  background: linear-gradient(95deg, var(--heading-gradient-end) 0%, var(--heading-gradient-end) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent);
 }
 
 .equipo-descriptor {
@@ -137,8 +119,8 @@ import osman from '@/assets/img/Osman.png'
   position: relative;
   height: 480px;
   /* Tall editorial portrait */
-  background: #102B46;
-  border-radius: 20px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -148,14 +130,11 @@ import osman from '@/assets/img/Osman.png'
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
-  border: 1px solid rgba(var(--neutral-rgb), 0.05);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .roster-card:hover {
   transform: translateZ(0) translateY(-6px);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-  border-color: rgba(var(--neutral-rgb), 0.15);
 }
 
 /* ── Top accent line ────────────────────────── */
@@ -175,11 +154,11 @@ import osman from '@/assets/img/Osman.png'
 }
 
 .roster-accent-line--cyan {
-  background: linear-gradient(to right, transparent, var(--heading-gradient-end), transparent);
+  background: var(--accent);
 }
 
 .roster-accent-line--purple {
-  background: linear-gradient(to right, transparent, var(--heading-gradient-end), transparent);
+  background: var(--accent);
 }
 
 /* ── Cinematic Photo ────────────────────────── */
@@ -209,11 +188,7 @@ import osman from '@/assets/img/Osman.png'
 .roster-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top,
-      rgba(16, 43, 70, 0.98) 0%,
-      rgba(16, 43, 70, 0.8) 25%,
-      rgba(16, 43, 70, 0.2) 60%,
-      transparent 100%);
+  background: rgba(16, 43, 70, 0.42);
   z-index: 2;
   pointer-events: none;
 }
@@ -247,10 +222,8 @@ import osman from '@/assets/img/Osman.png'
 }
 
 .roster-role__text {
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
   color: var(--accent);
 }
 
@@ -259,20 +232,16 @@ import osman from '@/assets/img/Osman.png'
 }
 
 .roster-name {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.5rem;
-  /* Larger, more editorial */
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-h3);
+  letter-spacing: var(--ls-h3);
   color: var(--text-main);
   line-height: 1.1;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  /* Helps legibility over images */
 }
 
 .roster-bio {
-  font-size: 0.82rem;
-  line-height: 1.65;
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
   color: rgba(var(--neutral-rgb), 0.7);
   margin-top: 0.25rem;
 }

@@ -1,0 +1,4 @@
+const HomeProblems_vue_vue_type_style_index_0_scoped_48b96650_inline_used_lang = ".problems-section[data-v-48b96650]{overflow:hidden;padding:4rem 0 5rem;position:relative}.section-container[data-v-48b96650]{margin:0 auto;max-width:1200px;position:relative;width:90%;z-index:10}.problems-title[data-v-48b96650]{margin:0 auto;max-width:24ch}.pain-card[data-v-48b96650]{border-radius:var(--radius-lg);padding:1.75rem 2rem;transition:border-color .25s ease,background-color .25s ease}.pain-card[data-v-48b96650]:hover{background:var(--bg-elevated);border-color:var(--border-accent)}.pain-icon--cyan[data-v-48b96650],.pain-icon--purple[data-v-48b96650]{background:rgba(var(--decoration-rgb),.08);border:1px solid rgba(var(--decoration-rgb),.2)}.text-purple[data-v-48b96650]{color:var(--purple)}";
+
+export { HomeProblems_vue_vue_type_style_index_0_scoped_48b96650_inline_used_lang as H };
+//# sourceMappingURL=index-2-styles-2.mjs-B3DdTqXu.mjs.map

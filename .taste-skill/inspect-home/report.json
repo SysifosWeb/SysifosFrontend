@@ -1,0 +1,2740 @@
+{
+ "url": "http://localhost:3123/",
+ "at": "2026-10-15T22:11:32.323Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 8,
+   "filled": [
+    0.97,
+    1,
+    1,
+    0.96,
+    0.82,
+    1,
+    0.58,
+    0.29
+   ],
+   "motion": {
+    "elements": 100,
+    "css": 11,
+    "transitions": 41,
+    "scripted": 48,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 6772,
+     "screens": 7.5,
+     "words": 884,
+     "img": 20,
+     "video": 0,
+     "canvas": 0,
+     "svg": 42,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "⚡",
+      "🎯",
+      "🔒",
+      "🤝",
+      "♥",
+      "💡"
+     ]
+    },
+    "hero": {
+     "text": "Tu negocio necesita una plataforma digital que trabaje por ti.",
+     "words": 10,
+     "chars": 62,
+     "lines": 5,
+     "size": 60.8,
+     "vw": 4.2,
+     "font": "Inter",
+     "weight": 700,
+     "tracking": -0.035,
+     "leading": 1.06,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.38,
+     "top": 210,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Tu negocio necesita una plataforma digital que trabaje por ti.",
+     "words": 10,
+     "lines": 5,
+     "size": 60.8,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "Tu negocio necesita una plataforma digital que trabaje por ti.",
+      "words": 10,
+      "chars": 62,
+      "lines": 5,
+      "size": 60.8,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.035,
+      "leading": 1.06,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.38,
+      "top": 210,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Empezar es más fácil de lo que crees.",
+      "words": 8,
+      "chars": 37,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.11,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1060,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tu negocio merece más que un sitio web genérico.",
+      "words": 9,
+      "chars": 48,
+      "lines": 2,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.49,
+      "top": 1610,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "+50",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.04,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.29,
+      "top": 2478,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "98%",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.04,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.29,
+      "top": 2478,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "3×",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 56,
+      "vw": 3.9,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.04,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.29,
+      "top": 2478,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "No construimos páginas web. Construimos motores de crecimiento digital para tu empresa.",
+      "words": 12,
+      "chars": 87,
+      "lines": 5,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.43,
+      "top": 2746,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Soluciones digitales que impulsan tu negocio.",
+      "words": 6,
+      "chars": 45,
+      "lines": 2,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.11,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.4,
+      "top": 3397,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tecnología de",
+      "words": 2,
+      "chars": 13,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.11,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 4323,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "vanguardia.",
+      "words": 1,
+      "chars": 11,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.11,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.26,
+      "top": 4363,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Empresas que crecieron con nuestra tecnología.",
+      "words": 6,
+      "chars": 46,
+      "lines": 2,
+      "size": 44.8,
+      "vw": 3.1,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 4745,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "“",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 40,
+      "vw": 2.8,
+      "font": "Georgia",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.3,
+      "top": 4944,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "“",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 64,
+      "vw": 4.4,
+      "font": "Georgia",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.47,
+      "top": 4952,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "+40%",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 32,
+      "vw": 2.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.3,
+      "top": 5076,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "3×",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 32,
+      "vw": 2.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.47,
+      "top": 5137,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "“",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 40,
+      "vw": 2.8,
+      "font": "Georgia",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.3,
+      "top": 5309,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "12h",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 32,
+      "vw": 2.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.3,
+      "top": 5465,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "¿Listo para hacer crecer tu negocio?",
+      "words": 6,
+      "chars": 36,
+      "lines": 2,
+      "size": 48,
+      "vw": 3.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.53,
+      "top": 5929,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 18,
+     "maxLines": 5,
+     "over2Lines": 2,
+     "statements": 0,
+     "centered": 3,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 0.98,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.02,
+       "mono": false
+      },
+      {
+       "family": "Georgia",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      32,
+      36,
+      40,
+      45,
+      48,
+      56,
+      61,
+      64
+     ],
+     "sizeCount": 20,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 14,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.5
+     },
+     "measureChars": 66,
+     "max": {
+      "size": 64,
+      "vw": 4.4,
+      "font": "Georgia",
+      "text": "“"
+     },
+     "monoShare": 0.02,
+     "monoProseShare": 0.02,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [
+      "NUXT",
+      "VUE",
+      "REACT",
+      "NODE",
+      "TYPESCRIPT",
+      "TAILWIND"
+     ],
+     "microLabels": 27,
+     "microLabelShare": 0.057,
+     "microSamples": [
+      "Así trabajamos juntos",
+      "El problema que frena tu crecimiento",
+      "Nuestra propuesta de valor",
+      "Lo que podemos hacer por ti",
+      "Stack tecnológico",
+      "NUXT"
+     ],
+     "upperShare": 0.06,
+     "centerShare": 0.17,
+     "smallText": 50
+    },
+    "eyebrows": [
+     {
+      "text": "Así trabajamos juntos",
+      "above": "Empezar es más fácil de lo que crees.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 1025
+     },
+     {
+      "text": "El problema que frena tu crecimiento",
+      "above": "Tu negocio merece más que un sitio web g",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 12,
+      "top": 1560
+     },
+     {
+      "text": "Nuestra propuesta de valor",
+      "above": "No construimos páginas web. Construimos ",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 2711
+     },
+     {
+      "text": "Lo que podemos hacer por ti",
+      "above": "Soluciones digitales que impulsan tu neg",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 12,
+      "top": 3347
+     },
+     {
+      "text": "Stack tecnológico",
+      "above": "Tecnología de",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 4288
+     },
+     {
+      "text": "Stack tecnológico",
+      "above": "vanguardia.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 4288
+     },
+     {
+      "text": "Clientes",
+      "above": "Empresas que crecieron con nuestra tecno",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10.4,
+      "top": 4712
+     },
+     {
+      "text": "Empieza hoy",
+      "above": "¿Listo para hacer crecer tu negocio?",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 5893
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01",
+      "size": 13,
+      "top": 1153
+     },
+     {
+      "text": "02",
+      "size": 13,
+      "top": 1153
+     },
+     {
+      "text": "03",
+      "size": 13,
+      "top": 1153
+     },
+     {
+      "text": "04",
+      "size": 13,
+      "top": 1153
+     },
+     {
+      "text": "01",
+      "size": 14,
+      "top": 1807
+     },
+     {
+      "text": "02",
+      "size": 14,
+      "top": 1954
+     },
+     {
+      "text": "03",
+      "size": 14,
+      "top": 2101
+     }
+    ],
+    "color": {
+     "bodyBg": "#102b46",
+     "bodyBgHsl": {
+      "h": 210,
+      "s": 0.63,
+      "l": 0.17
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#f7f8fb",
+       "top": 0,
+       "hsl": {
+        "h": 225,
+        "s": 0.33,
+        "l": 0.98
+       }
+      },
+      {
+       "color": "#102b46",
+       "top": 5765,
+       "hsl": {
+        "h": 210,
+        "s": 0.63,
+        "l": 0.17
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#52677f",
+       "share": 0.47
+      },
+      {
+       "color": "#b8cfe5",
+       "share": 0.19
+      },
+      {
+       "color": "#102b46",
+       "share": 0.15
+      },
+      {
+       "color": "#1d5fa6",
+       "share": 0.07
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.07
+      }
+     ],
+     "button": {
+      "bg": "#1d5fa6",
+      "hsl": {
+       "h": 211,
+       "s": 0.7,
+       "l": 0.38
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 9,
+     "inHero": 5,
+     "radius": 12,
+     "height": 52,
+     "withShadow": 2,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 1,
+     "heroLabels": [
+      "CONTACTO",
+      "Hablemos por WhatsApp",
+      "Ver portfolio",
+      "Aceptar medición",
+      "Solo lo necesario"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 4,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "div.relative.w-full → rgba(0, 0, 0, 0.5) 0px 32px 80px 0px, rgba(16, 43, 70, 0.04) 0px 0px 0px 1px",
+      "div.absolute.-top-5 → rgba(0, 0, 0, 0.4) 0px 16px 40px 0px",
+      "div.absolute.-bottom-5 → rgba(0, 0, 0, 0.4) 0px 16px 40px 0px",
+      "a.inline-flex.items-center → rgba(157, 203, 245, 0.2) 0px 0px 24px 0px"
+     ],
+     "gradients": 14,
+     "scrims": 1,
+     "gradientSamples": [
+      "div.absolute.-top-60 → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.absolute.bottom-0 → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.absolute.inset-8 → radial-gradient(at 60% 50%, rgba(29, 95, 166, 0.1) 0%, rgba(0, 0, 0, 0) 65%)",
+      "div.section-glow-purple.glow-bottom-left → radial-gradient(circle, rgb(29, 95, 166) 0px, rgba(0, 0, 0, 0) 70%)"
+     ],
+     "gradientText": 1,
+     "hairlines": 14,
+     "hairlineSamples": [
+      "div.site-container.border-b 1267px",
+      "div.hero-enter.delay-4 550px",
+      "div.flex.items-center 598px",
+      "div.flex.flex-col 140px",
+      "div.stats-grid 1296px"
+     ],
+     "outlinedBoxes": 16,
+     "dashed": 0,
+     "blurred": 2,
+     "roundedBoxes": 16,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 1766
+      },
+      {
+       "count": 4,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 2696
+      },
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 3525
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 7,
+     "fixed": false,
+     "height": 140,
+     "floatingPill": false,
+     "blur": true
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 10,
+   "filled": [
+    1,
+    0.97,
+    1,
+    1,
+    1,
+    0.93,
+    0.77,
+    1,
+    0.68,
+    0.33
+   ],
+   "motion": {
+    "elements": 97,
+    "css": 8,
+    "transitions": 41,
+    "scripted": 48,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 9872,
+     "screens": 9.6,
+     "words": 841,
+     "img": 20,
+     "video": 0,
+     "canvas": 0,
+     "svg": 42,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "⚡",
+      "🎯",
+      "🔒",
+      "🤝",
+      "♥",
+      "💡"
+     ]
+    },
+    "hero": {
+     "text": "Tu negocio necesita una plataforma digital que trabaje por ti.",
+     "words": 10,
+     "chars": 62,
+     "lines": 3,
+     "size": 38.4,
+     "vw": 5,
+     "font": "Inter",
+     "weight": 700,
+     "tracking": -0.035,
+     "leading": 1.06,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.49,
+     "top": 316,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Tu negocio necesita una plataforma digital que trabaje por ti.",
+     "words": 10,
+     "lines": 3,
+     "size": 38.4,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "Tu negocio necesita una plataforma digital que trabaje por ti.",
+      "words": 10,
+      "chars": 62,
+      "lines": 3,
+      "size": 38.4,
+      "vw": 5,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.035,
+      "leading": 1.06,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.49,
+      "top": 316,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Empezar es más fácil de lo que crees.",
+      "words": 8,
+      "chars": 37,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.11,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1072,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tu negocio merece más que un sitio web genérico.",
+      "words": 9,
+      "chars": 48,
+      "lines": 2,
+      "size": 30.7,
+      "vw": 4,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 1892,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "+50",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.04,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.28,
+      "top": 4406,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "98%",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.04,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.28,
+      "top": 4406,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "3×",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.04,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.28,
+      "top": 4406,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "No construimos páginas web. Construimos motores de crecimiento digital para tu empresa.",
+      "words": 12,
+      "chars": 87,
+      "lines": 3,
+      "size": 28,
+      "vw": 3.6,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4656,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Soluciones digitales que impulsan tu negocio.",
+      "words": 6,
+      "chars": 45,
+      "lines": 2,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.11,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.75,
+      "top": 5661,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tecnología de",
+      "words": 2,
+      "chars": 13,
+      "lines": 1,
+      "size": 30,
+      "vw": 3.9,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 6738,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "vanguardia.",
+      "words": 1,
+      "chars": 11,
+      "lines": 1,
+      "size": 30,
+      "vw": 3.9,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 6774,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Empresas que crecieron con nuestra tecnología.",
+      "words": 6,
+      "chars": 46,
+      "lines": 2,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.46,
+      "top": 7480,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "“",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 64,
+      "vw": 8.3,
+      "font": "Georgia",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 7659,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "3×",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.78,
+      "top": 7844,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "“",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Georgia",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.34,
+      "top": 8089,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "“",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 40,
+      "vw": 5.2,
+      "font": "Georgia",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.34,
+      "top": 8089,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "12h",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.34,
+      "top": 8271,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "+40%",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 32,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.34,
+      "top": 8289,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "¿Listo para hacer crecer tu negocio?",
+      "words": 6,
+      "chars": 36,
+      "lines": 2,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 8753,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 18,
+     "maxLines": 3,
+     "over2Lines": 2,
+     "statements": 0,
+     "centered": 3,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 0.98,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.02,
+       "mono": false
+      },
+      {
+       "family": "Georgia",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      17,
+      18,
+      28,
+      30,
+      31,
+      32,
+      36,
+      38,
+      40,
+      48,
+      64
+     ],
+     "sizeCount": 17,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 14,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.5
+     },
+     "measureChars": 66,
+     "max": {
+      "size": 64,
+      "vw": 8.3,
+      "font": "Georgia",
+      "text": "“"
+     },
+     "monoShare": 0.02,
+     "monoProseShare": 0.02,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [
+      "NUXT",
+      "VUE",
+      "REACT",
+      "NODE",
+      "TYPESCRIPT",
+      "TAILWIND"
+     ],
+     "microLabels": 27,
+     "microLabelShare": 0.06,
+     "microSamples": [
+      "Así trabajamos juntos",
+      "El problema que frena tu crecimiento",
+      "Nuestra propuesta de valor",
+      "Lo que podemos hacer por ti",
+      "Stack tecnológico",
+      "NUXT"
+     ],
+     "upperShare": 0.06,
+     "centerShare": 0.18,
+     "smallText": 39
+    },
+    "eyebrows": [
+     {
+      "text": "Así trabajamos juntos",
+      "above": "Empezar es más fácil de lo que crees.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 1037
+     },
+     {
+      "text": "El problema que frena tu crecimiento",
+      "above": "Tu negocio merece más que un sitio web g",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 12,
+      "top": 1842
+     },
+     {
+      "text": "Nuestra propuesta de valor",
+      "above": "No construimos páginas web. Construimos ",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 4621
+     },
+     {
+      "text": "Lo que podemos hacer por ti",
+      "above": "Soluciones digitales que impulsan tu neg",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 12,
+      "top": 5611
+     },
+     {
+      "text": "Stack tecnológico",
+      "above": "Tecnología de",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 6702
+     },
+     {
+      "text": "Stack tecnológico",
+      "above": "vanguardia.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 6702
+     },
+     {
+      "text": "Clientes",
+      "above": "Empresas que crecieron con nuestra tecno",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 10.4,
+      "top": 7447
+     },
+     {
+      "text": "Empieza hoy",
+      "above": "¿Listo para hacer crecer tu negocio?",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 8717
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01",
+      "size": 13,
+      "top": 1165
+     },
+     {
+      "text": "02",
+      "size": 13,
+      "top": 1165
+     },
+     {
+      "text": "03",
+      "size": 13,
+      "top": 1458
+     },
+     {
+      "text": "04",
+      "size": 13,
+      "top": 1458
+     },
+     {
+      "text": "01",
+      "size": 14,
+      "top": 2372
+     },
+     {
+      "text": "02",
+      "size": 14,
+      "top": 3151
+     },
+     {
+      "text": "03",
+      "size": 14,
+      "top": 3818
+     }
+    ],
+    "color": {
+     "bodyBg": "#102b46",
+     "bodyBgHsl": {
+      "h": 210,
+      "s": 0.63,
+      "l": 0.17
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#f7f8fb",
+       "top": 0,
+       "hsl": {
+        "h": 225,
+        "s": 0.33,
+        "l": 0.98
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 2009,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#102b46",
+       "top": 8589,
+       "hsl": {
+        "h": 210,
+        "s": 0.63,
+        "l": 0.17
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#52677f",
+       "share": 0.46
+      },
+      {
+       "color": "#b8cfe5",
+       "share": 0.2
+      },
+      {
+       "color": "#102b46",
+       "share": 0.15
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.07
+      },
+      {
+       "color": "#1d5fa6",
+       "share": 0.07
+      }
+     ],
+     "button": {
+      "bg": "#1d5fa6",
+      "hsl": {
+       "h": 211,
+       "s": 0.7,
+       "l": 0.38
+      },
+      "fg": "#102b46"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 8,
+     "inHero": 4,
+     "radius": 12,
+     "height": 52,
+     "withShadow": 2,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Hablemos por WhatsApp",
+      "Ver portfolio",
+      "Aceptar medición",
+      "Solo lo necesario"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 1,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "a.inline-flex.items-center → rgba(157, 203, 245, 0.2) 0px 0px 24px 0px"
+     ],
+     "gradients": 13,
+     "scrims": 1,
+     "gradientSamples": [
+      "div.absolute.-top-60 → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.absolute.bottom-0 → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.section-glow-purple.glow-bottom-left → radial-gradient(circle, rgb(29, 95, 166) 0px, rgba(0, 0, 0, 0) 70%)",
+      "div.card-hover-glow → linear-gradient(to right, rgba(29, 95, 166, 0.03), rgba(0, 0, 0, 0))"
+     ],
+     "gradientText": 1,
+     "hairlines": 8,
+     "hairlineSamples": [
+      "div.site-container.border-b 676px",
+      "div.hero-enter.delay-4 676px",
+      "div.stats-grid 691px",
+      "div.metric-block.metric-block--featured 601px",
+      "div.metric-block 260px"
+     ],
+     "outlinedBoxes": 14,
+     "dashed": 0,
+     "blurred": 2,
+     "roundedBoxes": 14,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 2009
+      },
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 4983
+      },
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 5789
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 121,
+     "floatingPill": false,
+     "blur": true
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    1,
+    0.99,
+    0.98,
+    1,
+    1,
+    1,
+    1,
+    0.71,
+    0.67,
+    0.97,
+    1,
+    1
+   ],
+   "motion": {
+    "elements": 92,
+    "css": 8,
+    "transitions": 36,
+    "scripted": 48,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 11652,
+     "screens": 13.8,
+     "words": 841,
+     "img": 20,
+     "video": 0,
+     "canvas": 0,
+     "svg": 42,
+     "sections": 8,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "⚡",
+      "🎯",
+      "🔒",
+      "🤝",
+      "♥",
+      "💡"
+     ]
+    },
+    "hero": {
+     "text": "Tu negocio necesita una plataforma digital que trabaje por ti.",
+     "words": 10,
+     "chars": 62,
+     "lines": 5,
+     "size": 38.4,
+     "vw": 9.8,
+     "font": "Inter",
+     "weight": 700,
+     "tracking": -0.035,
+     "leading": 1.06,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.88,
+     "top": 226,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Tu negocio necesita una plataforma digital que trabaje por ti.",
+     "words": 10,
+     "lines": 5,
+     "size": 38.4,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "Tu negocio necesita una plataforma digital que trabaje por ti.",
+      "words": 10,
+      "chars": 62,
+      "lines": 5,
+      "size": 38.4,
+      "vw": 9.8,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.035,
+      "leading": 1.06,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 226,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Empezar es más fácil de lo que crees.",
+      "words": 8,
+      "chars": 37,
+      "lines": 2,
+      "size": 30,
+      "vw": 7.7,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 1085,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tu negocio merece más que un sitio web genérico.",
+      "words": 9,
+      "chars": 48,
+      "lines": 2,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2515,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "+50",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.04,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4164,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "98%",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.04,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4283,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "3×",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.04,
+      "leading": 1.6,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4402,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "No construimos páginas web. Construimos motores de crecimiento digital para tu empresa.",
+      "words": 12,
+      "chars": 87,
+      "lines": 5,
+      "size": 28,
+      "vw": 7.2,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4629,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Soluciones digitales que impulsan tu negocio.",
+      "words": 6,
+      "chars": 45,
+      "lines": 2,
+      "size": 30,
+      "vw": 7.7,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.12,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 5860,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tecnología de",
+      "words": 2,
+      "chars": 13,
+      "lines": 1,
+      "size": 30,
+      "vw": 7.7,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 7661,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "vanguardia.",
+      "words": 1,
+      "chars": 11,
+      "lines": 1,
+      "size": 30,
+      "vw": 7.7,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 7697,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Empresas que crecieron con nuestra tecnología.",
+      "words": 6,
+      "chars": 46,
+      "lines": 3,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 8403,
+      "gradientText": true,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "“",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 64,
+      "vw": 16.4,
+      "font": "Georgia",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.67,
+      "top": 8688,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "3×",
+      "words": 1,
+      "chars": 2,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.67,
+      "top": 8991,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "“",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Georgia",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 9254,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "+40%",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 9410,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "“",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 40,
+      "vw": 10.3,
+      "font": "Georgia",
+      "weight": 400,
+      "tracking": 0,
+      "leading": 0.5,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 9643,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "12h",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 32,
+      "vw": 8.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.04,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.71,
+      "top": 9825,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "¿Listo para hacer crecer tu negocio?",
+      "words": 6,
+      "chars": 36,
+      "lines": 2,
+      "size": 30,
+      "vw": 7.7,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.25,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 10337,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 18,
+     "maxLines": 5,
+     "over2Lines": 3,
+     "statements": 0,
+     "centered": 6,
+     "medianWords": 1,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 0.98,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.02,
+       "mono": false
+      },
+      {
+       "family": "Georgia",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      17,
+      18,
+      28,
+      30,
+      32,
+      38,
+      40,
+      64
+     ],
+     "sizeCount": 14,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 14,
+      "leading": 1.65,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.5
+     },
+     "measureChars": 51,
+     "max": {
+      "size": 64,
+      "vw": 16.4,
+      "font": "Georgia",
+      "text": "“"
+     },
+     "monoShare": 0.02,
+     "monoProseShare": 0.02,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [
+      "NUXT",
+      "VUE",
+      "REACT",
+      "NODE",
+      "TYPESCRIPT",
+      "TAILWIND"
+     ],
+     "microLabels": 27,
+     "microLabelShare": 0.06,
+     "microSamples": [
+      "Así trabajamos juntos",
+      "El problema que frena tu crecimiento",
+      "Nuestra propuesta de valor",
+      "Lo que podemos hacer por ti",
+      "Stack tecnológico",
+      "NUXT"
+     ],
+     "upperShare": 0.06,
+     "centerShare": 0.2,
+     "smallText": 39
+    },
+    "eyebrows": [
+     {
+      "text": "Así trabajamos juntos",
+      "above": "Empezar es más fácil de lo que crees.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 1050
+     },
+     {
+      "text": "El problema que frena tu crecimiento",
+      "above": "Tu negocio merece más que un sitio web g",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 12,
+      "top": 2445
+     },
+     {
+      "text": "Nuestra propuesta de valor",
+      "above": "No construimos páginas web. Construimos ",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 4594
+     },
+     {
+      "text": "Lo que podemos hacer por ti",
+      "above": "Soluciones digitales que impulsan tu neg",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 12,
+      "top": 5809
+     },
+     {
+      "text": "Stack tecnológico",
+      "above": "Tecnología de",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 7626
+     },
+     {
+      "text": "Stack tecnológico",
+      "above": "vanguardia.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": false,
+      "size": 12,
+      "top": 7626
+     },
+     {
+      "text": "Empieza hoy",
+      "above": "¿Listo para hacer crecer tu negocio?",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 10301
+     }
+    ],
+    "numbered": [
+     {
+      "text": "01",
+      "size": 13,
+      "top": 1205
+     },
+     {
+      "text": "02",
+      "size": 13,
+      "top": 1498
+     },
+     {
+      "text": "03",
+      "size": 13,
+      "top": 1791
+     },
+     {
+      "text": "04",
+      "size": 13,
+      "top": 2061
+     },
+     {
+      "text": "01",
+      "size": 14,
+      "top": 2655
+     },
+     {
+      "text": "02",
+      "size": 14,
+      "top": 3069
+     },
+     {
+      "text": "03",
+      "size": 14,
+      "top": 3507
+     }
+    ],
+    "color": {
+     "bodyBg": "#102b46",
+     "bodyBgHsl": {
+      "h": 210,
+      "s": 0.63,
+      "l": 0.17
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#f7f8fb",
+       "top": 0,
+       "hsl": {
+        "h": 225,
+        "s": 0.33,
+        "l": 0.98
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 2626,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#102b46",
+       "top": 5975,
+       "hsl": {
+        "h": 210,
+        "s": 0.63,
+        "l": 0.17
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#52677f",
+       "share": 0.46
+      },
+      {
+       "color": "#b8cfe5",
+       "share": 0.2
+      },
+      {
+       "color": "#102b46",
+       "share": 0.15
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.07
+      },
+      {
+       "color": "#1d5fa6",
+       "share": 0.07
+      }
+     ],
+     "button": {
+      "bg": "#1d5fa6",
+      "hsl": {
+       "h": 211,
+       "s": 0.7,
+       "l": 0.38
+      },
+      "fg": "#102b46"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 8,
+     "inHero": 4,
+     "radius": 12,
+     "height": 52,
+     "withShadow": 2,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Hablemos por WhatsApp",
+      "Ver portfolio",
+      "Aceptar medición",
+      "Solo lo necesario"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 1,
+     "shadowOverlay": 2,
+     "shadowSamples": [
+      "a.inline-flex.items-center → rgba(157, 203, 245, 0.2) 0px 0px 24px 0px"
+     ],
+     "gradients": 13,
+     "scrims": 1,
+     "gradientSamples": [
+      "div.absolute.-top-60 → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.absolute.bottom-0 → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.section-glow-purple.glow-bottom-left → radial-gradient(circle, rgb(29, 95, 166) 0px, rgba(0, 0, 0, 0) 70%)",
+      "div.card-hover-glow → linear-gradient(to right, rgba(29, 95, 166, 0.03), rgba(0, 0, 0, 0))"
+     ],
+     "gradientText": 1,
+     "hairlines": 11,
+     "hairlineSamples": [
+      "div.site-container.border-b 343px",
+      "div.hero-enter.delay-4 343px",
+      "div.stats-grid 351px",
+      "div.service-cta-wrap.pt-5 277px",
+      "div.service-cta-wrap.pt-5 277px"
+     ],
+     "outlinedBoxes": 14,
+     "dashed": 0,
+     "blurred": 2,
+     "roundedBoxes": 14,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 5975
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 113,
+     "floatingPill": false,
+     "blur": true
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 1440,
+   "message": "2 headline(s) wrap past two lines at 1440px: \"Tu negocio necesita una plataforma digital que t\" → 5 lines (10 words, 60.8px); \"No construimos páginas web. Construimos motores \" → 5 lines (12 words, 48px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 36px or less."
+  },
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "8 eyebrow/kicker label(s) above headings: \"Así trabajamos juntos\" above \"Empezar es más fácil de lo que crees.\"; \"El problema que frena tu crecimiento\" (pill) above \"Tu negocio merece más que un sitio web g\"; \"Nuestra propuesta de valor\" above \"No construimos páginas web. Construimos \"; \"Lo que podemos hacer por ti\" (pill) above \"Soluciones digitales que impulsan tu neg\"; \"Stack tecnológico\" above \"Tecnología de\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "mono",
+   "width": 1440,
+   "message": "Monospace type outside code: ui-monospace — e.g. \"NUXT\", \"VUE\", \"REACT\", \"NODE\"",
+   "fix": "Set it in the text face. Monospace is for literal code inside <pre>/<code> only.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "numbering",
+   "width": 1440,
+   "message": "Decorative index numbers: \"01\", \"02\", \"03\", \"04\", \"01\", \"02\"",
+   "fix": "Remove them. If order truly matters, write it into the words (\"First, …\") or use a real <ol>.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "27 tiny uppercase letter-spaced labels (e.g. \"Así trabajamos juntos\", \"El problema que frena tu crecimiento\", \"Nuestra propuesta de valor\", \"Lo que podemos hacer por ti\").",
+   "fix": "Use sentence-case text at a readable size, or delete the label.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "width": 1440,
+   "message": "Emoji in the page: ⚡ 🎯 🔒 🤝 ♥ 💡",
+   "fix": "Remove. Use words or real imagery.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "14 gradient fill(s): div.absolute.-top-60 → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%) | div.absolute.bottom-0 → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%) | div.absolute.inset-8 → radial-gradient(at 60% 50%, rgba(29, 95, 166, 0.1) 0%, rgba(0, 0, 0, 0) 65%)",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient-text",
+   "width": 1440,
+   "message": "1 gradient-filled text element(s).",
+   "fix": "Solid colour text.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "shadow",
+   "width": 1440,
+   "message": "4 box-shadow(s) on elements at rest: div.relative.w-full → rgba(0, 0, 0, 0.5) 0px 32px 80px 0px, rgba(16, 43, 70, 0.04) 0px 0px 0px 1px | div.absolute.-top-5 → rgba(0, 0, 0, 0.4) 0px 16px 40px 0px | div.absolute.-bottom-5 → rgba(0, 0, 0, 0.4) 0px 16px 40px 0px",
+   "fix": "Remove. Separate surfaces with a tone step or space. Shadows are for things that really float (menus, dialogs, sticky bars).",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "button-fx",
+   "width": 1440,
+   "message": "Buttons with shadow/glow.",
+   "fix": "Flat fill, one colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "14 thin rule(s)/divider line(s): div.site-container.border-b 1267px | div.hero-enter.delay-4 550px | div.flex.items-center 598px | div.flex.flex-col 140px",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "outlined-box",
+   "width": 1440,
+   "message": "16 boxes drawn with a 1px outline.",
+   "fix": "Define a surface by its fill (one tone step from the page) or leave the content unboxed.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "glass",
+   "width": 1440,
+   "message": "2 backdrop-blur surfaces.",
+   "fix": "One blurred sticky bar at most; glass cards are a tell.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "icon-cards",
+   "width": 1440,
+   "message": "3 row(s) of identical cards each topped with a small icon (3, 4, 3 cards).",
+   "fix": "Replace with one composed section from the direction: a narrative split, a list set in large type, or real imagery per item.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "20 different font sizes (8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 32, 36, 40, 45, 48, 56, 61, 64).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "body-size",
+   "width": 1440,
+   "message": "Body text is 14px (the size most of the running text is set in).",
+   "fix": "Body copy 16–20px. Map small sizes from blueprints onto your body step.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "grey-body",
+   "width": 1440,
+   "message": "The running text is a soft grey on its ground (5.5:1).",
+   "fix": "Set body copy in the full ink (7:1 or more). Keep the muted ink for secondary notes; pages read thin and unfinished when everything is grey.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 0 picture(s) on the page (0 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "FAIL",
+   "id": "small-text",
+   "width": 1440,
+   "message": "50 text blocks under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "focal-point",
+   "width": 1440,
+   "message": "The first screen has no dominant element: the largest type is 60.8px (4.2vw) and no single picture holds a third of the viewport.",
+   "fix": "Make one thing lead: the headline at display size, or one large picture. A grid of many small pictures is not one thing; in blind tests jurors marked a first screen without a headline down every time. On the strongest studied sites the largest type has a median of 8.4vw."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 768,
+   "message": "2 headline(s) wrap past two lines at 768px: \"Tu negocio necesita una plataforma digital que t\" → 3 lines (10 words, 38.4px); \"No construimos páginas web. Construimos motores \" → 3 lines (12 words, 28px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 32px or less."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 390,
+   "message": "3 headline(s) wrap past two lines at 390px: \"Tu negocio necesita una plataforma digital que t\" → 5 lines (10 words, 38.4px); \"No construimos páginas web. Construimos motores \" → 5 lines (12 words, 28px); \"Empresas que crecieron con nuestra tecnología.\" → 3 lines (6 words, 32px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 24px or less."
+  },
+  {
+   "level": "FAIL",
+   "id": "covered-text",
+   "width": 390,
+   "message": "Large text lies under another element at some scroll position: \"No construimos páginas web. Construimos motores \" (screen 6, 25% hidden); \"12h\" (screen 12, 100% hidden)",
+   "fix": "Nothing may sit on top of a headline or statement. Move the picture, shorten the pinned run, or raise the text above it (z-index) and give it a ground."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect-home\\desktop-fold.jpg",
+   "pages": [
+    "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect-home\\desktop-page-01.jpg",
+    "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect-home\\desktop-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect-home\\tablet-fold.jpg",
+   "pages": [
+    "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect-home\\tablet-page-01.jpg",
+    "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect-home\\tablet-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect-home\\mobile-fold.jpg",
+   "pages": [
+    "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect-home\\mobile-page-01.jpg",
+    "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect-home\\mobile-page-02.jpg"
+   ]
+  }
+ ]
+}

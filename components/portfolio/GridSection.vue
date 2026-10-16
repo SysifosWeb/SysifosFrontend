@@ -6,7 +6,6 @@ import ansarImg from '@/assets/img/Ansar.jpeg';
 
 const projects = [
     {
-        id: '01',
         title: 'Maestranza Faremin',
         description: 'Plataforma B2B para industria metalmecánica de alta precisión.',
         problem: 'Operaciones dependientes de procesos manuales, dificultad para exhibir capacidad técnica a clientes internacionales y cuellos de botella en la adquisición de clientes corporativos.',
@@ -22,7 +21,6 @@ const projects = [
         stack: ['Vue.js', 'Laravel', 'PostgreSQL', 'Performance-First'],
     },
     {
-        id: '02',
         title: 'StahlForm',
         description: 'Infraestructura web de alta conversión para manufactura.',
         problem: 'Falta de presencia digital alineada con la calidad de sus servicios premium de manufactura, resultando en una baja tasa de captura de leads calificados.',
@@ -38,7 +36,6 @@ const projects = [
         stack: ['Nuxt 3', 'Tailwind', 'Vite', 'SEO Optimized'],
     },
     {
-        id: '03',
         title: 'Ansar Automotriz',
         description: 'Plataforma digital integral para gestión y venta automotriz.',
         problem: 'Canales de venta digitales fragmentados y falta de una plataforma centralizada que brindara una experiencia de usuario premium al nivel de su inventario.',
@@ -58,24 +55,17 @@ const projects = [
 
 <template>
   <section class="bg-section-dark pb-20">
-    <div v-for="(project, index) in projects" :key="project.id" 
-         class="relative py-10 lg:py-12 overflow-hidden group/section">
-      
-      <!-- Subtle background gradient per project -->
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[120px] opacity-0 group-hover/section:opacity-100 transition-opacity duration-1000 pointer-events-none"></div>
+    <div v-for="(project, index) in projects" :key="project.title"
+         class="relative py-12 lg:py-16 overflow-hidden">
 
       <div class="section-container relative z-10">
         
         <!-- Encabezado de Proyecto -->
         <div class="mb-10 lg:mb-12 flex flex-col items-start relative">
-            <div class="flex items-center gap-3 mb-4 text-xs font-bold uppercase tracking-[0.2em] text-accent" v-reveal data-delay="0">
-                <span class="w-8 h-[1px] bg-accent/50"></span>
-                CASO DE ESTUDIO {{ project.id }}
-            </div>
-            <h2 class="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-content mb-4" v-reveal data-delay="100">
-              {{ project.title.split(' ')[0] }} <span class="text-transparent bg-clip-text bg-gradient-to-r from-heading-start to-heading-end">{{ project.title.split(' ').slice(1).join(' ') }}</span>
+            <h2 class="project-title mb-4" v-reveal data-delay="100">
+              {{ project.title }}
             </h2>
-            <p class="text-xl text-subdued font-medium max-w-2xl" v-reveal data-delay="200">{{ project.description }}</p>
+            <p class="project-description" v-reveal data-delay="200">{{ project.description }}</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center" :class="index % 2 !== 0 ? 'lg:flex-row-reverse' : ''">
@@ -87,36 +77,36 @@ const projects = [
                 <div class="space-y-8">
                     <!-- Problema -->
                     <div v-reveal data-delay="200">
-                        <h3 class="text-sm font-bold uppercase tracking-widest text-subdued mb-3">El Desafío</h3>
-                        <p class="text-content leading-relaxed font-medium">{{ project.problem }}</p>
+                        <h3 class="project-label">El desafío</h3>
+                        <p class="project-copy">{{ project.problem }}</p>
                     </div>
 
                     <!-- Solución -->
                     <div v-reveal data-delay="300">
-                        <h3 class="text-sm font-bold uppercase tracking-widest text-subdued mb-3">Nuestra Solución</h3>
-                        <p class="text-content leading-relaxed font-medium">{{ project.solution }}</p>
+                        <h3 class="project-label">Nuestra solución</h3>
+                        <p class="project-copy">{{ project.solution }}</p>
                     </div>
 
                     <!-- Resultado -->
                     <div v-reveal data-delay="400">
-                        <h3 class="text-sm font-bold uppercase tracking-widest text-accent mb-3 flex items-center gap-2">
+                        <h3 class="project-label project-label--accent flex items-center gap-2">
                             <TrendingUp class="w-4 h-4" /> Impacto de Negocio
                         </h3>
-                        <p class="text-content leading-relaxed font-semibold">{{ project.result }}</p>
+                        <p class="project-copy project-copy--strong">{{ project.result }}</p>
                     </div>
                 </div>
 
                 <!-- Metrics -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4" v-reveal data-delay="500">
-                    <div v-for="stat in project.stats" :key="stat.label" class="bg-panel border border-line rounded-2xl p-5 flex flex-col justify-center transition-all hover:bg-panel hover:border-line hover:-translate-y-1">
+                    <div v-for="stat in project.stats" :key="stat.label" class="project-stat">
                         <div class="text-3xl font-black text-content mb-2 tracking-tight">{{ stat.value }}</div>
-                        <div class="text-[11px] font-bold text-subdued uppercase tracking-widest leading-snug">{{ stat.label }}</div>
+                        <div class="text-small text-subdued leading-snug">{{ stat.label }}</div>
                     </div>
                 </div>
                 
                 <!-- CTA -->
                 <div class="mt-6" v-reveal data-delay="600">
-                    <a :href="project.link" target="_blank" class="inline-flex items-center justify-center gap-3 bg-accent text-action font-bold py-4 px-8 rounded-xl hover:bg-accent hover:text-action transition-all duration-300 group hover:shadow-[0_0_30px_rgba(var(--color-accent),0.3)] w-full sm:w-auto">
+                    <a :href="project.link" target="_blank" class="cta-primary-btn w-full sm:w-auto justify-center">
                         Explorar caso completo <ArrowRight class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </a>
                 </div>
@@ -125,19 +115,16 @@ const projects = [
             <!-- PROYECCIÓN VISUAL -->
             <div class="lg:col-span-7 relative group" :class="index % 2 !== 0 ? 'lg:order-1' : ''" v-reveal data-delay="400">
                 
-                <!-- Ambient Glow behind image -->
-                <div class="absolute inset-0 bg-accent/20 blur-[80px] rounded-full transform scale-90 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-
                 <!-- Main Visual -->
-                <div class="impulso-closing relative overflow-hidden aspect-[4/3] rounded-[2rem] border border-line shadow-2xl bg-panel transform transition-transform duration-700 group-hover:-translate-y-2 isolate" style="-webkit-mask-image: -webkit-radial-gradient(white, black);">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 pointer-events-none rounded-[2rem]"></div>
-                    <img :src="project.image" :alt="project.title" class="w-full h-full object-cover rounded-[2rem] group-hover:scale-105 transition-transform duration-1000 opacity-90 group-hover:opacity-100" loading="lazy" />
+                <div class="impulso-closing project-visual relative overflow-hidden aspect-[4/3] bg-panel isolate">
+                    <div class="project-visual__scrim"></div>
+                    <img :src="project.image" :alt="project.title" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
                     
                     <!-- Stack Floating inside image -->
                     <div class="absolute bottom-8 left-8 right-8 flex flex-wrap gap-2 z-20 pointer-events-none">
                         <span v-for="(tech, i) in project.stack" :key="tech" 
-                              class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider backdrop-blur-md border transition-colors"
-                              :class="i === project.stack.length - 1 ? 'bg-accent/20 text-accent border-accent/30' : 'bg-panel text-content border-line'">
+                              class="project-stack"
+                              :class="i === project.stack.length - 1 ? 'project-stack--accent' : ''">
                             {{ tech }}
                         </span>
                     </div>
@@ -150,14 +137,12 @@ const projects = [
 
     <!-- CTA Final Section -->
     <div class="section-container relative z-10 mt-20" v-reveal data-delay="200">
-        <div class="impulso-closing bg-section-dark relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-quiet to-transparent border border-line p-12 lg:p-20 text-center backdrop-blur-sm transition-colors hover:border-line">
-            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[800px] bg-accent/10 rounded-[100%] blur-[100px] pointer-events-none"></div>
-            
+        <div class="impulso-closing portfolio-cta bg-section-dark p-12 lg:p-20 text-center">
             <div class="relative z-10 max-w-3xl mx-auto">
-                <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-content mb-6 tracking-tight">Construyamos tu próxima <br class="hidden md:block" /><span class="text-transparent bg-clip-text bg-gradient-to-r from-heading-start to-heading-end">plataforma digital.</span></h2>
-                <p class="text-lg md:text-xl text-subdued font-medium mb-10">Deja de competir por precio y empieza a competir por innovación. Diseñamos ecosistemas digitales que transforman marcas y multiplican conversiones.</p>
+                <h2 class="section-title portfolio-cta__title mb-6">Construyamos tu plataforma.</h2>
+                <p class="text-lead text-subdued mb-10">Deja de competir por precio y empieza a competir por innovación. Diseñamos ecosistemas digitales que transforman marcas y multiplican conversiones.</p>
                 
-                <NuxtLink to="/contacto" class="inline-flex items-center justify-center gap-3 bg-accent text-action font-bold py-5 px-10 rounded-xl hover:bg-quiet hover:text-content transition-all duration-300 hover:shadow-[0_0_40px_rgba(var(--color-accent),0.4)] hover:-translate-y-1">
+                <NuxtLink to="/contacto" class="cta-primary-btn">
                     Iniciar Proyecto
                     <ArrowRight class="w-5 h-5" />
                 </NuxtLink>
@@ -175,4 +160,25 @@ const projects = [
   max-width: 1340px;
   margin: 0 auto;
 }
+
+.project-title {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-h1);
+  line-height: var(--lh-h1);
+  letter-spacing: var(--ls-h1);
+  color: var(--text-main);
+}
+
+.project-description { font-size: var(--fs-lead); color: var(--text-secondary); max-width: 42rem; }
+.project-label { font-size: var(--fs-small); font-weight: var(--fw-semibold); color: var(--text-main); margin-bottom: 0.75rem; }
+.project-label--accent { color: var(--accent); }
+.project-copy { color: var(--text-secondary); line-height: var(--lh-body); }
+.project-copy--strong { color: var(--text-main); font-weight: var(--fw-medium); }
+.project-stat { background: var(--bg-surface); border-radius: var(--radius-md); padding: 1.25rem; }
+.project-visual { border-radius: var(--radius-lg); }
+.project-visual__scrim { position: absolute; inset: 45% 0 0; z-index: 1; pointer-events: none; background: rgba(16, 43, 70, 0.72); }
+.project-stack { padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); background: var(--bg-surface); color: var(--text-main); font-size: var(--fs-small); font-weight: var(--fw-medium); }
+.project-stack--accent { background: var(--accent); color: var(--button-text); }
+.portfolio-cta { border-radius: var(--radius-lg); }
+.portfolio-cta__title { max-inline-size: 22ch; margin-inline: auto; }
 </style>

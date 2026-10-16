@@ -6,10 +6,6 @@ import { Medal } from "lucide-vue-next";
 <template>
   <section class="relative bg-section-dark py-16 lg:py-20 overflow-hidden">
     
-    <!-- Ambient light — restrained, not cyberpunk -->
-    <div class="absolute rounded-full pointer-events-none blur-[120px] w-[480px] h-[480px] bg-accent opacity-5 -top-20 -left-30"></div>
-    <div class="absolute rounded-full pointer-events-none blur-[120px] w-[360px] h-[360px] bg-accent opacity-5 top-[40%] -right-24"></div>
-
     <div class="relative z-10 w-[90%] max-w-[1340px] mx-auto flex flex-col gap-24">
       
       <!-- ═══ NARRATIVE SPLIT ═══ -->
@@ -18,18 +14,18 @@ import { Medal } from "lucide-vue-next";
         <!-- Left: Editorial copy -->
         <div class="flex flex-col gap-0">
           <!-- Overline -->
-          <p class="text-[0.65rem] font-semibold tracking-[0.22em] uppercase text-subdued mb-7" v-reveal data-delay="0">Fundada en 2024 · Coquimbo, Chile</p>
+          <p class="text-small text-accent mb-7" v-reveal data-delay="0">Fundada en 2024, Coquimbo, Chile</p>
 
           <h2 class="text-4xl md:text-5xl lg:text-[3.6rem] font-extrabold leading-[1.08] tracking-tight text-content mb-8" v-reveal data-delay="100">
-            Arquitectura que<br/>
-            <em class="not-italic text-transparent bg-clip-text bg-gradient-to-r from-heading-start to-heading-end">resiste la escala.</em>
+            Arquitectura que
+            <em class="not-italic text-accent">resiste la escala.</em>
           </h2>
 
-          <div class="flex flex-col gap-4 pl-5 border-l border-accent/20 mb-10" v-reveal data-delay="200">
-            <p class="text-base leading-relaxed text-subdued">
+          <div class="flex flex-col gap-4 mb-10" v-reveal data-delay="200">
+            <p class="text-body text-subdued">
               SysifosWeb nace con una convicción: la tecnología de vanguardia no debería ser un privilegio de las grandes corporaciones. La democratizamos.
             </p>
-            <p class="text-base leading-relaxed text-subdued">
+            <p class="text-body text-subdued">
               Inspirados en el mito de Sísifo — perseverancia, precisión, esfuerzo sostenido — convertimos cada desafío técnico en una solución de alto rendimiento con impacto medible en tu negocio.
             </p>
           </div>
@@ -39,14 +35,13 @@ import { Medal } from "lucide-vue-next";
             <!-- Founding stat -->
             <div class="inline-flex items-center gap-4">
               <span class="text-2xl font-extrabold tracking-tight text-content">2024</span>
-              <span class="w-8 h-px bg-panel hidden sm:block"></span>
-              <span class="text-[0.7rem] font-medium tracking-[0.15em] uppercase text-subdued">Año de fundación</span>
+              <span class="text-small font-medium text-subdued">Año de fundación</span>
             </div>
 
             <!-- Award stat -->
-            <div class="inline-flex items-center gap-3 bg-panel px-4 py-2 rounded-full border border-line backdrop-blur-sm">
-              <Medal class="w-5 h-5 text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]" />
-              <span class="text-[0.75rem] font-semibold tracking-wide text-content">
+            <div class="inline-flex items-center gap-3 bg-panel px-4 py-3 rounded-[var(--radius-sm)]">
+              <Medal class="w-5 h-5 text-accent" />
+              <span class="text-small font-semibold text-content">
                 Tercer lugar en Desafío Genia: Mujeres que Avanzan 2025
               </span>
             </div>
@@ -55,10 +50,10 @@ import { Medal } from "lucide-vue-next";
 
         <!-- Right: Image with editorial frame -->
         <div class="relative group" v-reveal data-delay="200">
-          <div class="relative rounded-[20px] overflow-hidden border border-line shadow-[0_0_0_1px_rgba(var(--neutral-rgb), 0.04),0_40px_80px_rgba(0,0,0,0.5)]">
-            <img :src="team" alt="SysifosWeb — Arquitecto de nodo" class="w-full h-[480px] object-cover object-center block brightness-[0.88] contrast-[1.04] transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:brightness-[0.96] group-hover:contrast-[1.02] group-hover:scale-[1.02]" loading="lazy" />
+          <div class="relative rounded-[var(--radius-lg)] overflow-hidden bg-panel">
+            <img :src="team" alt="SysifosWeb, arquitecto de nodo" class="w-full h-[480px] object-cover object-center block brightness-[0.88] contrast-[1.04] transition-[filter,transform] duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:brightness-[0.96] group-hover:contrast-[1.02] group-hover:scale-[1.02]" loading="lazy" />
             <!-- Overlay caption -->
-            <div class="impulso-closing absolute bottom-0 inset-x-0 pt-10 pb-5 px-6 bg-gradient-to-t from-[#102b46]/95 to-transparent flex items-center gap-2.5 text-[0.65rem] font-semibold tracking-[0.18em] uppercase text-subdued">
+            <div class="impulso-closing absolute bottom-0 inset-x-0 py-4 px-6 bg-section-dark flex items-center gap-2.5 text-small font-medium text-subdued">
               <span class="w-[5px] h-[5px] rounded-full bg-accent opacity-70"></span>
               <span>Node Architecture · v2.4</span>
             </div>
@@ -67,32 +62,26 @@ import { Medal } from "lucide-vue-next";
       </div>
 
       <!-- ═══ MANIFESTO STRIP ═══ -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border-t border-line">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <div class="py-10 pr-8 md:py-12 md:pr-10 border-b md:border-b-0 md:border-r border-line transition-colors duration-300 hover:bg-panel" v-reveal data-delay="0">
-          <span class="block text-[0.65rem] font-bold tracking-[0.2em] text-accent mb-4 opacity-70">01</span>
-          <div class="w-6 h-px bg-accent opacity-30 mb-5"></div>
+        <div class="principle-panel" v-reveal data-delay="0">
           <div>
-            <h3 class="text-sm font-bold tracking-[0.08em] uppercase text-content mb-3">Misión</h3>
-            <p class="text-sm leading-relaxed text-subdued">Empoderar corporaciones mediante arquitecturas robustas que aceleren su crecimiento y maximicen su competitividad global.</p>
+            <h3 class="text-h3 text-content mb-3">Misión</h3>
+            <p class="text-body text-subdued">Empoderar corporaciones mediante arquitecturas robustas que aceleren su crecimiento y maximicen su competitividad global.</p>
           </div>
         </div>
 
-        <div class="py-10 pr-8 md:py-12 md:px-10 border-b md:border-b-0 md:border-r border-line transition-colors duration-300 hover:bg-panel" v-reveal data-delay="150">
-          <span class="block text-[0.65rem] font-bold tracking-[0.2em] text-accent mb-4 opacity-70">02</span>
-          <div class="w-6 h-px bg-accent opacity-30 mb-5"></div>
+        <div class="principle-panel" v-reveal data-delay="150">
           <div>
-            <h3 class="text-sm font-bold tracking-[0.08em] uppercase text-content mb-3">Visión</h3>
-            <p class="text-sm leading-relaxed text-subdued">Ser el referente de desarrollo de software más confiable de la región, distinguidos por excelencia técnica inquebrantable.</p>
+            <h3 class="text-h3 text-content mb-3">Visión</h3>
+            <p class="text-body text-subdued">Ser el referente de desarrollo de software más confiable de la región, distinguidos por excelencia técnica inquebrantable.</p>
           </div>
         </div>
 
-        <div class="py-10 pr-8 md:py-12 md:pl-10 border-b md:border-b-0 border-line transition-colors duration-300 hover:bg-panel" v-reveal data-delay="300">
-          <span class="block text-[0.65rem] font-bold tracking-[0.2em] text-accent mb-4 opacity-70">03</span>
-          <div class="w-6 h-px bg-accent opacity-30 mb-5"></div>
+        <div class="principle-panel" v-reveal data-delay="300">
           <div>
-            <h3 class="text-sm font-bold tracking-[0.08em] uppercase text-content mb-3">Valores</h3>
-            <p class="text-sm leading-relaxed text-subdued">Innovación pragmática, calidad sistemática, transparencia operacional. La ingeniería sólida construye futuros sustentables.</p>
+            <h3 class="text-h3 text-content mb-3">Valores</h3>
+            <p class="text-body text-subdued">Innovación pragmática, calidad sistemática, transparencia operacional. La ingeniería sólida construye futuros sustentables.</p>
           </div>
         </div>
 
@@ -101,3 +90,7 @@ import { Medal } from "lucide-vue-next";
     </div>
   </section>
 </template>
+
+<style scoped>
+.principle-panel { background: var(--bg-surface); border-radius: var(--radius-md); padding: clamp(1.75rem, 4vw, 2.5rem); }
+</style>

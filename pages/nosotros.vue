@@ -25,12 +25,12 @@ setSchema({
 })
 </script>
 <template>
-  <div class="bg-section-dark min-h-screen">
+  <div class="bg-section-dark min-h-[100svh]">
     <NosotrosHistoriaYPrincipios />
     
     <!-- BREAK 1: The Belief -->
     <NosotrosStorytellingBreak 
-      headline="El software no debería ser un gasto.<br/><em>Debería ser tu mayor ventaja competitiva.</em>" 
+      headline="El software debe impulsar tu ventaja."
       :oversized="true"
     />
 
@@ -38,8 +38,8 @@ setSchema({
 
     <!-- BREAK 2: The Promise -->
     <NosotrosStorytellingBreak 
-      overline="Arquitectura Invisible"
-      headline="Construimos en el silencio<br/>para que tú <span class='accent-gradient'>escales con ruido.</span>" 
+      overline="Arquitectura que acompaña tu crecimiento"
+      headline="Construimos para escalar contigo."
       subheadline="Sistemas estables. Resultados tangibles."
       glow="indigo"
     />

@@ -1,0 +1,1877 @@
+{
+ "url": "http://[::1]:3001/nosotros",
+ "at": "2026-10-15T23:42:53.769Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 5,
+   "filled": [
+    0.97,
+    0.97,
+    1,
+    0.66,
+    0.16
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 4405,
+     "screens": 4.9,
+     "words": 404,
+     "img": 7,
+     "video": 0,
+     "canvas": 0,
+     "svg": 12,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 3,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "saas_product_visual.png",
+      "Karen.png",
+      "Osman.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "♥"
+     ]
+    },
+    "hero": {
+     "text": "Nosotros.",
+     "words": 1,
+     "chars": 9,
+     "lines": 1,
+     "size": 60,
+     "vw": 4.2,
+     "font": "Inter",
+     "weight": 700,
+     "tracking": -0.025,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.19,
+     "top": 196,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Nosotros.",
+     "words": 1,
+     "lines": 1,
+     "size": 60,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "Nosotros.",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 60,
+      "vw": 4.2,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.19,
+      "top": 196,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Arquitectura que resiste la escala.",
+      "words": 5,
+      "chars": 35,
+      "lines": 2,
+      "size": 57.6,
+      "vw": 4,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.42,
+      "top": 511,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Misión",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.23,
+      "top": 1082,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Visión",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.23,
+      "top": 1082,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Valores",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.23,
+      "top": 1082,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "El software debería ser tu mayor ventaja competitiva.",
+      "words": 8,
+      "chars": 53,
+      "lines": 2,
+      "size": 54.4,
+      "vw": 3.8,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.035,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 1436,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Las mentes detrás del código.",
+      "words": 5,
+      "chars": 29,
+      "lines": 2,
+      "size": 44,
+      "vw": 3.1,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.42,
+      "top": 1694,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Osman Ahumada",
+      "words": 2,
+      "chars": 13,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.29,
+      "top": 2198,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Karen Godoy",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 28,
+      "vw": 1.9,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.29,
+      "top": 2254,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Construimos para que escales con confianza.",
+      "words": 6,
+      "chars": 43,
+      "lines": 1,
+      "size": 44,
+      "vw": 3.1,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.83,
+      "top": 2551,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Operativa estandarizada.",
+      "words": 2,
+      "chars": 24,
+      "lines": 2,
+      "size": 44,
+      "vw": 3.1,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.39,
+      "top": 2803,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tu empresa está lista para escalar.",
+      "words": 6,
+      "chars": 35,
+      "lines": 1,
+      "size": 36,
+      "vw": 2.5,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.4,
+      "top": 3547,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 12,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 3,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      22,
+      24,
+      28,
+      36,
+      44,
+      54,
+      58,
+      60
+     ],
+     "sizeCount": 15,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 17,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.5
+     },
+     "measureChars": 70,
+     "max": {
+      "size": 60,
+      "vw": 4.2,
+      "font": "Inter",
+      "text": "Nosotros"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 2,
+     "microLabelShare": 0.006,
+     "microSamples": [
+      "Navegación",
+      "Contacto"
+     ],
+     "upperShare": 0.02,
+     "centerShare": 0.17,
+     "smallText": 11
+    },
+    "eyebrows": [
+     {
+      "text": "SysifosWeb",
+      "above": "Nosotros.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 15,
+      "top": 141
+     },
+     {
+      "text": "Fundada en 2024, Coquimbo, Chile",
+      "above": "Arquitectura que resiste la escala.",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 15,
+      "top": 460
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#102b46",
+     "bodyBgHsl": {
+      "h": 210,
+      "s": 0.63,
+      "l": 0.17
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#f7f8fb",
+       "top": 0,
+       "hsl": {
+        "h": 225,
+        "s": 0.33,
+        "l": 0.98
+       }
+      },
+      {
+       "color": "#102b46",
+       "top": 3389,
+       "hsl": {
+        "h": 210,
+        "s": 0.63,
+        "l": 0.17
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#52677f",
+       "share": 0.5
+      },
+      {
+       "color": "#b8cfe5",
+       "share": 0.21
+      },
+      {
+       "color": "#102b46",
+       "share": 0.11
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.08
+      },
+      {
+       "color": "#1d5fa6",
+       "share": 0.07
+      }
+     ],
+     "button": {
+      "bg": "#1d5fa6",
+      "hsl": {
+       "h": 211,
+       "s": 0.7,
+       "l": 0.38
+      },
+      "fg": "#ffffff"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 2,
+     "inHero": 1,
+     "radius": 12,
+     "height": 43,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 1,
+     "heroLabels": [
+      "CONTACTO"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 4,
+     "scrims": 0,
+     "gradientSamples": [
+      "div.section-glow-purple.glow-top-left → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.section-glow-cyan.glow-bottom-right → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.absolute.-bottom-20 → radial-gradient(circle, rgb(157, 203, 245) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.absolute.top-0 → radial-gradient(circle, rgb(157, 203, 245) 0%, rgba(0, 0, 0, 0) 70%)"
+     ],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "div.site-container.border-b 1267px",
+      "div.grid.grid-cols-1 1267px",
+      "div.absolute.top-0 1440px rule"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 9,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 3,
+     "mediaRadius": 16,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 1042
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.2
+     }
+    ],
+    "nav": {
+     "links": 7,
+     "fixed": false,
+     "height": 140,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 6,
+   "filled": [
+    1,
+    0.96,
+    1,
+    0.84,
+    0.52,
+    0.29
+   ],
+   "motion": {
+    "elements": 27,
+    "css": 0,
+    "transitions": 27,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 5616,
+     "screens": 5.5,
+     "words": 398,
+     "img": 7,
+     "video": 0,
+     "canvas": 0,
+     "svg": 12,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 3,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "saas_product_visual.png",
+      "Karen.png",
+      "Osman.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "♥"
+     ]
+    },
+    "hero": {
+     "text": "Arquitectura que resiste la escala.",
+     "words": 5,
+     "chars": 35,
+     "lines": 2,
+     "size": 48,
+     "vw": 6.3,
+     "font": "Inter",
+     "weight": 800,
+     "tracking": -0.025,
+     "leading": 1,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 464,
+     "tag": "h2",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Nosotros.",
+     "words": 1,
+     "lines": 1,
+     "size": 48,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "Nosotros.",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.29,
+      "top": 202,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Arquitectura que resiste la escala.",
+      "words": 5,
+      "chars": 35,
+      "lines": 2,
+      "size": 48,
+      "vw": 6.3,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.025,
+      "leading": 1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 464,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Misión",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26.6,
+      "vw": 3.5,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.2,
+      "top": 1497,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Visión",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 26.6,
+      "vw": 3.5,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.2,
+      "top": 1497,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Valores",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 26.6,
+      "vw": 3.5,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.2,
+      "top": 1497,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "El software debería ser tu mayor ventaja competitiva.",
+      "words": 8,
+      "chars": 53,
+      "lines": 2,
+      "size": 41,
+      "vw": 5.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.035,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 1983,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Las mentes detrás del código.",
+      "words": 5,
+      "chars": 29,
+      "lines": 3,
+      "size": 39.7,
+      "vw": 5.2,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.41,
+      "top": 2213,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Osman Ahumada",
+      "words": 2,
+      "chars": 13,
+      "lines": 1,
+      "size": 26.6,
+      "vw": 3.5,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.32,
+      "top": 2738,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Karen Godoy",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 26.6,
+      "vw": 3.5,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.32,
+      "top": 2794,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Construimos para que escales con confianza.",
+      "words": 6,
+      "chars": 43,
+      "lines": 2,
+      "size": 39.7,
+      "vw": 5.2,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 3104,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Operativa estandarizada.",
+      "words": 2,
+      "chars": 24,
+      "lines": 2,
+      "size": 39.7,
+      "vw": 5.2,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.41,
+      "top": 3426,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tu empresa está lista para escalar.",
+      "words": 6,
+      "chars": 35,
+      "lines": 1,
+      "size": 33,
+      "vw": 4.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.69,
+      "top": 4506,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 12,
+     "maxLines": 3,
+     "over2Lines": 1,
+     "statements": 0,
+     "centered": 3,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      16,
+      17,
+      21,
+      24,
+      27,
+      33,
+      40,
+      41,
+      48
+     ],
+     "sizeCount": 13,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16.7,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.5
+     },
+     "measureChars": 65,
+     "max": {
+      "size": 48,
+      "vw": 6.3,
+      "font": "Inter",
+      "text": "Nosotros"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 2,
+     "microLabelShare": 0.006,
+     "microSamples": [
+      "Navegación",
+      "Contacto"
+     ],
+     "upperShare": 0.01,
+     "centerShare": 0.17,
+     "smallText": 11
+    },
+    "eyebrows": [
+     {
+      "text": "SysifosWeb",
+      "above": "Nosotros.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 14.4,
+      "top": 148
+     },
+     {
+      "text": "Fundada en 2024, Coquimbo, Chile",
+      "above": "Arquitectura que resiste la escala.",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14.4,
+      "top": 414
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#102b46",
+     "bodyBgHsl": {
+      "h": 210,
+      "s": 0.63,
+      "l": 0.17
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#f7f8fb",
+       "top": 0,
+       "hsl": {
+        "h": 225,
+        "s": 0.33,
+        "l": 0.98
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 890,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#102b46",
+       "top": 4426,
+       "hsl": {
+        "h": 210,
+        "s": 0.63,
+        "l": 0.17
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#52677f",
+       "share": 0.5
+      },
+      {
+       "color": "#b8cfe5",
+       "share": 0.21
+      },
+      {
+       "color": "#102b46",
+       "share": 0.11
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.08
+      },
+      {
+       "color": "#1d5fa6",
+       "share": 0.07
+      }
+     ],
+     "button": {
+      "bg": "#9dcbf5",
+      "hsl": {
+       "h": 209,
+       "s": 0.81,
+       "l": 0.79
+      },
+      "fg": "#102b46"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 0,
+     "radius": 12,
+     "height": 58,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 4,
+     "scrims": 0,
+     "gradientSamples": [
+      "div.section-glow-purple.glow-top-left → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.section-glow-cyan.glow-bottom-right → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.absolute.-bottom-20 → radial-gradient(circle, rgb(157, 203, 245) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.absolute.top-0 → radial-gradient(circle, rgb(157, 203, 245) 0%, rgba(0, 0, 0, 0) 70%)"
+     ],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "div.site-container.border-b 676px",
+      "div.grid.grid-cols-1 676px",
+      "div.absolute.top-0 768px rule"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 1,
+     "roundedBoxes": 9,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 3,
+     "mediaRadius": 16,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 3,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 1466
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.12
+     }
+    ],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 121,
+     "floatingPill": false,
+     "blur": true
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 9,
+   "filled": [
+    1,
+    0.97,
+    1,
+    1,
+    1,
+    0.75,
+    0.85,
+    0.26,
+    0.16
+   ],
+   "motion": {
+    "elements": 27,
+    "css": 0,
+    "transitions": 27,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 7022,
+     "screens": 8.3,
+     "words": 398,
+     "img": 7,
+     "video": 0,
+     "canvas": 0,
+     "svg": 12,
+     "sections": 6,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 3,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "saas_product_visual.png",
+      "Karen.png",
+      "Osman.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "♥"
+     ]
+    },
+    "hero": {
+     "text": "Arquitectura que resiste la escala.",
+     "words": 5,
+     "chars": 35,
+     "lines": 2,
+     "size": 36,
+     "vw": 9.2,
+     "font": "Inter",
+     "weight": 800,
+     "tracking": -0.025,
+     "leading": 1.08,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 463,
+     "tag": "h2",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Nosotros.",
+     "words": 1,
+     "lines": 1,
+     "size": 30.5,
+     "font": "Inter"
+    },
+    "headings": [
+     {
+      "text": "Nosotros.",
+      "words": 1,
+      "chars": 9,
+      "lines": 1,
+      "size": 30.5,
+      "vw": 7.8,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.36,
+      "top": 208,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Arquitectura que resiste la escala.",
+      "words": 5,
+      "chars": 35,
+      "lines": 2,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.025,
+      "leading": 1.08,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 463,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "2024",
+      "words": 1,
+      "chars": 4,
+      "lines": 1,
+      "size": 24,
+      "vw": 6.2,
+      "font": "Inter",
+      "weight": 800,
+      "tracking": -0.025,
+      "leading": 1.33,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.15,
+      "top": 861,
+      "tag": "span",
+      "kind": "heading"
+     },
+     {
+      "text": "Misión",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 24.7,
+      "vw": 6.3,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 1651,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Visión",
+      "words": 1,
+      "chars": 6,
+      "lines": 1,
+      "size": 24.7,
+      "vw": 6.3,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 1875,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Valores",
+      "words": 1,
+      "chars": 7,
+      "lines": 1,
+      "size": 24.7,
+      "vw": 6.3,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 2100,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "El software debería ser tu mayor ventaja competitiva.",
+      "words": 8,
+      "chars": 53,
+      "lines": 3,
+      "size": 33.4,
+      "vw": 8.6,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.035,
+      "leading": 1.05,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 2385,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Las mentes detrás del código.",
+      "words": 5,
+      "chars": 29,
+      "lines": 2,
+      "size": 36.3,
+      "vw": 9.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 2586,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Karen Godoy",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 24.7,
+      "vw": 6.3,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.74,
+      "top": 3187,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Osman Ahumada",
+      "words": 2,
+      "chars": 13,
+      "lines": 1,
+      "size": 24.7,
+      "vw": 6.3,
+      "font": "Inter",
+      "weight": 600,
+      "tracking": -0.02,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.74,
+      "top": 3729,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Construimos para que escales con confianza.",
+      "words": 6,
+      "chars": 43,
+      "lines": 3,
+      "size": 36.3,
+      "vw": 9.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.88,
+      "top": 3963,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Operativa estandarizada.",
+      "words": 2,
+      "chars": 24,
+      "lines": 2,
+      "size": 36.3,
+      "vw": 9.3,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.03,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 4253,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Tu empresa está lista para escalar.",
+      "words": 6,
+      "chars": 35,
+      "lines": 2,
+      "size": 30.5,
+      "vw": 7.8,
+      "font": "Inter",
+      "weight": 700,
+      "tracking": -0.025,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 5582,
+      "tag": "h2",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 13,
+     "maxLines": 3,
+     "over2Lines": 2,
+     "statements": 0,
+     "centered": 4,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      11,
+      12,
+      13,
+      14,
+      16,
+      20,
+      24,
+      25,
+      31,
+      33,
+      36
+     ],
+     "sizeCount": 11,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 16.1,
+      "leading": 1.6,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 5.5
+     },
+     "measureChars": 35,
+     "max": {
+      "size": 36.3,
+      "vw": 9.3,
+      "font": "Inter",
+      "text": "Las mentes"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 3,
+     "microLabelShare": 0.01,
+     "microSamples": [
+      "SysifosWeb",
+      "Navegación",
+      "Contacto"
+     ],
+     "upperShare": 0.01,
+     "centerShare": 0.17,
+     "smallText": 11
+    },
+    "eyebrows": [
+     {
+      "text": "SysifosWeb",
+      "above": "Nosotros.",
+      "upper": true,
+      "tracked": true,
+      "mono": false,
+      "pill": true,
+      "size": 14,
+      "top": 154
+     },
+     {
+      "text": "Fundada en 2024, Coquimbo, Chile",
+      "above": "Arquitectura que resiste la escala.",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 14,
+      "top": 414
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#102b46",
+     "bodyBgHsl": {
+      "h": 210,
+      "s": 0.63,
+      "l": 0.17
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#f7f8fb",
+       "top": 0,
+       "hsl": {
+        "h": 225,
+        "s": 0.33,
+        "l": 0.98
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 1047,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#163653",
+       "top": 2867,
+       "hsl": {
+        "h": 209,
+        "s": 0.58,
+        "l": 0.21
+       }
+      },
+      {
+       "color": "#102b46",
+       "top": 5502,
+       "hsl": {
+        "h": 210,
+        "s": 0.63,
+        "l": 0.17
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#52677f",
+       "share": 0.5
+      },
+      {
+       "color": "#b8cfe5",
+       "share": 0.21
+      },
+      {
+       "color": "#102b46",
+       "share": 0.11
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.08
+      },
+      {
+       "color": "#1d5fa6",
+       "share": 0.07
+      }
+     ],
+     "button": {
+      "bg": "#9dcbf5",
+      "hsl": {
+       "h": 209,
+       "s": 0.81,
+       "l": 0.79
+      },
+      "fg": "#102b46"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 1,
+     "inHero": 0,
+     "radius": 12,
+     "height": 58,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": []
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 1,
+     "shadowSamples": [],
+     "gradients": 4,
+     "scrims": 0,
+     "gradientSamples": [
+      "div.section-glow-purple.glow-top-left → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.section-glow-cyan.glow-bottom-right → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.absolute.-bottom-20 → radial-gradient(circle, rgb(157, 203, 245) 0%, rgba(0, 0, 0, 0) 70%)",
+      "div.absolute.top-0 → radial-gradient(circle, rgb(157, 203, 245) 0%, rgba(0, 0, 0, 0) 70%)"
+     ],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "div.site-container.border-b 343px",
+      "div.grid.grid-cols-1 343px",
+      "div.absolute.top-0 390px rule"
+     ],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 1,
+     "roundedBoxes": 9,
+     "boxRadius": 16,
+     "squareMedia": 0,
+     "roundedMedia": 3,
+     "mediaRadius": 16,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 1,
+     "fixed": false,
+     "height": 113,
+     "floatingPill": false,
+     "blur": true
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "eyebrow",
+   "width": 1440,
+   "message": "2 eyebrow/kicker label(s) above headings: \"SysifosWeb\" (pill) above \"Nosotros.\"; \"Fundada en 2024, Coquimbo, Chile\" above \"Arquitectura que resiste la escala.\"",
+   "fix": "Delete them. If the label carried real information, fold it into the headline or the supporting sentence.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "2 tiny uppercase letter-spaced label(s): \"Navegación\", \"Contacto\"",
+   "fix": "Prefer sentence case at body size.",
+   "alsoAt": [
+    768
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "width": 1440,
+   "message": "Emoji in the page: ♥",
+   "fix": "Remove. Use words or real imagery.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "gradient",
+   "width": 1440,
+   "message": "4 gradient fill(s): div.section-glow-purple.glow-top-left → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%) | div.section-glow-cyan.glow-bottom-right → radial-gradient(circle, rgb(29, 95, 166) 0%, rgba(0, 0, 0, 0) 70%) | div.absolute.-bottom-20 → radial-gradient(circle, rgb(157, 203, 245) 0%, rgba(0, 0, 0, 0) 70%)",
+   "fix": "Use a flat colour or a real image. The only gradient allowed by default is a neutral scrim over a photo for legibility.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "hairline",
+   "width": 1440,
+   "message": "3 thin rule(s)/divider line(s): div.site-container.border-b 1267px | div.grid.grid-cols-1 1267px | div.absolute.top-0 1440px rule",
+   "fix": "Delete. Separate with space, a tone change, or scale. Lines are only for real tables and form fields.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "size-count",
+   "width": 1440,
+   "message": "15 different font sizes (11, 12, 13, 14, 15, 16, 17, 22, 24, 28, 36, 44, 54, 58, 60).",
+   "fix": "A page needs about five: display, heading, lead, body, small.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "grey-body",
+   "width": 1440,
+   "message": "The running text is a soft grey on its ground (5.5:1).",
+   "fix": "Set body copy in the full ink (7:1 or more). Keep the muted ink for secondary notes; pages read thin and unfinished when everything is grey.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "few-pictures",
+   "width": 1440,
+   "message": "Only 3 picture(s) on the page (3 photographs, footage or raster images, 0 interface fragments). Drawings in SVG do not count.",
+   "fix": "Find real pictures of the subject's world with scripts/assets.mjs (photographs, archival images, maps, engravings, footage), download them to assets/ and give them room: a hero picture, one per section that has a subject, a full-width band. At least four, usually six to twelve."
+  },
+  {
+   "level": "WARN",
+   "id": "no-footage",
+   "width": 1440,
+   "message": "No video anywhere on the page.",
+   "fix": "Look for one honest clip with scripts/assets.mjs --video (the place, the material, the process) and use it as a muted loop with a poster frame. Defend its absence only if no clip fits the subject."
+  },
+  {
+   "level": "FAIL",
+   "id": "small-text",
+   "width": 1440,
+   "message": "11 text blocks under 13px.",
+   "fix": "Nothing meant to be read goes below 13px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "focal-point",
+   "width": 1440,
+   "message": "The first screen has no dominant element: the largest type is 60px (4.2vw) and no single picture holds a third of the viewport.",
+   "fix": "Make one thing lead: the headline at display size, or one large picture. A grid of many small pictures is not one thing; in blind tests jurors marked a first screen without a headline down every time. On the strongest studied sites the largest type has a median of 8.4vw."
+  },
+  {
+   "level": "FAIL",
+   "id": "still-page",
+   "width": 1440,
+   "message": "Only 0 element(s) moved while the page loaded and scrolled.",
+   "fix": "Build the motion layer (SKILL.md step 9, references/motion.md): the signature move, an entrance for the parts of every section, feedback on every control, and one moving picture. Transform and opacity only, with a reduced-motion fallback."
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 768,
+   "message": "1 headline(s) wrap past two lines at 768px: \"Las mentes detrás del código.\" → 3 lines (5 words, 39.7px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 32px or less."
+  },
+  {
+   "level": "WARN",
+   "id": "first-action",
+   "width": 768,
+   "message": "No visible button in the first screen.",
+   "fix": "Give the one primary action a real button in the first screen (a filled or solid-bordered control, 44px or taller), not only a link in the navigation.",
+   "alsoAt": [
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "headline-lines",
+   "width": 390,
+   "message": "2 headline(s) wrap past two lines at 390px: \"El software debería ser tu mayor ventaja competi\" → 3 lines (8 words, 33.4px); \"Construimos para que escales con confianza.\" → 3 lines (6 words, 36.3px)",
+   "fix": "Cut words first (a headline is a title, not a sentence). Then give it a wider measure. Lower the size only as a last resort and never below the scale you chose. A real statement paragraph belongs in a <p> or <blockquote> at 24px or less."
+  },
+  {
+   "level": "FAIL",
+   "id": "micro-label",
+   "width": 390,
+   "message": "3 tiny uppercase letter-spaced labels (e.g. \"SysifosWeb\", \"Navegación\", \"Contacto\").",
+   "fix": "Use sentence-case text at a readable size, or delete the label."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect\\desktop-fold.jpg",
+   "pages": [
+    "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect\\desktop-page-01.jpg",
+    "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect\\desktop-page-02.jpg"
+   ]
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect\\tablet-fold.jpg",
+   "pages": [
+    "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect\\tablet-page-01.jpg"
+   ]
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect\\mobile-fold.jpg",
+   "pages": [
+    "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect\\mobile-page-01.jpg",
+    "C:\\Users\\acer\\Desktop\\Proyectos_empresa\\SysifosFrontend\\.taste-skill\\inspect\\mobile-page-02.jpg"
+   ]
+  }
+ ]
+}
