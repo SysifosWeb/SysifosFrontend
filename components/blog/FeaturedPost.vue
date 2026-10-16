@@ -11,7 +11,7 @@ defineProps({
     <section class="py-16 lg:py-24 bg-section-dark relative z-10">
         <div class="max-w-[1200px] w-[90%] mx-auto">
             <NuxtLink :to="`/blog/${post.slug}`"
-                class="group relative block rounded-[2rem] border border-line bg-panel overflow-hidden flex flex-col lg:flex-row hover:border-line transition-all duration-500 shadow-2xl">
+                class="blog-zoom-card group relative block rounded-[2rem] border border-line bg-panel overflow-hidden flex flex-col lg:flex-row shadow-2xl">
                 <div class="lg:w-1/2 p-8 lg:p-16 flex flex-col justify-center">
                     <div class="flex items-center gap-3 mb-6">
                         <span
@@ -44,7 +44,7 @@ defineProps({
                             </div>
                         </div>
                         <span
-                            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-action group-hover:scale-110 transition-transform">
+                            class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent text-action">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -54,7 +54,7 @@ defineProps({
                 </div>
                 <div class="lg:w-1/2 relative overflow-hidden" style="min-height: 300px">
                     <img :src="post.image" :alt="post.title" loading="lazy" decoding="async"
-                        class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                        class="absolute inset-0 w-full h-full object-cover " />
                     <div
                         class="absolute inset-0 bg-gradient-to-r from-panel via-transparent to-transparent hidden lg:block">
                     </div>

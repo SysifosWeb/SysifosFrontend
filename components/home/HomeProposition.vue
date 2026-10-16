@@ -3,14 +3,6 @@
 
     <div class="section-container">
 
-      <!-- Stats superiores -->
-      <div class="stats-grid">
-        <div v-for="(stat, index) in stats" :key="stat.label" class="text-center md:text-left" v-reveal :data-delay="index * 150">
-          <div class="stat-number">{{ stat.number }}</div>
-          <p class="card-text">{{ stat.label }}</p>
-        </div>
-      </div>
-
       <!-- Claim + Diferenciadores -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
@@ -53,12 +45,6 @@
 <script setup>
 import { Handshake, LockKeyhole, Target, Zap } from 'lucide-vue-next'
 
-const stats = [
-  { number: '+50', label: 'Proyectos entregados con éxito' },
-  { number: '98%', label: 'Clientes que repiten o nos recomiendan' },
-  { number: '3×',  label: 'Mejora promedio en conversiones' }
-]
-
 const differentiators = [
   {
     icon: Zap,
@@ -97,29 +83,6 @@ const differentiators = [
   width: 90%;
   max-width: 1380px;
   margin: 0 auto;
-}
-
-/* ── Glows posicionados ──────────────────── */
-/* ── Stats ───────────────────────────────── */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-  padding-bottom: 3rem;
-}
-
-@media (min-width: 768px) {
-  .stats-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-.stat-number {
-  font-family: 'Inter', sans-serif;
-  font-size: var(--fs-hero);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  color: var(--accent);
-  margin-bottom: 0.5rem;
 }
 
 /* ── Título ──────────────────────────────── */

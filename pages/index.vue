@@ -5,7 +5,17 @@ const { setMeta, setSchema } = useSEO()
 
 const HomeBusinessUnits = defineAsyncComponent(() => import('~/components/home/HomeBusinessUnits.vue'))
 const HomeTrust = defineAsyncComponent(() => import('~/components/home/HomeTrust.vue'))
+/* Testimonios pendientes de una reseña real autorizada.
 const HomeTestimonials = defineAsyncComponent(() => import('~/components/home/HomeTestimonials.vue'))
+// Contenido temporal, identificado visualmente como ficticio; reemplazar por la reseña autorizada.
+const testimonialPreview = {
+  text: 'Desde la primera conversación nos explicaron cada etapa con claridad. Pudimos revisar los avances y resolver nuestras dudas directamente con el equipo. El resultado refleja lo que necesitábamos para presentar nuestro negocio.',
+  author: 'Nombre del cliente',
+  role: 'Empresa de ejemplo · texto de referencia'
+}
+
+*/
+
 const HomeBanner = defineAsyncComponent(() => import('~/components/home/HomeBanner.vue'))
 
 setMeta({
@@ -40,28 +50,6 @@ setSchema({
   }
 })
 
-setSchema({
-  type: 'Review',
-  data: {
-    reviews: [
-      {
-        author: 'María Rodríguez',
-        text: 'Antes tenía una web que no me traía nada. Desde que trabajamos con SysifosWeb, nuestras consultas online se triplicaron. El equipo entendió exactamente lo que necesitaba y lo ejecutaron con precisión.',
-        rating: '5'
-      },
-      {
-        author: 'Carlos López',
-        text: 'Lanzamos nuestra tienda online en tiempo récord. Nuestras ventas crecieron un 40% en el primer trimestre.',
-        rating: '5'
-      },
-      {
-        author: 'Ana Silva',
-        text: 'El sistema que desarrollaron nos ahorró horas de trabajo manual cada semana. Ahora el equipo se enfoca en lo que realmente importa.',
-        rating: '5'
-      }
-    ]
-  }
-})
 </script>
 
 <template>
@@ -74,9 +62,11 @@ setSchema({
   <Suspense>
     <HomeTrust />
   </Suspense>
+  <!-- Retomar cuando contemos con una reseña real autorizada.
   <Suspense>
-    <HomeTestimonials />
+    <HomeTestimonials :testimonial="testimonialPreview" preview />
   </Suspense>
+  -->
   <Suspense>
     <HomeBanner />
   </Suspense>

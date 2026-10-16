@@ -17,7 +17,7 @@ setMeta({
   <div class="bg-section-dark min-h-screen py-24 lg:py-32">
     <div class="w-[90%] max-w-[900px] mx-auto">
       <div class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-content mb-4 tracking-tight">
+        <h1 class="display-title font-extrabold text-content mb-4">
           Política de Privacidad
         </h1>
         <p class="text-subdued text-sm">Última actualización: 1 de diciembre de 2026</p>

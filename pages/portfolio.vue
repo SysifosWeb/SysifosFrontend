@@ -27,6 +27,5 @@ definePageMeta({
   <div class="bg-section-dark min-h-[100svh]">
     <PortfolioHeroSection />
     <PortfolioGridSection />
-    <PortfolioStatsSection />
   </div>
 </template>

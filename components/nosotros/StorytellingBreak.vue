@@ -56,7 +56,10 @@ defineProps({
 
 /* Massive typography for key emotional anchors */
 .story-headline--oversized {
-  font-size: var(--fs-page-hero);
+  font-size: var(--fs-hero);
+  max-width: 24ch;
+  margin-inline: auto;
+  text-wrap: balance;
   letter-spacing: var(--ls-hero);
   line-height: var(--lh-hero);
 }

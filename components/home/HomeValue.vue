@@ -1,5 +1,5 @@
 <template>
-  <section class="section bg-section-dark">
+  <section id="proceso" class="section bg-section-dark">
     <div class="max-w-[1400px] w-[92%] mx-auto relative z-10">
 
       <!-- Header centrado -->
@@ -11,25 +11,23 @@
       </div>
 
       <div class="relative">
-        <!-- Línea conectora (Desktop) -->
-        <div class="hidden lg:block absolute top-[60px] left-[10%] right-[10%] h-px connector-line"></div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           <div v-for="(step, index) in steps" :key="index" class="relative group step-item" v-reveal :data-delay="index * 150">
-            <div class="flex flex-col items-center text-center">
+            <div class="step-content relative w-full max-w-[200px] mx-auto flex flex-col items-start text-left">
 
               <!-- Ícono -->
               <div class="step-icon-wrap w-20 h-20 rounded-2xl flex items-center justify-center mb-6 relative z-10 transition-all duration-300">
                 <component :is="step.icon" class="w-8 h-8 step-icon transition-transform group-hover:scale-110"/>
               </div>
 
-              <h3 class="card-title mb-3 transition-colors group-hover:step-title-hover">
-                {{ step.title }}
-              </h3>
-
-              <p class="card-text max-w-[200px]">
-                {{ step.description }}
-              </p>
+              <div class="step-copy w-full text-left">
+                <h3 class="card-title mb-3 transition-colors group-hover:step-title-hover">
+                  {{ step.title }}
+                </h3>
+                <p class="card-text">
+                  {{ step.description }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -73,8 +71,18 @@ const steps = [
   overflow: hidden;
 }
 
-/* Línea conectora */
-.connector-line { background: var(--border); }
+/* Un mismo eje izquierdo para icono y texto; cada grupo se centra en su columna. */
+@media (min-width: 1024px) {
+  .step-item:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: calc(50% - 60px);
+    width: calc(100% + 2rem);
+    height: 1px;
+    background: var(--border);
+  }
+}
 
 /* Ícono wrapper */
 .step-icon-wrap {

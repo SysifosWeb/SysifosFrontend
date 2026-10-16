@@ -54,7 +54,7 @@ export default defineNuxtConfig({
         }
     },
 
-    modules: ['@nuxtjs/tailwindcss', '@nuxtjs/google-fonts', '@nuxt/image', '@nuxtjs/sitemap', 'nuxt-gtag', 'nuxt-security'],
+    modules: ['@nuxtjs/tailwindcss', '@nuxt/image', '@nuxtjs/sitemap', 'nuxt-gtag', 'nuxt-security'],
     security: {
         headers: {
             contentSecurityPolicy: {
@@ -163,15 +163,6 @@ export default defineNuxtConfig({
         }
     },
 
-    googleFonts: {
-        families: {
-            Inter: [400, 600, 700],
-            Poppins: [400, 600, 700]
-        },
-        display: 'swap',
-        preload: true,
-        subsets: ['latin']
-    },
 
     css: ['~/assets/css/main.css'],
 

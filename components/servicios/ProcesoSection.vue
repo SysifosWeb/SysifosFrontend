@@ -39,7 +39,7 @@ const steps = [
 </script>
 
 <template>
-  <section class="relative bg-section-dark py-16 lg:py-24 overflow-hidden">
+  <section class="services-process relative bg-section-dark pb-16 lg:pb-24 overflow-hidden">
     
     <div class="section-container relative z-20 text-center mb-16 lg:mb-24">
         <p class="section-eyebrow mb-6" v-reveal data-delay="0">El camino al resultado</p>
@@ -78,8 +78,10 @@ const steps = [
 .section-container {
   width: 90%;
   max-width: 1300px;
-  margin: 0 auto;
+  margin-inline: auto;
 }
+
+.services-process { padding-top: clamp(1.5rem, 3vw, 3rem); }
 
 .process-title { max-width: 20ch; }
 </style>

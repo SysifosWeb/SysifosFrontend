@@ -1,417 +1,142 @@
+<script setup>
+import { PanelsTopLeft, MessageCircle } from 'lucide-vue-next'
+import fareminImage from '@/assets/img/Faremin.jpeg'
+import { ref } from 'vue'
+
+const tiltStyle = ref({})
+const resetTilt = () => { tiltStyle.value = {} }
+const followPointer = (event) => {
+  if (event.pointerType !== 'mouse' || !window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return
+  const bounds = event.currentTarget.getBoundingClientRect()
+  const x = Math.max(-.5, Math.min(.5, (event.clientX - bounds.left) / bounds.width - .5))
+  const y = Math.max(-.5, Math.min(.5, (event.clientY - bounds.top) / bounds.height - .5))
+  tiltStyle.value = { transform: `perspective(1400px) rotateX(${-y * 7}deg) rotateY(${x * 9}deg) translate3d(${x * 8}px, ${y * 6}px, 0)` }
+}
+
+</script>
+
 <template>
-  <section class="relative w-full min-h-[95vh] flex items-center overflow-hidden" style="background: var(--bg-dark);">
-
-    <!-- =========================================
-         BACKGROUND: Gradientes premium sutiles
-    ========================================= -->
-    <div class="absolute inset-0 pointer-events-none z-0">
-      <!-- Glow índigo — superior izquierda, muy difuso -->
-      <div class="absolute -top-60 -left-60 w-[700px] h-[700px]"
-        style="background: radial-gradient(circle, var(--purple) 0%, transparent 70%); opacity: 0.15;"></div>
-      <!-- Glow cyan — inferior derecha, muy difuso -->
-      <div class="absolute bottom-0 right-0 w-[550px] h-[550px]"
-        style="background: radial-gradient(circle, var(--accent) 0%, transparent 70%); opacity: 0.12;"></div>
-      <!-- Gradiente superior sutil para profundidad -->
-      <div class="absolute top-0 left-0 right-0 h-px"
-        style="background: linear-gradient(to right, transparent, rgba(var(--decoration-rgb), 0.15), transparent);"></div>
-    </div>
-
-    <!-- =========================================
-         CONTENT: Grid 2 columnas
-    ========================================= -->
-    <div
-      class="relative z-10 site-container pt-36 pb-24 grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-20 xl:gap-28 items-center">
-
-      <!-- =====================
-           COLUMNA IZQUIERDA
-      ===================== -->
-      <div class="flex flex-col items-start text-left">
-
-        <!-- Eyebrow Badge -->
-        <div class="hero-enter inline-flex items-center gap-2.5 px-4 py-2 rounded-full mb-8"
-          style="background: rgba(var(--decoration-rgb), 0.06); border: 1px solid rgba(var(--decoration-rgb), 0.18);">
-          <span class="w-1.5 h-1.5 rounded-full pulse-dot" style="background: var(--accent);"></span>
-          <span class="text-xs font-medium tracking-wide" style="color: var(--accent);">
-            Desarrollo de software premium · La Serena, Chile
-          </span>
-        </div>
-
-        <!-- H1 — Titular principal -->
-        <h1 class="hero-enter delay-1 font-bold leading-[1.06] mb-5"
-          style="font-size: clamp(2.4rem, 5vw, 3.8rem); color: var(--text-main); letter-spacing: -0.035em; font-family: 'Inter', sans-serif;">
-          Tu plataforma trabaja por ti.
-        </h1>
-
-        <!-- Subtexto refinado -->
-        <p class="hero-enter delay-2 text-[1.08rem] leading-[1.75] mb-10 max-w-[460px]"
-          style="color: var(--text-secondary);">
-          Tu negocio necesita una plataforma digital que trabaje por ti. Somos el equipo de tecnología detrás de empresas que crecen.
-          Diseñamos, construimos y escalamos plataformas web que generan resultados reales.
-        </p>
-
-        <!-- CTAs — Estrategia de conversión mejorada -->
-        <div class="hero-enter delay-3 flex flex-col sm:flex-row gap-3.5 mb-12">
-
-          <!-- CTA Primario: WhatsApp -->
-          <a href="https://wa.me/56985021549?text=Hola%20SysifosWeb!%20Quiero%20cotizar%20mi%20proyecto%20web%2Fsoftware"
-            target="_blank"
-            rel="noopener"
-            class="cta-primary group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl font-semibold text-[0.9rem]"
-            style="background: var(--accent); color: var(--button-text);">
-            <span>Hablemos por WhatsApp</span>
-            <svg class="w-4 h-4 cta-arrow" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.149-.197.297-.767.966-.94 1.164-.173.198-.347.222-.644.073-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.67-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.371-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.149.198 2.095 3.2 5.08 4.487.707.307 1.255.491 1.68.626.711.226 1.36.195 1.874.118.57-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-            </svg>
+  <section class="hero-section" aria-labelledby="home-title">
+    <div class="site-container hero-content">
+      <div class="hero-copy">
+        <p class="hero-eyebrow"><span aria-hidden="true"></span>Diseño y desarrollo para tu empresa</p>
+        <h1 id="home-title">Tu próximo paso digital,<br class="hidden sm:block" /> <span>con un equipo cercano.</span></h1>
+        <p class="hero-description">Páginas web, tiendas online y software a medida. Definimos el alcance contigo y te acompañamos desde la idea hasta el lanzamiento.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/56985021549?text=Hola%20SysifosWeb!%20Quiero%20cotizar%20mi%20proyecto%20web%2Fsoftware" target="_blank" rel="noopener" class="btn btn-primary">
+            Hablemos de tu proyecto <span aria-hidden="true">↗</span>
           </a>
-
-          <!-- CTA Secundario: Portfolio -->
-          <NuxtLink to="/portfolio"
-            class="cta-secondary inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-medium text-[0.9rem]"
-            style="color: var(--text-main); border: 1px solid var(--border);">
-            Ver portfolio
-          </NuxtLink>
+          <NuxtLink to="/portfolio" class="btn btn-secondary">Ver nuestros proyectos <span aria-hidden="true">↓</span></NuxtLink>
         </div>
-
-        <!-- Trust indicators — Minimalistas, tipo Linear/Vercel -->
-        <div class="hero-enter delay-4 flex flex-wrap items-center gap-x-6 gap-y-3 pt-8"
-          style="border-top: 1px solid var(--border);">
-          <div v-for="trust in trustItems" :key="trust.label" class="flex items-center gap-2">
-            <svg class="w-3.5 h-3.5 shrink-0" aria-hidden="true" style="color: var(--accent);" fill="none" stroke="currentColor"
-              stroke-width="2.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-            <span class="text-xs font-medium" style="color: var(--text-secondary);">{{ trust.label }}</span>
-          </div>
-        </div>
-
+        <div class="hero-detail hero-detail--design" aria-hidden="true"><PanelsTopLeft /><span>Diseño a medida</span></div>
+        <div class="hero-detail hero-detail--team" aria-hidden="true"><MessageCircle /><span>Contacto directo</span></div>
       </div>
 
-      <!-- =====================
-           COLUMNA DERECHA: Dashboard UI
-      ===================== -->
-      <div class="relative hidden lg:flex items-center justify-center mockup-container" aria-hidden="true">
-
-        <!-- Glow de profundidad detrás del panel -->
-        <div class="absolute inset-8 rounded-3xl pointer-events-none"
-          style="background: radial-gradient(ellipse at 60% 50%, rgba(var(--decoration-rgb), 0.1) 0%, transparent 65%);">
+      <div class="hero-project-motion" @pointermove="followPointer" @pointerleave="resetTilt" @pointercancel="resetTilt">
+      <div class="hero-project-tilt" :style="tiltStyle">
+      <figure class="hero-project">
+        <div class="hero-project__bar">
+          <div class="hero-project__dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <span>Una muestra de nuestro trabajo</span>
+          <span class="hero-project__type">Desarrollo web</span>
         </div>
-
-        <!-- === Panel Principal del Dashboard === -->
-        <div class="relative w-full max-w-[600px] rounded-2xl overflow-hidden mockup-float"
-          style="background: var(--bg-surface); border: 1px solid rgba(var(--neutral-rgb), 0.07); box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(var(--neutral-rgb), 0.04);">
-
-          <!-- Barra de título -->
-          <div class="flex items-center gap-2 px-5 py-3.5"
-            style="background: var(--bg-elevated); border-bottom: 1px solid rgba(var(--neutral-rgb), 0.06);">
-            <div class="flex items-center gap-1.5">
-              <div class="w-3 h-3 rounded-full" style="background: #FF5F57;"></div>
-              <div class="w-3 h-3 rounded-full" style="background: #FEBC2E;"></div>
-              <div class="w-3 h-3 rounded-full" style="background: #28C840;"></div>
-            </div>
-            <div class="flex-1 flex justify-center">
-              <div class="h-[22px] rounded-md px-3 flex items-center gap-2 w-52"
-                style="background: var(--bg-dark); border: 1px solid rgba(var(--neutral-rgb), 0.07);">
-                <div class="w-3 h-3 opacity-40">
-                  <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"
-                    style="color: var(--text-muted);">
-                    <circle cx="5" cy="5" r="3.5" />
-                    <path d="M8.5 8.5l2 2" stroke-linecap="round" />
-                  </svg>
-                </div>
-                <span class="text-[10px]" style="color: var(--text-muted);">sysifosweb.cl/dashboard</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Cuerpo del dashboard -->
-          <div class="p-5 grid grid-cols-[140px_1fr] gap-5">
-
-            <!-- Sidebar -->
-            <div class="flex flex-col gap-2 pr-4" style="border-right: 1px solid rgba(var(--neutral-rgb), 0.05);">
-              <div class="flex items-center gap-2 px-2 py-2 rounded-lg mb-1" style="background: rgba(var(--decoration-rgb), 0.08);">
-                <div class="w-4 h-4 rounded" style="background: rgba(var(--decoration-rgb), 0.3);"></div>
-                <div class="w-16 h-2.5 rounded" style="background: rgba(var(--decoration-rgb), 0.4);"></div>
-              </div>
-              <div v-for="i in 4" :key="i" class="flex items-center gap-2 px-2 py-1.5 rounded-md">
-                <div class="w-3.5 h-3.5 rounded" style="background: rgba(var(--neutral-rgb), 0.07);"></div>
-                <div class="h-2 rounded"
-                  :style="{ background: 'rgba(var(--neutral-rgb), 0.06)', width: ['70%', '85%', '60%', '75%'][i - 1] }"></div>
-              </div>
-              <div class="mt-auto pt-4">
-                <div class="w-full h-[72px] rounded-xl p-3 flex flex-col justify-between"
-                  style="background: linear-gradient(135deg, rgba(var(--decoration-rgb), 0.08), rgba(var(--decoration-rgb), 0.08)); border: 1px solid rgba(var(--decoration-rgb), 0.15);">
-                  <div class="w-4 h-4 rounded-md" style="background: rgba(var(--decoration-rgb), 0.25);"></div>
-                  <div class="w-3/4 h-2 rounded" style="background: rgba(var(--neutral-rgb), 0.1);"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Panel principal -->
-            <div class="flex flex-col gap-4">
-
-              <!-- Stat cards -->
-              <div class="grid grid-cols-3 gap-3">
-                <div v-for="stat in dashStats" :key="stat.label" class="p-3 rounded-xl flex flex-col gap-1.5"
-                  style="background: var(--bg-dark); border: 1px solid rgba(var(--neutral-rgb), 0.06);">
-                  <p class="text-[9px] font-medium" style="color: var(--text-muted);">{{ stat.label }}</p>
-                  <p class="text-xl font-bold leading-none" style="color: var(--text-main);">{{ stat.value }}</p>
-                  <p class="text-[9px] font-medium" :style="{ color: stat.color }">{{ stat.trend }}</p>
-                </div>
-              </div>
-
-              <!-- Gráfica de rendimiento -->
-              <div class="rounded-xl p-4" style="background: var(--bg-dark); border: 1px solid rgba(var(--neutral-rgb), 0.06);">
-                <div class="flex items-center justify-between mb-3">
-                  <p class="text-[10px] font-semibold" style="color: var(--text-secondary);">Rendimiento del mes</p>
-                  <div class="flex items-center gap-3">
-                    <span class="flex items-center gap-1 text-[8px]" style="color: var(--accent);">
-                      <span class="w-4 h-px inline-block" style="background:var(--accent);"></span>Tráfico
-                    </span>
-                    <span class="flex items-center gap-1 text-[8px]" style="color: var(--accent);">
-                      <span class="w-4 h-px inline-block border-t border-dashed"
-                        style="border-color:var(--accent);"></span>Conversión
-                    </span>
-                  </div>
-                </div>
-                <svg viewBox="0 0 340 88" class="w-full overflow-visible">
-                  <defs>
-                    <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.18" />
-                      <stop offset="100%" stop-color="var(--accent)" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.12" />
-                      <stop offset="100%" stop-color="var(--accent)" stop-opacity="0" />
-                    </linearGradient>
-                  </defs>
-                  <!-- Grid lines -->
-                  <line v-for="y in [22, 44, 66, 88]" :key="y" x1="0" :y1="y" x2="340" :y2="y"
-                    stroke="rgba(var(--neutral-rgb), 0.04)" stroke-width="1" />
-                  <!-- Área cyan -->
-                  <path d="M0 80 L0 58 C30 50 55 68 85 50 S120 28 155 30 S200 18 240 14 S290 9 340 6 L340 80 Z"
-                    fill="url(#g1)" />
-                  <path d="M0 58 C30 50 55 68 85 50 S120 28 155 30 S200 18 240 14 S290 9 340 6" fill="none"
-                    stroke="var(--accent)" stroke-width="2" stroke-linecap="round" />
-                  <!-- Área morada -->
-                  <path d="M0 80 L0 70 C35 64 65 76 100 66 S148 58 180 60 S225 55 265 48 S300 44 340 42 L340 80 Z"
-                    fill="url(#g2)" />
-                  <path d="M0 70 C35 64 65 76 100 66 S148 58 180 60 S225 55 265 48 S300 44 340 42" fill="none"
-                    stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4 3" />
-                  <!-- Punto activo -->
-                  <circle cx="340" cy="6" r="3" fill="var(--accent)" />
-                  <circle cx="340" cy="6" r="6" fill="var(--accent)" fill-opacity="0.15" />
-                </svg>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <!-- === Floating Card: Nuevo cliente === -->
-        <div class="absolute -top-5 -right-6 flex items-center gap-3 px-4 py-3 rounded-2xl float-card-1"
-          style="background: var(--bg-elevated); border: 1px solid rgba(var(--neutral-rgb), 0.08); box-shadow: 0 16px 40px rgba(0,0,0,0.4); min-width: 200px;">
-          <div class="w-8 h-8 rounded-full shrink-0 flex items-center justify-center text-xs font-bold"
-            style="background: linear-gradient(135deg, var(--heading-gradient-end), var(--heading-gradient-end)); color: white;">JM</div>
-          <div>
-            <p class="text-[11px] font-semibold leading-none mb-0.5" style="color: var(--text-main);">Nuevo proyecto
-              iniciado</p>
-            <p class="text-[10px]" style="color: var(--text-muted);">E-commerce · Retail</p>
-          </div>
-          <div class="w-2 h-2 rounded-full ml-auto shrink-0" style="background: var(--accent);"></div>
-        </div>
-
-        <!-- === Floating Card: Deploy exitoso === -->
-        <div class="absolute -bottom-5 -left-6 flex items-center gap-3 px-4 py-3 rounded-2xl float-card-2"
-          style="background: var(--bg-elevated); border: 1px solid rgba(var(--neutral-rgb), 0.08); box-shadow: 0 16px 40px rgba(0,0,0,0.4);">
-          <div class="w-8 h-8 rounded-full shrink-0 flex items-center justify-center"
-            style="background: rgba(var(--decoration-rgb), 0.12);">
-            <svg class="w-4 h-4" style="color: var(--accent);" fill="none" stroke="currentColor" stroke-width="2.5"
-              viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <div>
-            <p class="text-[11px] font-semibold leading-none mb-0.5" style="color: var(--text-main);">Deploy completado
-            </p>
-            <p class="text-[10px]" style="color: var(--text-muted);">Producción · Hace 3 min</p>
-          </div>
-        </div>
-
+        <NuxtLink to="/portfolio" class="hero-project__preview" aria-label="Ver el proyecto Maestranza Faremin en nuestro portfolio">
+          <img :src="fareminImage" alt="Sitio web desarrollado para Maestranza Faremin, con su presentación de ingeniería para la industria minera" width="1600" height="911" fetchpriority="high" />
+        </NuxtLink>
+        <figcaption>
+          <div><span class="hero-project__label">Proyecto destacado</span><h2>Maestranza Faremin</h2></div>
+          <NuxtLink to="/portfolio" class="hero-project__link">Conoce nuestro trabajo <span aria-hidden="true">↗</span></NuxtLink>
+        </figcaption>
+      </figure>
+      </div>
       </div>
     </div>
   </section>
 </template>
 
-<script setup>
-const trustItems = [
-  { label: '+50 proyectos entregados' },
-  { label: 'Rendimiento optimizado' },
-  { label: 'Escalable desde el día 1' },
-  { label: 'Soporte continuo' },
-]
-
-const dashStats = [
-  { label: 'Proyectos activos', value: '24', trend: '↑ +12% este mes', color: 'var(--accent)' },
-  { label: 'Clientes satisfechos', value: '98%', trend: '● Siempre', color: 'var(--accent)' },
-  { label: 'Uptime garantizado', value: '99.9%', trend: '● Operacional', color: 'var(--accent)' },
-]
-</script>
-
 <style scoped>
-/* ===========================
-   Entrada escalonada del hero
-=========================== */
-.hero-enter {
-  animation: enterUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+.hero-project-tilt { transition: transform .25s ease-out; }
+@media (prefers-reduced-motion: reduce) { .hero-project-tilt { transform: none !important; transition: none; } }
+.hero-section { position: relative; overflow: hidden; background: var(--bg-dark); padding: clamp(10rem, 12vw, 12rem) 0 var(--section-py-sm); }
+.hero-section::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(157,203,245,0.18), transparent 65%); }
+.hero-content { position: relative; }
+.hero-copy { position: relative; text-align: center; max-width: 64rem; margin: 0 auto; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.5rem 0.875rem; border: 1px solid var(--border); background: var(--bg-surface); border-radius: 999px; font-size: var(--fs-small); color: var(--text-secondary); }
+.hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+h1 { margin: 1.5rem auto; font-family: var(--font-heading); font-size: var(--fs-page-hero); font-weight: 700; line-height: 1.14; letter-spacing: -0.045em; color: var(--text-main); text-wrap: balance; }
+h1 span { color: var(--accent); }
+.hero-description { max-width: 39rem; margin: 0 auto; font-size: var(--fs-lead); line-height: 1.55; color: var(--text-secondary); text-wrap: pretty; }
+.hero-actions { display: flex; align-items: center; justify-content: center; gap: 0.875rem; flex-wrap: wrap; margin-top: 2rem; }
+.hero-detail { position: absolute; display: flex; align-items: center; gap: 0.625rem; padding: 0.875rem; border-radius: var(--radius-lg); border: 1px solid rgba(29,95,166,0.12); background: #EDF3FA; color: #1D5FA6; box-shadow: 0 8px 24px rgba(16,43,70,0.04); font-size: var(--fs-small); pointer-events: none; }
+.hero-detail svg { width: 1.5rem; height: 1.5rem; stroke-width: 1.5; }
+.hero-detail--design { --tile-angle: -6deg; left: -6.5rem; top: 8rem; transform: rotate(-6deg); }
+.hero-detail--team { --tile-angle: 6deg; right: -6rem; top: 11rem; transform: rotate(6deg); }
+.hero-project { position: relative; max-width: 66rem; margin: 3.5rem auto 0; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-surface); overflow: hidden; box-shadow: 0 20px 55px rgba(16,43,70,0.1); }
+.hero-project__bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.875rem 1.25rem; font-size: var(--fs-small); color: var(--text-secondary); background: var(--bg-surface); }
+.hero-project__dots { display: flex; gap: 5px; }
+.hero-project__dots i { display: block; width: 7px; height: 7px; border-radius: 50%; background: #9DCBF5; }
+.hero-project__type { color: var(--accent); }
+.hero-project__preview { display: block; border-block: 1px solid var(--border); }
+.hero-project__preview img { display: block; width: 100%; height: auto; }
+figcaption { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 1.25rem 1.5rem; }
+.hero-project__label { color: var(--text-secondary); font-size: var(--fs-small); }
+figcaption h2 { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-top: 0.25rem; }
+.hero-project__link { color: var(--accent); font-size: var(--fs-body); font-weight: 600; }
+.hero-project__link:hover { text-decoration: underline; }
+@media (max-width: 1200px) { .hero-detail { display: none; } }
+@media (max-width: 640px) {
+  .hero-section { padding-top: 9rem; }
+  .hero-eyebrow { font-size: 0.875rem; }
+  .hero-description { font-size: 1.125rem; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn { width: 100%; }
+  .hero-project { margin-top: 2.5rem; }
+  .hero-project__bar { padding: 0.75rem; gap: 0.5rem; font-size: 0.8125rem; }
+  .hero-project__type { display: none; }
+  figcaption { padding: 1rem; }
 }
 
-.delay-1 {
-  animation-delay: 80ms;
-}
-
-.delay-2 {
-  animation-delay: 160ms;
-}
-
-.delay-3 {
-  animation-delay: 240ms;
-}
-
-.delay-4 {
-  animation-delay: 320ms;
-}
-
-@keyframes enterUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* Entrada escalonada: el contenido conserva su posición final sin JS adicional. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-eyebrow { animation: hero-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
+  h1 { animation: hero-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both; }
+  .hero-description { animation: hero-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both; }
+  .hero-actions { animation: hero-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.46s both; }
+  .hero-section::before { animation: hero-light-drift 16s ease-in-out infinite alternate; }
+  .hero-detail--design { animation: hero-tile-enter 1s ease-out 0.65s both, hero-tile-float 7s ease-in-out 1.65s infinite; }
+  .hero-detail--team { animation: hero-tile-enter 1s ease-out 0.85s both, hero-tile-float 8s ease-in-out 1.85s infinite reverse; }
+  .hero-project {
+    transform-origin: center top;
+    animation: hero-project-enter 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
   }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .hero-project__preview img { transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+  .hero-actions .btn span { display: inline-block; transition: transform 0.25s ease; }
+  .hero-actions .btn:hover span { transform: translate(2px, -2px); }
 }
-
-/* ===========================
-   Acento del headline
-=========================== */
-.hero-accent {
-  color: var(--accent);
-  position: relative;
-  display: inline-block;
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hero-project__preview:hover img { transform: scale(1.018); }
 }
-
-/* ===========================
-   Dot pulsante del badge
-=========================== */
-.pulse-dot {
-  animation: pulse 2.5s ease-in-out infinite;
+@keyframes hero-project-enter {
+  from { opacity: 0; transform: perspective(1200px) translateY(48px) rotateX(6deg) scale(0.97); }
+  to { opacity: 1; transform: perspective(1200px) translateY(0) rotateX(0) scale(1); }
 }
-
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 0.5;
-    transform: scale(0.85);
-  }
+@keyframes hero-enter {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-/* ===========================
-   CTA Primario
-=========================== */
-.cta-primary {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 0 0 rgba(var(--decoration-rgb), 0);
+@keyframes hero-tile-enter {
+  from { opacity: 0; transform: translateY(20px) scale(0.92) rotate(var(--tile-angle)); }
+  to { opacity: 1; transform: translateY(0) scale(1) rotate(var(--tile-angle)); }
 }
-
-.cta-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(var(--decoration-rgb), 0.25), 0 0 0 1px rgba(var(--decoration-rgb), 0.2);
+@keyframes hero-tile-float {
+  0%, 100% { transform: translateY(0) rotate(var(--tile-angle)); }
+  50% { transform: translateY(-12px) rotate(calc(var(--tile-angle) + 2deg)); }
 }
-
-.cta-primary:hover .cta-arrow {
-  transform: translateX(3px);
+@keyframes hero-light-drift {
+  from { transform: translate(-2%, -2%) scale(1); opacity: 0.7; }
+  to { transform: translate(2%, 2%) scale(1.12); opacity: 1; }
 }
-
-.cta-arrow {
-  transition: transform 0.2s ease;
-}
-
-/* ===========================
-   CTA Secundario
-=========================== */
-.cta-secondary {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.cta-secondary:hover {
-  background: rgba(var(--neutral-rgb), 0.04) !important;
-  border-color: rgba(var(--decoration-rgb), 0.25) !important;
-  transform: translateY(-2px);
-}
-
-/* ===========================
-   Mockup flotante (suave)
-=========================== */
-.mockup-float {
-  animation: floatPanel 9s ease-in-out infinite;
-}
-
-@keyframes floatPanel {
-
-  0%,
-  100% {
-    transform: translateY(0px) rotateX(1deg);
-  }
-
-  50% {
-    transform: translateY(-12px) rotateX(0deg);
-  }
-}
-
-/* ===========================
-   Floating cards
-=========================== */
-.float-card-1 {
-  animation: floatCard1 7s ease-in-out infinite;
-}
-
-.float-card-2 {
-  animation: floatCard2 8s ease-in-out infinite;
-}
-
-@keyframes floatCard1 {
-
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes floatCard2 {
-
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(8px);
-  }
-}
-
-h1 {
-  letter-spacing: -0.035em;
+@media (prefers-reduced-motion: reduce) {
+  .hero-project { opacity: 1; transform: none; animation: none; transition: none; }
 }
 </style>

@@ -9,7 +9,7 @@
         <p class="section-eyebrow mb-6" v-reveal data-delay="0">Soluciones digitales</p>
 
         <h1 class="hero-headline mb-8" v-reveal data-delay="100">
-          Construido para escalar. Diseñado para liderar.
+          Construido para escalar. <span class="display-accent">Diseñado para liderar.</span>
         </h1>
 
         <div class="relative max-w-2xl mx-auto mb-10" v-reveal data-delay="200">
@@ -49,7 +49,7 @@
 }
 
 .hero-headline {
-  font-family: var(--font-family);
+  font-family: var(--font-heading);
   font-size: var(--fs-page-hero);
   font-weight: var(--fw-hero);
   line-height: var(--lh-hero);
@@ -68,7 +68,6 @@
 
 @media (max-width: 480px) {
   .hero-headline {
-    font-size: 1.75rem;
     max-inline-size: none;
   }
 }

@@ -628,3 +628,24 @@ input, textarea, select {
   --tw-prose-th-borders: var(--border);
   --tw-prose-td-borders: var(--border);
 }
+
+/* Sistema tipográfico de la referencia Impulso. */
+.impulso-hybrid :is(h1, h2, h3, h4, h5, h6),
+.impulso-hybrid .section-title,
+.impulso-hybrid .card-title {
+  font-family: var(--font-heading);
+}
+
+/* Encabezados principales compartidos para la revisión visual. */
+.impulso-hybrid .display-title {
+  font-size: var(--fs-page-hero);
+  line-height: 1.08;
+  letter-spacing: var(--ls-hero);
+  text-wrap: balance;
+}
+.impulso-hybrid .display-accent { color: #1D5FA6; }
+
+.blog-zoom-card { transition: transform .3s ease; transform-origin: center; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .blog-zoom-card:hover { transform: scale(1.025); }
+}

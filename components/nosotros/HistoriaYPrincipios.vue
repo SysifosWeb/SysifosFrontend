@@ -39,7 +39,7 @@ import { Medal } from "lucide-vue-next";
             </div>
 
             <!-- Award stat -->
-            <div class="inline-flex items-center gap-3 bg-panel px-4 py-3 rounded-[var(--radius-sm)]">
+            <div class="award-panel inline-flex items-center gap-3 bg-panel px-4 py-3 rounded-[var(--radius-sm)]">
               <Medal class="w-5 h-5 text-accent" />
               <span class="text-small font-semibold text-content">
                 Tercer lugar en Desafío Genia: Mujeres que Avanzan 2025
@@ -62,7 +62,7 @@ import { Medal } from "lucide-vue-next";
       </div>
 
       <!-- ═══ MANIFESTO STRIP ═══ -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div id="principios" class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <div class="principle-panel" v-reveal data-delay="0">
           <div>
@@ -93,4 +93,16 @@ import { Medal } from "lucide-vue-next";
 
 <style scoped>
 .principle-panel { background: var(--bg-surface); border-radius: var(--radius-md); padding: clamp(1.75rem, 4vw, 2.5rem); }
+
+.principle-panel, .award-panel {
+  border: 1px solid var(--border);
+  transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.16,1,0.3,1), translate 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .principle-panel:hover, .award-panel:hover {
+    translate: 0 -4px;
+    border-color: var(--border-accent);
+    box-shadow: 0 12px 28px rgba(16,43,70,0.08);
+  }
+}
 </style>

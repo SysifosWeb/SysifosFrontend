@@ -1,10 +1,8 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { ref, computed, onUnmounted, watch, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 
 const isMenuOpen = ref(false)
-const isScrolled = ref(false)
-const isMounted = ref(false)
 const menuRef = ref(null)
 let lastFocused = null
 const route = useRoute()
@@ -12,10 +10,6 @@ const route = useRoute()
 const currentRoute = computed(() => route.path)
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
-
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 20
-}
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
@@ -53,13 +47,7 @@ const lockBodyScroll = (lock) => {
   document.body.style.overflow = lock ? 'hidden' : ''
 }
 
-onMounted(() => {
-  isMounted.value = true
-  window.addEventListener('scroll', handleScroll, { passive: true })
-})
-
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
   document.removeEventListener('keydown', handleKeydown)
   lockBodyScroll(false)
 })
@@ -87,8 +75,7 @@ watch(() => route.fullPath, () => {
 </script>
 
 <template>
-  <nav class="fixed top-0 left-0 w-full z-[1002] bg-transparent transition-all duration-500"
-    :class="{ 'nav-scrolled backdrop-blur-xl': isScrolled }">
+  <nav class="absolute top-0 left-0 w-full z-[1002] bg-transparent">
     <div class="site-container border-b border-[var(--border)]">
       <div class="flex items-center justify-between py-10 lg:py-12">
         <!-- LOGO -->
@@ -195,5 +182,5 @@ watch(() => route.fullPath, () => {
 }
 </style>
 <style scoped>
-.nav-scrolled { background-color: var(--surface); }
+
 </style>

@@ -170,8 +170,8 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 }
 
 .metodologia-descriptor {
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   color: var(--text-secondary);
   max-width: 40ch;
   align-self: end;
@@ -242,7 +242,8 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 }
 
 .step-title {
-  font-size: 0.9rem;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
   font-weight: 600;
   color: var(--text-main);
   margin-bottom: 0.5rem;
@@ -250,8 +251,8 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 }
 
 .step-text {
-  font-size: 0.825rem;
-  line-height: 1.65;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   color: var(--text-secondary);
 }
 
@@ -280,32 +281,51 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
 }
 
 .stack-row__label {
-  font-size: 0.825rem;
+  font-size: var(--fs-body);
   font-weight: 600;
   color: var(--text-main);
   letter-spacing: -0.01em;
 }
 
 .stack-row__sublabel {
-  font-size: 0.7rem;
+  font-size: var(--fs-small);
+  line-height: var(--lh-small);
   color: var(--text-muted);
   letter-spacing: 0.02em;
 }
 
 .stack-row__tech {
-  font-size: 0.75rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   font-weight: 600;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
+  letter-spacing: var(--ls-body);
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .stack-row__tech--cyan   { color: var(--accent); }
 .stack-row__tech--purple { color: var(--accent); }
 
 .stack-note {
   margin-top: 1.75rem;
-  font-size: 0.75rem;
+  font-size: var(--fs-small);
   line-height: 1.6;
   color: var(--text-muted);
   font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .stack-row { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+}
+
+.stack-row {
+  border: 1px solid var(--border);
+  transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.16,1,0.3,1), translate 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.step-title { transition: color 0.25s ease; }
+.step-node { transition: transform 0.25s ease; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .stack-row:hover { translate: 0 -3px; border-color: var(--border-accent); box-shadow: 0 8px 20px rgba(16,43,70,0.06); }
+  .process-step:hover .step-title { color: var(--accent); }
+  .process-step:hover .step-node { transform: scale(1.25); }
 }
 </style>

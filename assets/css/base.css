@@ -1,11 +1,27 @@
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/Manrope.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('/fonts/SourceSans3.ttf') format('truetype');
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* ============================================
      SysifosWeb — Paleta Impulso azul
   ============================================ */
 
   /* --- Fuentes --- */
-  --font-family: 'Inter', sans-serif;
-  --font-tech: 'Inter', sans-serif;
+  --font-family: 'Source Sans 3', sans-serif;
+  --font-heading: 'Manrope', sans-serif;
+  --font-tech: 'Manrope', sans-serif;
 
   --button-text: #102B46;
   --decoration-rgb: 157, 203, 245;
@@ -75,7 +91,8 @@
   --fs-h2: clamp(1.875rem, 1.75rem + 0.65vw, 2.25rem);
   --fs-h1: clamp(2.25rem, 2.05rem + 0.9vw, 2.75rem);
   --fs-hero: clamp(2.5rem, 1.85rem + 3.25vw, 3.8rem);
-  --fs-page-hero: clamp(2rem, 1.6rem + 2vw, 3.5rem);
+  --fs-page-hero: clamp(2rem, 1.15rem + 4.2vw, 4.5rem);
+  --fs-project-title: clamp(2rem, 1.15rem + 4.2vw, 4.5rem);
 
   /* Altura de línea por nivel */
   --lh-hero: 1.05;

@@ -1,8 +1,8 @@
 <template>
-  <section class="relative w-full py-24 md:py-32 flex items-center justify-center overflow-hidden bg-section-dark impulso-closing">
+  <section class="home-closing relative w-full py-24 md:py-32 flex items-center justify-center overflow-hidden bg-section-dark impulso-closing">
     
     <!-- Marco técnico discreto: evita competir con el mensaje final. -->
-    <div class="absolute inset-0 pointer-events-none z-0 opacity-10">
+    <div class="absolute inset-0 pointer-events-none z-0 portal-backdrop">
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl">
         <svg viewBox="0 0 1000 1000" class="w-full h-full">
           <g class="portal-lines" stroke="var(--accent)" stroke-width="0.3">
@@ -18,11 +18,11 @@
     </div>
 
     <div class="max-w-[1000px] w-[88%] mx-auto relative z-10 text-center">
-      <p class="section-eyebrow mb-4" v-reveal data-delay="0">Empieza hoy</p>
+      <p class="banner-eyebrow mb-4" v-reveal data-delay="0">Empieza hoy</p>
       <h2 class="section-title banner-title mx-auto mb-6" v-reveal data-delay="100">
         ¿Listo para hacer crecer tu negocio?
       </h2>
-      <p class="text-lg mb-12 max-w-xl mx-auto" style="color: var(--text-secondary);" v-reveal data-delay="200">
+      <p class="banner-description mb-12 max-w-2xl mx-auto" style="color: var(--text-secondary);" v-reveal data-delay="200">
         Agenda una llamada de 30 minutos sin costo. Te escuchamos y te decimos honestamente cómo podemos ayudarte.
       </p>
 
@@ -42,7 +42,7 @@
 
 <style scoped>
 .portal-ray {
-  opacity: 0.45;
+  opacity: 0.65;
 }
 
 @keyframes spin {
@@ -55,5 +55,18 @@
   animation: spin 90s linear infinite;
 }
 
-.banner-title { max-width: 19ch; }
+.home-closing { min-height: 640px; padding-block: clamp(6rem, 12vw, 10rem); }
+.portal-backdrop { opacity: .22; }
+.banner-eyebrow { font-size: var(--fs-body); color: var(--text-secondary); }
+.banner-title {
+  max-width: 19ch;
+  font-size: clamp(2.25rem, 1.5rem + 2.8vw, 4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: var(--ls-hero);
+  text-wrap: balance;
+}
+.banner-description { font-size: var(--fs-lead); line-height: 1.55; }
+@media (prefers-reduced-motion: reduce) { .portal-lines { animation: none; } }
+@media (max-width: 640px) { .home-closing { min-height: auto; } }
 </style>

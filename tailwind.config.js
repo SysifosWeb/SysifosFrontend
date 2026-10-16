@@ -54,9 +54,9 @@ export default {
                 }
             },
             fontFamily: {
-                sans: ['Inter', 'sans-serif'],
-                display: ['Poppins', 'sans-serif'],
-                tech: ['"Space Grotesk"', 'sans-serif'],
+                sans: ['"Source Sans 3"', 'sans-serif'],
+                display: ['Manrope', 'sans-serif'],
+                tech: ['Manrope', 'sans-serif'],
             },
             fontSize: {
                 hero: ['var(--fs-hero)', { lineHeight: 'var(--lh-hero)', letterSpacing: 'var(--ls-hero)', fontWeight: 'var(--fw-hero)' }],

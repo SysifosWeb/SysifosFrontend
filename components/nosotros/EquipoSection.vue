@@ -108,8 +108,8 @@ import osman from '@/assets/img/Osman.png'
 }
 
 .equipo-descriptor {
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   color: var(--text-secondary);
   max-width: 38ch;
 }
@@ -240,7 +240,7 @@ import osman from '@/assets/img/Osman.png'
 }
 
 .roster-bio {
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);
   line-height: var(--lh-body);
   color: rgba(var(--neutral-rgb), 0.7);
   margin-top: 0.25rem;

@@ -15,10 +15,10 @@ defineProps({
                     v-for="post in posts"
                     :key="post.id"
                     :to="`/blog/${post.slug}`"
-                    class="group relative flex flex-col rounded-2xl border border-line bg-panel hover:bg-panel hover:border-line transition-all duration-300 overflow-hidden"
+                    class="blog-zoom-card group relative flex flex-col rounded-2xl border border-line bg-panel overflow-hidden"
                 >
                     <div class="relative overflow-hidden bg-panel" style="aspect-ratio: 16/10">
-                        <img :src="post.image" :alt="post.title" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100 mix-blend-luminosity hover:mix-blend-normal" />
+                        <img :src="post.image" :alt="post.title" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover " />
                     </div>
                     <div class="p-6 lg:p-8 flex flex-col flex-grow">
                         <div class="flex items-center justify-between mb-4">
@@ -26,7 +26,7 @@ defineProps({
                             <span class="text-[0.65rem] font-medium text-subdued">{{ post.reading_time }}</span>
                         </div>
                         
-                        <h3 class="text-xl font-bold text-content mb-3 leading-snug group-hover:text-accent transition-colors line-clamp-2 break-words">
+                        <h3 class="text-xl font-bold text-content mb-3 leading-snug line-clamp-2 break-words">
                             {{ post.title }}
                         </h3>
                         
@@ -34,7 +34,7 @@ defineProps({
                         
                         <div class="flex items-center justify-between pt-6 border-t border-line mt-auto">
                             <span class="text-xs text-subdued">{{ post.date }}</span>
-                            <span class="text-xs font-bold text-content group-hover:translate-x-1 transition-transform">Leer &rarr;</span>
+                            <span class="text-xs font-bold text-content">Leer &rarr;</span>
                         </div>
                     </div>
                 </NuxtLink>

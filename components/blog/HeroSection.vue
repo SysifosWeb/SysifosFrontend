@@ -12,9 +12,9 @@
           <span class="text-[0.65rem] font-bold tracking-[0.2em] uppercase text-subdued">Journal & Insights</span>
         </div>
         
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 leading-[1.05] tracking-tight text-content" v-reveal data-delay="100">
+        <h1 class="display-title font-extrabold mb-8 text-content" v-reveal data-delay="100">
           Ideas, tecnología y <br class="md:hidden"/>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-heading-start to-heading-end">crecimiento digital.</span>
+          <span class="display-accent">crecimiento digital.</span>
         </h1>
         
         <div class="relative max-w-xl mx-auto" v-reveal data-delay="200">

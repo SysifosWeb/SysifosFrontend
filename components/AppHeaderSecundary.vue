@@ -21,16 +21,19 @@ defineProps({
                  style="background: linear-gradient(to right, transparent, rgba(var(--decoration-rgb), 0.15), transparent);"></div>
         </div>
         
-        <div class="relative z-10 site-container flex items-center pt-20">
-            <!-- Left Text Block -->
-            <div class="flex flex-col items-center md:items-start text-center md:text-left w-full">
+        <div class="relative z-10 site-container flex items-center">
+            <!-- Presentación del equipo -->
+            <div class="flex flex-col items-center text-center w-full">
                 <div class="eyebrow-badge mb-6">
                     <span class="eyebrow-badge__dot"></span>
-                    <span class="eyebrow-badge__text">SysifosWeb</span>
+                    <span class="eyebrow-badge__text">{{ title }}</span>
                 </div>
-                <h1 class="section-title text-4xl md:text-5xl lg:text-6xl text-content">
-                  {{ title }}<span class="text-accent">.</span>
+                <h1 class="display-title about-headline font-extrabold text-content mb-8">
+                  Tecnología con propósito. <span class="display-accent">Un equipo cercano.</span>
                 </h1>
+                <p class="about-description text-lead text-subdued">
+                  Somos un equipo de desarrollo en Coquimbo. Trabajamos contigo para convertir las necesidades de tu negocio en soluciones digitales claras y útiles.
+                </p>
             </div>
         </div>
     </header>
@@ -38,9 +41,12 @@ defineProps({
 
 <style scoped>
 .secondary-header-container {
-    min-height: 350px;
-    padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+    padding: clamp(8rem, 14vw, 12rem) 0 clamp(3.5rem, 7vw, 6rem);
 }
+
+.about-headline { max-width: 22ch; text-wrap: balance; }
+.about-description { max-width: 42rem; line-height: var(--lh-lead); }
 
 .glow-top-left {
     width: 600px;

@@ -5,12 +5,12 @@
   <section class="portfolio-hero bg-section-dark">
     <div class="section-container relative z-20 text-center flex flex-col items-center">
         <h1 class="portfolio-headline mb-8" v-reveal data-delay="100">
-          Plataformas que escalan negocios.
+          Ideas que toman <span class="display-accent">forma digital.</span>
         </h1>
 
         <div class="relative max-w-xl mx-auto" v-reveal data-delay="200">
             <p class="portfolio-subtitle">
-                No construimos simples webs; desarrollamos infraestructuras digitales de alto rendimiento. Descubre cómo ayudamos a empresas a optimizar sus procesos, multiplicar su conversión y liderar su sector mediante ingeniería de software premium.
+                Conoce algunos de los sitios y plataformas que hemos creado para nuestros clientes.
             </p>
         </div>
         
@@ -20,6 +20,7 @@
 
 <style scoped>
 .portfolio-hero {
+  border-bottom: 1px solid var(--border);
   padding: clamp(8rem, 14vw, 12rem) 0 clamp(3.5rem, 7vw, 6rem);
 }
 

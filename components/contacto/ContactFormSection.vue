@@ -118,7 +118,7 @@ const submitForm = async (event) => {
       class="fixed top-24 right-4 z-50 rounded-xl bg-panel p-4 border border-accent/30 shadow-[0_8px_32px_rgba(var(--decoration-rgb), 0.2)]">
       <div class="flex items-center gap-3">
         <span class="text-accent animate-pulse font-bold">✓</span>
-        <p class="text-sm text-content mb-0 font-medium">Mensaje enviado exitosamente. Te contactaremos pronto.</p>
+        <p class="text-body text-content mb-0 font-medium">Mensaje enviado exitosamente. Te contactaremos pronto.</p>
         <button @click="showSuccess = false" class="ml-4 text-subdued hover:text-content transition-colors">
           <X class="w-4 h-4" />
         </button>
@@ -129,7 +129,7 @@ const submitForm = async (event) => {
       class="fixed top-24 right-4 z-50 rounded-xl bg-panel p-4 border border-red-500/30 shadow-[0_8px_32px_rgba(239,68,68,0.2)]">
       <div class="flex items-center gap-3">
         <span class="text-red-500 font-bold">!</span>
-        <p class="text-sm text-red-400 mb-0 font-medium">{{ errorMessage }}</p>
+        <p class="text-body text-red-400 mb-0 font-medium">{{ errorMessage }}</p>
         <button @click="showError = false" class="ml-4 text-subdued hover:text-content transition-colors">
           <X class="w-4 h-4" />
         </button>
@@ -145,10 +145,10 @@ const submitForm = async (event) => {
           <div
             class="relative p-8 lg:p-12 rounded-[2rem] border border-line bg-panel shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl">
             <div class="mb-10">
-              <h2 class="text-3xl font-extrabold text-content mb-3 tracking-tight">
+              <h2 class="text-h2 font-extrabold text-content mb-3 tracking-tight">
                 Cuéntanos tu idea.
               </h2>
-              <p class="text-subdued text-sm">Nuestros ingenieros revisarán tus requerimientos y te contactarán a la
+              <p class="text-subdued text-body">Nuestros ingenieros revisarán tus requerimientos y te contactarán a la
                 brevedad.</p>
             </div>
 
@@ -156,12 +156,12 @@ const submitForm = async (event) => {
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Inputs premium -->
                 <div class="space-y-2">
-                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-subdued">Nombre</label>
+                  <label class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Nombre</label>
                   <input v-model="form.name" type="text" required placeholder="Tu nombre"
                     class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
                 <div class="space-y-2">
-                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-subdued">Email *</label>
+                  <label class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Email *</label>
                   <input v-model="form.email" type="email" required placeholder="tu@email.com"
                     class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
@@ -169,7 +169,7 @@ const submitForm = async (event) => {
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
-                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-subdued">Empresa
+                  <label class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Empresa
                     (Opcional)</label>
                   <input v-model="form.company" type="text" placeholder="Tu empresa"
                     class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
@@ -179,14 +179,14 @@ const submitForm = async (event) => {
                   <input v-model="form.phone" type="tel">
                 </div>
                 <div class="space-y-2">
-                  <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-subdued">Asunto *</label>
+                  <label class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Asunto *</label>
                   <input v-model="form.subject" type="text" required placeholder="¿En qué te podemos ayudar?"
                     class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
               </div>
 
               <div class="space-y-2">
-                <label class="text-[0.7rem] font-semibold uppercase tracking-wider text-subdued">Detalles del Proyecto
+                <label class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Detalles del Proyecto
                   *</label>
                 <textarea v-model="form.message" rows="4" required placeholder="¿Qué te gustaría construir?"
                   class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300 resize-y min-h-[120px]"></textarea>
@@ -196,7 +196,7 @@ const submitForm = async (event) => {
               <div class="space-y-2">
                 <label class="flex items-start gap-3 cursor-pointer select-none">
                   <input v-model="form.consent" type="checkbox" class="mt-1 w-4 h-4 rounded border-line bg-quiet accent-accent">
-                  <span class="text-sm text-subdued leading-relaxed">
+                  <span class="text-body text-subdued leading-relaxed">
                     Acepto que mis datos personales sean tratados de acuerdo a la
                     <NuxtLink to="/privacidad" class="text-accent underline hover:text-accent transition-colors">Política de Privacidad</NuxtLink>
                     y autorizo a Sysifos a contactarme sobre mi consulta. Puedo ejercer mis derechos de acceso, rectificación, cancelación y oposición cuando lo desee.
@@ -205,7 +205,7 @@ const submitForm = async (event) => {
               </div>
 
               <button type="submit" :disabled="isSubmitting"
-                class="w-full py-4 mt-2 rounded-xl bg-accent text-action font-bold text-sm hover:bg-quiet hover:text-content transition-colors flex items-center justify-center group"
+                class="w-full py-4 mt-2 rounded-xl bg-accent text-action font-bold text-body hover:bg-quiet hover:text-content transition-colors flex items-center justify-center group"
                 :class="isSubmitting ? 'opacity-50 cursor-not-allowed' : ''">
                 {{ isSubmitting ? 'Enviando...' : 'Comenzar colaboración' }}
                 <Send v-if="!isSubmitting" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -217,8 +217,8 @@ const submitForm = async (event) => {
         <!-- Info Section (Col-span-2) -->
         <div class="lg:col-span-2 flex flex-col justify-center gap-8" v-reveal data-delay="150">
           <div class="mb-4">
-            <h3 class="text-2xl font-bold text-content mb-2">Siempre a tu alcance.</h3>
-            <p class="text-sm text-subdued leading-relaxed">Respondemos en menos de 24 hrs. Trabajamos de manera remota
+            <h3 class="text-h3 font-bold text-content mb-2">Siempre a tu alcance.</h3>
+            <p class="text-body text-subdued leading-relaxed">Respondemos en menos de 24 hrs. Trabajamos de manera remota
               con empresas en todo Chile y Latinoamérica, creando plataformas escalables y confiables.</p>
           </div>
 
@@ -229,8 +229,8 @@ const submitForm = async (event) => {
                 <Mail class="w-5 h-5 text-accent" />
               </div>
               <div>
-                <p class="text-[0.65rem] font-bold uppercase tracking-wider text-subdued mb-1">Email Directo</p>
-                <p class="text-sm text-content font-medium">contacto@sysifosweb.cl</p>
+                <p class="text-bodyall font-bold uppercase tracking-wider text-subdued mb-1">Email Directo</p>
+                <p class="text-body text-content font-medium">contacto@sysifosweb.cl</p>
               </div>
             </div>
 
@@ -240,8 +240,8 @@ const submitForm = async (event) => {
                 <Clock class="w-5 h-5 text-accent" />
               </div>
               <div>
-                <p class="text-[0.65rem] font-bold uppercase tracking-wider text-subdued mb-1">Soporte y Respuesta</p>
-                <p class="text-sm text-content font-medium">Lun - Vie, 09:00 a 18:00 hrs</p>
+                <p class="text-bodyall font-bold uppercase tracking-wider text-subdued mb-1">Soporte y Respuesta</p>
+                <p class="text-body text-content font-medium">Lun - Vie, 09:00 a 18:00 hrs</p>
               </div>
             </div>
           </div>
@@ -249,16 +249,17 @@ const submitForm = async (event) => {
           <div class="pt-6 border-t border-line">
             <!-- WhatsApp CTA -->
             <a href="https://wa.me/56985021549" target="_blank"
-              class="block w-full p-6 rounded-2xl border border-line bg-panel hover:bg-panel hover:border-line transition-all group">
+              rel="noopener noreferrer"
+              class="whatsapp-card block w-full p-6 rounded-2xl border border-line bg-panel group">
               <div class="flex justify-between items-center mb-2">
-                <h4 class="text-content font-bold text-sm flex items-center gap-2">
-                  <MessageSquare class="w-4 h-4 text-green-400" /> WhatsApp
+                <h4 class="text-content font-bold text-body flex items-center gap-2">
+                  <MessageSquare class="whatsapp-card__icon w-5 h-5" /> WhatsApp
                 </h4>
                 <span
-                  class="text-green-400 opacity-0 group-hover:opacity-100 transition-opacity text-xs font-bold uppercase tracking-wider">Abrir
-                  chat &rarr;</span>
+                  class="whatsapp-card__action text-small font-bold">Abrir
+                  chat <span class="whatsapp-card__arrow" aria-hidden="true">&rarr;</span></span>
               </div>
-              <p class="text-xs text-subdued">¿Prefieres un mensaje rápido? Escríbenos y conversemos directamente.</p>
+              <p class="text-small text-subdued">¿Prefieres un mensaje rápido? Escríbenos y conversemos directamente.</p>
             </a>
           </div>
         </div>
@@ -267,3 +268,26 @@ const submitForm = async (event) => {
     </div>
   </section>
 </template>
+
+<style scoped>
+input, textarea { font-size: var(--fs-body); line-height: var(--lh-body); }
+.whatsapp-card { transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+.whatsapp-card__icon, .whatsapp-card__action { color: #16803d; }
+.whatsapp-card__action { display: inline-flex; align-items: center; }
+.whatsapp-card:hover, .whatsapp-card:focus-visible {
+  background-color: #25D366;
+  border-color: #25D366;
+  box-shadow: 0 12px 28px rgba(37, 211, 102, .2);
+}
+.whatsapp-card:hover :is(h4, p, span, svg),
+.whatsapp-card:focus-visible :is(h4, p, span, svg) { color: #102B46; }
+.whatsapp-card:focus-visible { outline: 3px solid #102B46; outline-offset: 4px; }
+.whatsapp-card__arrow { display: inline-block; margin-left: .35rem; transition: transform .25s ease; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .whatsapp-card:hover, .whatsapp-card:focus-visible { transform: translateY(-4px); }
+  .whatsapp-card:hover .whatsapp-card__arrow, .whatsapp-card:focus-visible .whatsapp-card__arrow { transform: translateX(3px); }
+}
+@media (max-width: 400px) {
+  .whatsapp-card > div { flex-wrap: wrap; gap: .5rem; }
+}
+</style>

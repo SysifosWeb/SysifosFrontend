@@ -1,417 +1,66 @@
+<script setup lang="ts">
+// Los ejemplos deben identificarse como maqueta. Las opiniones reales requieren aprobación de su autor.
+defineProps<{
+  preview?: boolean
+  testimonial?: {
+    text: string
+    author: string
+    role?: string
+    photo?: string
+  }
+}>()
+</script>
+
 <template>
-  <section class="testimonials-section relative overflow-hidden bg-section-dark">
-
-    <!-- Ambient single orb — restrained -->
-    <div class="ambient-orb"></div>
-
-    <div class="section-container">
-
-      <!-- ═══ HEADER ═══ -->
-      <div class="section-header">
-        <div>
-          <p class="section-eyebrow mb-4" v-reveal data-delay="0">Clientes</p>
-          <h2 class="section-headline" v-reveal data-delay="100">
-            Empresas que crecieron con nuestra tecnología.
-          </h2>
+  <section id="testimonios" v-if="testimonial?.text && testimonial?.author" class="testimonials-section bg-section-dark" aria-labelledby="testimonial-title">
+    <div class="site-container">
+      <header class="testimonial-heading">
+        <p v-if="preview" class="testimonial-preview-label">Maqueta de diseño · testimonio ficticio</p>
+        <span class="testimonial-rule" aria-hidden="true"></span>
+        <h2 id="testimonial-title" class="section-title">Lo que dicen nuestros clientes</h2>
+        <p class="section-subtitle">Experiencias reales de quienes han trabajado con nosotros.</p>
+      </header>
+      <div class="testimonial-feature">
+        <div class="testimonial-portrait">
+          <img v-if="testimonial.photo" :src="testimonial.photo" :alt="testimonial.author" width="400" height="400" loading="lazy" />
+          <span v-else class="testimonial-symbol" aria-hidden="true">“</span>
         </div>
-        <!-- Social proof strip -->
-        <div class="proof-strip" v-reveal data-delay="200">
-          <div class="proof-stars">
-            <svg v-for="s in 5" :key="s" class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="#F59E0B" aria-hidden="true">
-              <path
-                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
-          </div>
-          <p class="proof-label">5.0 · 98% clientes satisfechos</p>
-        </div>
+        <figure class="testimonial-card">
+          <span class="testimonial-quote" aria-hidden="true">“</span>
+          <blockquote><p>{{ testimonial.text }}</p></blockquote>
+          <figcaption>
+            <span class="testimonial-initial" aria-hidden="true">{{ testimonial.author.trim().charAt(0) }}</span>
+            <div>
+              <cite>{{ testimonial.author }}</cite>
+              <p v-if="testimonial.role" class="testimonial-role">{{ testimonial.role }}</p>
+            </div>
+          </figcaption>
+        </figure>
       </div>
-
-      <!-- ═══ BENTO GRID ═══ -->
-      <!-- Asymmetric: featured card takes 2/3, two smaller cards stack on the right -->
-      <div class="bento-grid">
-
-        <!-- FEATURED CARD — left, large -->
-        <article class="bento-card bento-card--featured group" v-reveal data-delay="0">
-          <!-- Accent top line on hover -->
-          <div class="card-accent-line card-accent-line--cyan" aria-hidden="true"></div>
-
-          <!-- Large quote mark -->
-          <span class="quote-mark" aria-hidden="true">“</span>
-
-          <!-- Quote text — bigger on featured -->
-          <blockquote class="quote-text quote-text--lg">
-            <p>{{ testimonials[0].text }}</p>
-          </blockquote>
-
-          <!-- Metric — large number display, featured treatment -->
-          <div class="metric-block metric-block--featured">
-            <span class="metric-number metric-number--cyan">{{ testimonials[0].metric }}</span>
-            <span class="metric-label">{{ testimonials[0].metricLabel }}</span>
-          </div>
-
-          <!-- Author -->
-          <footer class="author-row">
-            <div class="author-avatar" :style="{ background: testimonials[0].avatarBg }" aria-hidden="true">
-              {{ testimonials[0].initials }}
-            </div>
-            <cite>
-              <p class="author-name">{{ testimonials[0].name }}</p>
-              <p class="author-company">{{ testimonials[0].company }}</p>
-            </cite>
-          </footer>
-        </article>
-
-        <!-- RIGHT COLUMN — two stacked cards -->
-        <div class="bento-col-right">
-
-          <!-- Card 2 -->
-          <article class="bento-card group" v-reveal data-delay="150">
-            <div class="card-accent-line card-accent-line--purple" aria-hidden="true"></div>
-            <span class="quote-mark quote-mark--sm" aria-hidden="true">“</span>
-            <blockquote class="quote-text">
-              <p>{{ testimonials[1].text }}</p>
-            </blockquote>
-            <div class="metric-block">
-              <span class="metric-number metric-number--purple">{{ testimonials[1].metric }}</span>
-              <span class="metric-label">{{ testimonials[1].metricLabel }}</span>
-            </div>
-            <footer class="author-row">
-              <div class="author-avatar" :style="{ background: testimonials[1].avatarBg }" aria-hidden="true">
-                {{ testimonials[1].initials }}
-              </div>
-              <cite>
-                <p class="author-name">{{ testimonials[1].name }}</p>
-                <p class="author-company">{{ testimonials[1].company }}</p>
-              </cite>
-            </footer>
-          </article>
-
-          <!-- Card 3 -->
-          <article class="bento-card group" v-reveal data-delay="300">
-            <div class="card-accent-line card-accent-line--cyan" aria-hidden="true"></div>
-            <span class="quote-mark quote-mark--sm" aria-hidden="true">“</span>
-            <blockquote class="quote-text">
-              <p>{{ testimonials[2].text }}</p>
-            </blockquote>
-            <div class="metric-block">
-              <span class="metric-number metric-number--cyan">{{ testimonials[2].metric }}</span>
-              <span class="metric-label">{{ testimonials[2].metricLabel }}</span>
-            </div>
-            <footer class="author-row">
-              <div class="author-avatar" :style="{ background: testimonials[2].avatarBg }" aria-hidden="true">
-                {{ testimonials[2].initials }}
-              </div>
-              <cite>
-                <p class="author-name">{{ testimonials[2].name }}</p>
-                <p class="author-company">{{ testimonials[2].company }}</p>
-              </cite>
-            </footer>
-          </article>
-
-        </div>
-
-      </div>
-
     </div>
   </section>
 </template>
 
-<script setup>
-const testimonials = [
-  {
-    name: 'María Rodríguez',
-    initials: 'MR',
-    company: 'Gerente General · Tech Solutions Corp',
-    text: 'Antes tenía una web que no me traía nada. Desde que trabajamos con SysifosWeb, nuestras consultas online se triplicaron. El equipo entendió exactamente lo que necesitaba y lo ejecutaron con precisión.',
-    metric: '3×',
-    metricLabel: 'consultas online en 3 meses',
-    avatarBg: 'var(--accent)'
-  },
-  {
-    name: 'Carlos López',
-    initials: 'CL',
-    company: 'Founder · Innovatech',
-    text: 'Lanzamos nuestra tienda online en tiempo récord. Nuestras ventas crecieron un 40% en el primer trimestre.',
-    metric: '+40%',
-    metricLabel: 'en ventas el primer trimestre',
-    avatarBg: 'var(--accent)'
-  },
-  {
-    name: 'Ana Silva',
-    initials: 'AS',
-    company: 'Directora de Operaciones · Global Systems',
-    text: 'El sistema que desarrollaron nos ahorró horas de trabajo manual cada semana. Ahora el equipo se enfoca en lo que realmente importa.',
-    metric: '12h',
-    metricLabel: 'ahorradas por semana',
-    avatarBg: 'var(--accent)'
-  }
-]
-</script>
-
 <style scoped>
-/* ── Section ────────────────────────────────── */
-.testimonials-section {
-  padding: 7rem 0 8rem;
-}
-
-.ambient-orb {
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  top: 50%;
-  right: -150px;
-  transform: translateY(-50%);
-  background: radial-gradient(ellipse at center, rgba(var(--decoration-rgb), 0.05) 0%, transparent 70%);
-  pointer-events: none;
-  border-radius: 9999px;
-}
-
-.section-container {
-  position: relative;
-  z-index: 10;
-  width: 90%;
-  max-width: 1340px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-}
-
-/* ── Header ─────────────────────────────────── */
-.section-header {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: flex-start;
-}
-
-@media (min-width: 768px) {
-  .section-header {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 3rem;
-  }
-}
-
-.section-headline {
-  font-family: 'Inter', sans-serif;
-  font-size: var(--fs-h2);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  color: var(--text-main);
-  margin: 0;
-}
-
-.section-headline em {
-  font-style: normal;
-  color: var(--accent);
-}
-
-/* Social proof strip */
-.proof-strip {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.4rem;
-  flex-shrink: 0;
-  padding-bottom: 0.5rem;
-}
-
-@media (min-width: 768px) {
-  .proof-strip {
-    align-items: flex-end;
-  }
-}
-
-.proof-stars {
-  display: flex;
-  gap: 3px;
-}
-
-.proof-label {
-  font-size: var(--fs-small);
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
-}
-
-/* ── Bento Grid ─────────────────────────────── */
-.bento-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-@media (min-width: 1024px) {
-  .bento-grid {
-    grid-template-columns: 1.5fr 1fr;
-    /* Featured takes more space */
-    align-items: start;
-  }
-}
-
-.bento-col-right {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-@media (min-width: 640px) and (max-width: 1023px) {
-  .bento-col-right {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* ── Bento Card ─────────────────────────────── */
-.bento-card {
-  position: relative;
-  background: rgba(var(--neutral-rgb), 0.025);
-  border: 1px solid rgba(var(--neutral-rgb), 0.07);
-  border-radius: var(--radius-lg);
-  padding: 2.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  overflow: hidden;
-  transition: border-color 0.25s ease, background-color 0.25s ease;
-}
-
-.bento-card:hover {
-  border-color: rgba(var(--neutral-rgb), 0.12);
-  background: var(--bg-elevated);
-}
-
-/* Featured card — extra padding and taller */
-.bento-card--featured {
-  padding: 2.75rem;
-  justify-content: space-between;
-}
-
-/* Accent line (appears on hover) */
-.card-accent-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.bento-card:hover .card-accent-line {
-  opacity: 1;
-}
-
-.card-accent-line--cyan {
-  background: linear-gradient(to right, transparent, rgba(var(--decoration-rgb), 0.6), transparent);
-}
-
-.card-accent-line--purple {
-  background: linear-gradient(to right, transparent, rgba(var(--decoration-rgb), 0.6), transparent);
-}
-
-/* ── Quote Mark ─────────────────────────────── */
-.quote-mark {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 4rem;
-  line-height: 0.5;
-  color: rgba(var(--decoration-rgb), 0.15);
-  display: block;
-  user-select: none;
-  flex-shrink: 0;
-}
-
-.quote-mark--sm {
-  font-size: 2.5rem;
-}
-
-/* ── Quote Text ─────────────────────────────── */
-.quote-text {
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
-  color: var(--text-secondary);
-  flex: 1;
-}
-
-.quote-text--lg {
-  font-size: var(--fs-lead);
-  line-height: var(--lh-lead);
-}
-
-/* ── Metric Block ───────────────────────────── */
-/* Replaces the green result badge with a large number display */
-.metric-block {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  padding: 1.25rem 0;
-  border-top: 1px solid rgba(var(--neutral-rgb), 0.06);
-  border-bottom: 1px solid rgba(var(--neutral-rgb), 0.06);
-}
-
-.metric-block--featured {
-  padding: 1.5rem 0;
-}
-
-.metric-number {
-  font-family: 'Inter', sans-serif;
-  font-size: 2rem;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-
-.metric-number--cyan {
-  color: var(--accent);
-}
-
-.metric-number--purple {
-  color: var(--accent);
-}
-
-.metric-label {
-  font-size: var(--fs-small);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-top: 0.25rem;
-}
-
-/* ── Author Row ─────────────────────────────── */
-.author-row {
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
-  flex-shrink: 0;
-}
-
-.author-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #fff;
-  flex-shrink: 0;
-  letter-spacing: 0.05em;
-}
-
-.author-name {
-  font-size: var(--fs-small);
-  font-weight: 600;
-  color: var(--text-main);
-  line-height: 1.2;
-  margin-bottom: 0.2rem;
-}
-
-.author-company {
-  font-size: var(--fs-small);
-  color: var(--text-muted);
-  letter-spacing: 0.02em;
+.testimonials-section { padding: var(--section-py) 0; }
+.testimonial-preview-label { display: inline-block; margin: 0 0 1.5rem; padding: 0.5rem 0.875rem; border: 1px dashed var(--accent); border-radius: var(--radius-sm); color: var(--accent); font-size: var(--fs-small); font-weight: 600; }
+.testimonial-heading { max-width: 48rem; margin: 0 auto 3rem; text-align: center; }
+.testimonial-rule { display: block; width: 3rem; height: 3px; border-radius: 3px; background: var(--accent); margin: 0 auto 1.5rem; }
+.testimonial-heading p { margin-top: 1rem; }
+.testimonial-feature { display: flex; align-items: center; max-width: 58rem; margin: auto; }
+.testimonial-portrait { width: 42%; aspect-ratio: 1; flex-shrink: 0; border-radius: 50%; overflow: hidden; background: var(--bg-elevated); }
+.testimonial-portrait img { width: 100%; height: 100%; object-fit: cover; }
+.testimonial-symbol { display: flex; justify-content: center; align-items: center; height: 100%; font-family: var(--font-heading); font-size: 10rem; color: var(--accent); }
+.testimonial-card { position: relative; flex: 1; min-width: 0; margin-left: -3rem; padding: 2rem; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: 0 16px 40px rgba(16, 43, 70, 0.08); }
+.testimonial-quote { display: block; color: var(--accent); font-family: var(--font-heading); font-size: 3rem; line-height: 1; }
+blockquote p { font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--text-main); }
+figcaption { display: flex; gap: 0.75rem; align-items: center; margin-top: 1.5rem; }
+cite { font-family: var(--font-heading); font-style: normal; font-weight: 700; color: var(--text-main); }
+.testimonial-initial { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--bg-elevated); color: var(--accent); font-weight: 700; }
+.testimonial-role { color: var(--text-secondary); font-size: var(--fs-small); }
+@media (max-width: 640px) {
+  .testimonial-feature { flex-direction: column; }
+  .testimonial-portrait { width: min(70%, 16rem); }
+  .testimonial-card { margin: -2rem 0 0; padding: 1.5rem; width: 100%; }
 }
 </style>

@@ -30,7 +30,8 @@ setSchema({
     
     <!-- BREAK 1: The Belief -->
     <NosotrosStorytellingBreak 
-      headline="El software debe impulsar tu ventaja."
+      id="software-impulsar"
+      headline="El software debe <em>impulsar</em> tu ventaja."
       :oversized="true"
     />
 
