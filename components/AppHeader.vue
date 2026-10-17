@@ -20,7 +20,7 @@ const followPointer = (event) => {
     <div class="site-container hero-content">
       <div class="hero-copy">
         <p class="hero-eyebrow"><span aria-hidden="true"></span>Diseño y desarrollo para tu empresa</p>
-        <h1 id="home-title">Tu próximo paso digital,<br class="hidden sm:block" /> <span>con un equipo cercano.</span></h1>
+        <h1 id="home-title">Tu próximo paso digital, <span>con un equipo cercano.</span></h1>
         <p class="hero-description">Páginas web, tiendas online y software a medida. Definimos el alcance contigo y te acompañamos desde la idea hasta el lanzamiento.</p>
         <div class="hero-actions">
           <a href="https://wa.me/56985021549?text=Hola%20SysifosWeb!%20Quiero%20cotizar%20mi%20proyecto%20web%2Fsoftware" target="_blank" rel="noopener" class="btn btn-primary">
@@ -28,8 +28,10 @@ const followPointer = (event) => {
           </a>
           <NuxtLink to="/portfolio" class="btn btn-secondary">Ver nuestros proyectos <span aria-hidden="true">↓</span></NuxtLink>
         </div>
+        <div class="hero-details">
         <div class="hero-detail hero-detail--design" aria-hidden="true"><PanelsTopLeft /><span>Diseño a medida</span></div>
         <div class="hero-detail hero-detail--team" aria-hidden="true"><MessageCircle /><span>Contacto directo</span></div>
+        </div>
       </div>
 
       <div class="hero-project-motion" @pointermove="followPointer" @pointerleave="resetTilt" @pointercancel="resetTilt">
@@ -59,19 +61,19 @@ const followPointer = (event) => {
 @media (prefers-reduced-motion: reduce) { .hero-project-tilt { transform: none !important; transition: none; } }
 .hero-section { position: relative; overflow: hidden; background: var(--bg-dark); padding: clamp(10rem, 12vw, 12rem) 0 var(--section-py-sm); }
 .hero-section::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(157,203,245,0.18), transparent 65%); }
-.hero-content { position: relative; }
-.hero-copy { position: relative; text-align: center; max-width: 64rem; margin: 0 auto; }
+.hero-content { position: relative; display: grid; align-items: center; gap: 3rem; }
+.hero-copy { position: relative; min-width: 0; text-align: center; max-width: 42rem; margin: 0 auto; }
+.hero-project-motion { min-width: 0; width: 100%; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.5rem 0.875rem; border: 1px solid var(--border); background: var(--bg-surface); border-radius: 999px; font-size: var(--fs-small); color: var(--text-secondary); }
 .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 h1 { margin: 1.5rem auto; font-family: var(--font-heading); font-size: var(--fs-page-hero); font-weight: 700; line-height: 1.14; letter-spacing: -0.045em; color: var(--text-main); text-wrap: balance; }
 h1 span { color: var(--accent); }
 .hero-description { max-width: 39rem; margin: 0 auto; font-size: var(--fs-lead); line-height: 1.55; color: var(--text-secondary); text-wrap: pretty; }
 .hero-actions { display: flex; align-items: center; justify-content: center; gap: 0.875rem; flex-wrap: wrap; margin-top: 2rem; }
-.hero-detail { position: absolute; display: flex; align-items: center; gap: 0.625rem; padding: 0.875rem; border-radius: var(--radius-lg); border: 1px solid rgba(29,95,166,0.12); background: #EDF3FA; color: #1D5FA6; box-shadow: 0 8px 24px rgba(16,43,70,0.04); font-size: var(--fs-small); pointer-events: none; }
-.hero-detail svg { width: 1.5rem; height: 1.5rem; stroke-width: 1.5; }
-.hero-detail--design { --tile-angle: -6deg; left: -6.5rem; top: 8rem; transform: rotate(-6deg); }
-.hero-detail--team { --tile-angle: 6deg; right: -6rem; top: 11rem; transform: rotate(6deg); }
-.hero-project { position: relative; max-width: 66rem; margin: 3.5rem auto 0; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-surface); overflow: hidden; box-shadow: 0 20px 55px rgba(16,43,70,0.1); }
+.hero-details { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.5rem; }
+.hero-detail { display: inline-flex; align-items: center; gap: .5rem; font-size: var(--fs-small); color: var(--text-secondary); }
+.hero-detail svg { width: 1.125rem; height: 1.125rem; color: var(--accent); }
+.hero-project { position: relative; max-width: 66rem; margin: 0 auto; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-surface); overflow: hidden; box-shadow: 0 20px 55px rgba(16,43,70,0.1); }
 .hero-project__bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.875rem 1.25rem; font-size: var(--fs-small); color: var(--text-secondary); background: var(--bg-surface); }
 .hero-project__dots { display: flex; gap: 5px; }
 .hero-project__dots i { display: block; width: 7px; height: 7px; border-radius: 50%; background: #9DCBF5; }
@@ -83,14 +85,28 @@ figcaption { display: flex; justify-content: space-between; align-items: center;
 figcaption h2 { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-top: 0.25rem; }
 .hero-project__link { color: var(--accent); font-size: var(--fs-body); font-weight: 600; }
 .hero-project__link:hover { text-decoration: underline; }
-@media (max-width: 1200px) { .hero-detail { display: none; } }
+@media (min-width: 1024px) {
+  .hero-section { padding-top: clamp(10rem, 12vw, 12rem); padding-bottom: clamp(4rem, 7vw, 7rem); }
+  .hero-content { grid-template-columns: minmax(0, .95fr) minmax(0, 1.1fr); gap: clamp(2rem, 4vw, 4rem); }
+  .hero-copy { text-align: left; max-width: none; margin: 0; }
+  h1 { font-size: clamp(2.5rem, 3.8vw, 3.75rem); margin-inline: 0; }
+  .hero-description { margin-inline: 0; }
+  .hero-actions, .hero-details { justify-content: flex-start; }
+  .hero-actions .btn { padding-inline: 1.25rem; }
+  .hero-project__type { display: none; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hero-actions { align-items: flex-start; flex-direction: column; }
+}
+
 @media (max-width: 640px) {
+  .hero-project-motion { display: none; }
   .hero-section { padding-top: 9rem; }
   .hero-eyebrow { font-size: 0.875rem; }
   .hero-description { font-size: 1.125rem; }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-actions .btn { width: 100%; }
-  .hero-project { margin-top: 2.5rem; }
+
   .hero-project__bar { padding: 0.75rem; gap: 0.5rem; font-size: 0.8125rem; }
   .hero-project__type { display: none; }
   figcaption { padding: 1rem; }
@@ -103,8 +119,6 @@ figcaption h2 { font-size: 1.25rem; font-weight: 700; color: var(--text-main); m
   .hero-description { animation: hero-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both; }
   .hero-actions { animation: hero-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.46s both; }
   .hero-section::before { animation: hero-light-drift 16s ease-in-out infinite alternate; }
-  .hero-detail--design { animation: hero-tile-enter 1s ease-out 0.65s both, hero-tile-float 7s ease-in-out 1.65s infinite; }
-  .hero-detail--team { animation: hero-tile-enter 1s ease-out 0.85s both, hero-tile-float 8s ease-in-out 1.85s infinite reverse; }
   .hero-project {
     transform-origin: center top;
     animation: hero-project-enter 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
@@ -123,14 +137,6 @@ figcaption h2 { font-size: 1.25rem; font-weight: 700; color: var(--text-main); m
 @keyframes hero-enter {
   from { opacity: 0; transform: translateY(22px); }
   to { opacity: 1; transform: translateY(0); }
-}
-@keyframes hero-tile-enter {
-  from { opacity: 0; transform: translateY(20px) scale(0.92) rotate(var(--tile-angle)); }
-  to { opacity: 1; transform: translateY(0) scale(1) rotate(var(--tile-angle)); }
-}
-@keyframes hero-tile-float {
-  0%, 100% { transform: translateY(0) rotate(var(--tile-angle)); }
-  50% { transform: translateY(-12px) rotate(calc(var(--tile-angle) + 2deg)); }
 }
 @keyframes hero-light-drift {
   from { transform: translate(-2%, -2%) scale(1); opacity: 0.7; }

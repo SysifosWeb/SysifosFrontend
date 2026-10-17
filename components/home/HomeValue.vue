@@ -71,19 +71,6 @@ const steps = [
   overflow: hidden;
 }
 
-/* Un mismo eje izquierdo para icono y texto; cada grupo se centra en su columna. */
-@media (min-width: 1024px) {
-  .step-item:not(:last-child)::before {
-    content: '';
-    position: absolute;
-    top: 40px;
-    left: calc(50% - 60px);
-    width: calc(100% + 2rem);
-    height: 1px;
-    background: var(--border);
-  }
-}
-
 /* Ícono wrapper */
 .step-icon-wrap {
   background: rgba(var(--neutral-rgb), 0.04);
