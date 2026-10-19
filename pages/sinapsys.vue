@@ -1,149 +1,152 @@
 <script setup>
-import { GlobeAltIcon, BriefcaseIcon, CameraIcon, LinkIcon } from '@heroicons/vue/24/solid'
-import logo from '../assets/img/logo-sinapsys.png'
+import { ref } from 'vue'
+import { Globe, BriefcaseBusiness, Instagram, Linkedin, ArrowUpRight, MessageCircle, MapPin, ArrowRight } from 'lucide-vue-next'
 
-definePageMeta({
-  layout: 'landing'
-})
+definePageMeta({ layout: false })
+
+const introActive = ref(true)
 
 const links = [
-  {
-    title: 'Página Web',
-    desc: 'NODO_PRINCIPAL.',
-    url: 'https://sysifosweb.cl/',
-    icon: GlobeAltIcon,
-    bg: 'bg-[#00f2ff]/10',
-    color: 'text-[#00f2ff]',
-    shadow: 'hover:shadow-[0_0_15px_rgba(0,242,255,0.2)]'
-  },
-  {
-    title: 'Portafolio',
-    desc: 'HISTORIAL_OPERATIVO.',
-    url: 'https://sysifosweb.cl/portfolio',
-    icon: BriefcaseIcon,
-    bg: 'bg-[#00f2ff]/10',
-    color: 'text-[#00f2ff]',
-    shadow: 'hover:shadow-[0_0_15px_rgba(0,242,255,0.2)]'
-  },
-  {
-    title: 'Instagram',
-    desc: 'REGISTROS_VISUALES.',
-    url: 'https://www.instagram.com/sysifosweb_/',
-    icon: CameraIcon,
-    bg: 'bg-[#00f2ff]/10',
-    color: 'text-[#00f2ff]',
-    shadow: 'hover:shadow-[0_0_15px_rgba(0,242,255,0.2)]'
-  },
-  {
-    title: 'LinkedIn',
-    desc: 'RED_PROFESIONAL.',
-    url: 'https://www.linkedin.com/company/sysifos-web',
-    icon: LinkIcon,
-    bg: 'bg-[#00f2ff]/10',
-    color: 'text-[#00f2ff]',
-    shadow: 'hover:shadow-[0_0_15px_rgba(0,242,255,0.2)]'
-  },
+  { title: 'Nuestro sitio web', desc: 'Conoce cómo podemos ayudarte.', url: 'https://sysifosweb.cl/', icon: Globe, label: 'Explorar' },
+  { title: 'Portafolio', desc: 'Descubre los proyectos que hemos creado.', url: 'https://sysifosweb.cl/portfolio', icon: BriefcaseBusiness, label: 'Ver proyectos' },
+  { title: 'Instagram', desc: 'Ideas, novedades y nuestro día a día.', url: 'https://www.instagram.com/sysifosweb_/', icon: Instagram, label: 'Síguenos' },
+  { title: 'LinkedIn', desc: 'Conecta con nuestro equipo.', url: 'https://www.linkedin.com/company/sysifos-web', icon: Linkedin, label: 'Conectemos' },
 ]
 
-// SEO Configuration
 const { setMeta, setSchema } = useSEO()
-
 setMeta({
-  title: 'Sinapsys - Enlaces y Recursos | SysifosWeb',
-  description: 'Accede a todos nuestros recursos, redes sociales y contacto directo. El nodo central de SysifosWeb.',
+  title: 'Sinapsys · Conecta con SysifosWeb',
+  description: 'Conoce nuestros proyectos, explora nuestras redes y conversemos sobre tu próxima página web o software a medida. SysifosWeb, Coquimbo, Chile.',
   keywords: 'enlaces sysifosweb, contacto sysifos, redes sociales sysifosweb',
   image: '/img/og-sinapsys.jpg'
 })
-
-setSchema({
-  type: 'WebPage',
-  data: {
-    name: 'Sinapsys - SysifosWeb',
-    description: 'Nodo central de enlaces de SysifosWeb'
-  }
-})
+setSchema({ type: 'WebPage', data: { name: 'Sinapsys — Enlaces de SysifosWeb', description: 'Sitio web, proyectos, redes sociales y contacto de SysifosWeb.' } })
 </script>
 
 <template>
-  <div
-    class="relative min-h-screen w-full flex items-center justify-center p-4 overflow-hidden font-sans bg-[#0a0e17] text-gray-300 selection:bg-[#00f2ff]/30">
-    <!-- HUD Background -->
-    <div class="absolute inset-0 z-0 pointer-events-none opacity-20 select-none flex items-center justify-center">
-      <div
-        class="w-[600px] h-[600px] rounded-full border border-[#00f2ff]/10 border-dashed animate-[spin_60s_linear_infinite]">
-      </div>
-      <div
-        class="absolute w-[400px] h-[400px] rounded-full border border-[#00f2ff]/20 shadow-[inset_0_0_50px_rgba(0,242,255,0.05)] border-dashed animate-[spin_30s_linear_infinite_reverse]">
-      </div>
-      <div class="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-[#00f2ff]/10 to-transparent"></div>
-      <div class="absolute h-full w-[1px] bg-gradient-to-b from-transparent via-[#00f2ff]/10 to-transparent"></div>
-    </div>
+  <div class="sinapsys impulso-hybrid" :class="{ 'sinapsys--intro': introActive }">
+    <BrandIntro v-if="introActive" @complete="introActive = false" />
+    <div class="sinapsys-container" :inert="introActive" :aria-hidden="introActive ? 'true' : undefined">
+      <header class="sinapsys-header">
+        <a href="https://sysifosweb.cl/" aria-label="Ir al sitio de SysifosWeb" class="sinapsys-brand"><BrandLogo /></a>
+        <span class="sinapsys-label"><span aria-hidden="true"></span> Sinapsys · Conecta con nosotros</span>
+      </header>
 
-    <div class="relative z-10 w-full max-w-2xl mx-auto">
-      <!-- Header -->
-      <div class="flex flex-col items-center gap-6 text-center">
-        <div class="relative w-40 h-40 animate-[spin_15s_linear_infinite]">
-          <div class="absolute inset-0 rounded-full border border-[#00f2ff]/30"></div>
-          <div
-            class="absolute -inset-2 rounded-full border-2 border-transparent border-t-[#00f2ff]/50 animate-[spin_5s_linear_infinite]">
+      <main class="sinapsys-main">
+        <section class="sinapsys-intro" aria-labelledby="sinapsys-title">
+          <p class="sinapsys-eyebrow">Diseño y desarrollo con propósito</p>
+          <h1 id="sinapsys-title">Tu próximo paso digital{{ ' ' }}<span>empieza aquí.</span></h1>
+          <p class="sinapsys-description">Páginas web y software a medida, con un equipo cercano.</p>
+          <a class="sinapsys-whatsapp" href="https://wa.me/56985021549?text=Hola%2C%20quiero%20conversar%20sobre%20un%20proyecto%20digital." target="_blank" rel="noopener noreferrer">
+            <MessageCircle aria-hidden="true" /> Hablemos de tu proyecto <ArrowUpRight class="sinapsys-cta-arrow" aria-hidden="true" />
+          </a>
+          <p class="sinapsys-contact-note">Conversemos directamente por WhatsApp.</p>
+          <img class="sinapsys-watermark" src="/img/brand/mark.svg" alt="" aria-hidden="true" />
+        </section>
+
+        <section class="sinapsys-links" aria-labelledby="sinapsys-links-title">
+          <div class="sinapsys-links-heading">
+            <p class="sinapsys-eyebrow">Explora y conecta</p>
+            <h2 id="sinapsys-links-title">Todo SysifosWeb, <span>más cerca.</span></h2>
           </div>
-          <div
-            class="absolute inset-4 rounded-full bg-cover bg-center shadow-lg bg-[#0c121e] z-10 border border-white/5 animate-[spin_15s_linear_infinite_reverse]"
-            :style="{ backgroundImage: `url(${logo})` }"></div>
-        </div>
+          <a v-for="(item, index) in links" :key="item.title" :href="item.url" target="_blank" rel="noopener noreferrer" class="sinapsys-link" :style="{ '--entrance-delay': `${.24 + index * .07}s` }">
+            <span class="sinapsys-link-icon"><component :is="item.icon" aria-hidden="true" /></span>
+            <span class="sinapsys-link-copy"><span class="sinapsys-link-title">{{ item.title }}</span><span class="sinapsys-link-description">{{ item.desc }}</span></span>
+            <span class="sinapsys-link-action">{{ item.label }} <ArrowUpRight aria-hidden="true" /></span>
+          </a>
+          <a href="https://sysifosweb.cl/servicios" class="sinapsys-services-link">¿Qué podemos construir para ti? <ArrowRight aria-hidden="true" /></a>
+        </section>
+      </main>
 
-        <div>
-          <div class="flex items-center justify-center gap-2 mb-2">
-            <span class="text-[#00f2ff] font-mono text-[14px] uppercase tracking-widest">> SISTEMA_CENTRAL</span>
-          </div>
-          <h1
-            class="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase drop-shadow-[0_0_15px_rgba(0,242,255,0.2)]">
-            Sysifos<span class="text-[#00f2ff]">Web</span>
-          </h1>
-          <p class="text-[14px] font-mono text-gray-300 mt-2 tracking-widest uppercase">
-            Desarrollo de Software de Alto Rendimiento
-          </p>
-        </div>
-      </div>
-
-      <!-- Misión -->
-      <div
-        class="mt-10 bg-[#0c121e]/80 backdrop-blur-md border border-[#00f2ff]/20 p-8 rounded-none shadow-[0_0_20px_rgba(0,242,255,0.05)] text-center relative group">
-        <div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#00f2ff]"></div>
-        <div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#00f2ff]"></div>
-
-        <h2 class="text-[15px] font-mono text-[#00f2ff] uppercase tracking-widest">OBJETIVO_PRINCIPAL</h2>
-        <p class="mt-4 text-[15px] font-mono text-gray-300 leading-relaxed">
-          Convertimos requerimientos abstractos en arquitecturas digitales concretas, escalables y orientadas a la
-          máxima eficiencia operativa.
-        </p>
-
-        <a class="mt-8 inline-flex items-center gap-2 bg-[#00f2ff]/10 hover:bg-[#00f2ff] border border-[#00f2ff]/50 text-[#00f2ff] hover:text-[#0a0e17] font-mono text-[15px] uppercase tracking-widest py-3 px-6 transition-all duration-300 shadow-[0_0_15px_rgba(0,242,255,0.1)] hover:shadow-[0_0_20px_rgba(0,242,255,0.4)]"
-          href="https://wa.me/56985021549?text=¡Hola!%20Quiero%20más%20información%20sobre%20sus%20servicios"
-          target="_blank">
-          ESTABLECER_CONEXION_WSP >
-        </a>
-      </div>
-
-      <!-- Links -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-8">
-        <a v-for="item in links" :key="item.title" :href="item.url" target="_blank"
-          :class="`group flex items-center justify-between p-5 bg-[#0c121e]/80 backdrop-blur-md border border-white/5 hover:border-[#00f2ff]/50 transition-all duration-300 ${item.shadow} relative overflow-hidden`">
-          <div
-            class="absolute inset-0 bg-gradient-to-r from-[#00f2ff]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-          </div>
-          <div class="flex items-center gap-4 relative z-10">
-            <div
-              :class="`p-3 border border-white/5 bg-[#0a0e17] ${item.color} group-hover:border-[#00f2ff]/30 transition-colors`">
-              <component :is="item.icon" class="w-5 h-5" />
-            </div>
-            <div>
-              <p class="font-bold text-sm text-white uppercase tracking-wider">{{ item.title }}</p>
-              <p class="text-[15px] font-mono text-gray-300 uppercase">{{ item.desc }}</p>
-            </div>
-          </div>
-        </a>
-      </div>
+      <footer class="sinapsys-footer">
+        <p>Código que impulsa. Soluciones que transforman.</p>
+        <span><MapPin aria-hidden="true" /> Coquimbo, Chile</span>
+      </footer>
     </div>
   </div>
 </template>
+
+<style scoped>
+.sinapsys { min-height: 100svh; background: #F7F8FB; color: #102B46; font-family: var(--font-family); padding: clamp(1.25rem, 4vw, 3rem) 0; background-image: radial-gradient(ellipse at 10% 0%, rgba(157,203,245,.23), transparent 55%); }
+.sinapsys-container { width: min(1120px, 90%); margin-inline: auto; }
+.sinapsys-header { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding-bottom: 2rem; border-bottom: 1px solid #D9E3EF; }
+.sinapsys-brand { display: block; width: clamp(180px, 21vw, 240px); flex-shrink: 0; }
+.sinapsys-brand :deep(.brand-logo) { display: block; width: 100%; }
+.sinapsys-label { display: inline-flex; align-items: center; gap: .5rem; color: #52677F; font-size: var(--fs-small); }
+.sinapsys-label > span { width: 6px; height: 6px; border-radius: 50%; background: #1D5FA6; }
+.sinapsys-main { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; margin-block: clamp(2rem, 5vw, 4rem); }
+.sinapsys-intro { position: relative; isolation: isolate; overflow: hidden; background: #102B46; color: #F7F8FB; border-radius: 24px; padding: clamp(1.75rem, 4vw, 3rem); box-shadow: 0 20px 50px rgba(16,43,70,.1); }
+.sinapsys-eyebrow { font-size: var(--fs-small); letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: #1D5FA6; margin-bottom: 1rem; }
+.sinapsys-intro .sinapsys-eyebrow { color: #9DCBF5; }
+h1 { font-size: clamp(2.25rem, 3.5vw, 3.25rem); font-weight: 800; line-height: 1.12; letter-spacing: -.045em; text-wrap: balance; }
+h1 > span { display: block; color: #9DCBF5; }
+.sinapsys-description { font-size: var(--fs-lead); line-height: 1.55; margin-top: 1.5rem; color: #D1E0F0; }
+.sinapsys-whatsapp { display: flex; align-items: center; justify-content: center; gap: .65rem; border-radius: 12px; padding: 1rem; font-weight: 700; font-size: var(--fs-body); background: #9DCBF5; color: #102B46; margin-top: 1.75rem; transition: background-color .25s ease, box-shadow .25s ease, transform .2s ease; }
+.sinapsys-whatsapp svg { width: 20px; height: 20px; flex-shrink: 0; }
+.sinapsys-whatsapp:hover { background: #25D366; box-shadow: 0 8px 24px rgba(37,211,102,.14); }
+.sinapsys-contact-note { margin-top: .875rem; font-size: var(--fs-small); text-align: center; color: #B8CFE5; }
+.sinapsys-watermark { position: absolute; width: 330px; right: -100px; top: -30px; opacity: .09; transform: rotate(-12deg); z-index: -1; pointer-events: none; }
+h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 800; letter-spacing: -.035em; text-wrap: balance; margin-bottom: 1.5rem; }
+h2 > span { color: #1D5FA6; }
+.sinapsys-link { display: flex; align-items: center; gap: 1rem; padding: 1.25rem; background: #FFF; border: 1px solid #D9E3EF; border-radius: 16px; margin-top: .875rem; transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+.sinapsys-link-icon { width: 48px; height: 48px; display: grid; place-items: center; background: #EDF3FA; border-radius: 12px; color: #1D5FA6; flex-shrink: 0; }
+.sinapsys-link-icon svg { width: 23px; height: 23px; }
+.sinapsys-link-copy { flex: 1; min-width: 0; }
+.sinapsys-link-title { display: block; font-family: var(--font-heading); font-weight: 700; font-size: 18px; }
+.sinapsys-link-description { display: block; margin-top: .25rem; color: #52677F; font-size: var(--fs-body); line-height: 1.45; }
+.sinapsys-link-action { display: flex; align-items: center; gap: .35rem; font-size: var(--fs-small); font-weight: 600; color: #1D5FA6; }
+.sinapsys-link-action svg, .sinapsys-services-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+.sinapsys-services-link { display: flex; align-items: center; gap: .5rem; margin-top: 1.5rem; color: #1D5FA6; font-size: var(--fs-body); font-weight: 600; }
+.sinapsys-services-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.sinapsys-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 1px solid #D9E3EF; padding-top: 1.5rem; color: #52677F; font-size: var(--fs-small); }
+.sinapsys-footer > span { display: flex; align-items: center; gap: .5rem; }
+.sinapsys-footer svg { width: 16px; height: 16px; }
+a:focus-visible { outline: 3px solid #1D5FA6; outline-offset: 5px; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .sinapsys-link:hover, .sinapsys-link:focus-visible { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(16,43,70,.07); border-color: #9DCBF5; }
+  .sinapsys-cta-arrow, .sinapsys-link-action svg { transition: transform .25s ease; }
+  .sinapsys-link:hover .sinapsys-link-action svg { transform: translate(2px, -2px); }
+  .sinapsys-whatsapp:hover .sinapsys-cta-arrow { transform: translate(2px, -2px); }
+}
+@media (max-width: 900px) {
+  .sinapsys-main { grid-template-columns: 1fr; max-width: 620px; margin-inline: auto; }
+  .sinapsys-header { flex-direction: column; gap: .65rem; padding-bottom: 1.25rem; }
+  .sinapsys-main { gap: 1.5rem; margin-block: 1.5rem 2rem; }
+  .sinapsys-intro { padding: 1.5rem; }
+  .sinapsys-intro .sinapsys-eyebrow { display: none; }
+  h1 { font-size: clamp(1.875rem, 5vw, 2.5rem); }
+  .sinapsys-description { font-size: var(--fs-body); line-height: 1.5; margin-top: .875rem; }
+  .sinapsys-whatsapp { margin-top: 1.25rem; padding: .875rem .75rem; }
+  .sinapsys-contact-note { margin-top: .65rem; }
+  .sinapsys-links-heading .sinapsys-eyebrow { display: none; }
+  h2 { font-size: 1.375rem; line-height: 1.3; margin-bottom: 1rem; }
+  .sinapsys-link { margin-top: .75rem; }
+  .sinapsys-link-description { font-size: var(--fs-small); }
+
+}
+@media (max-width: 480px) {
+  .sinapsys-link { gap: .75rem; padding: 1rem; }
+  .sinapsys-link-action { font-size: 0; }
+  .sinapsys-link-title { font-size: 18px; }
+  .sinapsys-footer { justify-content: center; text-align: center; }
+  .sinapsys-whatsapp { padding-inline: .75rem; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sinapsys-header { animation: sinapsys-enter .4s ease-out both; }
+  .sinapsys-intro { animation: sinapsys-enter .45s ease-out .08s both; }
+  .sinapsys-links-heading { animation: sinapsys-enter .4s ease-out .16s both; }
+  .sinapsys-link { animation: sinapsys-enter .38s ease-out var(--entrance-delay) both; }
+  .sinapsys-watermark { animation: sinapsys-impulse 10s ease-in-out infinite; }
+  .sinapsys-link:active, .sinapsys-whatsapp:active { transform: scale(.985); }
+}
+.sinapsys--intro :is(.sinapsys-header, .sinapsys-intro, .sinapsys-links-heading, .sinapsys-link, .sinapsys-watermark) { animation-play-state: paused; }
+@keyframes sinapsys-enter {
+  from { opacity: 0; translate: 0 12px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes sinapsys-impulse {
+  0%, 100% { transform: translate(0, 0) rotate(-12deg); }
+  50% { transform: translate(-12px, 10px) rotate(-9deg); }
+}
+</style>
