@@ -136,7 +136,7 @@
 import { ref, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
-    LayoutDashboard, SquareKanban, FileText, Tags, Inbox,
+    LayoutDashboard, SquareKanban, FileText, Tags, Inbox, Landmark,
     ExternalLink, LogOut, Sun, Moon, Bell, ChevronRight, Menu, X,
 } from "lucide-vue-next";
 
@@ -158,6 +158,7 @@ const navGroups = [
         label: 'General',
         items: [
             { label: 'Dashboard', to: '/admin', match: '/admin', icon: LayoutDashboard },
+            { label: 'Mercado Público', to: '/admin/mercado-publico', match: '/admin/mercado-publico', icon: Landmark },
             { label: 'Kanban', to: '/admin/kanban', match: '/admin/kanban', icon: SquareKanban },
         ],
     },
@@ -181,6 +182,7 @@ const pageTitle = computed(() => {
     if (p === '/admin' || p === '/admin/') return 'Dashboard';
     if (p === '/admin/kanban' || p === '/admin/kanban/') return 'Proyectos Kanban';
     if (p.startsWith('/admin/kanban/')) return 'Tablero Kanban';
+    if (p.startsWith('/admin/mercado-publico')) return 'Mercado Público';
     if (p.startsWith('/admin/posts')) {
         if (p.endsWith('/create')) return 'Nuevo Post';
         if (p.includes('/edit')) return 'Editar Post';
