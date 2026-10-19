@@ -99,6 +99,9 @@ const sources = [
             },
             {
                 "loc": "/admin/categories/create"
+            },
+            {
+                "loc": "/admin/mercado-publico"
             }
         ],
         "sourceType": "app"

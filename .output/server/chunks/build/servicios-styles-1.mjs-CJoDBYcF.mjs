@@ -1,4 +1,0 @@
-const HeroSection_vue_vue_type_style_index_0_scoped_fde17ec5_inline_used_lang = ".hero-section[data-v-fde17ec5]{overflow:hidden;position:relative}.section-container[data-v-fde17ec5]{margin:0 auto;max-width:1000px;position:relative;width:90%;z-index:10}.hero-headline[data-v-fde17ec5]{color:var(--text-main);font-family:var(--font-family);font-size:var(--fs-page-hero);font-weight:var(--fw-hero);letter-spacing:var(--ls-hero);line-height:var(--lh-hero);max-inline-size:21ch;text-wrap:balance}.hero-subtitle[data-v-fde17ec5]{color:var(--text-secondary);font-size:var(--fs-lead);font-weight:400;line-height:var(--lh-lead)}@media(max-width:480px){.hero-headline[data-v-fde17ec5]{font-size:1.75rem;max-inline-size:none}}";
-
-export { HeroSection_vue_vue_type_style_index_0_scoped_fde17ec5_inline_used_lang as H };
-//# sourceMappingURL=servicios-styles-1.mjs-CJoDBYcF.mjs.map

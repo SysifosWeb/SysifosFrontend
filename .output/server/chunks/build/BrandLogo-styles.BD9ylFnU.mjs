@@ -1,0 +1,8 @@
+const BrandLogo_vue_vue_type_style_index_0_scoped_81f2d8e5_inline_used_lang = ".brand-logo[data-v-81f2d8e5]{display:inline-block}.brand-logo img[data-v-81f2d8e5]{height:100%;-o-object-fit:contain;object-fit:contain;width:100%}.brand-logo__light[data-v-81f2d8e5]{display:var(--logo-light-display,none)}.brand-logo__dark[data-v-81f2d8e5]{display:var(--logo-dark-display,block)}";
+
+const BrandLogoStyles_BD9ylFnU = [
+  BrandLogo_vue_vue_type_style_index_0_scoped_81f2d8e5_inline_used_lang
+];
+
+export { BrandLogoStyles_BD9ylFnU as default };
+//# sourceMappingURL=BrandLogo-styles.BD9ylFnU.mjs.map

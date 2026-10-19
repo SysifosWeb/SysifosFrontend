@@ -1,0 +1,4 @@
+const ListSection_vue_vue_type_style_index_0_scoped_2a14b254_inline_used_lang = ".section-container[data-v-2a14b254]{margin:0 auto;max-width:1200px;width:90%}.plan-card[data-v-2a14b254]{transition:opacity 1.2s ease,transform 1.2s ease,translate .25s ease,box-shadow .25s ease,background-color .25s ease,border-color .25s ease}.plan-icon svg[data-v-2a14b254]{transition:transform .25s ease}@media(hover:hover)and (pointer:fine)and (prefers-reduced-motion:no-preference){.plan-card[data-v-2a14b254]:focus-within,.plan-card[data-v-2a14b254]:hover{box-shadow:0 16px 36px #102b461f;translate:0 -5px}.plan-card:focus-within .plan-icon svg[data-v-2a14b254],.plan-card:hover .plan-icon svg[data-v-2a14b254]{transform:translateY(-2px) scale(1.06)}}";
+
+export { ListSection_vue_vue_type_style_index_0_scoped_2a14b254_inline_used_lang as L };
+//# sourceMappingURL=servicios-styles-2.mjs-C20HjMSD.mjs.map
