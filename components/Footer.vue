@@ -117,7 +117,7 @@
                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span class="text-sm" style="color: var(--text-secondary);">La Serena · Coquimbo, Chile</span>
+                <span class="text-sm" style="color: var(--text-secondary);">Coquimbo, Chile</span>
               </li>
             </ul>
           </div>
@@ -135,8 +135,7 @@
             style="color: var(--text-muted);">
             Política de Privacidad
           </NuxtLink>
-          <a href="#cookies" class="nav-link text-xs transition-colors duration-200"
-            style="color: var(--text-muted);">
+          <a href="#cookies" class="nav-link text-xs transition-colors duration-200" style="color: var(--text-muted);">
             Configurar cookies
           </a>
           <p class="text-xs" style="color: var(--text-muted);">

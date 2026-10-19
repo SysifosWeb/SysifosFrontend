@@ -22,7 +22,7 @@ import 'ipx';
 const SITE_URL = "https://sysifosweb.cl";
 const CORE = `# SysifosWeb
 
-> Agencia de desarrollo de software en La Serena, Chile. Especialistas en p\xE1ginas web profesionales, tiendas online y software a medida para empresas.
+> Agencia de desarrollo de software en coquimbo, Chile. Especialistas en p\xE1ginas web profesionales, tiendas online y software a medida para empresas.
 
 SysifosWeb (Sysifos) construye productos digitales escalables: sitios web de alto rendimiento, ecommerce autoadministrable y sistemas empresariales a medida. Trabajamos con Laravel, Nuxt/Vue.js, React y Flutter, con foco en performance, SEO t\xE9cnico y arquitecturas robustas.
 
@@ -32,7 +32,7 @@ SysifosWeb (Sysifos) construye productos digitales escalables: sitios web de alt
 - Email: contacto@sysifosweb.cl
 - Tel\xE9fono: +56 9 8502 1549
 - WhatsApp: https://wa.me/56985021549
-- Ubicaci\xF3n: La Serena, Regi\xF3n de Coquimbo, Chile
+- Ubicaci\xF3n: coquimbo, Regi\xF3n de Coquimbo, Chile
 - Horario: Lunes a viernes, 09:00\u201318:00
 - Tiempo de respuesta: menos de 24 horas
 

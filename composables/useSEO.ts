@@ -252,7 +252,7 @@ export const useSEO = () => {
                     image: data.image || `${siteUrl}/img/logo.png`,
                     address: {
                         '@type': 'PostalAddress',
-                        addressLocality: data.addressLocality || 'La Serena',
+                        addressLocality: data.addressLocality || 'coquimbo',
                         addressRegion: data.addressRegion || 'Coquimbo',
                         addressCountry: data.addressCountry || 'CL'
                     },

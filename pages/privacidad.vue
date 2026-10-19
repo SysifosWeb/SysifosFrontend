@@ -20,14 +20,14 @@ setMeta({
         <h1 class="display-title font-extrabold text-content mb-4">
           Política de Privacidad
         </h1>
-        <p class="text-subdued text-sm">Última actualización: 1 de diciembre de 2026</p>
+        <p class="text-sm">Última actualización: 1 de diciembre de 2026</p>
       </div>
 
-      <div class="space-y-10 text-subdued leading-relaxed text-[0.95rem]">
+      <div class="space-y-10 leading-relaxed text-[0.95rem]">
         <section>
           <h2 class="text-2xl font-bold text-content mb-3">1. Responsable del tratamiento</h2>
           <p>
-            SysifosWeb (Sysifos), con domicilio en La Serena, Región de Coquimbo, Chile, es el
+            SysifosWeb (Sysifos), con domicilio coquimbo, Región de Coquimbo, Chile, es el
             responsable del tratamiento de los datos personales que se recaban a través de este
             sitio web. Correo de contacto: <span class="text-accent">contacto@sysifosweb.cl</span>.
           </p>
@@ -60,7 +60,8 @@ setMeta({
           <ul class="list-disc pl-6 space-y-2">
             <li>Responder a tus solicitudes de contacto y cotización (base legal: consentimiento).</li>
             <li>Gestionar la relación comercial y la prestación de servicios (base legal: ejecución de contrato).</li>
-            <li>Prevenir el abuso y el spam de los formularios mediante limitación de intentos (base legal: interés legítimo).</li>
+            <li>Prevenir el abuso y el spam de los formularios mediante limitación de intentos (base legal: interés
+              legítimo).</li>
             <li>Mejora y seguridad del sitio (base legal: interés legítimo).</li>
           </ul>
         </section>
@@ -89,11 +90,16 @@ setMeta({
           <h2 class="text-2xl font-bold text-content mb-3">7. Derechos del titular</h2>
           <p class="mb-3">Puedes ejercer en cualquier momento los siguientes derechos:</p>
           <ul class="list-disc pl-6 space-y-2">
-            <li><span class="text-content font-medium">Acceso:</span> solicitar información sobre tus datos tratados.</li>
-            <li><span class="text-content font-medium">Rectificación:</span> corregir datos inexactos o incompletos.</li>
-            <li><span class="text-content font-medium">Supresión (cancelación):</span> eliminar tus datos cuando proceda.</li>
-            <li><span class="text-content font-medium">Oposición:</span> oponerte al tratamiento para fines específicos.</li>
-            <li><span class="text-content font-medium">Portabilidad:</span> recibir tus datos en un formato estructurado.</li>
+            <li><span class="text-content font-medium">Acceso:</span> solicitar información sobre tus datos tratados.
+            </li>
+            <li><span class="text-content font-medium">Rectificación:</span> corregir datos inexactos o incompletos.
+            </li>
+            <li><span class="text-content font-medium">Supresión (cancelación):</span> eliminar tus datos cuando
+              proceda.</li>
+            <li><span class="text-content font-medium">Oposición:</span> oponerte al tratamiento para fines específicos.
+            </li>
+            <li><span class="text-content font-medium">Portabilidad:</span> recibir tus datos en un formato
+              estructurado.</li>
           </ul>
           <p class="mt-3">
             Para ejercer estos derechos, escríbenos a
