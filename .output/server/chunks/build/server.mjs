@@ -714,9 +714,7 @@ const __nuxt_page_meta$l = {
   layout: "secondary",
   title: "Nosotros"
 };
-const __nuxt_page_meta$k = {
-  layout: "landing"
-};
+const __nuxt_page_meta$k = { layout: false };
 const __nuxt_page_meta$j = {
   layout: "hero",
   title: "Portfolio"
@@ -797,7 +795,7 @@ const _routes = [
     name: "sinapsys",
     path: "/sinapsys",
     meta: __nuxt_page_meta$k || {},
-    component: () => import('./sinapsys-CC71SCfX.mjs')
+    component: () => import('./sinapsys-BKGWd5H4.mjs')
   },
   {
     name: "portfolio",
@@ -1747,9 +1745,9 @@ const plugins = [
 ];
 const layouts = {
   admin: defineAsyncComponent(() => import('./admin-BmeDuJ9a.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-B0eKoDAN.mjs').then((m) => m.default || m)),
-  hero: defineAsyncComponent(() => import('./hero-KRnRMxGh.mjs').then((m) => m.default || m)),
-  secondary: defineAsyncComponent(() => import('./secondary-D07BqjOn.mjs').then((m) => m.default || m))
+  default: defineAsyncComponent(() => import('./default-CijCY4he.mjs').then((m) => m.default || m)),
+  hero: defineAsyncComponent(() => import('./hero-CAvTam-Q.mjs').then((m) => m.default || m)),
+  secondary: defineAsyncComponent(() => import('./secondary-Su_5txJp.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
 const LayoutLoader = defineComponent({
