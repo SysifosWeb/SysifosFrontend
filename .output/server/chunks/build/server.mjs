@@ -1,5 +1,5 @@
 import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { ref, defineComponent, shallowRef, getCurrentInstance, provide, cloneVNode, h, createElementBlock, hasInjectionContext, inject, resolveComponent, getCurrentScope, computed, unref, defineAsyncComponent, shallowReactive, createApp, isVNode, createCommentVNode, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, reactive, effectScope, mergeProps, withCtx, openBlock, createBlock, createTextVNode, toRef, Suspense, nextTick, Fragment, isReadonly, useSSRContext, isRef, isShallow, isReactive, toRaw } from 'vue';
-import { x as useHead$1, c as createError$1, y as klona, z as useSeoMeta$1, A as hasProtocol, B as isScriptProtocol, C as joinURL, D as parseQuery, E as headSymbol, F as getRequestHeader, G as destr, H as isEqual, I as withQuery, J as sanitizeStatusCode, K as parseURL, L as encodePath, M as decodePath, O as getContext, P as setCookie, Q as getCookie, R as deleteCookie, S as withTrailingSlash, T as withoutTrailingSlash, $ as $fetch, U as baseURL, V as defu, W as createHooks, X as executeAsync } from '../nitro/nitro.mjs';
+import { x as useHead$1, c as createError$1, y as klona, z as useSeoMeta$1, A as hasProtocol, B as isScriptProtocol, C as joinURL, D as parseQuery, E as headSymbol, F as getRequestHeader, G as destr, H as isEqual, I as withQuery, J as sanitizeStatusCode, K as parseURL, L as encodePath, M as decodePath, O as getContext, P as setCookie, Q as getCookie, R as deleteCookie, S as withTrailingSlash, T as withoutTrailingSlash, $ as $fetch$1, U as baseURL, V as defu, W as createHooks, X as executeAsync } from '../nitro/nitro.mjs';
 import { useRoute as useRoute$1, RouterView, START_LOCATION, createMemoryHistory, createRouter } from 'vue-router';
 import { ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode, ssrRenderAttrs, ssrInterpolate } from 'vue/server-renderer';
 import 'node:http';
@@ -74,7 +74,7 @@ function tryDecode(str, decode2) {
 }
 
 if (!globalThis.$fetch) {
-  globalThis.$fetch = $fetch.create({
+  globalThis.$fetch = $fetch$1.create({
     baseURL: baseURL()
   });
 }
@@ -1030,14 +1030,38 @@ function writeServerCookie(event, name, value, opts = {}) {
     }
   }
 }
-const auth_45global = /* @__PURE__ */ defineNuxtRouteMiddleware((to, from) => {
+const auth_45global = /* @__PURE__ */ defineNuxtRouteMiddleware(async (to) => {
+  let __temp, __restore;
   if (!to.path.startsWith("/admin")) {
     return;
   }
+  const token = useCookie("auth_token");
   if (to.path === "/admin/login") {
+    if (!token.value) {
+      return;
+    }
+    const config = /* @__PURE__ */ useRuntimeConfig();
+    let valid = false;
+    try {
+      ;
+      [__temp, __restore] = executeAsync(() => $fetch(`${config.public.apiUrl}auth/me`, {
+        headers: { Authorization: `Bearer ${token.value}`, Accept: "application/json" }
+      })), await __temp, __restore();
+      ;
+      valid = true;
+    } catch (error) {
+      const status = error?.response?.status ?? error?.status;
+      if (status === 401 || status === 403) {
+        token.value = null;
+        useCookie("user_email").value = null;
+        useCookie("user_name").value = null;
+      }
+    }
+    if (valid) {
+      return navigateTo("/admin");
+    }
     return;
   }
-  const token = useCookie("auth_token");
   if (!token.value) {
     return navigateTo("/admin/login");
   }
