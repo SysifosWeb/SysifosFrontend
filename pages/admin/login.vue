@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { Sun, Moon, Mail, Lock, ArrowLeft, Loader2, AlertCircle, ShieldCheck } from 'lucide-vue-next';
 
@@ -20,9 +20,26 @@ const form = ref({
 
 const config = useRuntimeConfig();
 const errorMessage = ref('');
-const tokenCookie = useCookie('auth_token', { maxAge: 60 * 60 * 24 * 7 }); // Definir de forma sincrona en setup
-const userEmailCookie = useCookie('user_email', { maxAge: 60 * 60 * 24 * 7 }); // Cookie para guardar el email
-const userNameCookie = useCookie('user_name', { maxAge: 60 * 60 * 24 * 7 }); // Cookie para guardar el nombre
+const REMEMBER_MAX_AGE = 60 * 60 * 24 * 30; // 30 días cuando se marca "Recordarme"
+// Cookies de sesión por defecto (mueren al cerrar el navegador);
+// con "Recordarme" se extienden a REMEMBER_MAX_AGE en handleLogin.
+const tokenCookie = useCookie('auth_token'); // Definir de forma sincrona en setup
+const userEmailCookie = useCookie('user_email');
+const userNameCookie = useCookie('user_name');
+
+// Extiende las cookies de auth a 30 días (solo con "Recordarme").
+const persistRememberCookies = () => {
+    const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+    const entries = [
+        ['auth_token', tokenCookie.value],
+        ['user_email', userEmailCookie.value],
+        ['user_name', userNameCookie.value],
+    ];
+    for (const [name, value] of entries) {
+        if (!value) continue;
+        document.cookie = `${name}=${encodeURIComponent(value)}; max-age=${REMEMBER_MAX_AGE}; path=/; SameSite=Lax${secure}`;
+    }
+};
 
 // Manejo del Login
 const handleLogin = async () => {
@@ -35,6 +52,7 @@ const handleLogin = async () => {
             body: {
                 email: form.value.email,
                 password: form.value.password,
+                remember: form.value.remember,
             }
         });
 
@@ -46,6 +64,11 @@ const handleLogin = async () => {
         });
         userEmailCookie.value = profile.email || form.value.email;
         userNameCookie.value = profile.name || 'Admin';
+
+        if (form.value.remember) {
+            await nextTick(); // deja que Nuxt escriba primero las cookies de sesión
+            persistRememberCookies();
+        }
 
         // Redirigir al área de admin
         await navigateTo('/admin');

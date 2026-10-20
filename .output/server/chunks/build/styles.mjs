@@ -39,8 +39,8 @@ const styles = {
   "layouts/secondary.vue": () => import('./secondary-styles.Cyf9crQ5.mjs').then(interopDefault),
   "components/AppHeaderSecundary.vue": () => import('./secondary-styles.Cyf9crQ5.mjs').then(interopDefault),
   "components/AppNavbar.vue": () => import('./AppNavbar-styles.DOZpZ3cK.mjs').then(interopDefault),
-  "components/CookieConsent.vue": () => import('./CookieConsent-styles.CJ85Y7Hi.mjs').then(interopDefault),
-  "components/Footer.vue": () => import('./Footer-styles.COUVdEhY.mjs').then(interopDefault)
+  "components/Footer.vue": () => import('./Footer-styles.COUVdEhY.mjs').then(interopDefault),
+  "components/CookieConsent.vue": () => import('./CookieConsent-styles.CJ85Y7Hi.mjs').then(interopDefault)
 };
 
 export { styles as default };
