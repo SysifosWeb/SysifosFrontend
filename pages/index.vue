@@ -1,22 +1,5 @@
 <script setup>
-import { defineAsyncComponent } from 'vue'
-// SEO Configuration
 const { setMeta, setSchema } = useSEO()
-
-const HomeBusinessUnits = defineAsyncComponent(() => import('~/components/home/HomeBusinessUnits.vue'))
-const HomeTrust = defineAsyncComponent(() => import('~/components/home/HomeTrust.vue'))
-/* Testimonios pendientes de una reseña real autorizada.
-const HomeTestimonials = defineAsyncComponent(() => import('~/components/home/HomeTestimonials.vue'))
-// Contenido temporal, identificado visualmente como ficticio; reemplazar por la reseña autorizada.
-const testimonialPreview = {
-  text: 'Desde la primera conversación nos explicaron cada etapa con claridad. Pudimos revisar los avances y resolver nuestras dudas directamente con el equipo. El resultado refleja lo que necesitábamos para presentar nuestro negocio.',
-  author: 'Nombre del cliente',
-  role: 'Empresa de ejemplo · texto de referencia'
-}
-
-*/
-
-const HomeBanner = defineAsyncComponent(() => import('~/components/home/HomeBanner.vue'))
 
 setMeta({
   title: 'SysifosWeb | Desarrollo de Software y Páginas Web en Chile',
@@ -53,21 +36,10 @@ setSchema({
 </script>
 
 <template>
-  <HomeValue />
-  <HomeProblems />
-  <HomeProposition />
-  <Suspense>
-    <HomeBusinessUnits />
-  </Suspense>
-  <Suspense>
-    <HomeTrust />
-  </Suspense>
-  <!-- Retomar cuando contemos con una reseña real autorizada.
-  <Suspense>
-    <HomeTestimonials :testimonial="testimonialPreview" preview />
-  </Suspense>
-  -->
-  <Suspense>
-    <HomeBanner />
-  </Suspense>
+  <LazyHomeValue hydrate-on-visible />
+  <LazyHomeProblems hydrate-on-visible />
+  <LazyHomeProposition hydrate-on-visible />
+  <LazyHomeBusinessUnits hydrate-on-visible />
+  <LazyHomeTrust hydrate-on-visible />
+  <LazyHomeBanner hydrate-on-visible />
 </template>

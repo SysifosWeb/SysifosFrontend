@@ -5,7 +5,8 @@ const route = useRoute()
 <template>
   <div class="min-h-screen font-sans impulso-hybrid bg-section-dark">
     <AppNavbar class="absolute top-0 left-0 w-full z-50"/>
-    <main>
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+    <main id="contenido" tabindex="-1">
       <slot />
     </main>
     <Footer />

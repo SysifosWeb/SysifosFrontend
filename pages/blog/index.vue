@@ -1,5 +1,6 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed } from 'vue'
+import { fetchPublicBlog } from '~/utils/publicBlog'
 
 definePageMeta({
   layout: 'hero',
@@ -18,12 +19,12 @@ setMeta({
   image: '/img/og-blog.jpg'
 })
 
-// Obtener posts reales desde la API (sin await para navegación cliente)
+// Esperar el catálogo para resolver la página antes de renderizarla.
 const route = useRoute()
 const router = useRouter()
 
 const currentPage = computed({
-  get: () => Number(route.query.page) || 1,
+  get: () => Math.max(1, Math.floor(Number(route.query.page)) || 1),
   set: (val) => {
     router.push({ query: { ...route.query, page: val } })
     if (process.client) {
@@ -32,36 +33,15 @@ const currentPage = computed({
   }
 })
 
-// Fetch ALL posts to allow frontend filtering and pagination
-const { data: allFetchedPosts, pending, refresh } = useAsyncData('all-blog-posts', async () => {
-  const firstPage = await $fetch(`${apiUrl}blog?page=1`)
-  let posts = firstPage.data || []
-  const lastPage = firstPage.last_page || 1
-  
-  if (lastPage > 1) {
-    const promises = []
-    for (let i = 2; i <= lastPage; i++) {
-      promises.push($fetch(`${apiUrl}blog?page=${i}`))
-    }
-    const results = await Promise.all(promises)
-    results.forEach(res => {
-      posts = posts.concat(res.data || [])
-    })
-  }
-  return posts
-}, {
-  // Nunca dejar el estado en null: si el fetch falla, devolvemos un array vacío
-  // para que la UI se renderice sin romper y podamos re-intentar.
-  default: () => [],
-})
+// Preserve the existing client filters while loading the catalogue in fewer requests.
+const { data: allFetchedPosts, pending, error: catalogueError } = await useAsyncData('all-blog-posts', () =>
+  fetchPublicBlog(page => $fetch(`${apiUrl}blog`, {
+    query: { page, per_page: 100 }, timeout: 8000, retry: 0,
+  })), { default: () => [] })
 
-// Re-fetch en el cliente si el payload SSR llegó vacío (por hidratación de un
-// payload cacheado durante el deploy) o si el fetch inicial falló en silencio.
-onMounted(() => {
-  if (process.client && (!allFetchedPosts.value || allFetchedPosts.value.length === 0)) {
-    refresh()
-  }
-})
+if (catalogueError.value) {
+  throw createError({ statusCode: 503, statusMessage: 'Blog temporalmente no disponible', fatal: true })
+}
 
 const allPosts = computed(() => {
   const posts = allFetchedPosts.value || []
@@ -74,7 +54,7 @@ const allPosts = computed(() => {
     reading_time: (p.reading_time || 1) + ' min',
     date: new Date(p.published_at || p.created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }),
     author: p.user?.name || 'Sysifos Team',
-    image: p.featured_image || 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop',
+    image: p.featured_image || '/img/og-blog.jpg',
     featured: !!p.featured
   }))
 })
@@ -95,17 +75,19 @@ const selectedCategory = ref('all')
 const searchQuery = ref('')
 const itemsPerPage = 10
 
+const featuredCandidate = computed(() => allPosts.value.find(p => p.featured) || allPosts.value[0] || null)
+
 const featuredPost = computed(() => {
   if (selectedCategory.value !== 'all' || searchQuery.value.trim() !== '' || currentPage.value !== 1) return null
-  return allPosts.value.find(p => p.featured) || allPosts.value[0] || null
+  return featuredCandidate.value
 })
 
 // Frontend filtering
 const filteredPostsAll = computed(() => {
   let posts = allPosts.value
   
-  if (featuredPost.value) {
-    posts = posts.filter(p => p.id !== featuredPost.value.id)
+  if (selectedCategory.value === 'all' && !searchQuery.value.trim() && featuredCandidate.value) {
+    posts = posts.filter(p => p.id !== featuredCandidate.value.id)
   }
 
   if (selectedCategory.value !== 'all') {
@@ -127,6 +109,10 @@ const totalPages = computed(() => {
   return Math.ceil(filteredPostsAll.value.length / itemsPerPage) || 1
 })
 
+if (currentPage.value > totalPages.value) {
+  throw createError({ statusCode: 404, statusMessage: 'Página no encontrada', fatal: true })
+}
+
 // Reset to page 1 when filters change
 watch([selectedCategory, searchQuery], () => {
   if (currentPage.value !== 1) {
@@ -140,6 +126,10 @@ const filteredPosts = computed(() => {
   const end = start + itemsPerPage
   return filteredPostsAll.value.slice(start, end)
 })
+useHead(() => ({
+  title: currentPage.value > 1 ? `Blog, página ${currentPage.value} | SysifosWeb` : 'Blog | Tecnología y negocios digitales — SysifosWeb',
+  link: [{ rel: 'canonical', href: `https://sysifosweb.cl/blog${currentPage.value > 1 ? `?page=${currentPage.value}` : ''}` }]
+}))
 </script>
 
 <template>
@@ -157,25 +147,23 @@ const filteredPosts = computed(() => {
 
     <!-- Pagination -->
     <div v-if="totalPages > 1" class="flex justify-center items-center gap-4 py-12 bg-section-dark">
-      <button 
-        @click="currentPage > 1 ? currentPage-- : null"
-        :disabled="currentPage === 1"
+      <NuxtLink v-if="currentPage > 1"
+        :to="{ path: '/blog', query: { ...route.query, page: currentPage - 1 } }"
         class="px-5 py-2.5 text-sm font-semibold text-content bg-panel border border-line rounded-full hover:bg-panel hover:border-line disabled:opacity-30 disabled:cursor-not-allowed transition-all"
       >
         &larr; Anterior
-      </button>
+      </NuxtLink>
       
       <div class="flex items-center gap-2">
         <span class="text-content text-sm font-medium">Página {{ currentPage }} de {{ totalPages }}</span>
       </div>
       
-      <button 
-        @click="currentPage < totalPages ? currentPage++ : null"
-        :disabled="currentPage === totalPages"
+      <NuxtLink v-if="currentPage < totalPages"
+        :to="{ path: '/blog', query: { ...route.query, page: currentPage + 1 } }"
         class="px-5 py-2.5 text-sm font-semibold text-content bg-panel border border-line rounded-full hover:bg-panel hover:border-line disabled:opacity-30 disabled:cursor-not-allowed transition-all"
       >
         Siguiente &rarr;
-      </button>
+      </NuxtLink>
     </div>
 
     <!-- Newsletter -->

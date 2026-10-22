@@ -75,11 +75,11 @@ watch(() => route.fullPath, () => {
 </script>
 
 <template>
-  <nav class="absolute top-0 left-0 w-full z-[1002] bg-transparent">
+  <nav class="site-nav absolute top-0 left-0 w-full z-[1002] bg-transparent">
     <div class="site-container border-b border-[var(--border)]">
       <div class="flex items-center justify-between py-10 lg:py-12">
         <!-- LOGO -->
-        <NuxtLink to="/" class="flex items-center">
+        <NuxtLink external to="/" class="flex items-center">
           <BrandLogo class="h-8 md:h-10 w-auto aspect-[403/80]" />
         </NuxtLink>
 
@@ -93,7 +93,7 @@ watch(() => route.fullPath, () => {
               { to: '/portfolio', label: 'Portfolio' },
               { to: '/blog', label: 'Blog' }
             ]" :key="item.to">
-              <NuxtLink :to="item.to"
+              <NuxtLink :external="item.to === '/'" :to="item.to"
                 class="nav-link text-[15px] tracking-widest font-bold text-[var(--text-secondary)] hover:text-[var(--text-main)] transition-all font-tech uppercase"
                 :class="{ 'text-accent': currentRoute === item.to }">
                 {{ item.label }}
@@ -110,7 +110,7 @@ watch(() => route.fullPath, () => {
 
         <!-- BOTÓN HAMBURGUESA -->
         <button
-          class="lg:hidden text-accent rounded-sm"
+          class="lg:hidden text-accent rounded-sm min-w-11 min-h-11 flex items-center justify-center"
           @click="toggleMenu" :aria-expanded="isMenuOpen" aria-controls="mobile-menu"
           :aria-label="isMenuOpen ? 'Cerrar menú' : 'Abrir menú'">
           <div class="space-y-1.5" aria-hidden="true">
@@ -130,7 +130,7 @@ watch(() => route.fullPath, () => {
         class="fixed inset-0 z-[2000] bg-[var(--bg-dark)] flex flex-col p-10 overflow-y-auto">
         <div class="absolute inset-0 technical-grid opacity-5 pointer-events-none" aria-hidden="true"></div>
         <div class="flex items-center justify-between mb-24">
-          <NuxtLink to="/" @click="closeMenu" class="flex items-center">
+          <NuxtLink external to="/" @click="closeMenu" class="flex items-center">
             <BrandLogo class="h-8 md:h-10 w-auto aspect-[403/80]" />
           </NuxtLink>
           <button @click="closeMenu" class="text-accent rounded-sm" aria-label="Cerrar menú">
@@ -150,7 +150,7 @@ watch(() => route.fullPath, () => {
               { to: '/blog', label: 'Blog' },
               { to: '/contacto', label: 'Contacto' }
             ]" :key="item.to">
-              <NuxtLink :to="item.to"
+              <NuxtLink :external="item.to === '/'" :to="item.to"
                 class="text-2xl font-bold tracking-widest text-[var(--text-main)] font-tech uppercase transition-colors hover:text-accent">
                 {{ item.label }}</NuxtLink>
             </li>
@@ -160,27 +160,3 @@ watch(() => route.fullPath, () => {
     </Transition>
   </nav>
 </template>
-
-<style scoped>
-.font-tech {
-  font-family: var(--font-tech);
-}
-
-.technical-grid {
-  background-image: radial-gradient(rgba(var(--decoration-rgb), 0.1) 1px, transparent 0);
-  background-size: 40px 40px;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>
-<style scoped>
-
-</style>

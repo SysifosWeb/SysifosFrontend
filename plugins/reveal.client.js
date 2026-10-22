@@ -1,6 +1,7 @@
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive('reveal', {
     mounted(el, binding) {
+      if (el.getBoundingClientRect().top < window.innerHeight || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       // Configuramos las clases base
       el.classList.add('reveal-item')
       

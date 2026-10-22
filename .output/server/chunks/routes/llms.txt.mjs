@@ -12,11 +12,6 @@ import 'node:url';
 import 'consola';
 import 'fast-xml-parser';
 import 'xss';
-import 'unhead/server';
-import 'unhead/plugins';
-import 'unhead/utils';
-import 'vue-bundle-renderer/runtime';
-import 'vue/server-renderer';
 import 'ipx';
 
 const SITE_URL = "https://sysifosweb.cl";

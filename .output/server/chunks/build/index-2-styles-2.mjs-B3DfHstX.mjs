@@ -1,4 +1,0 @@
-const HomeProblems_vue_vue_type_style_index_0_scoped_6a401263_inline_used_lang = ".problems-section[data-v-6a401263]{overflow:hidden;padding:4rem 0 5rem;position:relative}.section-container[data-v-6a401263]{margin:0 auto;max-width:1200px;position:relative;width:90%;z-index:10}.problems-title[data-v-6a401263]{margin:0 auto;max-width:24ch}.pain-card[data-v-6a401263]{border-radius:var(--radius-lg);padding:1.75rem 2rem;transition:border-color .25s ease,background-color .25s ease}.pain-card[data-v-6a401263]:hover{background:var(--bg-elevated);border-color:var(--border-accent)}.pain-icon--cyan[data-v-6a401263],.pain-icon--purple[data-v-6a401263]{background:rgba(var(--decoration-rgb),.08);border:1px solid rgba(var(--decoration-rgb),.2)}.text-purple[data-v-6a401263]{color:var(--purple)}";
-
-export { HomeProblems_vue_vue_type_style_index_0_scoped_6a401263_inline_used_lang as H };
-//# sourceMappingURL=index-2-styles-2.mjs-B3DfHstX.mjs.map

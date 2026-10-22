@@ -1,38 +1,20 @@
-/**
- * Endpoint requerido por @nuxtjs/sitemap para descubrir URLs dinámicas.
- * El módulo consulta /__sitemap__/urls.json en tiempo de build y en runtime.
- * Documentación: https://nuxtseo.com/sitemap/guides/dynamic-urls
- */
-export default defineEventHandler(async () => {
-  const apiBase = 'https://olimpo.sysifosweb.cl/api'
-  const allPosts: Array<{ slug: string; updated_at?: string; published_at?: string }> = []
+import { fetchPublicBlog } from '~/utils/publicBlog'
 
+export default defineEventHandler(async (event) => {
+  const apiBase = useRuntimeConfig().apiBase.replace(/\/+$/, '')
   try {
-    let currentPage = 1
-    let lastPage = 1
-
-    do {
-      const response = await $fetch<{ 
-        data: Array<{ slug: string; updated_at?: string; published_at?: string }>,
-        meta: { last_page: number }
-      }>(`${apiBase}/blog?page=${currentPage}`)
-      
-      if (response?.data) {
-        allPosts.push(...response.data)
-      }
-      
-      lastPage = response?.meta?.last_page || 1
-      currentPage++
-    } while (currentPage <= lastPage)
-
-    return allPosts.map((post) => ({
+    const posts = await fetchPublicBlog(page => $fetch(`${apiBase}/blog`, {
+      query: { page, per_page: 100 }, timeout: 8000, retry: 0,
+    }))
+    return posts.map(post => ({
       loc: `/blog/${post.slug}`,
       lastmod: post.updated_at ?? post.published_at ?? undefined,
       changefreq: 'weekly',
       priority: 0.8,
     }))
-  } catch (error) {
-    console.error('[Sitemap] Error fetching blog posts from API:', error)
-    return []
+  } catch {
+    setHeader(event, 'Retry-After', 60)
+    setHeader(event, 'Cache-Control', 'no-store')
+    throw createError({ statusCode: 503, statusMessage: 'Blog sitemap temporarily unavailable' })
   }
 })

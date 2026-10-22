@@ -1,24 +1,203 @@
-import { getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'vue-bundle-renderer/runtime';
-import { a as appId, b as defineRenderHandler, e as buildAssetsURL, f as publicAssetsURL, h as appTeleportTag, i as appTeleportAttrs, j as getQuery, c as createError, k as createSSRContext, l as appHead, m as setSSRError, n as getRouteRules, o as getRenderer, r as renderInlineStyles, q as replaceIslandTeleports, t as getResponseStatusText, v as getResponseStatus, w as useNitroApp, N as NUXT_RUNTIME_PAYLOAD_EXTRACTION } from '../nitro/nitro.mjs';
+import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'vue-bundle-renderer/runtime';
+import { b as buildAssetsURL, a as publicAssetsURL, u as useRuntimeConfig, e as encodePath, f as defineRenderHandler, h as getQuery, c as createError, i as getRouteRules, j as getResponseStatusText, k as getResponseStatus, l as useNitroApp } from '../nitro/nitro.mjs';
+import { renderToString } from 'vue/server-renderer';
+import { createHead as createHead$1, propsToString, renderSSRHead } from 'unhead/server';
 import { stringify, uneval } from 'devalue';
-import { propsToString, renderSSRHead } from 'unhead/server';
-import 'node:http';
-import 'node:https';
-import 'node:events';
-import 'node:buffer';
-import 'lru-cache';
-import 'node:fs';
-import 'node:path';
-import 'node:crypto';
-import 'vue';
-import 'node:url';
-import 'consola';
-import 'fast-xml-parser';
-import 'xss';
-import 'unhead/plugins';
-import 'unhead/utils';
-import 'vue/server-renderer';
-import 'ipx';
+import { FlatMetaPlugin, DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin } from 'unhead/plugins';
+import { walkResolver } from 'unhead/utils';
+import { isRef, toValue, hasInjectionContext, inject, getCurrentScope, ref, watchEffect, getCurrentInstance, onBeforeUnmount, onDeactivated, onActivated } from 'vue';
+
+const VueResolver = (_, value) => {
+  return isRef(value) ? toValue(value) : value;
+};
+
+const headSymbol = "usehead";
+// @__NO_SIDE_EFFECTS__
+function vueInstall(head) {
+  const plugin = {
+    install(app) {
+      app.config.globalProperties.$unhead = head;
+      app.config.globalProperties.$head = head;
+      app.provide(headSymbol, head);
+    }
+  };
+  return plugin.install;
+}
+
+// @__NO_SIDE_EFFECTS__
+function injectHead() {
+  if (hasInjectionContext()) {
+    const instance = inject(headSymbol);
+    if (instance) {
+      return instance;
+    }
+  }
+  throw new Error("useHead() was called without provide context, ensure you call it through the setup() function.");
+}
+function useHead(input, options = {}) {
+  const head = options.head || /* @__PURE__ */ injectHead();
+  return head.ssr ? head.push(input || {}, options) : clientUseHead(head, input, options);
+}
+function clientUseHead(head, input, options = {}) {
+  const scope = getCurrentScope();
+  if (scope && !scope.active)
+    return { patch() {
+    }, dispose() {
+    }, _poll() {
+    } };
+  const deactivated = ref(false);
+  let entry;
+  watchEffect(() => {
+    const i = deactivated.value ? {} : walkResolver(input, VueResolver);
+    if (entry) {
+      entry.patch(i);
+    } else {
+      entry = head.push(i, options);
+    }
+  });
+  const vm = getCurrentInstance();
+  if (vm) {
+    onBeforeUnmount(() => {
+      entry.dispose();
+    });
+    onDeactivated(() => {
+      deactivated.value = true;
+    });
+    onActivated(() => {
+      deactivated.value = false;
+    });
+  }
+  return entry;
+}
+function useSeoMeta(input = {}, options = {}) {
+  const head = options.head || /* @__PURE__ */ injectHead();
+  head.use(FlatMetaPlugin);
+  const entry = useHead(normalizeSeoMetaInput(input), options);
+  const corePatch = entry.patch;
+  entry.patch = (input2) => corePatch(normalizeSeoMetaInput(input2));
+  return entry;
+}
+function normalizeSeoMetaInput(input) {
+  if (input._flatMeta)
+    return input;
+  const meta = {};
+  for (const key in input) {
+    if (!Object.prototype.hasOwnProperty.call(input, key) || key === "title" || key === "titleTemplate")
+      continue;
+    meta[key] = input[key];
+  }
+  return {
+    title: input.title,
+    titleTemplate: input.titleTemplate,
+    _flatMeta: meta
+  };
+}
+
+// @__NO_SIDE_EFFECTS__
+function createHead(options = {}) {
+  const head = createHead$1({
+    ...options,
+    propResolvers: [VueResolver]
+  });
+  head.install = vueInstall(head);
+  return head;
+}
+
+const NUXT_RUNTIME_PAYLOAD_EXTRACTION = false;
+
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"name":"format-detection","content":"telephone=no"},{"name":"theme-color","content":"#1e40af"},{"name":"author","content":"Sysifos Web"},{"property":"og:site_name","content":"Sysifos Web"},{"property":"og:locale","content":"es_CL"}],"link":[{"rel":"icon","type":"image/svg+xml","href":"/img/brand/mark.svg"},{"rel":"alternate","type":"application/rss+xml","title":"SysifosWeb Blog RSS","href":"/blog/feed.xml"}],"style":[],"script":[],"noscript":[{"innerHTML":"<style>.reveal-item{opacity:1 !important;transform:none !important}</style>"}],"charset":"utf-8","viewport":"width=device-width, initial-scale=1","htmlAttrs":{"lang":"es"},"titleTemplate":"%s"};
+
+const appRootTag = "div";
+
+const appRootAttrs = {"id":"__nuxt"};
+
+const appTeleportTag = "div";
+
+const appTeleportAttrs = {"id":"teleports"};
+
+const appId = "nuxt-app";
+
+// @ts-expect-error private property consumed by vite-generated url helpers
+globalThis.__buildAssetsURL = buildAssetsURL;
+// @ts-expect-error private property consumed by vite-generated url helpers
+globalThis.__publicAssetsURL = publicAssetsURL;
+const APP_ROOT_OPEN_TAG = `<${appRootTag}${propsToString(appRootAttrs)}>`;
+const APP_ROOT_CLOSE_TAG = `</${appRootTag}>`;
+// @ts-expect-error file will be produced after app build
+const getServerEntry = () => import('../build/server.mjs').then((r) => r.default || r);
+// @ts-expect-error file will be produced after app build
+const getPrecomputedDependencies = () => import('../build/client.precomputed.mjs').then((r) => r.default || r).then((r) => typeof r === "function" ? r() : r);
+
+const getSSRRenderer = lazyCachedFunction(async () => {
+	
+	const createSSRApp = await getServerEntry();
+	if (!createSSRApp) {
+		throw new Error("Server bundle is not available");
+	}
+	
+	const precomputed = await getPrecomputedDependencies();
+	
+	const renderer = createRenderer(createSSRApp, {
+		precomputed,
+		manifest: undefined,
+		renderToString: renderToString$1,
+		buildAssetsURL
+	});
+	async function renderToString$1(input, context) {
+		const html = await renderToString(input, context);
+		return APP_ROOT_OPEN_TAG + html + APP_ROOT_CLOSE_TAG;
+	}
+	return renderer;
+});
+
+const getSPARenderer = lazyCachedFunction(async () => {
+	const precomputed = await getPrecomputedDependencies();
+	// @ts-expect-error virtual file
+	const spaTemplate = await import('../virtual/_virtual_spa-template.mjs').then((r) => r.template).catch(() => "").then((r) => {
+		{
+			return APP_ROOT_OPEN_TAG + r + APP_ROOT_CLOSE_TAG;
+		}
+	});
+	
+	const renderer = createRenderer(() => () => {}, {
+		precomputed,
+		manifest: undefined,
+		renderToString: () => spaTemplate,
+		buildAssetsURL
+	});
+	const result = await renderer.renderToString({});
+	const renderToString = (ssrContext) => {
+		const config = useRuntimeConfig(ssrContext.event);
+		ssrContext.modules ||= new Set();
+		ssrContext.payload.serverRendered = false;
+		ssrContext.config = {
+			public: config.public,
+			app: config.app
+		};
+		return Promise.resolve(result);
+	};
+	return {
+		rendererContext: renderer.rendererContext,
+		renderToString
+	};
+});
+function lazyCachedFunction(fn) {
+	let res = null;
+	return () => {
+		if (res === null) {
+			res = fn().catch((err) => {
+				res = null;
+				throw err;
+			});
+		}
+		return res;
+	};
+}
+function getRenderer(ssrContext) {
+	return ssrContext.noSSR ? getSPARenderer() : getSSRRenderer();
+}
+// @ts-expect-error file will be produced after app build
+const getSSRStyles = lazyCachedFunction(() => import('../build/styles.mjs').then((r) => r.default || r));
 
 function renderPayloadJsonScript(opts) {
 	const contents = opts.data ? encodeForwardSlashes(stringify(opts.data, opts.ssrContext["~payloadReducers"])) : "";
@@ -40,6 +219,54 @@ function renderPayloadJsonScript(opts) {
 
 function encodeForwardSlashes(str) {
 	return str.replaceAll("/", "\\u002F");
+}
+
+const unheadOptions = {
+  disableDefaults: true,
+  disableCapoSorting: false,
+  plugins: [DeprecationsPlugin, PromisesPlugin, TemplateParamsPlugin, AliasSortingPlugin],
+};
+
+function encodeEventPath(path) {
+	const queryIndex = path.indexOf("?");
+	if (queryIndex === -1) {
+		return encodePath(path);
+	}
+	return encodePath(path.slice(0, queryIndex)) + path.slice(queryIndex);
+}
+function createSSRContext(event) {
+	const url = encodeEventPath(event.path);
+	const ssrContext = {
+		url,
+		event,
+		runtimeConfig: useRuntimeConfig(event),
+		noSSR: event.context.nuxt?.noSSR || (false),
+		head: createHead(unheadOptions),
+		error: false,
+		nuxt: undefined,
+		payload: {},
+		["~payloadReducers"]: Object.create(null),
+		modules: new Set()
+	};
+	return ssrContext;
+}
+function setSSRError(ssrContext, error) {
+	ssrContext.error = true;
+	ssrContext.payload = { error };
+	ssrContext.url = error.url;
+}
+
+async function renderInlineStyles(usedModules) {
+	const styleMap = await getSSRStyles();
+	const inlinedStyles = new Set();
+	for (const mod of usedModules) {
+		if (mod in styleMap && styleMap[mod]) {
+			for (const style of await styleMap[mod]()) {
+				inlinedStyles.add(style);
+			}
+		}
+	}
+	return Array.from(inlinedStyles).map((style) => ({ innerHTML: style }));
 }
 
 const renderSSRHeadOptions = {"omitLineBreaks":false};
@@ -192,7 +419,7 @@ async function renderRoute(event, ssrError) {
 		head: normalizeChunks([headTags]),
 		bodyAttrs: bodyAttrs ? [bodyAttrs] : [],
 		bodyPrepend: normalizeChunks([bodyTagsOpen, ssrContext.teleports?.body]),
-		body: [replaceIslandTeleports(ssrContext, _rendered.html) , APP_TELEPORT_OPEN_TAG + (HAS_APP_TELEPORTS ? joinTags([ssrContext.teleports?.[`#${appTeleportAttrs.id}`]]) : "") + APP_TELEPORT_CLOSE_TAG],
+		body: [_rendered.html, APP_TELEPORT_OPEN_TAG + (HAS_APP_TELEPORTS ? joinTags([ssrContext.teleports?.[`#${appTeleportAttrs.id}`]]) : "") + APP_TELEPORT_CLOSE_TAG],
 		bodyAppend: [bodyTags]
 	};
 	
@@ -231,5 +458,10 @@ function renderHTMLDocument(html) {
 	return "<!DOCTYPE html>" + `<html${joinAttrs(html.htmlAttrs)}>` + `<head>${joinTags(html.head)}</head>` + `<body${joinAttrs(html.bodyAttrs)}>${joinTags(html.bodyPrepend)}${joinTags(html.body)}${joinTags(html.bodyAppend)}</body>` + "</html>";
 }
 
-export { handler as default };
+const renderer = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
+  __proto__: null,
+  default: handler
+}, Symbol.toStringTag, { value: 'Module' }));
+
+export { useSeoMeta as a, headSymbol as h, renderer as r, useHead as u };
 //# sourceMappingURL=renderer.mjs.map

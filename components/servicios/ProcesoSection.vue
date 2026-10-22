@@ -1,10 +1,10 @@
 <script setup>
 import { ArrowRight } from 'lucide-vue-next'
 
-import imgAnalysis from '@/assets/img/Estrategia.webp'
-import imgDesign from '@/assets/img/design.webp'
-import imgDev from '@/assets/img/arquitectura.webp'
-import imgDeploy from '@/assets/img/despliege.webp'
+import imgAnalysis from '@/assets/img/Estrategia-optimized.webp'
+import imgDesign from '@/assets/img/design-optimized.webp'
+import imgDev from '@/assets/img/arquitectura-optimized.webp'
+import imgDeploy from '@/assets/img/despliege-optimized.webp'
 
 const steps = [
   {

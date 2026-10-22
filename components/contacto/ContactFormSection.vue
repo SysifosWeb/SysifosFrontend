@@ -26,14 +26,12 @@ const submitForm = async (event) => {
   if (!form.name || !form.email || !form.subject || !form.message) {
     errorMessage.value = 'Por favor completa los campos requeridos.'
     showError.value = true
-    setTimeout(() => showError.value = false, 5000)
     return
   }
 
   if (!form.consent) {
     errorMessage.value = 'Debes aceptar el tratamiento de tus datos personales para enviar el formulario.'
     showError.value = true
-    setTimeout(() => showError.value = false, 5000)
     return
   }
 
@@ -41,7 +39,6 @@ const submitForm = async (event) => {
   if (!emailRegex.test(form.email)) {
     errorMessage.value = 'El formato de email no es válido.'
     showError.value = true
-    setTimeout(() => showError.value = false, 5000)
     return
   }
 
@@ -90,12 +87,10 @@ const submitForm = async (event) => {
     } else {
       errorMessage.value = data.message || 'Hubo un error al enviar tu mensaje.'
       showError.value = true
-      setTimeout(() => showError.value = false, 5000)
-    }
+      }
   } catch (error) {
     errorMessage.value = 'Error de conexión. Intenta nuevamente.'
     showError.value = true
-    setTimeout(() => showError.value = false, 5000)
   } finally {
     isSubmitting.value = false
   }
@@ -114,23 +109,23 @@ const submitForm = async (event) => {
     </div>
 
     <!-- Alertas -->
-    <div v-if="showSuccess"
+    <div v-if="showSuccess" role="status" aria-live="polite"
       class="fixed top-24 right-4 z-50 rounded-xl bg-panel p-4 border border-accent/30 shadow-[0_8px_32px_rgba(var(--decoration-rgb), 0.2)]">
       <div class="flex items-center gap-3">
         <span class="text-accent animate-pulse font-bold">✓</span>
         <p class="text-body text-content mb-0 font-medium">Mensaje enviado exitosamente. Te contactaremos pronto.</p>
-        <button @click="showSuccess = false" class="ml-4 text-subdued hover:text-content transition-colors">
+        <button aria-label="Cerrar confirmación" @click="showSuccess = false" class="ml-4 text-subdued hover:text-content transition-colors">
           <X class="w-4 h-4" />
         </button>
       </div>
     </div>
 
-    <div v-if="showError"
+    <div v-if="showError" role="alert"
       class="fixed top-24 right-4 z-50 rounded-xl bg-panel p-4 border border-red-500/30 shadow-[0_8px_32px_rgba(239,68,68,0.2)]">
       <div class="flex items-center gap-3">
         <span class="text-red-500 font-bold">!</span>
         <p class="text-body text-red-400 mb-0 font-medium">{{ errorMessage }}</p>
-        <button @click="showError = false" class="ml-4 text-subdued hover:text-content transition-colors">
+        <button aria-label="Cerrar error" @click="showError = false" class="ml-4 text-subdued hover:text-content transition-colors">
           <X class="w-4 h-4" />
         </button>
       </div>
@@ -156,22 +151,22 @@ const submitForm = async (event) => {
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Inputs premium -->
                 <div class="space-y-2">
-                  <label class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Nombre</label>
-                  <input v-model="form.name" type="text" required placeholder="Tu nombre"
+                  <label for="contact-name" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Nombre</label>
+                  <input id="contact-name" name="name" autocomplete="name" minlength="2" maxlength="255" v-model="form.name" type="text" required placeholder="Tu nombre"
                     class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
                 <div class="space-y-2">
-                  <label class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Email *</label>
-                  <input v-model="form.email" type="email" required placeholder="tu@email.com"
+                  <label for="contact-email" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Email *</label>
+                  <input id="contact-email" name="email" autocomplete="email" maxlength="255" v-model="form.email" type="email" required placeholder="tu@email.com"
                     class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
-                  <label class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Empresa
+                  <label for="contact-company" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Empresa
                     (Opcional)</label>
-                  <input v-model="form.company" type="text" placeholder="Tu empresa"
+                  <input id="contact-company" name="company" autocomplete="organization" maxlength="255" v-model="form.company" type="text" placeholder="Tu empresa"
                     class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
                 <div class="space-y-2 hidden">
@@ -179,23 +174,23 @@ const submitForm = async (event) => {
                   <input v-model="form.phone" type="tel">
                 </div>
                 <div class="space-y-2">
-                  <label class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Asunto *</label>
-                  <input v-model="form.subject" type="text" required placeholder="¿En qué te podemos ayudar?"
+                  <label for="contact-subject" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Asunto *</label>
+                  <input id="contact-subject" name="subject" minlength="5" maxlength="255" v-model="form.subject" type="text" required placeholder="¿En qué te podemos ayudar?"
                     class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
               </div>
 
               <div class="space-y-2">
-                <label class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Detalles del Proyecto
+                <label for="contact-message" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Detalles del Proyecto
                   *</label>
-                <textarea v-model="form.message" rows="4" required placeholder="¿Qué te gustaría construir?"
+                <textarea id="contact-message" name="message" minlength="10" maxlength="2000" v-model="form.message" rows="4" required placeholder="¿Qué te gustaría construir?"
                   class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300 resize-y min-h-[120px]"></textarea>
               </div>
 
               <!-- Consentimiento de datos personales -->
               <div class="space-y-2">
                 <label class="flex items-start gap-3 cursor-pointer select-none">
-                  <input v-model="form.consent" type="checkbox" class="mt-1 w-4 h-4 rounded border-line bg-quiet accent-accent">
+                  <input v-model="form.consent" type="checkbox" required class="mt-1 w-4 h-4 rounded border-line bg-quiet accent-accent">
                   <span class="text-body text-subdued leading-relaxed">
                     Acepto que mis datos personales sean tratados de acuerdo a la
                     <NuxtLink to="/privacidad" class="text-accent underline hover:text-accent transition-colors">Política de Privacidad</NuxtLink>
@@ -230,7 +225,7 @@ const submitForm = async (event) => {
               </div>
               <div>
                 <p class="text-bodyall font-bold uppercase tracking-wider text-subdued mb-1">Email Directo</p>
-                <p class="text-body text-content font-medium">contacto@sysifosweb.cl</p>
+                <a href="mailto:contacto@sysifosweb.cl" class="text-body text-content font-medium underline">contacto@sysifosweb.cl</a>
               </div>
             </div>
 

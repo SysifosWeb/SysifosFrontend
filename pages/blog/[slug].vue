@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
 definePageMeta({
     layout: 'hero'
@@ -16,8 +16,7 @@ const {
     data: postResponse,
     pending: postPending,
     error: postError,
-    refresh: refreshPost
-} = useFetch(() => `${apiUrl}blog/${slug.value}`, {
+} = await useFetch(() => `${apiUrl}blog/${slug.value}`, {
     key: () => `post-${slug.value}`,
     watch: [slug]
 })
@@ -37,18 +36,16 @@ const post = computed(() => {
             role: 'Autor',
             avatar: postData.value.user?.name ? postData.value.user.name.substring(0, 2).toUpperCase() : 'SE'
         },
-        image: postData.value.featured_image || 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop',
+        image: postData.value.featured_image || '/img/og-blog.jpg',
         content: postData.value.content ? (postData.value.content.includes('<') ? postData.value.content : '<p>' + postData.value.content.replace(/\n\n/g, '</p><p>') + '</p>') : '',
         tags: postData.value.meta_keywords || []
     }
 })
 
-// Watch adicional como respaldo: si el slug cambia y el fetch no se actualizó, forzar refresh
-watch(slug, async (newSlug, oldSlug) => {
-    if (newSlug && newSlug !== oldSlug) {
-        await refreshPost()
-    }
-})
+if (postError.value || !postData.value) {
+    const status = postError.value?.statusCode === 404 || !postError.value ? 404 : 503
+    throw createError({ statusCode: status, statusMessage: status === 404 ? 'Artículo no encontrado' : 'Blog temporalmente no disponible', fatal: true })
+}
 
 // URL canónica del artículo (siempre absoluta)
 const canonicalUrl = computed(() => `https://sysifosweb.cl/blog/${slug.value}`)
@@ -64,7 +61,7 @@ const shareUrl = computed(() => {
 // Asegurar que la imagen OG sea siempre una URL absoluta
 const ogImageUrl = computed(() => {
     const img = post.value?.image || ''
-    if (!img) return 'https://sysifosweb.cl/og-default.jpg'
+    if (!img) return 'https://sysifosweb.cl/img/og-home.jpg'
     if (img.startsWith('http')) return img
     // Si es ruta relativa, anteponer el dominio
     return `https://sysifosweb.cl${img.startsWith('/') ? '' : '/'}${img}`
@@ -120,17 +117,15 @@ const copyToClipboard = async () => {
 // SEO y Open Graph completo para Instagram, Facebook, LinkedIn y Twitter
 useSeoMeta({
     // Meta estándar
-    title: () => post.value ? `${post.value.title} | Blog SysifosWeb` : 'Artículo no encontrado',
-    description: () => postData.value?.excerpt || 'Lee nuestro último artículo en el blog de SysifosWeb.',
+    title: () => post.value ? (postData.value?.meta_title || `${post.value.title} | Blog SysifosWeb`) : 'Artículo no encontrado',
+    description: () => postData.value?.meta_description || postData.value?.excerpt || 'Lee nuestro último artículo en el blog de SysifosWeb.',
     // Open Graph (Instagram/Facebook)
     fbAppId: '1215450019494398',
     ogType: 'article',
     ogSiteName: 'SysifosWeb',
     ogTitle: () => post.value?.title || 'Blog SysifosWeb',
-    ogDescription: () => postData.value?.excerpt || 'Lee nuestro último artículo en el blog de SysifosWeb.',
+    ogDescription: () => postData.value?.meta_description || postData.value?.excerpt || 'Lee nuestro último artículo en el blog de SysifosWeb.',
     ogImage: () => ogImageUrl.value,
-    ogImageWidth: 1200,
-    ogImageHeight: 630,
     ogImageAlt: () => post.value?.title || 'Blog SysifosWeb',
     ogUrl: () => canonicalUrl.value,
     // Open Graph — Article namespace
@@ -141,7 +136,7 @@ useSeoMeta({
     // Twitter / X Card
     twitterCard: 'summary_large_image',
     twitterTitle: () => post.value?.title || 'Blog SysifosWeb',
-    twitterDescription: () => postData.value?.excerpt || 'Lee nuestro último artículo en el blog de SysifosWeb.',
+    twitterDescription: () => postData.value?.meta_description || postData.value?.excerpt || 'Lee nuestro último artículo en el blog de SysifosWeb.',
     twitterImage: () => ogImageUrl.value,
 })
 
@@ -162,12 +157,12 @@ const articleSchema = computed(() => {
             name: 'Sysifos Web',
             logo: {
                 '@type': 'ImageObject',
-                url: 'https://sysifosweb.cl/img/logo.png'
+                url: 'https://sysifosweb.cl/img/brand/logo.svg'
             }
         },
         datePublished: postData.value?.published_at || postData.value?.created_at,
         dateModified: postData.value?.updated_at || postData.value?.published_at,
-        image: post.value.image,
+        image: ogImageUrl.value,
         mainEntityOfPage: {
             '@type': 'WebPage',
             '@id': canonicalUrl.value
@@ -175,18 +170,16 @@ const articleSchema = computed(() => {
     }
 })
 
-useHead({
-    link: [{ rel: 'canonical', href: () => canonicalUrl.value }],
-    meta: [
-        { name: 'image', property: 'og:image', content: () => ogImageUrl.value }
-    ],
-    script: () => articleSchema.value ? [
-        { type: 'application/ld+json', innerHTML: JSON.stringify(articleSchema.value) }
+useHead(() => ({
+    link: [{ rel: 'canonical', href: canonicalUrl.value }],
+    script: articleSchema.value ? [
+        { key: 'blog-breadcrumbs', type: 'application/ld+json', innerHTML: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://sysifosweb.cl/' }, { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://sysifosweb.cl/blog' }, { '@type': 'ListItem', position: 3, name: post.value.title, item: canonicalUrl.value }] }).replace(/</g, '\\u003c') },
+        { key: 'blog-article', type: 'application/ld+json', innerHTML: JSON.stringify(articleSchema.value).replace(/</g, '\\u003c') }
     ] : []
-})
+}))
 
 const { data: relatedResponse } = useFetch(`${apiUrl}blog`, {
-    key: 'blog-list'
+    key: 'blog-related'
 })
 const relatedPosts = computed(() => {
     const posts = relatedResponse.value?.data || []
@@ -197,7 +190,7 @@ const relatedPosts = computed(() => {
         excerpt: p.excerpt,
         category: p.category?.name || 'Blog',
         reading_time: (p.reading_time || 1) + ' min',
-        image: p.featured_image || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop'
+        image: p.featured_image || '/img/og-blog.jpg'
     }))
 })
 </script>
@@ -249,11 +242,15 @@ const relatedPosts = computed(() => {
             </div>
 
             <div class="max-w-[800px] w-[90%] mx-auto relative z-20">
-                <!-- Back Button -->
-                <NuxtLink to="/blog"
-                    class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-subdued hover:text-content transition-colors mb-10">
-                    &larr; Volver al Journal
-                </NuxtLink>
+                <nav aria-label="Ruta de navegación" class="text-sm text-subdued mb-10">
+                    <ol class="flex flex-wrap gap-2">
+                        <li><NuxtLink external to="/" class="underline">Inicio</NuxtLink></li>
+                        <li aria-hidden="true">/</li>
+                        <li><NuxtLink to="/blog" class="underline">Blog</NuxtLink></li>
+                        <li aria-hidden="true">/</li>
+                        <li aria-current="page">{{ post.title }}</li>
+                    </ol>
+                </nav>
 
                 <div class="flex items-center gap-4 mb-6">
                     <span
@@ -285,7 +282,7 @@ const relatedPosts = computed(() => {
         <!-- Cover Image -->
         <section class="max-w-[1000px] w-[90%] mx-auto mb-16 lg:mb-24 relative z-20">
             <div class="w-full h-[300px] md:h-[500px] rounded-3xl overflow-hidden border border-line shadow-2xl">
-                <NuxtImg :src="post.image" :alt="post.title" loading="lazy" decoding="async" format="webp"
+                <NuxtImg :src="post.image" :alt="post.title" width="1000" height="600" sizes="100vw lg:1000px" loading="eager" fetchpriority="high" decoding="async" format="webp"
                     class="w-full h-full object-cover transition-all duration-1000" />
             </div>
         </section>
@@ -383,7 +380,7 @@ const relatedPosts = computed(() => {
                     <NuxtLink v-for="relPost in relatedPosts" :key="relPost.id" :to="`/blog/${relPost.slug}`"
                         class="group relative flex flex-col lg:flex-row rounded-2xl border border-line bg-panel hover:bg-panel hover:border-line transition-all duration-300 overflow-hidden">
                         <div class="relative overflow-hidden bg-panel lg:w-2/5" style="aspect-ratio: 16/10; min-height: 120px">
-                            <NuxtImg :src="relPost.image" :alt="relPost.title" loading="lazy" decoding="async" format="webp"
+                            <NuxtImg width="600" height="375" sizes="100vw lg:400px" :src="relPost.image" :alt="relPost.title" loading="lazy" decoding="async" format="webp"
                                 class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                         </div>
                         <div class="p-6 lg:p-8 flex flex-col justify-center lg:w-3/5">

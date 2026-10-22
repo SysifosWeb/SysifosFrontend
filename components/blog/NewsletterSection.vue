@@ -81,7 +81,7 @@ const submitForm = async (event) => {
             <p class="text-subdued text-sm mb-8">Únete a nuestra lista para recibir artículos mensuales sobre arquitectura web y escalabilidad. Sin spam.</p>
 
             <form @submit="submitForm" class="flex flex-col sm:flex-row gap-3">
-                <input v-model="form.email" type="email" placeholder="tu@email.com" autocomplete="email" class="flex-grow bg-panel border border-line rounded-xl px-5 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 transition-colors" required>
+                <input v-model="form.email" aria-label="Correo electrónico para el boletín" type="email" placeholder="tu@email.com" autocomplete="email" class="flex-grow bg-panel border border-line rounded-xl px-5 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 transition-colors" required>
                 <button type="submit" :disabled="isSubmitting" class="px-6 py-3.5 rounded-xl bg-accent text-action font-bold text-sm hover:bg-quiet hover:text-content transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
                     {{ isSubmitting ? 'Enviando...' : 'Suscribirse' }}
                 </button>
@@ -99,8 +99,8 @@ const submitForm = async (event) => {
                 </span>
             </label>
 
-            <p v-if="successMessage" class="mt-4 text-sm text-emerald-400 font-medium">{{ successMessage }}</p>
-            <p v-if="errorMessage" class="mt-4 text-sm text-red-400 font-medium">{{ errorMessage }}</p>
+            <p v-if="successMessage" role="status" class="mt-4 text-sm text-emerald-400 font-medium">{{ successMessage }}</p>
+            <p v-if="errorMessage" role="alert" class="mt-4 text-sm text-red-400 font-medium">{{ errorMessage }}</p>
         </div>
     </section>
 </template>

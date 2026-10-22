@@ -1,4 +1,0 @@
-const StorytellingBreak_vue_vue_type_style_index_0_scoped_3c76a02d_inline_used_lang = ".story-headline[data-v-3c76a02d]{color:var(--text-main);font-size:var(--fs-h1);font-weight:var(--fw-h1);letter-spacing:var(--ls-h1);line-height:var(--lh-h1);margin:0}.story-headline--oversized[data-v-3c76a02d]{font-size:var(--fs-hero);letter-spacing:var(--ls-hero);line-height:var(--lh-hero);margin-inline:auto;max-width:24ch;text-wrap:balance}[data-v-3c76a02d] .story-headline em,[data-v-3c76a02d] .story-headline .accent-gradient,[data-v-3c76a02d] .story-headline .accent-metallic{color:var(--accent);font-style:normal}.story-subheadline[data-v-3c76a02d]{color:var(--text-muted);font-size:var(--fs-body);letter-spacing:.05em;line-height:1.6;margin-left:auto;margin-right:auto;max-width:500px}";
-
-export { StorytellingBreak_vue_vue_type_style_index_0_scoped_3c76a02d_inline_used_lang as S };
-//# sourceMappingURL=nosotros-styles-2.mjs-D37Xttlp.mjs.map

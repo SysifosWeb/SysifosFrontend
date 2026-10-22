@@ -16,35 +16,8 @@ setMeta({
 })
 
 setSchema({
-  type: 'FAQPage',
-  data: {
-    questions: [
-      {
-        '@type': 'Question',
-        name: '¿Cuánto tiempo toma desarrollar un sitio web?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Sitios web: 2-4 semanas. Aplicaciones complejas: 3-6 meses. El tiempo depende de la complejidad y funcionalidades requeridas.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: '¿Ofrecen soporte post-lanzamiento?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Sí, ofrecemos planes de soporte y mantenimiento continuo para asegurar que tu sitio web o aplicación funcione correctamente.'
-        }
-      },
-      {
-        '@type': 'Question',
-        name: '¿Trabajan con clientes fuera de Chile?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Sí, trabajamos con clientes de todo el mundo de forma remota.'
-        }
-      }
-    ]
-  }
+  type: 'WebPage',
+  data: { name: 'Contacta con SysifosWeb', description: 'Cotiza tu proyecto web o software mediante formulario, WhatsApp o email.' }
 })
 </script>
 <template>

@@ -34,7 +34,7 @@ export const useSEO = () => {
             title,
             description,
             keywords,
-            image = '/img/og-default.jpg',
+            image = '/img/og-home.jpg',
             url,
             type = 'website',
             author,
@@ -59,12 +59,9 @@ export const useSEO = () => {
             { property: 'og:description', content: description },
             { property: 'og:type', content: type },
             { property: 'og:url', content: fullUrl },
-            { name: 'image', property: 'og:image', content: fullImage },
             { property: 'og:image', content: fullImage },
             { property: 'og:image:secure_url', content: fullImage },
-            { property: 'og:image:type', content: 'image/webp' },
-            { property: 'og:image:width', content: '1200' },
-            { property: 'og:image:height', content: '630' },
+            ...(/\.(webp|png|jpe?g)$/i.test(fullImage) ? [{ property: 'og:image:type', content: /\.webp$/i.test(fullImage) ? 'image/webp' : /\.png$/i.test(fullImage) ? 'image/png' : 'image/jpeg' }] : []),
             { property: 'og:image:alt', content: title },
             { property: 'og:site_name', content: 'SysifosWeb' },
             { property: 'og:locale', content: 'es_CL' },
@@ -85,7 +82,6 @@ export const useSEO = () => {
             { name: 'language', content: 'Spanish' },
             { name: 'geo.region', content: 'CL-CO' },
             { name: 'geo.placename', content: 'Coquimbo, Chile' },
-            { name: 'geo.position', content: '-29.9533;-71.3436' },
         ]
 
         // Keywords si se proporcionan
@@ -93,10 +89,8 @@ export const useSEO = () => {
             metaTags.push({ name: 'keywords', content: keywords })
         }
 
-        // Publish date & Modified date for all pages (LinkedIn requires it)
-        const defaultDate = '2024-06-01T12:00:00Z'
-        metaTags.push({ property: 'article:published_time', content: publishedTime || defaultDate })
-        metaTags.push({ property: 'article:modified_time', content: modifiedTime || defaultDate })
+        if (type === 'article' && publishedTime) metaTags.push({ property: 'article:published_time', content: publishedTime })
+        if (type === 'article' && modifiedTime) metaTags.push({ property: 'article:modified_time', content: modifiedTime })
 
         // Article specific meta tags
         if (type === 'article') {
@@ -133,7 +127,7 @@ export const useSEO = () => {
             '@type': 'Organization',
             name: 'Sysifos Web',
             url: siteUrl,
-            logo: `${siteUrl}/img/logo.png`,
+            logo: `${siteUrl}/img/brand/logo.svg`,
             description: 'Empresa de desarrollo de software, aplicaciones web y soluciones digitales en Chile',
             address: {
                 '@type': 'PostalAddress',
@@ -159,11 +153,7 @@ export const useSEO = () => {
             '@type': 'WebSite',
             name: 'Sysifos Web',
             url: siteUrl,
-            potentialAction: {
-                '@type': 'SearchAction',
-                target: `${siteUrl}/servicios?q={search_term_string}`,
-                'query-input': 'required name=search_term_string'
-            }
+
         }
 
         const schemas: any[] = [organizationSchema, websiteSchema]
@@ -249,7 +239,7 @@ export const useSEO = () => {
                     url: siteUrl,
                     telephone: data.telephone || '+56-9-8502-1549',
                     email: data.email || 'contacto@sysifosweb.cl',
-                    image: data.image || `${siteUrl}/img/logo.png`,
+                    image: data.image || `${siteUrl}/img/brand/logo.svg`,
                     address: {
                         '@type': 'PostalAddress',
                         addressLocality: data.addressLocality || 'coquimbo',
@@ -259,11 +249,7 @@ export const useSEO = () => {
                     openingHoursSpecification: data.openingHours || [
                         { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '18:00' }
                     ],
-                    geo: data.geo || {
-                        '@type': 'GeoCoordinates',
-                        latitude: '-29.9533',
-                        longitude: '-71.3436'
-                    },
+                    ...(data.geo ? { geo: data.geo } : {}),
                     sameAs: data.sameAs || [
                         'https://www.facebook.com/profile.php?id=61567859694020',
                         'https://www.instagram.com/sysifosweb_/',
@@ -303,7 +289,8 @@ export const useSEO = () => {
         useHead({
             script: schemas.map(schema => ({
                 type: 'application/ld+json',
-                innerHTML: JSON.stringify(schema)
+                key: `schema-${schema['@type']}-${schema.name || ''}`,
+                innerHTML: JSON.stringify(schema).replace(/</g, '\\u003c')
             }))
         })
     }

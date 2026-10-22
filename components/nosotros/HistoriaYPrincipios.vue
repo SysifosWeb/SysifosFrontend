@@ -1,5 +1,5 @@
 <script setup>
-import team from "@/assets/img/saas_product_visual.png";
+import team from "@/assets/img/saas_product_visual-optimized.webp";
 import { Medal } from "lucide-vue-next";
 </script>
 

@@ -53,7 +53,7 @@ defineProps({
                     </div>
                 </div>
                 <div class="lg:w-1/2 relative overflow-hidden" style="min-height: 300px">
-                    <img :src="post.image" :alt="post.title" loading="lazy" decoding="async"
+                    <NuxtImg :src="post.image" width="900" height="600" sizes="100vw lg:50vw" format="webp" :alt="post.title" loading="lazy" decoding="async"
                         class="absolute inset-0 w-full h-full object-cover " />
                     <div
                         class="absolute inset-0 bg-gradient-to-r from-panel via-transparent to-transparent hidden lg:block">

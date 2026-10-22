@@ -1,9 +1,5 @@
 const sources = [
     {
-        "sourceType": "user",
-        "fetch": "/__sitemap__/urls"
-    },
-    {
         "context": {
             "name": "sitemap:urls",
             "description": "Set with the `sitemap.urls` config."
@@ -120,7 +116,8 @@ const sources = [
             "/nosotros",
             "/portfolio",
             "/contacto",
-            "/blog"
+            "/blog",
+            "/admin"
         ],
         "sourceType": "app"
     }

@@ -1,5 +1,5 @@
 <template>
-  <footer class="relative overflow-hidden bg-section-dark impulso-closing">
+  <footer class="site-footer relative overflow-hidden bg-section-dark impulso-closing">
 
     <!-- Glows decorativos sutiles -->
     <div class="absolute pointer-events-none inset-0 overflow-hidden" aria-hidden="true">
@@ -16,7 +16,7 @@
 
         <!-- Bloque izquierdo: Logo + slogan + redes -->
         <div class="lg:col-span-5 flex flex-col gap-6">
-          <NuxtLink to="/" class="flex items-center">
+          <NuxtLink external to="/" class="flex items-center">
             <BrandLogo class="h-12 md:h-20 w-auto aspect-[403/80]" />
           </NuxtLink>
           <p class="text-sm leading-relaxed max-w-xs" style="color: var(--text-muted);">
@@ -77,7 +77,7 @@
             </h3>
             <ul class="flex flex-col gap-3">
               <li v-for="link in navLinks" :key="link.to">
-                <NuxtLink :to="link.to" class="nav-link text-sm transition-colors duration-200"
+                <NuxtLink :external="link.to === '/'" :to="link.to" class="nav-link text-sm transition-colors duration-200"
                   style="color: var(--text-secondary);">
                   {{ link.label }}
                 </NuxtLink>
@@ -163,18 +163,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.social-icon:hover {
-  border-color: var(--border-accent) !important;
-  background: var(--bg-elevated) !important;
-}
-
-.social-icon:hover svg {
-  color: var(--accent) !important;
-}
-
-.nav-link:hover {
-  color: var(--text-main) !important;
-}
-</style>

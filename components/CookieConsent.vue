@@ -46,15 +46,3 @@ const { bannerVisible, accept, reject } = useCookieConsent()
     </div>
   </Transition>
 </template>
-
-<style scoped>
-.cookie-enter-active,
-.cookie-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.cookie-enter-from,
-.cookie-leave-to {
-  opacity: 0;
-  transform: translateY(16px);
-}
-</style>

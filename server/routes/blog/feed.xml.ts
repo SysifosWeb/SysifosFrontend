@@ -1,36 +1,30 @@
+import { fetchPublicBlog } from '~/utils/publicBlog'
+
 export default defineEventHandler(async (event) => {
-  const apiBase = 'https://olimpo.sysifosweb.cl/api'
+  const apiBase = useRuntimeConfig().apiBase.replace(/\/+$/, '')
+  const escapeXml = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;')
   const siteUrl = 'https://sysifosweb.cl'
 
   try {
-    const response = await $fetch<{ data: Array<{
-      slug: string
-      title: string
-      excerpt?: string
-      content?: string
-      featured_image?: string
-      published_at?: string
-      created_at?: string
-      updated_at?: string
-      category?: { name: string }
-      user?: { name: string }
-    }> }>(`${apiBase}/blog?per_page=50`)
-
-    const posts = response?.data ?? []
+    const posts = await fetchPublicBlog(page => $fetch(`${apiBase}/blog`, {
+      query: { page, per_page: 50 }, timeout: 8000, retry: 0,
+    }), 50)
 
     const items = posts.map((post) => {
-      const pubDate = post.published_at || post.created_at
-      const description = post.excerpt?.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') || ''
+      const date = new Date(post.published_at || post.created_at || '')
+      const pubDate = Number.isNaN(date.getTime()) ? null : date.toUTCString()
+      const postUrl = escapeXml(`${siteUrl}/blog/${encodeURIComponent(post.slug)}`)
+      const description = escapeXml(post.excerpt || '')
       return `
     <item>
-      <title>${post.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</title>
-      <link>${siteUrl}/blog/${post.slug}</link>
-      <guid isPermaLink="true">${siteUrl}/blog/${post.slug}</guid>
+      <title>${escapeXml(post.title)}</title>
+      <link>${postUrl}</link>
+      <guid isPermaLink="true">${postUrl}</guid>
       <description>${description}</description>
-      ${post.featured_image ? `<enclosure url="${post.featured_image.replace(/&/g, '&amp;')}" type="image/jpeg" />` : ''}
-      ${pubDate ? `<pubDate>${new Date(pubDate).toUTCString()}</pubDate>` : ''}
+
+      ${pubDate ? `<pubDate>${pubDate}</pubDate>` : ''}
       <source url="${siteUrl}/blog/feed.xml">SysifosWeb Blog</source>
-      ${post.category?.name ? `<category>${post.category.name}</category>` : ''}
+      ${post.category?.name ? `<category>${escapeXml(post.category.name)}</category>` : ''}
     </item>`
     }).join('\n')
 
@@ -44,7 +38,7 @@ export default defineEventHandler(async (event) => {
     <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
     <atom:link href="${siteUrl}/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <image>
-      <url>${siteUrl}/img/logo.png</url>
+      <url>${siteUrl}/img/brand/logo.svg</url>
       <title>SysifosWeb Blog</title>
       <link>${siteUrl}/blog</link>
     </image>
@@ -55,9 +49,9 @@ ${items}
     setHeader(event, 'Content-Type', 'application/rss+xml; charset=utf-8')
     setHeader(event, 'Cache-Control', 'public, max-age=3600')
     return feed
-  } catch (error) {
-    console.error('[RSS] Error fetching blog posts:', error)
-    setHeader(event, 'Content-Type', 'application/rss+xml; charset=utf-8')
-    return `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>SysifosWeb Blog</title><link>${siteUrl}/blog</link><description>Blog de tecnología y desarrollo web</description></channel></rss>`
+  } catch {
+    setHeader(event, 'Retry-After', 60)
+    setHeader(event, 'Cache-Control', 'no-store')
+    throw createError({ statusCode: 503, statusMessage: 'Blog feed temporarily unavailable' })
   }
 })

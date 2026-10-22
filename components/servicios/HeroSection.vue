@@ -9,7 +9,7 @@
         <p class="section-eyebrow mb-6" v-reveal data-delay="0">Soluciones digitales</p>
 
         <h1 class="hero-headline mb-8" v-reveal data-delay="100">
-          Construido para escalar. <span class="display-accent">Diseñado para liderar.</span>
+          Páginas web, ecommerce <span class="display-accent">y software a medida.</span>
         </h1>
 
         <div class="relative max-w-2xl mx-auto mb-10" v-reveal data-delay="200">
@@ -26,7 +26,7 @@
                 </svg>
             </NuxtLink>
             <NuxtLink to="/portfolio" class="cta-ghost w-full sm:w-auto justify-center">
-                Ver casos de éxito
+                Ver proyectos
             </NuxtLink>
         </div>
         

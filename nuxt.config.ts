@@ -4,10 +4,12 @@ const GTM_ID = 'GTM-TWB2W6T9';
 const GA4_ID = 'G-3BJ0HZ6RSH';
 
 export default defineNuxtConfig({
+    features: { inlineStyles: true },
     build: {
         transpile: []
     },
     nitro: {
+        compressPublicAssets: true,
         externals: {
             inline: ['vuedraggable', 'sortablejs']
         }
@@ -20,10 +22,13 @@ export default defineNuxtConfig({
     experimental: {
         payloadExtraction: true,
         renderJsonPayloads: true,
-        componentIslands: true
+        componentIslands: false,
+        defaults: { nuxtLink: { prefetchOn: { interaction: true, visibility: false } } }
     },
     routeRules: {
-        '/': { prerender: true },
+        '/fonts/**': { headers: { 'Cache-Control': 'public, max-age=604800' } },
+        '/img/brand/**': { headers: { 'Cache-Control': 'public, max-age=604800' } },
+        '/': { prerender: true, noScripts: true },
         '/servicios': { prerender: true },
         '/nosotros': { prerender: true },
         '/portfolio': { prerender: true },
@@ -33,7 +38,8 @@ export default defineNuxtConfig({
         // vacíos cacheados durante una hora.
         '/blog': { ssr: true },
         '/blog/**': { ssr: true },
-        '/admin/**': { ssr: true }
+        '/admin': { ssr: true, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+        '/admin/**': { ssr: true, headers: { 'X-Robots-Tag': 'noindex, nofollow' } }
     },
     compatibilityDate: '2024-11-01',
     devtools: { enabled: false },
@@ -114,9 +120,10 @@ export default defineNuxtConfig({
     },
 
     gtag: {
+        initMode: 'manual',
         id: 'G-3BJ0HZ6RSH',
         loadingStrategy: 'defer',
-        config: { anonymize_ip: true },
+        config: { anonymize_ip: true, send_page_view: false },
         // Google Consent Mode v2: estado por defecto denegado hasta que el
         // usuario otorgue su consentimiento desde el banner de cookies.
         initCommands: [
@@ -148,17 +155,12 @@ export default defineNuxtConfig({
             ],
             link: [
                 { rel: 'icon', type: 'image/svg+xml', href: '/img/brand/mark.svg' },
-                { rel: 'alternate', href: 'https://sysifosweb.cl', hreflang: 'es-CL' },
-                { rel: 'alternate', href: 'https://sysifosweb.cl', hreflang: 'es' },
-                { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-                { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-                { rel: 'preconnect', href: 'https://www.googletagmanager.com' },
                 { rel: 'alternate', type: 'application/rss+xml', title: 'SysifosWeb Blog RSS', href: '/blog/feed.xml' },
             ],
             // Progressive enhancement: si JS no está disponible, el contenido
             // animado con v-reveal nunca debe quedar oculto.
             noscript: [
-                { innerHTML: '.reveal-item{opacity:1 !important;transform:none !important}' }
+                { innerHTML: '<style>.reveal-item{opacity:1 !important;transform:none !important}</style>' }
             ]
         }
     },
@@ -177,8 +179,7 @@ export default defineNuxtConfig({
     },
     sitemap: {
         cacheMaxAgeSeconds: 0, // Desactivar caché para ver URLs nuevas al instante
-        // Fuente dinámica: Nitro consulta este endpoint para obtener las URLs de artículos
-        sources: ['/__sitemap__/urls'],
+        // La fuente del blog se resuelve en server/plugins/blog-sitemap.ts para propagar fallos de la API.
         exclude: ['/admin/**'],
         // Prioridades por tipo de ruta
         urls: [

@@ -22,7 +22,7 @@ defineEmits(['update:modelValue', 'update:searchQuery'])
             <div class="flex items-center gap-2 overflow-x-auto w-full pb-2 md:pb-0 hide-scrollbar md:flex-wrap md:overflow-visible">
                 <button
                     v-for="category in categories"
-                    :key="category.id"
+                    :key="category.id" :aria-pressed="modelValue === category.id"
                     @click="$emit('update:modelValue', category.id)"
                     class="px-4 py-1.5 text-[0.8rem] font-medium transition-all rounded-full whitespace-nowrap"
                     :class="modelValue === category.id ? 'bg-accent text-action' : 'text-subdued hover:text-content hover:bg-panel'"
@@ -33,7 +33,7 @@ defineEmits(['update:modelValue', 'update:searchQuery'])
             
             <div class="relative w-full md:w-64 flex-shrink-0">
                 <input 
-                    type="text" 
+                    type="search" aria-label="Buscar artículos"
                     :value="searchQuery"
                     @input="$emit('update:searchQuery', $event.target.value)"
                     placeholder="Buscar artículos..." 

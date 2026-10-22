@@ -1,7 +1,7 @@
 <script setup>
 import { TerminalSquare, Database, Smartphone } from 'lucide-vue-next'
-import karen from '@/assets/img/Karen.png'
-import osman from '@/assets/img/Osman.png'
+import karen from '@/assets/img/Karen-optimized.webp'
+import osman from '@/assets/img/Osman-optimized.webp'
 </script>
 
 <template>
@@ -30,7 +30,7 @@ import osman from '@/assets/img/Osman.png'
 
         <!-- KAREN -->
         <div class="roster-card impulso-closing group md:mt-14" v-reveal data-delay="150">
-          <img :src="karen" alt="Karen Godoy" class="roster-photo" loading="lazy" />
+          <img width="640" height="640" :src="karen" alt="Karen Godoy" class="roster-photo" loading="lazy" />
           <div class="roster-overlay"></div>
 
           <div class="roster-info">
@@ -49,7 +49,7 @@ import osman from '@/assets/img/Osman.png'
 
         <!-- OSMAN -->
         <div class="roster-card impulso-closing group" v-reveal data-delay="300">
-          <img :src="osman" alt="Osman Ahumada" class="roster-photo" loading="lazy" />
+          <img width="640" height="640" :src="osman" alt="Osman Ahumada" class="roster-photo" loading="lazy" />
           <div class="roster-overlay"></div>
 
           <div class="roster-info">

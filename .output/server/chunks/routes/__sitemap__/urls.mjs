@@ -1,4 +1,5 @@
-import { d as defineEventHandler } from '../../nitro/nitro.mjs';
+import { d as defineEventHandler, u as useRuntimeConfig, s as setHeader, c as createError } from '../../nitro/nitro.mjs';
+import { f as fetchPublicBlog } from '../../_/publicBlog.mjs';
 import 'node:http';
 import 'node:https';
 import 'node:events';
@@ -12,40 +13,29 @@ import 'node:url';
 import 'consola';
 import 'fast-xml-parser';
 import 'xss';
-import 'unhead/server';
-import 'unhead/plugins';
-import 'unhead/utils';
-import 'vue-bundle-renderer/runtime';
-import 'vue/server-renderer';
 import 'ipx';
 
-const urls = defineEventHandler(async () => {
-  var _a;
-  const apiBase = "https://olimpo.sysifosweb.cl/api";
-  const allPosts = [];
+const urls = defineEventHandler(async (event) => {
+  const apiBase = useRuntimeConfig().apiBase.replace(/\/+$/, "");
   try {
-    let currentPage = 1;
-    let lastPage = 1;
-    do {
-      const response = await $fetch(`${apiBase}/blog?page=${currentPage}`);
-      if (response == null ? void 0 : response.data) {
-        allPosts.push(...response.data);
-      }
-      lastPage = ((_a = response == null ? void 0 : response.meta) == null ? void 0 : _a.last_page) || 1;
-      currentPage++;
-    } while (currentPage <= lastPage);
-    return allPosts.map((post) => {
-      var _a2, _b;
+    const posts = await fetchPublicBlog((page) => $fetch(`${apiBase}/blog`, {
+      query: { page, per_page: 100 },
+      timeout: 8e3,
+      retry: 0
+    }));
+    return posts.map((post) => {
+      var _a, _b;
       return {
         loc: `/blog/${post.slug}`,
-        lastmod: (_b = (_a2 = post.updated_at) != null ? _a2 : post.published_at) != null ? _b : void 0,
+        lastmod: (_b = (_a = post.updated_at) != null ? _a : post.published_at) != null ? _b : void 0,
         changefreq: "weekly",
         priority: 0.8
       };
     });
-  } catch (error) {
-    console.error("[Sitemap] Error fetching blog posts from API:", error);
-    return [];
+  } catch {
+    setHeader(event, "Retry-After", 60);
+    setHeader(event, "Cache-Control", "no-store");
+    throw createError({ statusCode: 503, statusMessage: "Blog sitemap temporarily unavailable" });
   }
 });
 

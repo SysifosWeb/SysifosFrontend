@@ -1,6 +1,7 @@
 <script setup>
 import { PanelsTopLeft, MessageCircle } from 'lucide-vue-next'
-import fareminImage from '@/assets/img/Faremin.jpeg'
+const fareminImage = '/img/projects/faremin-1200.webp'
+const fareminOptimized = fareminImage
 import { ref } from 'vue'
 
 const tiltStyle = ref({})
@@ -20,8 +21,8 @@ const followPointer = (event) => {
     <div class="site-container hero-content">
       <div class="hero-copy">
         <p class="hero-eyebrow"><span aria-hidden="true"></span>Diseño y desarrollo para tu empresa</p>
-        <h1 id="home-title">Tu próximo paso digital, <span>con un equipo cercano.</span></h1>
-        <p class="hero-description">Páginas web, tiendas online y software a medida. Definimos el alcance contigo y te acompañamos desde la idea hasta el lanzamiento.</p>
+        <h1 id="home-title">Desarrollo web y software <span>para tu empresa.</span></h1>
+        <p class="hero-description">Creamos páginas web, tiendas online y sistemas a medida para empresas en Chile. Definimos el alcance contigo y te acompañamos desde la idea hasta el lanzamiento.</p>
         <div class="hero-actions">
           <a href="https://wa.me/56985021549?text=Hola%20SysifosWeb!%20Quiero%20cotizar%20mi%20proyecto%20web%2Fsoftware" target="_blank" rel="noopener" class="btn btn-primary">
             Hablemos de tu proyecto <span aria-hidden="true">↗</span>
@@ -43,7 +44,11 @@ const followPointer = (event) => {
           <span class="hero-project__type">Desarrollo web</span>
         </div>
         <NuxtLink to="/portfolio" class="hero-project__preview" aria-label="Ver el proyecto Maestranza Faremin en nuestro portfolio">
+          <picture>
+          <source media="(max-width: 640px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+          <source :srcset="fareminOptimized" type="image/webp" />
           <img :src="fareminImage" alt="Sitio web desarrollado para Maestranza Faremin, con su presentación de ingeniería para la industria minera" width="1600" height="911" fetchpriority="high" />
+          </picture>
         </NuxtLink>
         <figcaption>
           <div><span class="hero-project__label">Proyecto destacado</span><h2>Maestranza Faremin</h2></div>
@@ -66,9 +71,9 @@ const followPointer = (event) => {
 .hero-project-motion { min-width: 0; width: 100%; }
 .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.5rem 0.875rem; border: 1px solid var(--border); background: var(--bg-surface); border-radius: 999px; font-size: var(--fs-small); color: var(--text-secondary); }
 .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-h1 { margin: 1.5rem auto; font-family: var(--font-heading); font-size: var(--fs-page-hero); font-weight: 700; line-height: 1.14; letter-spacing: -0.045em; color: var(--text-main); text-wrap: balance; }
+h1 { font-family: var(--font-heading); margin: 1.5rem auto; font-size: var(--fs-page-hero); font-weight: 700; line-height: 1.14; letter-spacing: -0.045em; color: var(--text-main); text-wrap: balance; }
 h1 span { color: var(--accent); }
-.hero-description { max-width: 39rem; margin: 0 auto; font-size: var(--fs-lead); line-height: 1.55; color: var(--text-secondary); text-wrap: pretty; }
+.hero-description { font-family: var(--font-family); max-width: 39rem; margin: 0 auto; font-size: var(--fs-lead); line-height: 1.55; color: var(--text-secondary); text-wrap: pretty; }
 .hero-actions { display: flex; align-items: center; justify-content: center; gap: 0.875rem; flex-wrap: wrap; margin-top: 2rem; }
 .hero-details { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.5rem; }
 .hero-detail { display: inline-flex; align-items: center; gap: .5rem; font-size: var(--fs-small); color: var(--text-secondary); }
@@ -115,8 +120,8 @@ figcaption h2 { font-size: 1.25rem; font-weight: 700; color: var(--text-main); m
 /* Entrada escalonada: el contenido conserva su posición final sin JS adicional. */
 @media (prefers-reduced-motion: no-preference) {
   .hero-eyebrow { animation: hero-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
-  h1 { animation: hero-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both; }
-  .hero-description { animation: hero-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both; }
+
+
   .hero-actions { animation: hero-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.46s both; }
   .hero-section::before { animation: hero-light-drift 16s ease-in-out infinite alternate; }
   .hero-project {

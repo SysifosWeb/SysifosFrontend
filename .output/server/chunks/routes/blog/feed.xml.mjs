@@ -1,4 +1,5 @@
-import { d as defineEventHandler, s as setHeader } from '../../nitro/nitro.mjs';
+import { d as defineEventHandler, u as useRuntimeConfig, s as setHeader, c as createError } from '../../nitro/nitro.mjs';
+import { f as fetchPublicBlog } from '../../_/publicBlog.mjs';
 import 'node:http';
 import 'node:https';
 import 'node:events';
@@ -12,34 +13,34 @@ import 'node:url';
 import 'consola';
 import 'fast-xml-parser';
 import 'xss';
-import 'unhead/server';
-import 'unhead/plugins';
-import 'unhead/utils';
-import 'vue-bundle-renderer/runtime';
-import 'vue/server-renderer';
 import 'ipx';
 
 const feed_xml = defineEventHandler(async (event) => {
-  var _a;
-  const apiBase = "https://olimpo.sysifosweb.cl/api";
+  const apiBase = useRuntimeConfig().apiBase.replace(/\/+$/, "");
+  const escapeXml = (value) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
   const siteUrl = "https://sysifosweb.cl";
   try {
-    const response = await $fetch(`${apiBase}/blog?per_page=50`);
-    const posts = (_a = response == null ? void 0 : response.data) != null ? _a : [];
+    const posts = await fetchPublicBlog((page) => $fetch(`${apiBase}/blog`, {
+      query: { page, per_page: 50 },
+      timeout: 8e3,
+      retry: 0
+    }), 50);
     const items = posts.map((post) => {
-      var _a2, _b;
-      const pubDate = post.published_at || post.created_at;
-      const description = ((_a2 = post.excerpt) == null ? void 0 : _a2.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")) || "";
+      var _a;
+      const date = new Date(post.published_at || post.created_at || "");
+      const pubDate = Number.isNaN(date.getTime()) ? null : date.toUTCString();
+      const postUrl = escapeXml(`${siteUrl}/blog/${encodeURIComponent(post.slug)}`);
+      const description = escapeXml(post.excerpt || "");
       return `
     <item>
-      <title>${post.title.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</title>
-      <link>${siteUrl}/blog/${post.slug}</link>
-      <guid isPermaLink="true">${siteUrl}/blog/${post.slug}</guid>
+      <title>${escapeXml(post.title)}</title>
+      <link>${postUrl}</link>
+      <guid isPermaLink="true">${postUrl}</guid>
       <description>${description}</description>
-      ${post.featured_image ? `<enclosure url="${post.featured_image.replace(/&/g, "&amp;")}" type="image/jpeg" />` : ""}
-      ${pubDate ? `<pubDate>${new Date(pubDate).toUTCString()}</pubDate>` : ""}
+
+      ${pubDate ? `<pubDate>${pubDate}</pubDate>` : ""}
       <source url="${siteUrl}/blog/feed.xml">SysifosWeb Blog</source>
-      ${((_b = post.category) == null ? void 0 : _b.name) ? `<category>${post.category.name}</category>` : ""}
+      ${((_a = post.category) == null ? void 0 : _a.name) ? `<category>${escapeXml(post.category.name)}</category>` : ""}
     </item>`;
     }).join("\n");
     const feed = `<?xml version="1.0" encoding="UTF-8"?>
@@ -52,7 +53,7 @@ const feed_xml = defineEventHandler(async (event) => {
     <lastBuildDate>${(/* @__PURE__ */ new Date()).toUTCString()}</lastBuildDate>
     <atom:link href="${siteUrl}/blog/feed.xml" rel="self" type="application/rss+xml"/>
     <image>
-      <url>${siteUrl}/img/logo.png</url>
+      <url>${siteUrl}/img/brand/logo.svg</url>
       <title>SysifosWeb Blog</title>
       <link>${siteUrl}/blog</link>
     </image>
@@ -62,10 +63,10 @@ ${items}
     setHeader(event, "Content-Type", "application/rss+xml; charset=utf-8");
     setHeader(event, "Cache-Control", "public, max-age=3600");
     return feed;
-  } catch (error) {
-    console.error("[RSS] Error fetching blog posts:", error);
-    setHeader(event, "Content-Type", "application/rss+xml; charset=utf-8");
-    return `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>SysifosWeb Blog</title><link>${siteUrl}/blog</link><description>Blog de tecnolog\xEDa y desarrollo web</description></channel></rss>`;
+  } catch {
+    setHeader(event, "Retry-After", 60);
+    setHeader(event, "Cache-Control", "no-store");
+    throw createError({ statusCode: 503, statusMessage: "Blog feed temporarily unavailable" });
   }
 });
 

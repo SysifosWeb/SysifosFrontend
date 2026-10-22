@@ -18,7 +18,7 @@ defineProps({
                     class="blog-zoom-card group relative flex flex-col rounded-2xl border border-line bg-panel overflow-hidden"
                 >
                     <div class="relative overflow-hidden bg-panel" style="aspect-ratio: 16/10">
-                        <img :src="post.image" :alt="post.title" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover " />
+                        <NuxtImg :src="post.image" width="600" height="375" sizes="100vw sm:50vw lg:33vw" format="webp" :alt="post.title" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover " />
                     </div>
                     <div class="p-6 lg:p-8 flex flex-col flex-grow">
                         <div class="flex items-center justify-between mb-4">

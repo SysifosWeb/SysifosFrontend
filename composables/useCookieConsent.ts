@@ -18,30 +18,32 @@ let cancelScheduledBanner: (() => void) | null = null
 let initialized = false
 
 function readStored(): ConsentDecision {
-  if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
-    return null
-  }
-  const stored = localStorage.getItem(CONSENT_KEY)
-  if (!stored) return null
-
+  if (typeof window === 'undefined') return null
   try {
-    const record = JSON.parse(stored) as ConsentRecord
-    return record.decision
+    const stored = window.localStorage.getItem(CONSENT_KEY)
+    if (!stored) return null
+    const record = JSON.parse(stored) as ConsentRecord | null
+    return record?.decision === 'accepted' || record?.decision === 'rejected' ? record.decision : null
   } catch {
     return null
   }
 }
 
 function writeStored(decision: 'accepted' | 'rejected') {
-  localStorage.setItem(CONSENT_KEY, JSON.stringify({
-    decision,
-    timestamp: new Date().toISOString(),
-    version: CONSENT_VERSION
-  }))
+  try {
+    window.localStorage.setItem(CONSENT_KEY, JSON.stringify({
+      decision,
+      timestamp: new Date().toISOString(),
+      version: CONSENT_VERSION
+    }))
+  } catch {
+    // La decisión sigue vigente en esta página aunque el navegador bloquee el almacenamiento.
+  }
 }
 
 export function useCookieConsent() {
-  if (typeof window !== 'undefined' && typeof localStorage !== 'undefined' && !initialized) {
+  const { initialize } = useGtag()
+  if (typeof window !== 'undefined' && !initialized) {
     initialized = true
 
     const stored = readStored()
@@ -49,6 +51,10 @@ export function useCookieConsent() {
       consent.value = stored
       // Si ya decidió, sincroniza el estado con GTM/GA4.
       syncConsent(stored)
+      if (stored === 'accepted') {
+        initialize()
+        firePageView()
+      }
     } else {
       consent.value = null
       // Default: denegar hasta que el usuario decida.
@@ -61,9 +67,7 @@ export function useCookieConsent() {
     // Los CTA de "Configurar cookies" (#cookies) reabren el banner
     // desde cualquier página o artículo.
     window.addEventListener('hashchange', handleCookieHash)
-    if (window.location.hash === '#cookies') {
-      handleCookieHash()
-    }
+    onNuxtReady(handleCookieHash)
   }
 
   function accept() {
@@ -72,6 +76,7 @@ export function useCookieConsent() {
     writeStored('accepted')
     bannerVisible.value = false
     syncConsent('accepted')
+    initialize()
     trackDecision('accepted')
     stripCookiesHash()
     firePageView()

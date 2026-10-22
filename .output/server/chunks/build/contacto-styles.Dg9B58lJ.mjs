@@ -1,0 +1,8 @@
+const ContactFormSection_vue_vue_type_style_index_0_scoped_64d14a01_inline_used_lang = "input[data-v-64d14a01],textarea[data-v-64d14a01]{font-size:var(--fs-body);line-height:var(--lh-body)}.whatsapp-card[data-v-64d14a01]{transition:background-color .25s ease,border-color .25s ease,box-shadow .25s ease,transform .25s ease}.whatsapp-card__action[data-v-64d14a01],.whatsapp-card__icon[data-v-64d14a01]{color:#16803d}.whatsapp-card__action[data-v-64d14a01]{align-items:center;display:inline-flex}.whatsapp-card[data-v-64d14a01]:focus-visible,.whatsapp-card[data-v-64d14a01]:hover{background-color:#25d366;border-color:#25d366;box-shadow:0 12px 28px #25d36633}.whatsapp-card[data-v-64d14a01]:focus-visible :is(h4,p,span,svg),.whatsapp-card[data-v-64d14a01]:hover :is(h4,p,span,svg){color:#102b46}.whatsapp-card[data-v-64d14a01]:focus-visible{outline:3px solid #102b46;outline-offset:4px}.whatsapp-card__arrow[data-v-64d14a01]{display:inline-block;margin-left:.35rem;transition:transform .25s ease}@media(hover:hover)and (pointer:fine)and (prefers-reduced-motion:no-preference){.whatsapp-card[data-v-64d14a01]:focus-visible,.whatsapp-card[data-v-64d14a01]:hover{transform:translateY(-4px)}.whatsapp-card:focus-visible .whatsapp-card__arrow[data-v-64d14a01],.whatsapp-card:hover .whatsapp-card__arrow[data-v-64d14a01]{transform:translate(3px)}}@media(max-width:400px){.whatsapp-card>div[data-v-64d14a01]{flex-wrap:wrap;gap:.5rem}}";
+
+const contactoStyles_Dg9B58lJ = [
+  ContactFormSection_vue_vue_type_style_index_0_scoped_64d14a01_inline_used_lang
+];
+
+export { contactoStyles_Dg9B58lJ as default };
+//# sourceMappingURL=contacto-styles.Dg9B58lJ.mjs.map

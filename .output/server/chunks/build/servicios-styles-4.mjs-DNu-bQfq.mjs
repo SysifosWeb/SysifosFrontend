@@ -1,0 +1,4 @@
+const TechStackSection_vue_vue_type_style_index_0_scoped_4e2022cd_inline_used_lang = ".section-container[data-v-4e2022cd]{margin-inline:auto;max-width:1200px;position:relative;width:90%;z-index:10}.text-main[data-v-4e2022cd]{color:var(--text-main)}.bg-purple[data-v-4e2022cd]{background-color:var(--purple)}.text-purple[data-v-4e2022cd]{color:var(--purple)}.hover\\:border-purple\\/30[data-v-4e2022cd]:hover{border-color:rgba(var(--decoration-rgb),.3)}.tech-title[data-v-4e2022cd]{max-width:22ch}.tech-card[data-v-4e2022cd]{transition:opacity 1.2s ease,transform 1.2s ease,translate .25s ease,box-shadow .25s ease,border-color .25s ease}@media(hover:hover)and (pointer:fine)and (prefers-reduced-motion:no-preference){.tech-card[data-v-4e2022cd]:hover{box-shadow:0 12px 28px #102b461a;translate:0 -4px}}";
+
+export { TechStackSection_vue_vue_type_style_index_0_scoped_4e2022cd_inline_used_lang as T };
+//# sourceMappingURL=servicios-styles-4.mjs-DNu-bQfq.mjs.map

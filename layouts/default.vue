@@ -1,14 +1,18 @@
+<script setup>
+useHead({ script: [{ src: '/home-interactions.js', defer: true }] })
+</script>
 <template>
   <div class="min-h-screen font-sans impulso-hybrid">
     <div>
-      <AppNavbar class="absolute top-0 left-0 w-full z-10"/>
+      <HomeNavigation class="absolute top-0 left-0 w-full z-10"/>
       <AppHeader />
     </div>
-    <main>
+    <a href="#contenido" class="skip-link">Saltar al contenido</a>
+    <main id="contenido" tabindex="-1">
       <slot />
     </main>
     <Footer />
-    <CookieConsent />
+    <HomePrivacy />
     <!-- Floating WhatsApp -->
     <a href="https://wa.me/56985021549?text=Hola%20SysifosWeb!%20Quiero%20más%20información%20sobre%20sus%20servicios"
        target="_blank"

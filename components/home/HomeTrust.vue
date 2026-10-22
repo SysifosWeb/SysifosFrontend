@@ -31,7 +31,7 @@
 
                 <img :src="tech.logo" :alt="set === 1 ? tech.fullName : ''"
                   class="tech-logo h-12 lg:h-16 w-auto max-w-[100px] object-contain" width="100" height="64"
-                  decoding="async" />
+                  decoding="async" loading="lazy" />
 
                 <div
                   class="tech-name absolute -bottom-9 left-1/2 -translate-x-1/2 text-[14px] font-bold text-content tracking-[0.12em] text-center whitespace-nowrap uppercase"
@@ -55,12 +55,12 @@
 <script setup>
 const technologies = [
   { name: 'NUXT', fullName: 'Nuxt.js', logo: '/img/tech/nuxt.svg' },
-  { name: 'VUE', fullName: 'Vue.js', logo: '/img/tech/Vue.js.png' },
-  { name: 'REACT', fullName: 'React', logo: '/img/tech/React.png' },
-  { name: 'NODE', fullName: 'Node.js', logo: '/img/tech/Node.js.png' },
+  { name: 'VUE', fullName: 'Vue.js', logo: '/img/tech/Vue.js.webp' },
+  { name: 'REACT', fullName: 'React', logo: '/img/tech/React.webp' },
+  { name: 'NODE', fullName: 'Node.js', logo: '/img/tech/Node.js.webp' },
   { name: 'TYPESCRIPT', fullName: 'TypeScript', logo: '/img/tech/typescript.svg' },
   { name: 'TAILWIND', fullName: 'Tailwind CSS', logo: '/img/tech/tailwind.svg' },
-  { name: 'LARAVEL', fullName: 'Laravel', logo: '/img/tech/Laravel.png' },
+  { name: 'LARAVEL', fullName: 'Laravel', logo: '/img/tech/Laravel.webp' },
   { name: 'AWS', fullName: 'Amazon Web Services', logo: '/img/tech/aws.svg' }
 ]
 </script>

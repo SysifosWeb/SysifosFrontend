@@ -1,4 +1,0 @@
-const HistoriaYPrincipios_vue_vue_type_style_index_0_scoped_3dbc5ebf_inline_used_lang = ".principle-panel[data-v-3dbc5ebf]{background:var(--bg-surface);border-radius:var(--radius-md);padding:clamp(1.75rem,4vw,2.5rem)}.award-panel[data-v-3dbc5ebf],.principle-panel[data-v-3dbc5ebf]{border:1px solid var(--border);transition:opacity 1.2s ease,transform 1.2s cubic-bezier(.16,1,.3,1),translate .25s ease,box-shadow .25s ease,border-color .25s ease}@media(hover:hover)and (pointer:fine)and (prefers-reduced-motion:no-preference){.award-panel[data-v-3dbc5ebf]:hover,.principle-panel[data-v-3dbc5ebf]:hover{border-color:var(--border-accent);box-shadow:0 12px 28px #102b4614;translate:0 -4px}}";
-
-export { HistoriaYPrincipios_vue_vue_type_style_index_0_scoped_3dbc5ebf_inline_used_lang as H };
-//# sourceMappingURL=nosotros-styles-1.mjs-COF_NGyQ.mjs.map
