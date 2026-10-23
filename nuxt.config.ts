@@ -1,8 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-const GTM_ID = 'GTM-TWB2W6T9';
-const GA4_ID = 'G-3BJ0HZ6RSH';
-
 export default defineNuxtConfig({
     features: { inlineStyles: true },
     build: {
@@ -60,7 +57,7 @@ export default defineNuxtConfig({
         }
     },
 
-    modules: ['@nuxtjs/tailwindcss', '@nuxt/image', '@nuxtjs/sitemap', 'nuxt-gtag', 'nuxt-security'],
+    modules: ['@nuxtjs/tailwindcss', '@nuxt/image', '@nuxtjs/sitemap', 'nuxt-security'],
     security: {
         headers: {
             contentSecurityPolicy: {
@@ -119,27 +116,11 @@ export default defineNuxtConfig({
         }
     },
 
-    gtag: {
-        initMode: 'manual',
-        id: 'G-3BJ0HZ6RSH',
-        loadingStrategy: 'defer',
-        config: { anonymize_ip: true, send_page_view: false },
-        // Google Consent Mode v2: estado por defecto denegado hasta que el
-        // usuario otorgue su consentimiento desde el banner de cookies.
-        initCommands: [
-            ['consent', 'default', {
-                ad_storage: 'denied',
-                ad_user_data: 'denied',
-                ad_personalization: 'denied',
-                analytics_storage: 'denied'
-            }]
-        ]
-    },
-
     app: {
         pageTransition: { name: 'page', mode: 'out-in' },
         layoutTransition: { name: 'page', mode: 'out-in' },
         head: {
+            script: [{ src: '/consent.js', defer: true }],
             charset: 'utf-8',
             viewport: 'width=device-width, initial-scale=1',
             htmlAttrs: {

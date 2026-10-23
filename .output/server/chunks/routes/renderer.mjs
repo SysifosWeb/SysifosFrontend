@@ -105,7 +105,7 @@ function createHead(options = {}) {
 
 const NUXT_RUNTIME_PAYLOAD_EXTRACTION = false;
 
-const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"name":"format-detection","content":"telephone=no"},{"name":"theme-color","content":"#1e40af"},{"name":"author","content":"Sysifos Web"},{"property":"og:site_name","content":"Sysifos Web"},{"property":"og:locale","content":"es_CL"}],"link":[{"rel":"icon","type":"image/svg+xml","href":"/img/brand/mark.svg"},{"rel":"alternate","type":"application/rss+xml","title":"SysifosWeb Blog RSS","href":"/blog/feed.xml"}],"style":[],"script":[],"noscript":[{"innerHTML":"<style>.reveal-item{opacity:1 !important;transform:none !important}</style>"}],"charset":"utf-8","viewport":"width=device-width, initial-scale=1","htmlAttrs":{"lang":"es"},"titleTemplate":"%s"};
+const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"},{"name":"format-detection","content":"telephone=no"},{"name":"theme-color","content":"#1e40af"},{"name":"author","content":"Sysifos Web"},{"property":"og:site_name","content":"Sysifos Web"},{"property":"og:locale","content":"es_CL"}],"link":[{"rel":"icon","type":"image/svg+xml","href":"/img/brand/mark.svg"},{"rel":"alternate","type":"application/rss+xml","title":"SysifosWeb Blog RSS","href":"/blog/feed.xml"}],"style":[],"script":[{"src":"/consent.js","defer":true}],"noscript":[{"innerHTML":"<style>.reveal-item{opacity:1 !important;transform:none !important}</style>"}],"charset":"utf-8","viewport":"width=device-width, initial-scale=1","htmlAttrs":{"lang":"es"},"titleTemplate":"%s"};
 
 const appRootTag = "div";
 

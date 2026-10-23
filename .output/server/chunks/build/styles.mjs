@@ -1,8 +1,8 @@
 const interopDefault = r => r.default || r || [];
 const styles = {
-  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.BIceHcsF.mjs').then(interopDefault),
-  "pages/contacto.vue": () => import('./contacto-styles.Dg9B58lJ.mjs').then(interopDefault),
-  "components/contacto/ContactFormSection.vue": () => import('./contacto-styles.Dg9B58lJ.mjs').then(interopDefault),
+  "node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.nKUvFKWR.mjs').then(interopDefault),
+  "pages/contacto.vue": () => import('./contacto-styles.DaIa7f61.mjs').then(interopDefault),
+  "components/contacto/ContactFormSection.vue": () => import('./contacto-styles.DaIa7f61.mjs').then(interopDefault),
   "pages/nosotros.vue": () => import('./nosotros-styles.CYfCt7HK.mjs').then(interopDefault),
   "components/nosotros/HistoriaYPrincipios.vue": () => import('./HistoriaYPrincipios-styles.BICdGz2v.mjs').then(interopDefault),
   "components/nosotros/StorytellingBreak.vue": () => import('./StorytellingBreak-styles.B6OPPE7j.mjs').then(interopDefault),

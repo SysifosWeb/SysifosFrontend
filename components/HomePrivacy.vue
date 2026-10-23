@@ -1,14 +1,32 @@
 <template>
-  <div id="home-cookie-banner" hidden role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-desc"
-    class="impulso-closing fixed bottom-20 left-4 right-4 sm:bottom-6 sm:left-auto sm:right-24 sm:max-w-md z-[9999] rounded-2xl border border-white/10 bg-[#102b46]/95 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] p-6">
-    <div class="flex flex-col gap-4">
-      <div><h2 id="cookie-title" class="text-sm font-bold text-white mb-2">Tu lectura nos enseña</h2>
-        <p id="cookie-desc" class="text-xs text-white/60 leading-relaxed">Con tu permiso medimos las visitas con Google Analytics para mejorar nuestro sitio. Puedes cambiar de opinión cuando quieras. Más detalles en nuestra <a href="/privacidad" class="text-accent underline">Política de Privacidad</a>.</p>
+  <div>
+    <section id="home-cookie-banner" hidden aria-labelledby="cookie-title" aria-describedby="cookie-desc" class="consent-banner">
+      <h2 id="cookie-title">Tú eliges qué compartes</h2>
+      <p id="cookie-desc">Usamos almacenamiento necesario para el sitio. Si aceptas, Google Analytics nos ayuda a entender las visitas. No activamos publicidad personalizada. Puedes cambiar tu elección en «Configurar cookies».</p>
+      <a href="/privacidad">Política de privacidad</a>
+      <div class="consent-actions">
+        <button type="button" data-consent="accepted">Aceptar analítica</button>
+        <button type="button" data-consent="rejected">Rechazar analítica</button>
+        <button type="button" data-consent="preferences">Configurar</button>
       </div>
-      <div class="flex flex-col gap-2">
-        <button data-consent="accepted" class="w-full py-2.5 rounded-lg bg-white text-black font-semibold text-xs hover:bg-gray-200">Aceptar medición</button>
-        <button data-consent="rejected" class="w-full py-2 rounded-lg border border-white/15 text-white/70 font-medium text-[0.7rem] hover:text-white hover:bg-white/5">Solo lo necesario</button>
+    </section>
+    <dialog id="cookie-preferences" class="consent-dialog" aria-labelledby="cookie-preferences-title" aria-describedby="cookie-preferences-desc">
+      <h2 id="cookie-preferences-title">Preferencias de cookies</h2>
+      <p id="cookie-preferences-desc">Elige si permites medir tus visitas. Rechazar no impide usar el sitio.</p>
+      <div class="consent-option">
+        <label><input type="checkbox" checked disabled> Necesarias (siempre activas)</label>
+        <p>Permiten el funcionamiento del sitio y guardar tu elección.</p>
       </div>
-    </div>
+      <div class="consent-option">
+        <label><input type="checkbox" data-consent-analytics> Analítica de Google</label>
+        <p>Permite enviar datos de visitas y eventos a Google Analytics. No enviamos los datos que escribes en los formularios.</p>
+      </div>
+      <p>Publicidad y personalización publicitaria: desactivadas.</p>
+      <p>Guardamos tu elección durante 180 días en este navegador. <a href="/privacidad">Ver política de privacidad</a>.</p>
+      <div class="consent-actions">
+        <button type="button" data-consent-save>Guardar preferencias</button>
+        <button type="button" data-consent-close>Cerrar sin cambiar</button>
+      </div>
+    </dialog>
   </div>
 </template>

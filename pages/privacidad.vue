@@ -129,9 +129,21 @@ setMeta({
         <section>
           <h2 class="text-2xl font-bold text-content mb-3">10. Cookies</h2>
           <p>
-            Este sitio puede utilizar cookies y tecnologías similares para su correcto funcionamiento
-            y para fines de analítica. Podrás gestionar tus preferencias y otorgar o rechazar tu
-            consentimiento para cookies no esenciales a través del banner habilitado en el sitio.
+            Guardamos tu elección de cookies en el almacenamiento local de este navegador durante
+            180 días, junto con su fecha y versión. Google Analytics solo se carga si aceptas analítica;
+            la publicidad y la personalización publicitaria permanecen desactivadas. Puedes rechazar
+            sin perder acceso al sitio y cambiar tu elección desde «Configurar cookies» en el pie de página.
+          </p>
+          <p>
+            Al aceptar, se envían a Google datos de visitas y eventos; no enviamos los datos escritos
+            en nuestros formularios. Al retirar el permiso, detenemos el envío analítico y eliminamos
+            las cookies analíticas accesibles de nuestro dominio. Esto no elimina datos ya recibidos por Google.
+          </p>
+          <p>
+            Registramos las interacciones con el banner en nuestro servidor sin cookies ni identificadores
+            de visitante, sin guardar en esos registros IP, navegador o ruta visitada. Estos registros
+            de interacción se conservan 90 días y permiten evaluar el funcionamiento del consentimiento.
+            Los registros técnicos de infraestructura pueden tener otras condiciones de conservación.
           </p>
         </section>
 

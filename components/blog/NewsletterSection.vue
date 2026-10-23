@@ -2,7 +2,6 @@
 import { ref, reactive } from 'vue'
 
 const config = useRuntimeConfig()
-const { gtag } = useGtag()
 
 const form = reactive({
   email: '',
@@ -51,8 +50,8 @@ const submitForm = async (event) => {
 
     const data = await response.json()
     if (response.ok) {
-      if (gtag) {
-        gtag('event', 'generate_lead', { method: 'newsletter' })
+      if (response.status === 201 && window.SysifosConsent) {
+        window.SysifosConsent.track('sign_up', { method: 'newsletter' })
       }
       successMessage.value = data.message || '¡Gracias por suscribirte!'
       errorMessage.value = ''

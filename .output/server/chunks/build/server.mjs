@@ -765,7 +765,7 @@ const _routes = [
     name: "contacto",
     path: "/contacto",
     meta: __nuxt_page_meta$m || {},
-    component: () => import('./contacto-DbXKUfTP.mjs')
+    component: () => import('./contacto-DA_bd9PY.mjs')
   },
   {
     name: "nosotros",
@@ -795,19 +795,19 @@ const _routes = [
     name: "blog",
     path: "/blog",
     meta: __nuxt_page_meta$h || {},
-    component: () => import('./index-ChoGnhU2.mjs')
+    component: () => import('./index-CmmQxHjZ.mjs')
   },
   {
     name: "privacidad",
     path: "/privacidad",
     meta: __nuxt_page_meta$g || {},
-    component: () => import('./privacidad-CSF1sjJf.mjs')
+    component: () => import('./privacidad-DljDyiNj.mjs')
   },
   {
     name: "admin",
     path: "/admin",
     meta: __nuxt_page_meta$f || {},
-    component: () => import('./index-BhtbJpNC.mjs')
+    component: () => import('./index-u8GIn4UQ.mjs')
   },
   {
     name: "admin-login",
@@ -819,55 +819,55 @@ const _routes = [
     name: "blog-slug",
     path: "/blog/:slug()",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./_slug_-BU9bvIrO.mjs')
+    component: () => import('./_slug_-C0J1PkRO.mjs')
   },
   {
     name: "admin-posts-id",
     path: "/admin/posts/:id()",
     meta: __nuxt_page_meta$c || {},
-    component: () => import('./_id_-Bh1l8QGk.mjs')
+    component: () => import('./_id_-CKeGsY1v.mjs')
   },
   {
     name: "admin-posts-edit",
     path: "/admin/posts/edit",
     meta: __nuxt_page_meta$b || {},
-    component: () => import('./edit-ColoHxWC.mjs')
+    component: () => import('./edit-DIJrl1x2.mjs')
   },
   {
     name: "admin-posts",
     path: "/admin/posts",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./index-CVU8diCW.mjs')
+    component: () => import('./index-B5zL8-Xw.mjs')
   },
   {
     name: "admin-kanban",
     path: "/admin/kanban",
     meta: __nuxt_page_meta$9 || {},
-    component: () => import('./index-e7Iquv62.mjs')
+    component: () => import('./index-CRR2UAxW.mjs')
   },
   {
     name: "admin-posts-create",
     path: "/admin/posts/create",
     meta: __nuxt_page_meta$8 || {},
-    component: () => import('./create-QC9nI8vN.mjs')
+    component: () => import('./create-CGwgp9pK.mjs')
   },
   {
     name: "admin-contacts-id",
     path: "/admin/contacts/:id()",
     meta: __nuxt_page_meta$7 || {},
-    component: () => import('./_id_-Bt9gLYuT.mjs')
+    component: () => import('./_id_-CFcG_Q5c.mjs')
   },
   {
     name: "admin-contacts",
     path: "/admin/contacts",
     meta: __nuxt_page_meta$6 || {},
-    component: () => import('./index-Dzwn52Uo.mjs')
+    component: () => import('./index-B4imzoyX.mjs')
   },
   {
     name: "admin-categories-id",
     path: "/admin/categories/:id()",
     meta: __nuxt_page_meta$5 || {},
-    component: () => import('./_id_-DTWLMB6S.mjs')
+    component: () => import('./_id_-Dpr25Aai.mjs')
   },
   {
     name: "admin-categories-edit",
@@ -879,13 +879,13 @@ const _routes = [
     name: "admin-categories",
     path: "/admin/categories",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import('./index-BTdeBbk1.mjs')
+    component: () => import('./index-N-hjIOCs.mjs')
   },
   {
     name: "admin-kanban-project",
     path: "/admin/kanban/:project()",
     meta: __nuxt_page_meta$2 || {},
-    component: () => import('./_project_-CNh3_FnE.mjs')
+    component: () => import('./_project_-DMNZIMDs.mjs')
   },
   {
     name: "admin-categories-create",
@@ -897,7 +897,7 @@ const _routes = [
     name: "admin-mercado-publico",
     path: "/admin/mercado-publico",
     meta: __nuxt_page_meta || {},
-    component: () => import('./index-CoPuNY9M.mjs')
+    component: () => import('./index-8KrQ3-Qz.mjs')
   }
 ];
 const validate = /* @__PURE__ */ defineNuxtRouteMiddleware(async (to) => {
@@ -1732,8 +1732,8 @@ const plugins = [
 ];
 const layouts = {
   admin: defineAsyncComponent(() => import('./admin-CPdGZZpm.mjs').then((m) => m.default || m)),
-  default: defineAsyncComponent(() => import('./default-lPq4YlOY.mjs').then((m) => m.default || m)),
-  hero: defineAsyncComponent(() => import('./hero-DcxJAUn8.mjs').then((m) => m.default || m)),
+  default: defineAsyncComponent(() => import('./default-Dg-rLnVK.mjs').then((m) => m.default || m)),
+  hero: defineAsyncComponent(() => import('./hero-WLX42wIV.mjs').then((m) => m.default || m)),
   secondary: defineAsyncComponent(() => import('./secondary-BXEgzC0e.mjs').then((m) => m.default || m))
 };
 const routeRulesMatcher = _routeRulesMatcher;
@@ -1994,11 +1994,24 @@ const _export_sfc = (sfc, props) => {
   }
   return target;
 };
+const _sfc_main$3 = {};
+function _sfc_ssrRender$1(_ctx, _push, _parent, _attrs) {
+  _push(`<div${ssrRenderAttrs(_attrs)}><section id="home-cookie-banner" hidden aria-labelledby="cookie-title" aria-describedby="cookie-desc" class="consent-banner"><h2 id="cookie-title">Tú eliges qué compartes</h2><p id="cookie-desc">Usamos almacenamiento necesario para el sitio. Si aceptas, Google Analytics nos ayuda a entender las visitas. No activamos publicidad personalizada. Puedes cambiar tu elección en «Configurar cookies».</p><a href="/privacidad">Política de privacidad</a><div class="consent-actions"><button type="button" data-consent="accepted">Aceptar analítica</button><button type="button" data-consent="rejected">Rechazar analítica</button><button type="button" data-consent="preferences">Configurar</button></div></section><dialog id="cookie-preferences" class="consent-dialog" aria-labelledby="cookie-preferences-title" aria-describedby="cookie-preferences-desc"><h2 id="cookie-preferences-title">Preferencias de cookies</h2><p id="cookie-preferences-desc">Elige si permites medir tus visitas. Rechazar no impide usar el sitio.</p><div class="consent-option"><label><input type="checkbox" checked disabled> Necesarias (siempre activas)</label><p>Permiten el funcionamiento del sitio y guardar tu elección.</p></div><div class="consent-option"><label><input type="checkbox" data-consent-analytics> Analítica de Google</label><p>Permite enviar datos de visitas y eventos a Google Analytics. No enviamos los datos que escribes en los formularios.</p></div><p>Publicidad y personalización publicitaria: desactivadas.</p><p>Guardamos tu elección durante 180 días en este navegador. <a href="/privacidad">Ver política de privacidad</a>.</p><div class="consent-actions"><button type="button" data-consent-save>Guardar preferencias</button><button type="button" data-consent-close>Cerrar sin cambiar</button></div></dialog></div>`);
+}
+const _sfc_setup$3 = _sfc_main$3.setup;
+_sfc_main$3.setup = (props, ctx) => {
+  const ssrContext = useSSRContext();
+  (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("components/HomePrivacy.vue");
+  return _sfc_setup$3 ? _sfc_setup$3(props, ctx) : void 0;
+};
+const __nuxt_component_2 = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["ssrRender", _sfc_ssrRender$1]]);
 const _sfc_main$2 = {};
 function _sfc_ssrRender(_ctx, _push, _parent, _attrs) {
   const _component_NuxtLayout = __nuxt_component_0;
   const _component_NuxtPage = __nuxt_component_1;
-  _push(ssrRenderComponent(_component_NuxtLayout, _attrs, {
+  const _component_HomePrivacy = __nuxt_component_2;
+  _push(`<div${ssrRenderAttrs(_attrs)}>`);
+  _push(ssrRenderComponent(_component_NuxtLayout, null, {
     default: withCtx((_, _push2, _parent2, _scopeId) => {
       if (_push2) {
         _push2(ssrRenderComponent(_component_NuxtPage, null, null, _parent2, _scopeId));
@@ -2010,6 +2023,8 @@ function _sfc_ssrRender(_ctx, _push, _parent, _attrs) {
     }),
     _: 1
   }, _parent));
+  _push(ssrRenderComponent(_component_HomePrivacy, null, null, _parent));
+  _push(`</div>`);
 }
 const _sfc_setup$2 = _sfc_main$2.setup;
 _sfc_main$2.setup = (props, ctx) => {
@@ -2167,5 +2182,5 @@ let entry;
 }
 const entry_default = ((ssrContext) => entry(ssrContext));
 
-export { _export_sfc as _, useRoute as a, useHead as b, __nuxt_component_0$1 as c, useRuntimeConfig as d, entry_default as default, useRouter as e, createError as f, asyncDataDefaults as g, useRequestEvent as h, useCookie as i, fetchDefaults as j, useRequestFetch as k, useSeoMeta as l, __nuxt_component_0$2 as m, navigateTo as n, useNuxtApp as u };
+export { _export_sfc as _, useRoute as a, useHead as b, __nuxt_component_0$1 as c, useRouter as d, entry_default as default, createError as e, useRuntimeConfig as f, asyncDataDefaults as g, useRequestEvent as h, useCookie as i, fetchDefaults as j, useRequestFetch as k, useSeoMeta as l, __nuxt_component_0$2 as m, navigateTo as n, useNuxtApp as u };
 //# sourceMappingURL=server.mjs.map
