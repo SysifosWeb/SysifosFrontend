@@ -8,7 +8,9 @@ export default defineNuxtConfig({
     nitro: {
         compressPublicAssets: true,
         externals: {
-            inline: ['vuedraggable', 'sortablejs']
+            // Bundle head rendering with the server: multiple installed unhead versions
+            // otherwise produce an external link to the wrong version in Nitro output.
+            inline: ['vuedraggable', 'sortablejs', 'unhead', '@unhead/vue']
         }
     },
     image: {

@@ -1,4 +1,4 @@
-import { _ as _export_sfc, c as __nuxt_component_0$1 } from './server.mjs';
+import { _ as _export_sfc, a as __nuxt_component_0$1 } from './server.mjs';
 import { _ as __nuxt_component_1 } from './BrandLogo-CG19ElAN.mjs';
 import { mergeProps, withCtx, createVNode, createTextVNode, toDisplayString, useSSRContext } from 'vue';
 import { ssrRenderAttrs, ssrRenderStyle, ssrRenderComponent, ssrRenderList, ssrInterpolate } from 'vue/server-renderer';
