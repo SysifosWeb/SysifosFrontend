@@ -1,4 +1,4 @@
-import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { isRef, toValue, hasInjectionContext, inject, ref, watchEffect, getCurrentInstance, onBeforeUnmount, onDeactivated, onActivated, defineComponent, shallowRef, provide, cloneVNode, h, createElementBlock, resolveComponent, computed, unref, defineAsyncComponent, shallowReactive, Suspense, Fragment, createApp, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, reactive, effectScope, mergeProps, withCtx, openBlock, createBlock, createTextVNode, getCurrentScope, toRef, nextTick, isReadonly, useSSRContext, isShallow, isReactive, toRaw } from 'vue';
+import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { isRef, toValue, hasInjectionContext, inject, ref, watchEffect, getCurrentInstance, onBeforeUnmount, onDeactivated, onActivated, defineComponent, shallowRef, provide, cloneVNode, h, createElementBlock, toRef, resolveComponent, computed, unref, defineAsyncComponent, shallowReactive, Suspense, Fragment, createApp, onErrorCaptured, onServerPrefetch, createVNode, resolveDynamicComponent, reactive, effectScope, mergeProps, withCtx, openBlock, createBlock, createTextVNode, getCurrentScope, nextTick, isReadonly, useSSRContext, isShallow, isReactive, toRaw } from 'vue';
 import { m as createError$1, n as hasProtocol, o as isScriptProtocol, q as joinURL, r as parseQuery, t as getRequestHeader, v as destr, w as withQuery, x as sanitizeStatusCode, y as parseURL, z as encodePath, A as decodePath, B as setCookie, C as getCookie, D as deleteCookie, E as withTrailingSlash, F as withoutTrailingSlash, $ as $fetch$1, G as baseURL, H as defu, I as defu$1, J as executeAsync$1 } from '../nitro/nitro.mjs';
 import { useRoute as useRoute$1, RouterView, START_LOCATION, createMemoryHistory, createRouter } from 'vue-router';
 import { ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode, ssrRenderAttrs, ssrInterpolate } from 'vue/server-renderer';
@@ -1482,7 +1482,7 @@ const _routes = [
     name: "admin-posts-id",
     path: "/admin/posts/:id()",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./_id_-DcwJM17R.mjs')
+    component: () => import('./_id_-sfBo1-RR.mjs')
   },
   {
     name: "admin-posts-edit",
@@ -1500,7 +1500,7 @@ const _routes = [
     name: "admin-kanban",
     path: "/admin/kanban",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./index-C0gwhakz.mjs')
+    component: () => import('./index-COS4sA2K.mjs')
   },
   {
     name: "admin-posts-create",
@@ -1542,7 +1542,7 @@ const _routes = [
     name: "admin-kanban-project",
     path: "/admin/kanban/:project()",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import('./_project_-S0BmwnKu.mjs')
+    component: () => import('./_project_-3EPx-rLQ.mjs')
   },
   {
     name: "admin-categories-create",
@@ -1554,13 +1554,13 @@ const _routes = [
     name: "admin-mercado-publico",
     path: "/admin/mercado-publico",
     meta: __nuxt_page_meta$1 || {},
-    component: () => import('./index-IOJm8CIC.mjs')
+    component: () => import('./index-C5Cpr0kv.mjs')
   },
   {
     name: "admin-projects-project-settings",
     path: "/admin/projects/:project()/settings",
     meta: __nuxt_page_meta || {},
-    component: () => import('./settings-B7-O5HHd.mjs')
+    component: () => import('./settings-DpWEpACz.mjs')
   }
 ];
 const validate = /* @__PURE__ */ defineNuxtRouteMiddleware(async (to, from) => {
@@ -2342,7 +2342,7 @@ const plugins = [
   prerender_server_qA5MrPdckYcikh2QLSwTmWCXZhfGRUAOHjAYaK_SVB4
 ];
 const layouts = {
-  admin: defineAsyncComponent(() => import('./admin-_0xEqUcV.mjs').then((m) => m.default || m)),
+  admin: defineAsyncComponent(() => import('./admin-DsV6L25m.mjs').then((m) => m.default || m)),
   default: defineAsyncComponent(() => import('./default-ChnSUAnM.mjs').then((m) => m.default || m)),
   hero: defineAsyncComponent(() => import('./hero-CLeqve4a.mjs').then((m) => m.default || m)),
   secondary: defineAsyncComponent(() => import('./secondary-NsgaG02T.mjs').then((m) => m.default || m))
@@ -2795,8 +2795,9 @@ const server = /*#__PURE__*/Object.freeze(/*#__PURE__*/Object.defineProperty({
   l: useSeoMeta,
   m: __nuxt_component_0$2,
   n: navigateTo,
+  o: useState,
   u: useNuxtApp
 }, Symbol.toStringTag, { value: 'Module' }));
 
-export { _export_sfc as _, __nuxt_component_0$1 as a, useRoute as b, useRouter as c, createError as d, useHead as e, useRuntimeConfig as f, useCookie as g, useSeoMeta as h, __nuxt_component_0$2 as i, asyncDataDefaults as j, fetchDefaults as k, useRequestFetch as l, server as m, navigateTo as n, serialize as s, useNuxtApp as u };
+export { _export_sfc as _, __nuxt_component_0$1 as a, useRoute as b, useRouter as c, createError as d, useHead as e, useRuntimeConfig as f, useCookie as g, useSeoMeta as h, __nuxt_component_0$2 as i, asyncDataDefaults as j, fetchDefaults as k, useRequestFetch as l, useState as m, navigateTo as n, server as o, serialize as s, useNuxtApp as u };
 //# sourceMappingURL=server.mjs.map
