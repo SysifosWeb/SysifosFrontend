@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { ArrowLeft, Users, Archive, RotateCcw, Settings2, Search, X } from 'lucide-vue-next'
+import type { ProjectContext } from '~/types/kanban'
 
 definePageMeta({ layout: 'admin', validate: route => /^[1-9]\d*$/.test(String(route.params.project)) && Number.isSafeInteger(Number(route.params.project)) })
 type Member = { id: number; name: string; role: string; active: boolean }
 type Project = { id: number; name: string; project_key: string; description: string | null; owner_id: number | null; visibility: string; archived_at: string | null; config_version: number; members: Member[]; permissions: { manage: boolean; collaborate: boolean; role: string }; activity: { id: number; action: string; user?: { name: string }; created_at: string }[] }
 const route = useRoute()
-const config = useRuntimeConfig()
-const token = useCookie('auth_token')
-const base = computed(() => `${config.public.apiUrl}kanban/projects/${route.params.project}`)
-const headers = () => ({ Authorization: `Bearer ${token.value}`, Accept: 'application/json' })
+const api = useApi()
+const projectContext = useState<ProjectContext | null>('admin-active-project', () => null)
+const base = computed(() => `kanban/projects/${route.params.project}`)
 const project = ref<Project | null>(null)
+watch(project, value => { projectContext.value = value ? { project: value, permissions: value.permissions } : null })
 let requestEpoch = 0
 let disposed = false
 const loading = ref(true)
@@ -35,10 +36,6 @@ useHead(() => ({ title: `${project.value?.name || 'Proyecto'} · Configuración 
 async function failure(cause: any) {
     const status = cause.statusCode || cause.status || cause.response?.status
     conflict.value = status === 409
-    if ([401, 419].includes(status)) {
-        token.value = null
-        await navigateTo('/admin/login')
-    }
     if ([403, 404].includes(status)) project.value = null
     const fields = cause.data?.errors
     error.value = fields ? Object.values(fields).flat().join(' ') : cause.data?.message || 'No se pudo guardar. Comprueba la conexión e inténtalo otra vez.'
@@ -54,7 +51,7 @@ async function load() {
     error.value = ''
     conflict.value = false
     try {
-        const response = await $fetch<{ data: Project }>(base.value, { headers: headers() })
+        const response = await api.request<{ data: Project }>(base.value)
         if (!disposed && epoch === requestEpoch) applyProject(response.data)
     } catch (cause) { if (!disposed && epoch === requestEpoch) await failure(cause) }
     finally { if (!disposed && epoch === requestEpoch) loading.value = false }
@@ -66,7 +63,7 @@ async function save() {
     error.value = ''
     success.value = ''
     try {
-        const response = await $fetch<{ data: Project }>(base.value, { method: 'PUT', headers: headers(), body: {
+        const response = await api.request<{ data: Project }>(base.value, { method: 'PUT', body: {
             name: form.name, visibility: form.visibility, description: form.description || null,
             ...(form.owner_id ? { owner_id: form.owner_id } : {}),
             expected_config_version: project.value.config_version,
@@ -85,7 +82,7 @@ async function searchMembers(page = 1) {
     searching.value = true
     searchError.value = ''
     try {
-        const response = await $fetch<{ data: { id: number; name: string }[]; last_page: number }>(`${base.value}/candidates`, { headers: headers(), query: { q: candidateQuery.value.trim(), page } })
+        const response = await api.request<{ data: { id: number; name: string }[]; last_page: number }>(`${base.value}/candidates`, { query: { q: candidateQuery.value.trim(), page } })
         if (disposed || epoch !== requestEpoch || search !== candidateQuery.value.trim()) return
         searched.value = true
         candidates.value = response.data
@@ -108,7 +105,7 @@ async function setMember(userId: number, role: string) {
     error.value = ''
     success.value = ''
     try {
-        const response = await $fetch<{ data: Project }>(`${base.value}/members`, { method: 'PUT', headers: headers(), body: { user_id: userId, role, expected_config_version: project.value.config_version } })
+        const response = await api.request<{ data: Project }>(`${base.value}/members`, { method: 'PUT', body: { user_id: userId, role, expected_config_version: project.value.config_version } })
         if (disposed || epoch !== requestEpoch) return
         // Member edits do not replace unsaved project fields.
         project.value = response.data
@@ -124,8 +121,8 @@ async function removeMember(member: Member) {
     error.value = ''
     success.value = ''
     try {
-        await $fetch(`${base.value}/members/${member.id}`, { method: 'DELETE', headers: headers(), body: { expected_config_version: project.value.config_version } })
-        const response = await $fetch<{ data: Project }>(base.value, { headers: headers() })
+        await api.request(`${base.value}/members/${member.id}`, { method: 'DELETE', body: { expected_config_version: project.value.config_version } })
+        const response = await api.request<{ data: Project }>(base.value)
         if (disposed || epoch !== requestEpoch) return
         project.value = response.data
         success.value = 'Miembro retirado.'
@@ -139,7 +136,7 @@ async function toggleArchive() {
     error.value = ''
     success.value = ''
     try {
-        const response = await $fetch<{ data: Project }>(`${base.value}/archive`, { method: 'PUT', headers: headers(), body: { archived: !project.value.archived_at, expected_config_version: project.value.config_version } })
+        const response = await api.request<{ data: Project }>(`${base.value}/archive`, { method: 'PUT', body: { archived: !project.value.archived_at, expected_config_version: project.value.config_version } })
         if (disposed || epoch !== requestEpoch) return
         project.value = response.data
         archiveDialog.value?.close()

@@ -42,6 +42,7 @@
                         </NuxtLink>
                     </div>
                 </div>
+                <AdminKanbanProjectNavigation v-if="activeProjectContext" :context="activeProjectContext" :collapsed="sidebarCollapsed" @navigate="sidebarOpen = false" />
             </nav>
 
             <!-- Footer: ver sitio + usuario -->
@@ -102,6 +103,7 @@
                     </div>
 
                     <div class="ml-auto flex items-center gap-1.5">
+                        <NuxtLink v-if="activeProjectContext?.permissions.collaborate" :to="{ path: `/admin/kanban/${activeProjectContext.project.id}`, query: { ...route.query, issue: undefined, create: '1' } }" class="mr-2 inline-flex min-h-9 items-center gap-1.5 rounded-lg bg-sky-600 px-3 text-sm font-semibold text-white hover:bg-sky-700"><Plus class="h-4 w-4" />Crear</NuxtLink>
                         <!-- Dark mode -->
                         <button
                             class="flex h-11 w-11 items-center justify-center rounded-lg text-slate-600 transition-colors hover:bg-slate-200/70 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
@@ -142,11 +144,13 @@ import { ref, computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
     LayoutDashboard, SquareKanban, FileText, Tags, Inbox, Landmark,
-    ExternalLink, LogOut, Sun, Moon, Bell, ChevronRight, Menu, X, PanelLeftOpen, PanelLeftClose,
+    ExternalLink, LogOut, Sun, Moon, Bell, ChevronRight, Menu, X, PanelLeftOpen, PanelLeftClose, Plus,
 } from "lucide-vue-next";
 
 const route = useRoute();
 const router = useRouter();
+const projectContext = useState('admin-active-project', () => null);
+const activeProjectContext = computed(() => projectContext.value?.project.id === Number(route.params.project) ? projectContext.value : null);
 
 const isHome = computed(() => /^\/admin\/?$/.test(route.path));
 const sidebarOpen = ref(false);
@@ -188,7 +192,7 @@ const pageTitle = computed(() => {
     const p = route.path;
     if (p === '/admin' || p === '/admin/') return 'Inicio';
     if (p === '/admin/kanban' || p === '/admin/kanban/') return 'Proyectos Kanban';
-    if (p.startsWith('/admin/kanban/')) return 'Tablero Kanban';
+    if (p.startsWith('/admin/kanban/')) return route.query.view === 'list' ? 'Issues del proyecto' : 'Tablero Kanban';
     if (p.startsWith('/admin/projects/')) return 'Configuración del proyecto';
     if (p.startsWith('/admin/mercado-publico')) return 'Mercado Público';
     if (p.startsWith('/admin/posts')) {
@@ -251,6 +255,7 @@ const handleLogout = async () => {
         authToken.value = null;
         userEmail.value = null;
         userName.value = null;
+        projectContext.value = null;
         router.push('/admin/login');
     }
 };

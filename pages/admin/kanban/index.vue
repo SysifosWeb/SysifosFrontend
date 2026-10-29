@@ -35,10 +35,7 @@ const projectError = ref('')
 const projectDialog = ref<HTMLDialogElement>()
 const dialogOpen = ref(false)
 const form = reactive({ name: '', description: '', project_key: '', visibility: 'private' })
-const token = useCookie('auth_token')
-const config = useRuntimeConfig()
-const base = `${config.public.apiUrl}kanban`
-const headers = () => ({ Authorization: `Bearer ${token.value}`, Accept: 'application/json' })
+const api = useApi()
 let fetching = false
 let refreshQueued = false
 let disposed = false
@@ -53,7 +50,7 @@ async function fetchProjects(force = false) {
     const requested = { q: appliedSearch.value, archived: archived.value ? 1 : 0, page: page.value, per_page: 24 }
     const isCurrent = () => requested.q === appliedSearch.value && requested.archived === (archived.value ? 1 : 0) && requested.page === page.value
     try {
-        const response = await $fetch<{ data: Project[]; meta: { total: number; current_page: number; last_page: number; can_create: boolean } }>(`${base}/projects`, { headers: headers(), query: requested })
+        const response = await api.request<{ data: Project[]; meta: { total: number; current_page: number; last_page: number; can_create: boolean } }>('kanban/projects', { query: requested })
         if (disposed || !isCurrent()) return
         total.value = response.meta.total
         lastPage.value = response.meta.last_page
@@ -75,10 +72,7 @@ async function fetchProjects(force = false) {
         const status = error.statusCode || error.status || error.response?.status
         if ([401, 403, 404, 419].includes(status)) projects.value = []
         retryable.value = ![403, 404].includes(status)
-        if ([401, 419].includes(status)) {
-            token.value = null
-            await navigateTo('/admin/login')
-        } else if (status === 403) {
+        if (status === 403) {
             notice.value = 'Tu cuenta no tiene acceso a los proyectos Kanban. Comprueba que tu cuenta está activa y pertenece a un proyecto.'
         } else if (status === 404) {
             notice.value = 'No se encontró la API de proyectos Kanban. Comprueba que el backend está actualizado y que sus migraciones están aplicadas.'
@@ -109,8 +103,8 @@ async function createProject() {
     busy.value = true
     projectError.value = ''
     try {
-        const response = await $fetch<{ data: Project }>(`${base}/projects`, {
-            method: 'POST', headers: headers(),
+        const response = await api.request<{ data: Project }>('kanban/projects', {
+            method: 'POST',
             body: { name: form.name.trim(), description: form.description.trim() || null, project_key: form.project_key.trim().toUpperCase(), visibility: form.visibility },
         })
         if (!Number.isSafeInteger(response.data?.id) || response.data.id <= 0) throw new Error('KANBAN_INVALID_RESPONSE')
@@ -118,14 +112,7 @@ async function createProject() {
         await navigateTo(`/admin/kanban/${response.data.id}`)
     } catch (error: any) {
         if (disposed) return
-        const status = error.statusCode || error.status || error.response?.status
-        if ([401, 419].includes(status)) {
-            token.value = null
-            await navigateTo('/admin/login')
-        } else {
-            const errors = error.data?.errors
-            projectError.value = errors ? Object.values(errors).flat().join(' ') : 'No se pudo crear el proyecto. Inténtalo nuevamente.'
-        }
+        projectError.value = apiErrorMessage(error, 'No se pudo crear el proyecto. Inténtalo nuevamente.')
     } finally {
         busy.value = false
         if (!disposed) await fetchProjects(true)
