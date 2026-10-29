@@ -17,7 +17,6 @@ const { data: postResponse, pending } = await useFetch(() => `${config.public.ap
 })
 
 const post = computed(() => postResponse.value?.data || postResponse.value || {})
-console.log(post.value)
 const statusClass = computed(() => {
     return post.value.status === 'published'
         ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'

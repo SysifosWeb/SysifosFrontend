@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import draggable from 'vuedraggable'
-import { Plus, Search, X, GripVertical, Calendar, Activity, RefreshCw, Trash2, Loader2, SquareKanban, ArrowLeft, Rows3 } from 'lucide-vue-next'
+import { Plus, Search, X, GripVertical, Calendar, Activity, RefreshCw, Trash2, Loader2, SquareKanban, ArrowLeft, Rows3, Check, Shield, MessageSquare } from 'lucide-vue-next'
 
 definePageMeta({
     layout: 'admin',
@@ -11,7 +11,7 @@ definePageMeta({
 
 type Member = { id: number; name: string }
 type Project = { id: number; name: string; description: string | null; project_key: string; archived_at: string | null }
-type Card = { id: number; title: string; description: string | null; status: string; priority: string; due_date: string | null; version: number; assignees: Member[]; editor?: Member; position: number }
+type Card = { id: number; issue_key?: string; issue_number?: number; title: string; description: string | null; status: string; priority: string; due_date: string | null; version: number; assignees: Member[]; editor?: Member; position: number }
 type Log = { id: number; user?: Member; action: string; card_title: string; to_status: string | null; created_at: string }
 type Permissions = { manage: boolean; collaborate: boolean; role: string }
 type Board = { permissions: Permissions; project: Project; cards: Card[]; users: Member[]; online_users: Member[]; activities: Log[]; board_version: number }
@@ -54,6 +54,7 @@ const config = useRuntimeConfig()
 const base = `${config.public.apiUrl}kanban`
 const headers = () => ({ Authorization: `Bearer ${token.value}`, Accept: 'application/json' })
 const dialog = ref<HTMLDialogElement>()
+const sprintDialog = ref<HTMLDialogElement>()
 const editing = ref<Card | null>(null)
 const assigneeOptions = computed(() => [
     ...users.value,
@@ -61,7 +62,10 @@ const assigneeOptions = computed(() => [
 ])
 const modalError = ref('')
 const confirmingDelete = ref(false)
+const sprintBusy = ref(false)
+const sprintError = ref('')
 const form = reactive({ title: '', description: '', status: 'todo', priority: 'medium', due_date: '', assignee_ids: [] as number[] })
+const sprint = reactive({ name: '', goal: '', start_date: '', end_date: '', status: 'planned' })
 let revision = -1
 let fetching = false
 let refreshQueued = false
@@ -279,6 +283,40 @@ async function deleteCard() {
     finally { busy.value = false; await fetchBoard(true) }
 }
 
+function openSprintModal() {
+    if (!canWrite.value) return
+    sprint.name = ''
+    sprint.goal = ''
+    sprint.start_date = ''
+    sprint.end_date = ''
+    sprintError.value = ''
+    sprintBusy.value = false
+    sprintDialog.value?.showModal()
+}
+
+async function createSprint() {
+    if (sprintBusy.value || !canWrite.value) return
+    if (!sprint.name.trim() || sprint.name.trim().length < 3) {
+        sprintError.value = 'El nombre del sprint debe tener al menos 3 caracteres.'
+        return
+    }
+    sprintBusy.value = true
+    sprintError.value = ''
+    try {
+        const body: Record<string, any> = { name: sprint.name.trim() }
+        if (sprint.goal.trim()) body.goal = sprint.goal.trim()
+        if (sprint.start_date) body.start_date = sprint.start_date
+        if (sprint.end_date) body.end_date = sprint.end_date
+        await $fetch(base + '/sprints', { method: 'POST', headers: headers(), query: projectQuery(), body })
+        sprintDialog.value?.close()
+        notice.value = 'Sprint creado correctamente.'
+    } catch (error: any) {
+        sprintError.value = errorMessage(error)
+    } finally {
+        sprintBusy.value = false
+    }
+}
+
 onMounted(() => {
     reduceMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     fetchBoard()
@@ -292,29 +330,39 @@ onBeforeUnmount(() => { clearInterval(timer); disposed = true; epoch++ })
         <NuxtLink to="/admin/kanban" :aria-disabled="busy || dragging" class="inline-flex items-center gap-2 text-sm font-semibold text-sky-600 hover:text-sky-500 dark:text-sky-400 dark:hover:text-sky-300" :class="{ 'opacity-50': busy || dragging }" @click="(busy || dragging) && $event.preventDefault()"><ArrowLeft class="h-4 w-4" /> Todos los proyectos</NuxtLink>
         <div class="flex flex-wrap items-start justify-between gap-4">
             <div class="min-w-0 w-full sm:w-auto sm:flex-1">
-                <h2 class="flex items-start gap-2 font-display text-2xl font-bold text-slate-900 dark:text-white"><SquareKanban class="mt-1 h-6 w-6 shrink-0 text-sky-500" /><span class="break-words">{{ selectedProject?.name || 'Tablero Kanban' }}</span></h2>
-                <p class="mt-1 whitespace-pre-line break-words text-sm text-slate-500 dark:text-slate-400">{{ selectedProject?.description || 'Organiza las tareas de este proyecto y avanza junto al equipo.' }}</p>
+                <div class="flex items-center gap-2.5">
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sky-100 text-sky-600 ring-1 ring-sky-200 dark:bg-sky-500/15 dark:text-sky-400 dark:ring-sky-500/20"><SquareKanban class="h-5 w-5" /></span>
+                    <div class="min-w-0">
+                        <h2 class="break-words font-display text-2xl font-bold text-slate-900 dark:text-white">{{ selectedProject?.name || 'Tablero Kanban' }}</h2>
+                        <p v-if="selectedProject" class="mt-0.5 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">{{ selectedProject.project_key }}</p>
+                    </div>
+                </div>
+                <p class="mt-2 whitespace-pre-line break-words text-sm text-slate-500 dark:text-slate-400">{{ selectedProject?.description || 'Organiza las tareas de este proyecto y avanza junto al equipo.' }}</p>
             </div>
-            <button v-if="canWrite" :disabled="loading || busy || dragging || !connected" class="min-h-11 rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-600 disabled:opacity-50" @click="openCard()"><Plus class="mr-1 inline h-4 w-4" /> Nueva tarea</button>
+            <div class="flex items-center gap-2">
+                <button v-if="canWrite" :disabled="busy || dragging" class="inline-flex min-h-10 items-center rounded-lg bg-sky-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-500 disabled:opacity-50 dark:bg-sky-500 dark:hover:bg-sky-400" @click="openSprintModal()"><Shield class="mr-1.5 inline h-4 w-4" /> Nuevo Sprint</button>
+                <button v-if="canWrite" :disabled="loading || busy || dragging || !connected" class="inline-flex min-h-10 items-center rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-700 disabled:opacity-50 dark:bg-slate-700 dark:hover:bg-slate-600" @click="openCard()"><Plus class="mr-1.5 inline h-4 w-4" /> Nueva tarea</button>
+            </div>
         </div>
 
-        <nav v-if="selectedProject" aria-label="Vistas del proyecto" class="flex flex-wrap items-center gap-4 text-sm text-slate-700 dark:text-slate-200">
-            <span class="font-semibold">{{ selectedProject.project_key }}</span>
-            <span v-if="selectedProject.archived_at" class="rounded-full bg-slate-100 px-3 py-2 dark:bg-slate-800">Archivado · Solo lectura</span>
-            <span v-else-if="!canWrite">Solo lectura</span>
-            <NuxtLink :to="{ path: `/admin/projects/${selectedProjectId}/settings`, query: route.query }" class="inline-flex min-h-11 items-center underline underline-offset-4">Configuración y miembros</NuxtLink>
+        <nav v-if="selectedProject" aria-label="Vistas del proyecto" class="flex flex-wrap items-center gap-4 border-b border-slate-200/80 pb-3 text-sm text-slate-700 dark:border-slate-800 dark:text-slate-200">
+            <span v-if="selectedProject.archived_at" class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium dark:bg-slate-800">Archivado · Solo lectura</span>
+            <span v-else-if="!canWrite" class="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium dark:bg-slate-800">Solo lectura</span>
+            <NuxtLink :to="{ path: `/admin/projects/${selectedProjectId}/settings`, query: route.query }" class="inline-flex min-h-9 items-center text-sky-600 transition-colors hover:text-sky-500 hover:underline dark:text-sky-400 dark:hover:text-sky-300">Configuración y miembros</NuxtLink>
         </nav>
-        <div class="flex flex-wrap items-center gap-3 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800">
-            <div class="relative min-w-[180px] flex-1"><Search class="absolute left-3 top-3 h-4 w-4 text-slate-400" /><input v-model="query" type="text" aria-label="Buscar tareas" placeholder="Buscar tareas…" class="!min-h-11 !pl-9" /></div>
-            <select v-model="assigneeFilter" aria-label="Filtrar por responsable" class="!min-h-11 !w-auto !text-slate-700 dark:!text-slate-200"><option value="">Todo el equipo</option><option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option></select>
-            <select v-model="priorityFilter" aria-label="Filtrar por prioridad" class="!min-h-11 !w-auto !text-slate-700 dark:!text-slate-200"><option value="">Todas las prioridades</option><option v-for="(label, id) in priorities" :key="id" :value="id">{{ label }}</option></select>
-            <select v-model="statusFilter" aria-label="Filtrar por estado" class="!min-h-11 !w-auto !text-slate-700 dark:!text-slate-200"><option value="">Todos los estados</option><option v-for="column in columns" :key="column.id" :value="column.id">{{ column.label }}</option></select>
-            <button v-if="filtered" aria-label="Limpiar filtros" class="flex h-11 w-11 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800" @click="query = ''; assigneeFilter = ''; priorityFilter = ''; statusFilter = ''"><X class="h-4 w-4" /></button>
-            <button aria-label="Actualizar tablero" :disabled="busy || dragging" class="flex h-11 w-11 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800" @click="fetchBoard(true)"><RefreshCw class="h-4 w-4" /></button>
-            <button :aria-expanded="showActivity" class="min-h-11 rounded-xl px-3 py-2 text-sm font-medium text-slate-600 ring-1 ring-slate-200 dark:text-slate-300 dark:ring-slate-700" @click="showActivity = !showActivity"><Activity class="mr-1 inline h-4 w-4" /> Actividad</button>
-            <div class="flex rounded-lg bg-slate-100 p-1 dark:bg-slate-800" role="group" aria-label="Vista de tareas">
-                <button :aria-pressed="viewMode === 'board'" class="min-h-11 rounded-md px-3 text-sm font-medium" :class="viewMode === 'board' ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white' : 'text-slate-500 dark:text-slate-300'" @click="viewMode = 'board'"><SquareKanban class="mr-1 inline h-4 w-4" /> Tablero</button>
-                <button :aria-pressed="viewMode === 'list'" class="min-h-11 rounded-md px-3 text-sm font-medium" :class="viewMode === 'list' ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white' : 'text-slate-500 dark:text-slate-300'" @click="viewMode = 'list'"><Rows3 class="mr-1 inline h-4 w-4" /> Lista</button>
+        <div class="flex flex-wrap items-center gap-2.5 rounded-xl border border-slate-200/80 bg-white p-3 dark:border-slate-800 dark:bg-[#1a1920]">
+            <div class="relative min-w-[180px] flex-1"><Search class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /><input v-model="query" type="text" aria-label="Buscar tareas" placeholder="Buscar tareas…" class="!min-h-10 !pl-9" /></div>
+            <select v-model="assigneeFilter" aria-label="Filtrar por responsable" class="!min-h-10 !w-auto"><option value="">Todo el equipo</option><option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option></select>
+            <select v-model="priorityFilter" aria-label="Filtrar por prioridad" class="!min-h-10 !w-auto"><option value="">Todas las prioridades</option><option v-for="(label, id) in priorities" :key="id" :value="id">{{ label }}</option></select>
+            <select v-model="statusFilter" aria-label="Filtrar por estado" class="!min-h-10 !w-auto"><option value="">Todos los estados</option><option v-for="column in columns" :key="column.id" :value="column.id">{{ column.label }}</option></select>
+            <div class="ml-auto flex items-center gap-1">
+                <button v-if="filtered" aria-label="Limpiar filtros" class="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-700 dark:hover:bg-slate-800 dark:hover:text-slate-200" @click="query = ''; assigneeFilter = ''; priorityFilter = ''; statusFilter = ''"><X class="h-4 w-4" /></button>
+                <button aria-label="Actualizar tablero" :disabled="busy || dragging" class="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-700 disabled:opacity-50 dark:hover:bg-slate-800 dark:hover:text-slate-200" @click="fetchBoard(true)"><RefreshCw class="h-4 w-4" /></button>
+                <button :aria-expanded="showActivity" class="inline-flex min-h-10 items-center rounded-lg px-3 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800" :class="{ '!bg-slate-100 !text-slate-900 dark:!bg-slate-800 dark:!text-white': showActivity }" @click="showActivity = !showActivity"><Activity class="mr-1.5 inline h-4 w-4" /> Actividad</button>
+                <div class="flex rounded-lg bg-slate-100 p-0.5 dark:bg-slate-800" role="group" aria-label="Vista de tareas">
+                    <button :aria-pressed="viewMode === 'board'" class="inline-flex min-h-9 items-center rounded-md px-2.5 text-sm font-medium transition-colors" :class="viewMode === 'board' ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white' : 'text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-white'" @click="viewMode = 'board'"><SquareKanban class="mr-1 inline h-4 w-4" /> Tablero</button>
+                    <button :aria-pressed="viewMode === 'list'" class="inline-flex min-h-9 items-center rounded-md px-2.5 text-sm font-medium transition-colors" :class="viewMode === 'list' ? 'bg-white text-slate-900 shadow-sm dark:bg-slate-700 dark:text-white' : 'text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-white'" @click="viewMode = 'list'"><Rows3 class="mr-1 inline h-4 w-4" /> Lista</button>
+                </div>
             </div>
         </div>
 
@@ -331,55 +379,136 @@ onBeforeUnmount(() => { clearInterval(timer); disposed = true; epoch++ })
         </div>
         <div v-if="loading" class="flex h-64 items-center justify-center"><Loader2 class="h-8 w-8 animate-spin text-sky-500" /></div>
 
-        <section v-else-if="viewMode === 'list'" aria-label="Lista de tareas" class="overflow-x-auto rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
-            <div class="grid min-w-[720px] grid-cols-[minmax(220px,2fr)_minmax(120px,1fr)_minmax(100px,0.8fr)_minmax(130px,1fr)_minmax(100px,0.8fr)] gap-3 border-b border-slate-200 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:border-slate-800 dark:text-slate-400">
+        <section v-else-if="viewMode === 'list'" aria-label="Lista de tareas" class="overflow-x-auto rounded-xl border border-slate-200/80 bg-white dark:border-slate-800 dark:bg-[#1a1920]">
+            <div class="grid min-w-[720px] grid-cols-[minmax(240px,2fr)_minmax(120px,1fr)_minmax(100px,0.8fr)_minmax(130px,1fr)_minmax(100px,0.8fr)] gap-3 border-b border-slate-200 bg-slate-50 px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:border-slate-800 dark:bg-slate-800/40 dark:text-slate-400">
                 <span>Tarea</span><span>Estado</span><span>Prioridad</span><span>Responsables</span><span>Vencimiento</span>
             </div>
             <div v-if="!visibleCards.length" class="px-4 py-12 text-center text-sm text-slate-500 dark:text-slate-400">{{ filtered ? 'No hay tareas que coincidan con estos filtros.' : 'Este proyecto todavía no tiene tareas.' }}</div>
-            <article v-for="card in visibleCards" :key="card.id" class="grid min-w-[720px] grid-cols-[minmax(220px,2fr)_minmax(120px,1fr)_minmax(100px,0.8fr)_minmax(130px,1fr)_minmax(100px,0.8fr)] items-center gap-3 border-b border-slate-100 px-4 py-3 last:border-0 dark:border-slate-800">
-                <button :disabled="busy || dragging" class="min-w-0 text-left disabled:cursor-wait" @click="openCard(card)"><span class="block truncate text-sm font-semibold text-slate-800 hover:text-sky-600 dark:text-slate-100 dark:hover:text-sky-400">{{ card.title }}</span><span class="text-xs text-slate-400">#{{ card.id }}</span></button>
-                <select :value="card.status" :aria-label="`Estado de ${card.title}`" :disabled="busy || !canWrite" class="!m-0 !min-h-11 !py-1 !text-xs" @change="changeStatus(card, $event)"><option v-for="column in columns" :key="column.id" :value="column.id">{{ column.label }}</option></select>
-                <span class="w-fit rounded-md px-2 py-1 text-xs font-medium" :class="card.priority === 'urgent' ? 'bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300' : card.priority === 'high' ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300'">{{ priorities[card.priority] }}</span>
-                <div class="flex -space-x-1.5"><span v-for="member in card.assignees" :key="member.id" :title="member.name" class="flex h-7 w-7 items-center justify-center rounded-full bg-sky-100 text-[10px] font-bold text-sky-700 ring-2 ring-white dark:bg-sky-900 dark:text-sky-200 dark:ring-slate-900">{{ initials(member.name) }}</span><span v-if="!card.assignees.length" class="text-xs text-slate-400">Sin asignar</span></div>
-                <span class="flex items-center gap-1 text-xs" :class="overdue(card) ? 'font-semibold text-red-600' : 'text-slate-500 dark:text-slate-400'"><Calendar class="h-3.5 w-3.5" />{{ card.due_date ? dateLabel(card.due_date) : 'Sin fecha' }}</span>
+            <article v-for="card in visibleCards" :key="card.id" class="grid min-w-[720px] grid-cols-[minmax(240px,2fr)_minmax(120px,1fr)_minmax(100px,0.8fr)_minmax(130px,1fr)_minmax(100px,0.8fr)] items-center gap-3 border-b border-slate-100 px-4 py-2.5 transition-colors last:border-0 hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-800/40">
+                <button :disabled="busy || dragging" class="min-w-0 text-left disabled:cursor-wait" @click="openCard(card)"><span class="block truncate text-sm font-medium text-slate-800 transition-colors hover:text-sky-600 dark:text-slate-100 dark:hover:text-sky-400">{{ card.title }}</span><span class="text-[11px] font-semibold text-slate-400 dark:text-slate-500">{{ card.issue_key || `#${card.id}` }}</span></button>
+                <select :value="card.status" :aria-label="`Estado de ${card.title}`" :disabled="busy || !canWrite" class="!min-h-9 !py-1 !text-xs" @change="changeStatus(card, $event)"><option v-for="column in columns" :key="column.id" :value="column.id">{{ column.label }}</option></select>
+                <span class="w-fit rounded px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide" :class="card.priority === 'urgent' ? 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300' : card.priority === 'high' ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300' : 'bg-slate-100 text-slate-500 dark:bg-slate-700/70 dark:text-slate-300'">{{ priorities[card.priority] }}</span>
+                <div class="flex -space-x-1.5"><span v-for="member in card.assignees" :key="member.id" :title="member.name" class="flex h-7 w-7 items-center justify-center rounded-full bg-sky-100 text-[10px] font-bold text-sky-700 ring-2 ring-white dark:bg-sky-900 dark:text-sky-200 dark:ring-[#1a1920]">{{ initials(member.name) }}</span><span v-if="!card.assignees.length" class="text-xs text-slate-400">Sin asignar</span></div>
+                <span class="flex items-center gap-1 text-xs" :class="overdue(card) ? 'font-semibold text-red-600 dark:text-red-400' : 'text-slate-500 dark:text-slate-400'"><Calendar class="h-3.5 w-3.5" />{{ card.due_date ? dateLabel(card.due_date) : 'Sin fecha' }}</span>
             </article>
         </section>
 
-        <div v-else class="flex gap-4 overflow-x-auto pb-5 scrollbar-thin" aria-label="Columnas Kanban">
-            <section v-for="column in columns" :key="`${selectedProjectId}-${column.id}`" :data-column="column.id" class="w-[280px] min-w-[280px] flex-1 rounded-2xl bg-slate-200/50 p-3 dark:bg-slate-900/70">
-                <header class="mb-3 flex items-center gap-2 px-1 py-2"><span class="h-2.5 w-2.5 rounded-full" :style="{ background: column.color }" /><h3 class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ column.label }}</h3><span class="rounded-md bg-white/70 px-1.5 text-xs text-slate-500 dark:bg-slate-800">{{ lists[column.id].filter(matches).length }}</span><button v-if="canWrite" :aria-label="`Agregar tarea en ${column.label}`" :disabled="busy || !canWrite" class="ml-auto flex h-11 w-11 items-center justify-center rounded-lg text-slate-400 hover:bg-white dark:hover:bg-slate-800" @click="openCard(null, column.id)"><Plus class="h-4 w-4" /></button></header>
-                <draggable v-model="lists[column.id]" item-key="id" :group="`project-${selectedProjectId}`" handle=".drag-handle" :animation="reduceMotion ? 0 : 180" :force-fallback="true" :fallback-tolerance="4" :disabled="filtered || busy || !canWrite" :delay="120" :delay-on-touch-only="true" :touch-start-threshold="5" ghost-class="kanban-ghost" drag-class="kanban-drag" class="min-h-[160px] space-y-3" @start="dragging = true; epoch++" @end="dragging = false" @change="dropped(column.id, $event)">
+        <div v-else class="scrollbar-thin flex gap-3 overflow-x-auto pb-5" aria-label="Columnas Kanban">
+            <section v-for="column in columns" :key="`${selectedProjectId}-${column.id}`" :data-column="column.id" class="flex w-[300px] min-w-[300px] flex-1 flex-col rounded-xl bg-slate-200/60 p-2.5 ring-1 ring-slate-300/50 transition-colors dark:bg-black/30 dark:ring-white/10">
+                <header class="mb-2.5 flex items-center gap-2 px-1.5 py-1.5">
+                    <span class="h-2.5 w-2.5 shrink-0 rounded-full" :style="{ background: column.color }" />
+                    <h3 class="text-[11px] font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-300">{{ column.label }}</h3>
+                    <span class="ml-auto rounded-full bg-white/80 px-2 py-0.5 text-[11px] font-semibold tabular-nums text-slate-600 ring-1 ring-slate-300/50 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700">{{ lists[column.id].filter(matches).length }}</span>
+                    <button v-if="canWrite" :aria-label="`Agregar tarea en ${column.label}`" :disabled="busy || !canWrite" class="flex h-7 w-7 items-center justify-center rounded-md text-slate-500 hover:bg-white hover:text-sky-600 hover:shadow-sm disabled:opacity-50 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-sky-400" @click="openCard(null, column.id)"><Plus class="h-4 w-4" /></button>
+                </header>
+                <draggable v-model="lists[column.id]" item-key="id" :group="`project-${selectedProjectId}`" handle=".drag-handle" :animation="reduceMotion ? 0 : 180" :force-fallback="true" :fallback-tolerance="4" :disabled="filtered || busy || !canWrite" :delay="120" :delay-on-touch-only="true" :touch-start-threshold="5" ghost-class="kanban-ghost" drag-class="kanban-drag" class="flex min-h-[160px] flex-1 flex-col gap-2" @start="dragging = true; epoch++" @end="dragging = false" @change="dropped(column.id, $event)">
                     <template #item="{ element: card }">
-                        <article v-show="matches(card)" :data-card="card.id" class="rounded-xl bg-white p-3.5 shadow-sm ring-1 ring-slate-200/60 dark:bg-slate-800 dark:ring-slate-700/60">
-                            <div class="mb-2 flex items-center justify-between gap-2"><span class="rounded-md px-2 py-0.5 text-[10px] font-bold" :class="card.priority === 'urgent' ? 'bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-300' : card.priority === 'high' ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300' : 'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-300'">{{ priorities[card.priority] }}</span><button :aria-label="`Arrastrar ${card.title}`" :disabled="filtered || busy || !canWrite" class="drag-handle cursor-grab touch-none flex h-11 w-11 items-center justify-center rounded text-slate-400 active:cursor-grabbing"><GripVertical class="h-4 w-4" /></button></div>
-                            <button :disabled="busy || dragging" class="block w-full text-left text-sm font-semibold leading-relaxed text-slate-800 hover:text-sky-600 disabled:cursor-wait dark:text-slate-100 dark:hover:text-sky-400" @click="openCard(card)">{{ card.title }}</button>
-                            <p v-if="card.description" class="mt-1.5 line-clamp-2 whitespace-pre-line text-xs leading-relaxed text-slate-500 dark:text-slate-400">{{ card.description }}</p>
-                            <div class="mt-4 flex min-h-6 items-center justify-between gap-2"><span v-if="card.due_date" class="flex items-center gap-1 text-[11px]" :class="overdue(card) ? 'font-semibold text-red-500' : 'text-slate-400'"><Calendar class="h-3 w-3" />{{ dateLabel(card.due_date) }}</span><span v-else class="text-[10px] text-slate-400">#{{ card.id }}</span><div class="flex -space-x-1"><span v-for="member in card.assignees" :key="member.id" :title="member.name" class="flex h-6 w-6 items-center justify-center rounded-full bg-sky-100 text-[9px] font-bold text-sky-700 ring-2 ring-white dark:bg-sky-900 dark:text-sky-200 dark:ring-slate-800">{{ initials(member.name) }}</span></div></div>
-                            <select :value="card.status" :aria-label="`Mover ${card.title} a otra columna`" :disabled="busy || !canWrite" class="mt-3 !border-0 !bg-transparent !px-0 !py-1 !text-xs !text-slate-500 !shadow-none" @change="changeStatus(card, $event)"><option v-for="destination in columns" :key="destination.id" :value="destination.id">{{ destination.label }}</option></select>
+                        <article v-show="matches(card)" :data-card="card.id" class="group flex flex-col gap-2 rounded-lg bg-white p-3 shadow-sm ring-1 ring-slate-200 transition hover:shadow-md hover:ring-sky-400/70 dark:bg-slate-800 dark:ring-slate-700/70 dark:hover:ring-sky-500/60">
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="text-[11px] font-semibold tracking-wide text-slate-400 transition-colors group-hover:text-sky-600 dark:text-slate-500 dark:group-hover:text-sky-400">{{ card.issue_key || `#${card.id}` }}</span>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide" :class="card.priority === 'urgent' ? 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300' : card.priority === 'high' ? 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300' : 'bg-slate-100 text-slate-500 dark:bg-slate-700/70 dark:text-slate-300'">{{ priorities[card.priority] }}</span>
+                                    <button :aria-label="`Arrastrar ${card.title}`" :disabled="filtered || busy || !canWrite" class="drag-handle -mr-1.5 flex h-9 w-9 touch-none items-center justify-center rounded text-slate-400 transition-colors hover:text-slate-600 active:cursor-grabbing disabled:pointer-events-none dark:text-slate-500 dark:hover:text-slate-300"><GripVertical class="h-4 w-4" /></button>
+                                </div>
+                            </div>
+                            <button :disabled="busy || dragging" class="line-clamp-2 w-full text-left text-sm font-medium leading-snug text-slate-800 transition-colors hover:text-sky-600 disabled:cursor-wait dark:text-slate-100 dark:hover:text-sky-400" @click="openCard(card)">{{ card.title }}</button>
+                            <p v-if="card.description" class="line-clamp-2 whitespace-pre-line text-xs leading-relaxed text-slate-500 dark:text-slate-400">{{ card.description }}</p>
+                            <div class="flex items-center justify-between gap-2 pt-0.5">
+                                <span v-if="card.due_date" class="flex items-center gap-1 text-[11px]" :class="overdue(card) ? 'font-semibold text-red-500' : 'text-slate-400 dark:text-slate-500'"><Calendar class="h-3 w-3" />{{ dateLabel(card.due_date) }}</span>
+                                <span v-else class="text-[11px] text-slate-300 dark:text-slate-600">Sin fecha</span>
+                                <div class="flex -space-x-1.5"><span v-for="member in card.assignees" :key="member.id" :title="member.name" class="flex h-6 w-6 items-center justify-center rounded-full bg-sky-100 text-[9px] font-bold text-sky-700 ring-2 ring-white dark:bg-sky-900 dark:text-sky-200 dark:ring-slate-800">{{ initials(member.name) }}</span></div>
+                            </div>
+                            <select :value="card.status" :aria-label="`Mover ${card.title} a otra columna`" :disabled="busy || !canWrite" class="min-h-0 w-full rounded-md border border-slate-200 bg-slate-50 px-2 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:border-slate-300 dark:border-slate-700 dark:bg-slate-700/50 dark:text-slate-300 dark:hover:border-slate-600" @change="changeStatus(card, $event)"><option v-for="destination in columns" :key="destination.id" :value="destination.id">{{ destination.label }}</option></select>
                         </article>
                     </template>
                 </draggable>
-                <p v-if="!lists[column.id].filter(matches).length" class="py-3 text-center text-xs text-slate-400">{{ filtered ? 'Sin coincidencias' : 'Arrastra una tarea aquí' }}</p>
-                <button v-if="canWrite" :disabled="busy || !canWrite" class="mt-3 w-full rounded-lg py-2 text-left text-xs text-slate-500 hover:bg-white/60 dark:hover:bg-slate-800" @click="openCard(null, column.id)"><Plus class="mr-1 inline h-3.5 w-3.5" /> Agregar tarea</button>
+                <p v-if="!lists[column.id].filter(matches).length" class="rounded-lg border border-dashed border-slate-300/70 px-3 py-6 text-center text-xs text-slate-400 dark:border-slate-700 dark:text-slate-500">{{ filtered ? 'Sin coincidencias' : 'Arrastra una tarea aquí' }}</p>
+                <button v-if="canWrite" :disabled="busy || !canWrite" class="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg border border-dashed border-slate-300 py-2 text-xs font-medium text-slate-500 transition-colors hover:border-sky-400 hover:text-sky-600 disabled:opacity-50 dark:border-slate-700 dark:text-slate-400 dark:hover:border-sky-500 dark:hover:text-sky-400" @click="openCard(null, column.id)"><Plus class="h-3.5 w-3.5" /> Agregar tarea</button>
             </section>
         </div>
 
-        <section v-if="showActivity" class="rounded-2xl bg-white p-5 ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800"><h3 class="mb-4 font-semibold text-slate-800 dark:text-white">Últimos cambios · {{ selectedProject?.name }}</h3><p v-if="!activities.length" class="text-sm text-slate-500">La actividad aparecerá cuando el equipo empiece a trabajar en este proyecto.</p><ul class="space-y-3"><li v-for="log in activities" :key="log.id" class="text-sm text-slate-600 dark:text-slate-400"><strong class="text-slate-800 dark:text-slate-200">{{ log.user?.name || 'Usuario' }}</strong> {{ ({ created: 'creó', updated: 'actualizó', moved: 'movió', deleted: 'eliminó', project_updated: 'actualizó el proyecto', project_archived: 'archivó el proyecto', project_restored: 'recuperó el proyecto', member_updated: 'actualizó los miembros de', member_removed: 'retiró un miembro de' } as Record<string, string>)[log.action] }} «{{ log.card_title }}»<span v-if="log.action === 'moved'"> a {{ columnLabel(log.to_status) }}</span><time class="ml-2 text-xs text-slate-400">{{ new Date(log.created_at).toLocaleString('es-CL') }}</time></li></ul></section>
+        <section v-if="showActivity" class="rounded-xl border border-slate-200/80 bg-white dark:border-slate-800 dark:bg-[#1a1920]">
+            <header class="flex items-center gap-2 border-b border-slate-200/80 px-5 py-3.5 dark:border-slate-800">
+                <Activity class="h-4 w-4 text-slate-400" />
+                <h3 class="text-sm font-semibold text-slate-800 dark:text-white">Últimos cambios</h3>
+                <span class="text-xs text-slate-400 dark:text-slate-500">· {{ selectedProject?.name }}</span>
+            </header>
+            <div class="px-5 py-4">
+                <p v-if="!activities.length" class="text-sm text-slate-500 dark:text-slate-400">La actividad aparecerá cuando el equipo empiece a trabajar en este proyecto.</p>
+                <ul class="relative space-y-4 before:absolute before:bottom-1 before:left-[5px] before:top-1 before:w-px before:bg-slate-200 dark:before:bg-slate-700">
+                    <li v-for="log in activities" :key="log.id" class="relative pl-6 text-sm text-slate-600 dark:text-slate-400">
+                        <span class="absolute left-0 top-[7px] h-2.5 w-2.5 rounded-full ring-4 ring-white dark:ring-[#1a1920]" :class="log.action === 'deleted' || log.action.startsWith('project_archived') ? 'bg-red-400' : log.action === 'moved' ? 'bg-amber-400' : 'bg-sky-400'" />
+                        <strong class="font-semibold text-slate-800 dark:text-slate-200">{{ log.user?.name || 'Usuario' }}</strong> {{ ({ created: 'creó', updated: 'actualizó', moved: 'movió', deleted: 'eliminó', project_updated: 'actualizó el proyecto', project_archived: 'archivó el proyecto', project_restored: 'recuperó el proyecto', member_updated: 'actualizó los miembros de', member_removed: 'retiró un miembro de', label_created: 'creó la etiqueta', label_updated: 'actualizó la etiqueta', label_deleted: 'eliminó la etiqueta', comment_created: 'comentó en', comment_updated: 'editó un comentario en', comment_deleted: 'eliminó un comentario en' } as Record<string, string>)[log.action] }} «{{ log.card_title }}»<span v-if="log.action === 'moved'"> a {{ columnLabel(log.to_status) }}</span>
+                        <time class="mt-0.5 block text-xs text-slate-400 dark:text-slate-500">{{ new Date(log.created_at).toLocaleString('es-CL') }}</time>
+                    </li>
+                </ul>
+            </div>
+        </section>
 
         <dialog ref="dialog" aria-labelledby="task-heading" class="admin-scope m-auto max-h-[90vh] w-[min(560px,calc(100vw-32px))] overflow-y-auto rounded-2xl bg-white p-0 text-slate-800 shadow-2xl backdrop:bg-slate-950/60 dark:bg-slate-900 dark:text-slate-100" @cancel="busy && $event.preventDefault()">
-            <form class="space-y-5 p-6" @submit.prevent="saveCard">
-                <header class="flex items-center justify-between"><h3 id="task-heading" class="text-lg font-bold">{{ !canWrite ? 'Detalle de tarea' : editing ? 'Editar tarea' : 'Nueva tarea' }}</h3><button type="button" aria-label="Cerrar editor" :disabled="busy" class="flex h-11 w-11 items-center justify-center text-slate-400" @click="dialog?.close()"><X class="h-5 w-5" /></button></header>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Proyecto: {{ selectedProject?.name }}</p>
-                <p v-if="modalError" role="alert" class="rounded-lg bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-500/10 dark:text-amber-300">{{ modalError }}</p>
-                <div v-if="confirmingDelete" class="rounded-xl border border-red-300/40 bg-red-50 p-3 dark:bg-red-500/10"><p class="mb-3 text-sm text-red-700 dark:text-red-300">¿Eliminar esta tarea? Esta acción no se puede deshacer.</p><div class="flex gap-2"><button type="button" :disabled="busy" class="rounded-lg bg-red-500 px-3 py-2 text-sm font-semibold text-white" @click="deleteCard">Sí, eliminar</button><button type="button" :disabled="busy" class="rounded-lg px-3 py-2 text-sm text-slate-500" @click="confirmingDelete = false">Conservar tarea</button></div></div>
+            <form class="space-y-6 p-7" @submit.prevent="saveCard">
+                <header class="flex items-start justify-between gap-4">
+                    <div class="min-w-0">
+                        <h3 id="task-heading" class="text-xl font-bold text-slate-900 dark:text-white">{{ !canWrite ? 'Detalle de tarea' : editing ? 'Editar tarea' : 'Nueva tarea' }}</h3>
+                        <p v-if="editing?.issue_key" class="mt-1 text-xs font-semibold tracking-wide text-slate-400 dark:text-slate-500">{{ editing.issue_key }}</p>
+                        <p v-else class="mt-1 text-xs text-slate-500 dark:text-slate-400">Proyecto: {{ selectedProject?.name }}</p>
+                    </div>
+                    <button type="button" aria-label="Cerrar editor" :disabled="busy" class="-mr-1.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 disabled:opacity-50 dark:hover:bg-slate-800 dark:hover:text-slate-200" @click="dialog?.close()"><X class="h-4.5 w-4.5" /></button>
+                </header>
+                <p v-if="modalError" role="alert" class="rounded-lg bg-amber-50 px-3 py-2.5 text-sm text-amber-800 ring-1 ring-amber-200 dark:bg-amber-500/10 dark:text-amber-300 dark:ring-amber-500/20">{{ modalError }}</p>
+                <div v-if="confirmingDelete" class="rounded-xl border border-red-300/40 bg-red-50 p-4 dark:bg-red-500/10"><p class="mb-3 text-sm font-medium text-red-700 dark:text-red-300">¿Eliminar esta tarea? Esta acción no se puede deshacer.</p><div class="flex gap-2"><button type="button" :disabled="busy" class="min-h-10 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-500 disabled:opacity-50" @click="deleteCard">Sí, eliminar</button><button type="button" :disabled="busy" class="min-h-10 rounded-lg px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 disabled:opacity-50 dark:text-slate-300 dark:hover:bg-slate-800" @click="confirmingDelete = false">Conservar tarea</button></div></div>
                 <fieldset :disabled="!canWrite || busy" class="space-y-5">
-                <label class="block text-sm font-medium">Título<input v-model="form.title" type="text" required minlength="2" maxlength="255" placeholder="¿Qué hay que hacer?" class="mt-1.5" /></label>
-                <label class="block text-sm font-medium">Descripción<textarea v-model="form.description" rows="4" maxlength="5000" placeholder="Contexto, objetivos y próximos pasos…" class="mt-1.5" /></label>
-                <div class="grid grid-cols-2 gap-4"><label class="text-sm font-medium">Prioridad<select v-model="form.priority" class="mt-1.5"><option v-for="(label, id) in priorities" :key="id" :value="id">{{ label }}</option></select></label><label class="text-sm font-medium">Fecha límite<input v-model="form.due_date" type="date" class="mt-1.5" /></label></div>
-                <label v-if="!editing" class="block text-sm font-medium">Columna<select v-model="form.status" class="mt-1.5"><option v-for="column in columns" :key="column.id" :value="column.id">{{ column.label }}</option></select></label>
-                <fieldset><legend class="mb-2 text-sm font-medium">Responsables</legend><div class="flex max-h-40 flex-wrap gap-2 overflow-y-auto"><label v-for="member in assigneeOptions" :key="member.id" class="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-slate-200 px-3 py-2 text-sm dark:border-slate-700"><input v-model="form.assignee_ids" type="checkbox" :value="member.id" class="accent-sky-500" />{{ member.name }}<span v-if="!users.some(user => user.id === member.id)" class="text-xs">(sin acceso actual; desmarca para guardar)</span></label></div><p class="mt-2 text-xs text-slate-400">Puedes asignar la tarea a varias personas.</p></fieldset>
+                    <label class="block space-y-1.5 text-[13px] font-semibold text-slate-700 dark:text-slate-200">Título<input v-model="form.title" type="text" required minlength="2" maxlength="255" placeholder="¿Qué hay que hacer?" /></label>
+                    <label class="block space-y-1.5 text-[13px] font-semibold text-slate-700 dark:text-slate-200">Descripción<textarea v-model="form.description" rows="4" maxlength="5000" placeholder="Contexto, objetivos y próximos pasos…" /></label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="block space-y-1.5 text-[13px] font-semibold text-slate-700 dark:text-slate-200">Prioridad<select v-model="form.priority"><option v-for="(label, id) in priorities" :key="id" :value="id">{{ label }}</option></select></label>
+                        <label class="block space-y-1.5 text-[13px] font-semibold text-slate-700 dark:text-slate-200">Fecha límite<input v-model="form.due_date" type="date" /></label>
+                    </div>
+                    <label v-if="!editing" class="block space-y-1.5 text-[13px] font-semibold text-slate-700 dark:text-slate-200">Columna<select v-model="form.status"><option v-for="column in columns" :key="column.id" :value="column.id">{{ column.label }}</option></select></label>
+                    <fieldset class="rounded-xl border border-slate-200/80 p-3.5 dark:border-slate-700/60">
+                        <legend class="px-1 text-[13px] font-semibold text-slate-700 dark:text-slate-200">Responsables</legend>
+                        <div class="flex max-h-44 flex-wrap gap-2 overflow-y-auto">
+                            <label v-for="member in assigneeOptions" :key="member.id" class="flex min-h-10 cursor-pointer items-center gap-2.5 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 transition-colors hover:border-sky-400 hover:bg-sky-50/50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-sky-500/60 dark:hover:bg-sky-500/10">
+                                <input v-model="form.assignee_ids" type="checkbox" :value="member.id" class="h-4 w-4 accent-sky-500" />{{ member.name }}<span v-if="!users.some(user => user.id === member.id)" class="text-xs text-amber-600 dark:text-amber-400">(sin acceso)</span>
+                            </label>
+                        </div>
+                        <p class="mt-2.5 text-xs text-slate-400">Puedes asignar la tarea a varias personas.</p>
+                    </fieldset>
                 </fieldset>
-                <footer class="flex items-center justify-between border-t border-slate-200 pt-4 dark:border-slate-800"><button v-if="editing && canWrite" type="button" :disabled="busy" class="flex h-11 w-11 items-center justify-center rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10" aria-label="Eliminar tarea" @click="confirmingDelete = true"><Trash2 class="h-4 w-4" /></button><span v-else /><div class="flex gap-2"><button type="button" :disabled="busy" class="min-h-11 rounded-xl px-4 py-2 text-sm text-slate-500" @click="dialog?.close()">Cancelar</button><button v-if="canWrite" type="submit" :disabled="busy" class="min-h-11 rounded-xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"><Loader2 v-if="busy" class="mr-1 inline h-4 w-4 animate-spin" />{{ busy ? 'Guardando…' : 'Guardar tarea' }}</button></div></footer>
+                <footer class="flex items-center justify-between gap-2 border-t border-slate-200 pt-5 dark:border-slate-700/60">
+                    <button v-if="editing && canWrite" type="button" :disabled="busy" class="flex h-10 w-10 items-center justify-center rounded-lg text-red-500 transition-colors hover:bg-red-50 disabled:opacity-50 dark:hover:bg-red-500/10" aria-label="Eliminar tarea" @click="confirmingDelete = true"><Trash2 class="h-4 w-4" /></button>
+                    <span v-else />
+                    <div class="flex gap-2">
+                        <button type="button" :disabled="busy" class="min-h-10 rounded-lg px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 disabled:opacity-50 dark:text-slate-300 dark:hover:bg-slate-800" @click="dialog?.close()">Cancelar</button>
+                        <button v-if="canWrite" type="submit" :disabled="busy" class="min-h-10 rounded-lg bg-sky-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-500 disabled:opacity-50 dark:bg-sky-500 dark:hover:bg-sky-400"><Loader2 v-if="busy" class="mr-1 inline h-4 w-4 animate-spin" />{{ busy ? 'Guardando…' : 'Guardar tarea' }}</button>
+                    </div>
+                </footer>
+            </form>
+        </dialog>
+
+        <dialog ref="sprintDialog" aria-labelledby="sprint-heading" class="admin-scope m-auto max-h-[90vh] w-[min(560px,calc(100vw-32px))] overflow-y-auto rounded-2xl bg-white p-0 text-slate-800 shadow-2xl backdrop:bg-slate-950/60 dark:bg-slate-900 dark:text-slate-100" @cancel="sprintBusy && $event.preventDefault()">
+            <form class="space-y-6 p-7" @submit.prevent="createSprint">
+                <header class="flex items-start justify-between gap-4">
+                    <div class="min-w-0">
+                        <h3 id="sprint-heading" class="text-xl font-bold text-slate-900 dark:text-white">Nuevo Sprint</h3>
+                        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Proyecto: {{ selectedProject?.name }}</p>
+                    </div>
+                    <button type="button" aria-label="Cerrar editor" :disabled="sprintBusy" class="-mr-1.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 disabled:opacity-50 dark:hover:bg-slate-800 dark:hover:text-slate-200" @click="sprintDialog?.close()"><X class="h-4.5 w-4.5" /></button>
+                </header>
+                <p v-if="sprintError" role="alert" class="rounded-lg bg-amber-50 px-3 py-2.5 text-sm text-amber-800 ring-1 ring-amber-200 dark:bg-amber-500/10 dark:text-amber-300 dark:ring-amber-500/20">{{ sprintError }}</p>
+                <fieldset :disabled="!canWrite || sprintBusy" class="space-y-5">
+                    <label class="block space-y-1.5 text-[13px] font-semibold text-slate-700 dark:text-slate-200">Nombre del sprint<input v-model="sprint.name" type="text" required minlength="3" maxlength="120" placeholder="Ej: Sprint 1 — Módulo de login" /></label>
+                    <label class="block space-y-1.5 text-[13px] font-semibold text-slate-700 dark:text-slate-200">Objetivo<textarea v-model="sprint.goal" rows="3" maxlength="500" placeholder="¿Qué queremos lograr en este sprint? (opcional)" /></label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="block space-y-1.5 text-[13px] font-semibold text-slate-700 dark:text-slate-200">Fecha de inicio<input v-model="sprint.start_date" type="date" /></label>
+                        <label class="block space-y-1.5 text-[13px] font-semibold text-slate-700 dark:text-slate-200">Fecha de fin<input v-model="sprint.end_date" type="date" :min="sprint.start_date || undefined" /></label>
+                    </div>
+                    <p class="rounded-lg bg-slate-50 px-3 py-2.5 text-xs leading-relaxed text-slate-500 dark:bg-slate-800/60 dark:text-slate-400">El sprint se creará con estado «Planificado». Podrás iniciarlo desde el tablero cuando estés listo.</p>
+                </fieldset>
+                <footer class="flex items-center justify-end gap-2 border-t border-slate-200 pt-5 dark:border-slate-700/60">
+                    <button type="button" :disabled="sprintBusy" class="min-h-10 rounded-lg px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 disabled:opacity-50 dark:text-slate-300 dark:hover:bg-slate-800" @click="sprintDialog?.close()">Cancelar</button>
+                    <button v-if="canWrite" type="submit" :disabled="sprintBusy" class="min-h-10 rounded-lg bg-sky-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-sky-500 disabled:opacity-50 dark:bg-sky-500 dark:hover:bg-sky-400"><Loader2 v-if="sprintBusy" class="mr-1 inline h-4 w-4 animate-spin" />{{ sprintBusy ? 'Creando…' : 'Crear Sprint' }}</button>
+                </footer>
             </form>
         </dialog>
     </div>

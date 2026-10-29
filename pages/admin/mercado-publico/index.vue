@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Search, Landmark, ArrowRight, Loader2, X, Copy, ExternalLink } from 'lucide-vue-next'
+import { Search, Landmark, ArrowRight, Loader2, X, Copy, ExternalLink, Check } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'admin' })
 useHead({ title: 'Mercado Público · SysifosWeb' })
@@ -12,16 +12,22 @@ type RecordItem = {
     documentos?: { nombre: string }[]; proveedor?: string | null
 }
 type SearchResult = { data: RecordItem[]; meta: { total: number; total_paginas: number; pagina: number; consultado_en: string; advertencia: string } }
+type ImportProject = { id: number; name: string; project_key: string; permissions: { manage: boolean; collaborate: boolean } }
+type ImportedIssue = { id: number; kanban_project_id: number; issue_key: string; warning?: string }
 const tabs: { id: Source; label: string; description: string }[] = [
     { id: 'licitaciones', label: 'Licitaciones', description: 'Convocatorias para ofrecer servicios y soluciones.' },
     { id: 'compra-agil', label: 'Compra Ágil', description: 'Solicitudes de cotización publicadas por organismos del Estado.' },
     { id: 'ordenes-compra', label: 'Órdenes de compra', description: 'Antecedentes de compras realizadas. No son convocatorias abiertas.' },
 ]
-const stateOptions = computed(() => source.value === 'compra-agil'
-    ? [['publicada', 'Publicadas'], ['cerrada', 'Cerradas'], ['desierta', 'Desiertas'], ['cancelada', 'Canceladas'], ['proveedor_seleccionado', 'Proveedor seleccionado']]
-    : source.value === 'ordenes-compra'
-        ? [['todos', 'Todos'], ['enviadaproveedor', 'Enviadas a proveedor'], ['aceptada', 'Aceptadas'], ['cancelada', 'Canceladas'], ['recepcionconforme', 'Recepción conforme'], ['pendienterecepcion', 'Pendientes de recepción']]
-        : [['activas', 'Activas'], ['publicada', 'Publicadas'], ['cerrada', 'Cerradas'], ['adjudicada', 'Adjudicadas'], ['desierta', 'Desiertas'], ['revocada', 'Revocadas'], ['suspendida', 'Suspendidas'], ['todos', 'Todos']])
+const stateOptions = computed(() => {
+    if (source.value === 'compra-agil') {
+        return [['publicada', 'Publicadas'], ['cerrada', 'Cerradas'], ['desierta', 'Desiertas'], ['cancelada', 'Canceladas'], ['proveedor_seleccionado', 'Proveedor seleccionado']]
+    }
+    if (source.value === 'ordenes-compra') {
+        return [['todos', 'Todos'], ['enviadaproveedor', 'Enviadas a proveedor'], ['aceptada', 'Aceptadas'], ['cancelada', 'Canceladas'], ['recepcionconforme', 'Recepción conforme'], ['pendienterecepcion', 'Pendientes de recepción']]
+    }
+    return [['activas', 'Activas'], ['publicada', 'Publicadas'], ['cerrada', 'Cerradas'], ['adjudicada', 'Adjudicadas'], ['desierta', 'Desiertas'], ['revocada', 'Revocadas'], ['suspendida', 'Suspendidas'], ['todos', 'Todos']]
+})
 const regions = ['Tarapacá', 'Antofagasta', 'Atacama', 'Coquimbo', 'Valparaíso', "O’Higgins", 'Maule', 'Biobío', 'La Araucanía', 'Los Lagos', 'Aysén', 'Magallanes', 'Metropolitana', 'Los Ríos', 'Arica y Parinacota', 'Ñuble']
 function day(offset = 0) {
     const date = new Date(); date.setDate(date.getDate() + offset)
@@ -43,6 +49,12 @@ const detail = ref<RecordItem | null>(null)
 const detailLoading = ref(false)
 const detailError = ref('')
 const copied = ref(false)
+const importProjects = ref<ImportProject[]>([])
+const importProjectId = ref<number | null>(null)
+const importProjectsLoading = ref(false)
+const importing = ref(false)
+const importError = ref('')
+const importedIssue = ref<ImportedIssue | null>(null)
 let searchVersion = 0
 let detailVersion = 0
 let disposed = false
@@ -102,7 +114,9 @@ async function search(nextPage = 1, reuse = false) {
 async function openDetail(item: RecordItem) {
     const version = ++detailVersion
     detail.value = null; detailError.value = ''; copied.value = false; detailLoading.value = true
+    importedIssue.value = null; importError.value = ''
     detailDialog.value?.showModal()
+    void loadImportProjects(version)
     try {
         const response = await $fetch<{ data: RecordItem }>(`${base}/${item.fuente}/${encodeURIComponent(item.codigo)}`, { headers: headers(), retry: 0, timeout: 50000 })
         if (!disposed && version === detailVersion) detail.value = response.data
@@ -110,6 +124,24 @@ async function openDetail(item: RecordItem) {
         if (!disposed && version === detailVersion) detailError.value = await messageFor(e)
     } finally {
         if (!disposed && version === detailVersion) detailLoading.value = false
+    }
+}
+async function loadImportProjects(version: number) {
+    importProjectsLoading.value = true
+    importProjects.value = []
+    try {
+        const response = await $fetch<{ data: ImportProject[] }>(`${String(config.public.apiUrl).replace(/\/$/, '')}/kanban/projects`, {
+            headers: headers(), query: { per_page: 100 }, retry: 0
+        })
+        if (disposed || version !== detailVersion) return
+        importProjects.value = response.data.filter(project => project.permissions.manage && project.permissions.collaborate)
+        if (!importProjects.value.some(project => project.id === importProjectId.value)) {
+            importProjectId.value = importProjects.value.length === 1 ? importProjects.value[0]!.id : null
+        }
+    } catch (e: any) {
+        if (!disposed && version === detailVersion) importError.value = await messageFor(e)
+    } finally {
+        if (!disposed && version === detailVersion) importProjectsLoading.value = false
     }
 }
 function money(item: RecordItem) {
@@ -133,6 +165,29 @@ async function copySummary() {
         copied.value = true
     } catch { detailError.value = 'No se pudo copiar. Puedes seleccionar y copiar el texto del detalle.' }
 }
+async function convertToIssue() {
+    if (!detail.value || !importProjectId.value || importing.value || importedIssue.value) return
+    const version = detailVersion
+    const item = detail.value
+    const projectId = importProjectId.value
+    importing.value = true; importError.value = ''
+    try {
+        const response = await $fetch<{ data: ImportedIssue }>(`${String(config.public.apiUrl).replace(/\/$/, '')}/kanban/import`, {
+            method: 'POST',
+            headers: headers(),
+            query: { project_id: projectId },
+            body: { source: item.fuente, code: item.codigo },
+            retry: 0, timeout: 50000
+        })
+        if (!disposed && version === detailVersion) importedIssue.value = response.data
+    } catch (e: any) {
+        if (!disposed && version === detailVersion) importError.value = await messageFor(e)
+    } finally {
+        if (!disposed) importing.value = false
+    }
+}
+
+watch(importProjectId, () => { importedIssue.value = null; importError.value = '' })
 onBeforeUnmount(() => { disposed = true; searchVersion++; detailVersion++ })
 </script>
 
@@ -194,6 +249,27 @@ onBeforeUnmount(() => { disposed = true; searchVersion++; detailVersion++ })
                     <section v-if="detail.productos?.length"><h5 class="mb-2 font-semibold">Servicios o productos solicitados</h5><ul class="space-y-3"><li v-for="(product, index) in detail.productos" :key="index" class="rounded-xl border border-slate-200 p-3 text-sm dark:border-slate-700"><p class="font-semibold">{{ product.nombre }} <span v-if="product.cantidad !== null" class="font-normal text-slate-500">· Cantidad: {{ product.cantidad }}</span></p><p v-if="product.descripcion" class="mt-1 whitespace-pre-wrap break-words text-slate-600 dark:text-slate-300">{{ product.descripcion }}</p></li></ul></section>
                     <section v-if="detail.documentos?.length"><h5 class="mb-2 font-semibold">Documentos informados</h5><ul class="list-inside list-disc text-sm text-slate-600 dark:text-slate-300"><li v-for="(document, index) in detail.documentos" :key="index">{{ document.nombre }}</li></ul><p class="mt-2 text-xs text-slate-500">Descarga los archivos desde el proceso en el portal oficial.</p></section>
                     <div class="rounded-xl bg-amber-50 p-4 text-sm text-amber-900 dark:bg-amber-500/10 dark:text-amber-200">Antes de ofertar, revisen requisitos acreditables, plazo de entrega, costos iniciales, garantías y condiciones de pago. Este detalle todavía no es una evaluación de viabilidad.</div>
+                    <section aria-labelledby="import-issue-title" class="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+                        <h5 id="import-issue-title" class="mb-3 font-semibold">Llevar al backlog del proyecto</h5>
+                        <p v-if="importProjectsLoading" role="status" class="text-sm text-slate-500">Cargando proyectos…</p>
+                        <div v-else-if="importProjects.length" class="flex flex-wrap items-end gap-3">
+                            <label class="mp-label min-w-0 flex-1">Proyecto destino
+                                <select v-model="importProjectId" class="mp-input" :disabled="importing">
+                                    <option :value="null" disabled>Selecciona un proyecto</option>
+                                    <option v-for="project in importProjects" :key="project.id" :value="project.id">{{ project.project_key }} · {{ project.name }}</option>
+                                </select>
+                            </label>
+                            <button type="button" :disabled="!importProjectId || importing || !!importedIssue" class="inline-flex items-center gap-2 rounded-xl bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-50" @click="convertToIssue">
+                                <Loader2 v-if="importing" class="h-4 w-4 animate-spin" /><Check v-else class="h-4 w-4" />{{ importing ? 'Creando issue…' : importedIssue ? 'Proceso vinculado' : 'Convertir a issue' }}
+                            </button>
+                        </div>
+                        <p v-else-if="!importError" class="text-sm text-slate-500 dark:text-slate-400">No tienes proyectos activos con permiso de gestión para importar este proceso.</p>
+                        <p v-if="importError" role="alert" class="mt-3 text-sm text-red-700 dark:text-red-300">{{ importError }}</p>
+                        <div v-if="importedIssue" role="status" class="mt-3 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-900 dark:bg-emerald-500/10 dark:text-emerald-200">
+                            <p>{{ importedIssue.warning || `Issue ${importedIssue.issue_key} creado en el backlog.` }}</p>
+                            <NuxtLink :to="`/admin/kanban/${importedIssue.kanban_project_id}`" class="mt-2 inline-flex items-center gap-1 font-semibold underline">Abrir tablero · {{ importedIssue.issue_key }}<ArrowRight class="h-4 w-4" /></NuxtLink>
+                        </div>
+                    </section>
                     <footer class="flex flex-wrap gap-3 border-t border-slate-200 pt-4 dark:border-slate-800"><button class="mp-secondary" @click="copySummary"><Copy class="h-4 w-4" />{{ copied ? 'Resumen copiado' : 'Copiar resumen para analizar' }}</button><a href="https://www.mercadopublico.cl/" target="_blank" rel="noopener noreferrer" class="mp-secondary"><ExternalLink class="h-4 w-4" />Abrir Mercado Público</a></footer>
                 </div>
             </div>

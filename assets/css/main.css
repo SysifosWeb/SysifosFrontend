@@ -318,16 +318,21 @@ input, textarea, select {
 :where(.admin-scope) :where(textarea),
 :where(.admin-scope) :where(select) {
   width: 100%;
-  border-radius: 0.75rem;
-  border: 1px solid #e2e8f0;
+  min-height: 2.75rem;
+  border-radius: 0.6rem;
+  border: 1px solid #d8dee6;
   background-color: #fff;
-  padding: 0.55rem 0.85rem;
+  padding: 0.7rem 0.9rem;
   font-size: 0.875rem;
   line-height: 1.5rem;
   color: #0f172a;
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.04);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
   outline: none;
+}
+:where(.admin-scope) :where(textarea) {
+  min-height: auto;
+  line-height: 1.6rem;
 }
 :where(.admin-scope) :where(input)::placeholder,
 :where(.admin-scope) :where(textarea)::placeholder {
@@ -343,17 +348,17 @@ input, textarea, select {
 :where(.dark .admin-scope) :where(input[type="url"]),
 :where(.dark .admin-scope) :where(textarea),
 :where(.dark .admin-scope) :where(select) {
-  background-color: #0f172a;
-  border-color: #1e293b;
+  background-color: #1a1920;
+  border-color: #3a3742;
   color: #e2e8f0;
   box-shadow: none;
 }
 :where(.dark .admin-scope) :where(input)::placeholder,
 :where(.dark .admin-scope) :where(textarea)::placeholder {
-  color: #475569;
+  color: #64748b;
 }
 :where(.dark .admin-scope) :where(select option) {
-  background-color: #0f172a;
+  background-color: #1a1920;
   color: #e2e8f0;
 }
 
