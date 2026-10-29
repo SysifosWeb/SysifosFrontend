@@ -49,5 +49,10 @@ export function useApi() {
         }
     }
 
-    return { request }
+    // Binary responses share the same authentication and expired-session handling.
+    function download(path: string, query: Record<string, string | number>): Promise<Blob> {
+        return request<Blob>(path, { query, responseType: 'blob' } as unknown as FetchOptions<'json'>)
+    }
+
+    return { request, download }
 }

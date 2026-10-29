@@ -213,7 +213,7 @@ const goToPage = (url) => {
                             <FileText class="h-3.5 w-3.5 text-sky-500" />
                             {{ category.blog_posts_count || 0 }} posts
                         </span>
-                        <span class="text-slate-400 dark:text-slate-500">Orden: {{ category.sort_order }}</span>
+                        <span class="text-slate-500 dark:text-slate-400">Orden: {{ category.sort_order }}</span>
                     </div>
 
                     <!-- Acciones -->

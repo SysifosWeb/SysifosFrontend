@@ -1,5 +1,5 @@
 <template>
-    <div class="admin-scope min-h-screen bg-[#f6f4fa] dark:bg-[#141318]">
+    <div class="admin-scope min-h-screen bg-[#f6f4fa] text-slate-900 dark:bg-[#141318] dark:text-slate-100">
         <!-- ===== Sidebar ===== -->
         <aside id="admin-navigation" class="fixed inset-y-0 left-0 z-50 flex w-[264px] flex-col bg-[#17161b] text-white transition-[width,transform] duration-200 ease-out lg:translate-x-0 lg:inset-y-4 lg:left-4 lg:rounded-[24px]"
             :class="[sidebarOpen ? 'translate-x-0' : '-translate-x-full', sidebarCollapsed ? 'lg:w-[64px]' : 'lg:w-[232px]']">
@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="ml-auto flex items-center gap-1.5">
-                        <NuxtLink v-if="activeProjectContext?.permissions.collaborate" :to="{ path: `/admin/kanban/${activeProjectContext.project.id}`, query: { ...route.query, issue: undefined, create: '1' } }" class="mr-2 inline-flex min-h-9 items-center gap-1.5 rounded-lg bg-sky-600 px-3 text-sm font-semibold text-white hover:bg-sky-700"><Plus class="h-4 w-4" />Crear</NuxtLink>
+                        <NuxtLink v-if="activeProjectContext?.permissions.collaborate" :to="{ path: `/admin/kanban/${activeProjectContext.project.id}`, query: { ...route.query, issue: undefined, create: '1' } }" class="mr-2 inline-flex min-h-9 items-center gap-1.5 rounded-lg bg-sky-700 px-3 text-sm font-semibold text-white hover:bg-sky-800"><Plus class="h-4 w-4" />Crear</NuxtLink>
                         <!-- Dark mode -->
                         <button
                             class="flex h-11 w-11 items-center justify-center rounded-lg text-slate-600 transition-colors hover:bg-slate-200/70 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
@@ -127,7 +127,7 @@
             </header>
 
             <!-- Contenido -->
-            <main class="mx-auto w-full min-w-0 max-w-[1600px] flex-1 px-4 pb-6 pt-2 sm:px-6"
+            <main class="admin-content mx-auto w-full min-w-0 max-w-[1600px] flex-1 px-4 pb-6 pt-2 sm:px-6"
                 :class="isHome ? '' : 'mb-4 rounded-2xl bg-white py-6 dark:bg-slate-900'">
                 <slot />
             </main>

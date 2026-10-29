@@ -1,6 +1,6 @@
 const interopDefault = r => r.default || r || [];
 const styles = {
-  "node_modules/.pnpm/nuxt@3.21.5_@parcel+watcher@2.5.6_@types+node@24.12.4_@vue+compiler-sfc@3.5.34_cac@6.7._ae42a2345aad80db1a47c307c7d755f2/node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.Bkrc26MF.mjs').then(interopDefault),
+  "node_modules/.pnpm/nuxt@3.21.5_@parcel+watcher@2.5.6_@types+node@24.12.4_@vue+compiler-sfc@3.5.34_cac@6.7._ae42a2345aad80db1a47c307c7d755f2/node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.Dk0L5gcS.mjs').then(interopDefault),
   "pages/contacto.vue": () => import('./contacto-styles.DaIa7f61.mjs').then(interopDefault),
   "components/contacto/ContactFormSection.vue": () => import('./contacto-styles.DaIa7f61.mjs').then(interopDefault),
   "pages/nosotros.vue": () => import('./nosotros-styles.CYfCt7HK.mjs').then(interopDefault),
@@ -21,7 +21,7 @@ const styles = {
   "pages/blog/index.vue": () => import('./index-styles.rmqr73rL.mjs').then(interopDefault),
   "components/blog/FiltersSection.vue": () => import('./index-styles.rmqr73rL.mjs').then(interopDefault),
   "pages/admin/index.vue": () => import('./index-styles-2.CsvPWjmO.mjs').then(interopDefault),
-  "pages/admin/posts/[id].vue": () => import('./_id_-styles.Bvt9a8ZL.mjs').then(interopDefault),
+  "pages/admin/posts/[id].vue": () => import('./_id_-styles.GenAyHF-.mjs').then(interopDefault),
   "pages/admin/posts/edit.vue": () => import('./edit-styles.B0G65F5O.mjs').then(interopDefault),
   "pages/admin/contacts/[id].vue": () => import('./_id_-styles-2.BiutwwXi.mjs').then(interopDefault),
   "pages/admin/kanban/[project].vue": () => import('./_project_-styles.DXqWEaPL.mjs').then(interopDefault),
@@ -31,8 +31,8 @@ const styles = {
   "components/home/HomeValue.vue": () => import('./HomeValue-styles.CSi901TY.mjs').then(interopDefault),
   "components/home/HomeProblems.vue": () => import('./HomeProblems-styles.DbPsH6YU.mjs').then(interopDefault),
   "components/home/HomeProposition.vue": () => import('./HomeProposition-styles.Dfldi7ij.mjs').then(interopDefault),
-  "components/home/HomeTrust.vue": () => import('./HomeTrust-styles.BSVSClto.mjs').then(interopDefault),
   "components/home/HomeBusinessUnits.vue": () => import('./HomeBusinessUnits-styles.CU2D6loT.mjs').then(interopDefault),
+  "components/home/HomeTrust.vue": () => import('./HomeTrust-styles.BSVSClto.mjs').then(interopDefault),
   "components/home/HomeBanner.vue": () => import('./HomeBanner-styles.JfAgLVZr.mjs').then(interopDefault),
   "components/nosotros/CtaSection.vue": () => import('./CtaSection-styles.D5JFxUdX.mjs').then(interopDefault),
   "layouts/default.vue": () => import('./default-styles.CSVPaSXq.mjs').then(interopDefault),

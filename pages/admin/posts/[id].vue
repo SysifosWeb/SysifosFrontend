@@ -167,11 +167,8 @@ const formatDate = (date) => {
                                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
                                     Categoría
                                 </label>
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-                                    :style="{
-                                        backgroundColor: post.category.color ? post.category.color + '20' : '#e5e7eb',
-                                        color: post.category.color || '#374151',
-                                    }">
+                                <span class="inline-flex items-center gap-1.5 bg-slate-100 px-2.5 py-0.5 rounded-full text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                                    <span class="h-1.5 w-1.5 rounded-full" :style="{ backgroundColor: post.category.color || '#94a3b8' }" />
                                     {{ post.category.name }}
                                 </span>
                             </div>

@@ -13,6 +13,8 @@ const dialog = ref<HTMLDialogElement>()
 const issue = ref<IssueDetail | null>(null)
 const loading = ref(false)
 const saving = ref(false)
+const mediaBusy = ref(false)
+watch(mediaBusy, value => emit('saving', saving.value || value))
 const error = ref('')
 const saved = ref(false)
 const discard = ref(false)
@@ -69,13 +71,13 @@ watch([() => props.issueId, () => props.projectId], async ([id]) => {
 }, { immediate: true })
 
 function close(force = false) {
-    if (saving.value) return
+    if (saving.value || mediaBusy.value) return
     if (!force && dirty.value) { discard.value = true; return }
     clearDrafts(); emit('close')
 }
 
 async function saveIssue(patch: IssuePatch): Promise<boolean> {
-    if (!issue.value || saving.value || !props.canWrite) return false
+    if (!issue.value || saving.value || mediaBusy.value || !props.canWrite) return false
     const id = issue.value.id
     const projectId = props.projectId
     const version = issue.value.version
@@ -102,6 +104,20 @@ async function saveIssue(patch: IssuePatch): Promise<boolean> {
     } finally {
         saving.value = false; emit('saving', false)
     }
+}
+
+async function addComment(body: string): Promise<boolean> {
+    if (!issue.value || saving.value || mediaBusy.value || !props.canWrite || !body.trim()) return false
+    const id = issue.value.id
+    const projectId = props.projectId
+    saving.value = true; emit('saving', true); error.value = ''
+    try {
+        await api.request(`kanban/cards/${id}/comments`, { method: 'POST', query: { project_id: projectId }, body: { body } })
+        await loadIssue()
+        saved.value = true
+        return true
+    } catch (failure) { error.value = apiErrorMessage(failure, 'No se pudo publicar el comentario. Tu borrador se conserva.'); return false }
+    finally { saving.value = false; emit('saving', false) }
 }
 
 function changeSelect(field: 'status' | 'priority' | 'type' | 'epic_id', event: Event) {
@@ -176,14 +192,18 @@ onBeforeUnmount(() => { disposed = true; sequence++; emit('dirty', false) })
                         <p v-if="!canWrite" class="rounded-lg bg-slate-50 px-3 py-2 text-xs text-slate-500 dark:bg-slate-800">Solo lectura. No tienes permiso para editar este proyecto o está archivado.</p>
                         <button v-if="issue.parent" class="inline-flex items-center gap-1.5 text-xs font-medium text-sky-600 hover:underline dark:text-sky-400" :disabled="saving || dirty" @click="emit('open', issue.parent.id)"><GitBranch class="h-3.5 w-3.5" />{{ issue.parent.issue_key }} · {{ issue.parent.title }}</button>
                         <AdminKanbanInlineEdit label="Título" :value="issue.title" :readonly="!canWrite" :busy="saving" :save="value => saveIssue({ title: value.trim() })" :minlength="2" heading @dirty="markDirty('title', $event)" />
-                        <section aria-labelledby="issue-description-heading"><h3 id="issue-description-heading" class="mb-2 text-sm font-semibold">Descripción</h3><AdminKanbanInlineEdit label="Descripción" :value="issue.description || ''" :readonly="!canWrite" :busy="saving" :save="value => saveIssue({ description: value || null })" :maxlength="5000" multiline placeholder="Añadir contexto, objetivos y próximos pasos…" @dirty="markDirty('description', $event)" /></section>
+                        <section aria-labelledby="issue-description-heading"><h3 id="issue-description-heading" class="mb-2 text-sm font-semibold">Descripción</h3><AdminKanbanInlineEdit label="Descripción" :value="issue.description || ''" :readonly="!canWrite" :busy="saving || mediaBusy" :save="value => saveIssue({ description: value || null })" :upload-context="{ projectId, cardId: issue.id }" :maxlength="5000" multiline description placeholder="Añadir contexto, objetivos y próximos pasos…" @dirty="markDirty('description', $event)" @uploading="mediaBusy = $event" /></section>
                         <section v-if="issue.subtasks.length" aria-labelledby="issue-subtasks-heading"><h3 id="issue-subtasks-heading" class="mb-3 flex items-center gap-2 text-sm font-semibold"><GitBranch class="h-4 w-4 text-slate-400" />Subtareas <span class="text-xs font-normal text-slate-400">{{ issue.subtasks.filter(child => child.status === 'done').length }}/{{ issue.subtasks.length }}</span></h3><ul class="divide-y divide-slate-100 rounded-lg border border-slate-200 dark:divide-slate-800 dark:border-slate-700"><li v-for="child in issue.subtasks" :key="child.id"><button :disabled="saving || dirty" class="flex w-full items-start gap-2 px-3 py-3 text-left text-sm hover:bg-slate-50 dark:hover:bg-slate-800" @click="emit('open', child.id)"><AdminKanbanIssueTypeIcon :type="child.type" /><span class="min-w-0 flex-1"><span class="mr-2 text-xs text-slate-400">{{ child.issue_key }}</span>{{ child.title }}</span><span class="text-[11px] text-slate-400">{{ columns.find(column => column.id === child.status)?.label }}</span></button></li></ul></section>
                         <section v-if="issue.links.length" aria-labelledby="issue-links-heading"><h3 id="issue-links-heading" class="mb-2 text-sm font-semibold">Enlaces externos</h3><ul class="space-y-2 text-xs"><li v-for="link in issue.links" :key="link.id" class="rounded-lg border border-slate-200 px-3 py-2 dark:border-slate-700"><a v-if="link.url && /^https?:\/\//i.test(link.url)" :href="link.url" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sky-600 dark:text-sky-400">{{ link.title }}<ExternalLink class="h-3 w-3" /></a><span v-else>{{ link.title }}</span><p class="mt-1 text-slate-400">{{ link.provider }} · {{ link.external_id }}</p></li></ul></section>
                         <section aria-labelledby="issue-activity-heading">
                             <h3 id="issue-activity-heading" class="mb-3 text-sm font-semibold">Actividad</h3>
                             <div class="mb-5 flex gap-4 border-b border-slate-200 dark:border-slate-800" role="tablist" aria-label="Actividad del issue" @keydown="tabKey"><button id="issue-activity-tab" role="tab" :aria-selected="tab === 'activity'" :tabindex="tab === 'activity' ? 0 : -1" aria-controls="issue-activity-panel" class="inline-flex items-center gap-1.5 border-b-2 pb-2 text-xs font-semibold" :class="tab === 'activity' ? 'border-sky-500 text-sky-600 dark:text-sky-400' : 'border-transparent text-slate-500'" @click="tab = 'activity'"><Activity class="h-3.5 w-3.5" />Historial</button><button id="issue-comments-tab" role="tab" :aria-selected="tab === 'comments'" :tabindex="tab === 'comments' ? 0 : -1" aria-controls="issue-comments-panel" class="inline-flex items-center gap-1.5 border-b-2 pb-2 text-xs font-semibold" :class="tab === 'comments' ? 'border-sky-500 text-sky-600 dark:text-sky-400' : 'border-transparent text-slate-500'" @click="tab = 'comments'"><MessageSquare class="h-3.5 w-3.5" />Comentarios <span class="text-slate-400">{{ issue.comments.length }}</span></button></div>
                             <div v-show="tab === 'activity'" id="issue-activity-panel" role="tabpanel" aria-labelledby="issue-activity-tab"><AdminKanbanActivityTimeline :activities="issue.activities" :columns="columns" :users="users" :labels="labels" /></div>
-                            <div v-show="tab === 'comments'" id="issue-comments-panel" role="tabpanel" aria-labelledby="issue-comments-tab"><p v-if="!issue.comments.length" class="text-sm text-slate-500">Todavía no hay comentarios.</p><ul v-else class="space-y-5"><li v-for="comment in issue.comments" :key="comment.id" class="flex gap-3"><span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-[10px] font-semibold text-sky-700 dark:bg-sky-900 dark:text-sky-200">{{ issueInitials(comment.user?.name || 'Usuario') }}</span><div class="min-w-0"><p class="text-xs"><strong>{{ comment.user?.name || 'Usuario eliminado' }}</strong><time class="ml-2 text-slate-400">{{ fullDate(comment.created_at) }}</time><span v-if="comment.edited_at" class="ml-1 text-slate-400">(editado)</span></p><p class="mt-1 whitespace-pre-wrap break-words text-sm leading-relaxed text-slate-600 dark:text-slate-300">{{ comment.body }}</p></div></li></ul></div>
+                            <div v-show="tab === 'comments'" id="issue-comments-panel" role="tabpanel" aria-labelledby="issue-comments-tab" class="space-y-5">
+                                <AdminKanbanInlineEdit v-if="canWrite" label="Comentario" value="" :readonly="!canWrite" :busy="saving || mediaBusy" :save="addComment" :upload-context="{ projectId, cardId: issue.id }" :maxlength="5000" multiline description placeholder="Escribe un comentario o adjunta capturas como evidencia." @dirty="markDirty('comment', $event)" @uploading="mediaBusy = $event" />
+                                <p v-if="!issue.comments.length" class="text-sm text-slate-500">Todavía no hay comentarios.</p>
+                                <ul v-else class="space-y-5"><li v-for="comment in issue.comments" :key="comment.id" class="flex gap-3"><span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-[10px] font-semibold text-sky-700 dark:bg-sky-900 dark:text-sky-200">{{ issueInitials(comment.user?.name || 'Usuario') }}</span><div class="min-w-0"><p class="text-xs"><strong>{{ comment.user?.name || 'Usuario eliminado' }}</strong><time class="ml-2 text-slate-400">{{ fullDate(comment.created_at) }}</time><span v-if="comment.edited_at" class="ml-1 text-slate-400">(editado)</span></p><AdminKanbanDescriptionContent class="mt-1" :value="comment.body" /></div></li></ul>
+                            </div>
                         </section>
                     </section>
                     <aside aria-label="Campos del issue" class="space-y-5 border-t border-slate-200 bg-slate-50/60 p-5 dark:border-slate-800 dark:bg-slate-950/20 md:border-l md:border-t-0">
@@ -197,7 +217,7 @@ onBeforeUnmount(() => { disposed = true; sequence++; emit('dirty', false) })
                         <label class="block space-y-1.5 text-xs font-semibold">Fecha límite<input type="date" :value="issue.due_date?.slice(0, 10) || ''" :disabled="saving || !canWrite" class="!text-xs" @change="changeDate('due_date', $event)" /></label>
                         <label class="block space-y-1.5 text-xs font-semibold">Estimación · puntos<input type="number" min="0" max="100" step="0.5" :value="issue.story_points ?? ''" :disabled="saving || !canWrite" placeholder="Sin estimar" class="!text-xs" @change="changePoints" /></label>
                         <dl class="space-y-4 border-t border-slate-200 pt-4 text-xs dark:border-slate-800"><div><dt class="mb-1 font-semibold">Reportado por</dt><dd class="text-slate-500 dark:text-slate-400">{{ issue.creator?.name || 'Usuario eliminado' }}</dd></div><div v-if="issue.sprint"><dt class="mb-1 font-semibold">Sprint</dt><dd class="text-slate-500 dark:text-slate-400">{{ issue.sprint.name }}</dd></div><div><dt class="mb-1 font-semibold">Creado</dt><dd class="text-slate-500 dark:text-slate-400">{{ fullDate(issue.created_at) }}</dd></div><div><dt class="mb-1 font-semibold">Actualizado</dt><dd class="text-slate-500 dark:text-slate-400">{{ fullDate(issue.updated_at) }}<span v-if="issue.editor"> · {{ issue.editor.name }}</span></dd></div></dl>
-                        <button v-if="canWrite && !confirmingDelete" :disabled="saving || dirty" class="inline-flex items-center gap-1.5 text-xs text-red-500 hover:underline disabled:opacity-40" @click="confirmingDelete = true"><Trash2 class="h-3.5 w-3.5" />Eliminar issue</button>
+                        <button v-if="canWrite && !confirmingDelete" :disabled="saving || dirty" class="inline-flex items-center gap-1.5 text-xs text-red-700 dark:text-red-400 hover:underline disabled:opacity-40" @click="confirmingDelete = true"><Trash2 class="h-3.5 w-3.5" />Eliminar issue</button>
                         <div v-if="confirmingDelete" class="rounded-lg border border-red-200 bg-red-50 p-3 text-xs dark:border-red-500/20 dark:bg-red-500/10"><p>¿Eliminar este issue? No se puede deshacer.</p><div class="mt-2 flex gap-3"><button :disabled="saving" class="font-semibold text-red-600 dark:text-red-300" @click="removeIssue">Eliminar</button><button :disabled="saving" class="text-slate-500" @click="confirmingDelete = false">Conservar</button></div></div>
                     </aside>
                 </div>

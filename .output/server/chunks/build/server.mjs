@@ -1482,7 +1482,7 @@ const _routes = [
     name: "admin-posts-id",
     path: "/admin/posts/:id()",
     meta: __nuxt_page_meta$d || {},
-    component: () => import('./_id_-sfBo1-RR.mjs')
+    component: () => import('./_id_-B_uCnIYf.mjs')
   },
   {
     name: "admin-posts-edit",
@@ -1494,13 +1494,13 @@ const _routes = [
     name: "admin-posts",
     path: "/admin/posts",
     meta: __nuxt_page_meta$b || {},
-    component: () => import('./index-DFBl8SxV.mjs')
+    component: () => import('./index-CZ-KXaHy.mjs')
   },
   {
     name: "admin-kanban",
     path: "/admin/kanban",
     meta: __nuxt_page_meta$a || {},
-    component: () => import('./index-COS4sA2K.mjs')
+    component: () => import('./index-BwqjLQBb.mjs')
   },
   {
     name: "admin-posts-create",
@@ -1518,7 +1518,7 @@ const _routes = [
     name: "admin-contacts",
     path: "/admin/contacts",
     meta: __nuxt_page_meta$7 || {},
-    component: () => import('./index-CCIYsvSG.mjs')
+    component: () => import('./index-DnFxmDYV.mjs')
   },
   {
     name: "admin-categories-id",
@@ -1536,13 +1536,13 @@ const _routes = [
     name: "admin-categories",
     path: "/admin/categories",
     meta: __nuxt_page_meta$4 || {},
-    component: () => import('./index-BXx_-U2y.mjs')
+    component: () => import('./index-4rMBu7bH.mjs')
   },
   {
     name: "admin-kanban-project",
     path: "/admin/kanban/:project()",
     meta: __nuxt_page_meta$3 || {},
-    component: () => import('./_project_-3EPx-rLQ.mjs')
+    component: () => import('./_project_-D5Iv4F1W.mjs')
   },
   {
     name: "admin-categories-create",
@@ -1560,7 +1560,7 @@ const _routes = [
     name: "admin-projects-project-settings",
     path: "/admin/projects/:project()/settings",
     meta: __nuxt_page_meta || {},
-    component: () => import('./settings-DpWEpACz.mjs')
+    component: () => import('./settings-DdegDTXo.mjs')
   }
 ];
 const validate = /* @__PURE__ */ defineNuxtRouteMiddleware(async (to, from) => {
@@ -2342,7 +2342,7 @@ const plugins = [
   prerender_server_qA5MrPdckYcikh2QLSwTmWCXZhfGRUAOHjAYaK_SVB4
 ];
 const layouts = {
-  admin: defineAsyncComponent(() => import('./admin-DsV6L25m.mjs').then((m) => m.default || m)),
+  admin: defineAsyncComponent(() => import('./admin-B1mLnsY0.mjs').then((m) => m.default || m)),
   default: defineAsyncComponent(() => import('./default-ChnSUAnM.mjs').then((m) => m.default || m)),
   hero: defineAsyncComponent(() => import('./hero-CLeqve4a.mjs').then((m) => m.default || m)),
   secondary: defineAsyncComponent(() => import('./secondary-NsgaG02T.mjs').then((m) => m.default || m))

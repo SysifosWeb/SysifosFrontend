@@ -81,6 +81,9 @@ export default defineNuxtConfig({
                 ],
                 'img-src': [
                     "'self'",
+                    "blob:",
+                    // Issue descriptions can embed externally hosted HTTPS images.
+                    "https:",
                     "data:",
                     "https://www.googletagmanager.com",
                     "https://*.google-analytics.com",

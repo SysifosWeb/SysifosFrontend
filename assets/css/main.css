@@ -293,6 +293,36 @@ input, textarea, select {
    ADMIN — Sistema de estilos del panel
    ============================================ */
 
+.admin-scope {
+  color-scheme: light;
+  --admin-text-muted: #475569;
+  --admin-link: #0369a1;
+}
+:where(.dark) .admin-scope {
+  color-scheme: dark;
+  --admin-text-muted: #94a3b8;
+  --admin-link: #7dd3fc;
+}
+
+/* Paleta accesible para contenido y diálogos del admin. El sidebar conserva
+   su superficie oscura fija; las variantes dark explícitas siguen prevaleciendo. */
+:where(.admin-content, dialog.admin-scope) :is(.text-slate-400, .text-slate-500) {
+  color: var(--admin-text-muted);
+}
+:where(.admin-content, dialog.admin-scope) .text-sky-600 {
+  color: var(--admin-link);
+}
+:where(.admin-content, dialog.admin-scope) .bg-sky-600,
+:where(.admin-content, dialog.admin-scope) .bg-sky-500:where(.text-white) {
+  background-color: #0369a1;
+}
+:where(.admin-content, dialog.admin-scope) :is(.hover\:bg-sky-600, .hover\:bg-sky-700):hover {
+  background-color: #075985;
+}
+:where(.admin-content, dialog.admin-scope) .hover\:text-sky-600:hover {
+  color: var(--admin-link);
+}
+
 /* Scrollbar sutil para paneles del admin */
 .scrollbar-thin {
   scrollbar-width: thin;
@@ -309,6 +339,8 @@ input, textarea, select {
 /* Controles de formulario con estética moderna (specificity 0 via :where,
    así los componentes pueden sobreescribir con clases Tailwind normales) */
 :where(.admin-scope) :where(input[type="text"]),
+:where(.admin-scope) :where(input:not([type])),
+:where(.admin-scope) :where(input[type="search"]),
 :where(.admin-scope) :where(input[type="email"]),
 :where(.admin-scope) :where(input[type="password"]),
 :where(.admin-scope) :where(input[type="number"]),
@@ -336,10 +368,12 @@ input, textarea, select {
 }
 :where(.admin-scope) :where(input)::placeholder,
 :where(.admin-scope) :where(textarea)::placeholder {
-  color: #94a3b8;
+  color: #64748b;
 }
 
 :where(.dark .admin-scope) :where(input[type="text"]),
+:where(.dark .admin-scope) :where(input:not([type])),
+:where(.dark .admin-scope) :where(input[type="search"]),
 :where(.dark .admin-scope) :where(input[type="email"]),
 :where(.dark .admin-scope) :where(input[type="password"]),
 :where(.dark .admin-scope) :where(input[type="number"]),
@@ -355,7 +389,7 @@ input, textarea, select {
 }
 :where(.dark .admin-scope) :where(input)::placeholder,
 :where(.dark .admin-scope) :where(textarea)::placeholder {
-  color: #64748b;
+  color: #94a3b8;
 }
 :where(.dark .admin-scope) :where(select option) {
   background-color: #1a1920;

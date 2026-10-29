@@ -328,23 +328,23 @@ const goToPage = (url) => {
                         <thead>
                             <tr class="bg-slate-50/80 dark:bg-slate-800/40">
                                 <th
-                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                     Post
                                 </th>
                                 <th
-                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                     Categoría
                                 </th>
                                 <th
-                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                     Estado
                                 </th>
                                 <th
-                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                    class="px-6 py-3.5 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                     Fecha
                                 </th>
                                 <th
-                                    class="px-6 py-3.5 text-right text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                                    class="px-6 py-3.5 text-right text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                                     Acciones
                                 </th>
                             </tr>
@@ -358,7 +358,7 @@ const goToPage = (url) => {
                                             :alt="post.title"
                                             class="h-12 w-12 rounded-xl object-cover ring-1 ring-slate-200/60 dark:ring-slate-700" />
                                         <div class="ml-4">
-                                            <div class="text-sm font-semibold text-slate-900 group-hover/row:text-sky-600 dark:text-white dark:group-hover/row:text-sky-400">
+                                            <div class="text-sm font-semibold text-slate-900 group-hover/row:text-sky-700 dark:text-white dark:group-hover/row:text-sky-400">
                                                 {{ post.title }}
                                             </div>
                                             <div class="text-xs text-slate-500 dark:text-slate-400">
@@ -373,16 +373,12 @@ const goToPage = (url) => {
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span v-if="post.category"
-                                        class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold"
-                                        :style="{
-                                            backgroundColor: post.category.color ? post.category.color + '1a' : '#f1f5f9',
-                                            color: post.category.color || '#475569',
-                                        }">
+                                        class="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
                                         <span class="h-1.5 w-1.5 rounded-full"
                                             :style="{ backgroundColor: post.category.color || '#94a3b8' }" />
                                         {{ post.category.name }}
                                     </span>
-                                    <span v-else class="text-xs text-slate-400 dark:text-slate-500">Sin categoría</span>
+                                    <span v-else class="text-xs text-slate-500 dark:text-slate-400">Sin categoría</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1"
