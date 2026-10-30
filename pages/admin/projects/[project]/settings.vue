@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ArrowLeft, Users, Archive, RotateCcw, Settings2, Search, X } from 'lucide-vue-next'
-import type { ProjectContext } from '~/types/kanban'
+import type { ProjectContext, BoardConfiguration } from '~/types/kanban'
+import { boardConfiguration } from '~/utils/kanban'
 
 definePageMeta({ layout: 'admin', validate: route => /^[1-9]\d*$/.test(String(route.params.project)) && Number.isSafeInteger(Number(route.params.project)) })
 type Member = { id: number; name: string; role: string; active: boolean }
-type Project = { id: number; name: string; project_key: string; description: string | null; owner_id: number | null; visibility: string; archived_at: string | null; config_version: number; members: Member[]; permissions: { manage: boolean; collaborate: boolean; role: string }; activity: { id: number; action: string; user?: { name: string }; created_at: string }[] }
+type Project = { id: number; name: string; project_key: string; description: string | null; owner_id: number | null; visibility: string; archived_at: string | null; config_version: number; members: Member[]; permissions: { manage: boolean; collaborate: boolean; role: string }; activity: { id: number; action: string; user?: { name: string }; created_at: string }[]; columns?: BoardConfiguration['columns']; transitions?: BoardConfiguration['transitions']; board_config?: Record<string, unknown> }
 const route = useRoute()
 const api = useApi()
 const projectContext = useState<ProjectContext | null>('admin-active-project', () => null)
@@ -19,6 +20,12 @@ const error = ref('')
 const success = ref('')
 const conflict = ref(false)
 const form = reactive({ name: '', description: '', visibility: 'private', owner_id: null as number | null })
+const boardForm = ref(boardConfiguration())
+const original = ref('')
+const dirty = computed(() => !!project.value && JSON.stringify({ form, board: boardForm.value }) !== original.value)
+function canNavigate() { return !busy.value && (!dirty.value || window.confirm('Hay cambios de configuración sin guardar. ¿Quieres descartarlos?')) }
+onBeforeRouteLeave(canNavigate)
+onBeforeRouteUpdate((to, from) => to.params.project === from.params.project || canNavigate())
 const candidateQuery = ref('')
 const candidates = ref<{ id: number; name: string }[]>([])
 const candidateRole = ref('collaborator')
@@ -44,6 +51,8 @@ async function failure(cause: any) {
 function applyProject(value: Project) {
     project.value = value
     Object.assign(form, { name: value.name, description: value.description || '', visibility: value.visibility, owner_id: value.owner_id })
+    boardForm.value = boardConfiguration(value.columns, value.transitions)
+    original.value = JSON.stringify({ form, board: boardForm.value })
 }
 async function load() {
     const epoch = requestEpoch
@@ -67,6 +76,7 @@ async function save() {
             name: form.name, visibility: form.visibility, description: form.description || null,
             ...(form.owner_id ? { owner_id: form.owner_id } : {}),
             expected_config_version: project.value.config_version,
+            board_config: { ...project.value.board_config, ...boardForm.value },
         } })
         if (disposed || epoch !== requestEpoch) return
         applyProject(response.data)
@@ -171,6 +181,7 @@ onMounted(load)
                             <label>Responsable<select v-model="form.owner_id"><option v-if="!form.owner_id" :value="null" disabled>Selecciona un miembro</option><option v-for="member in project.members.filter(m => m.active)" :key="member.id" :value="member.id">{{ member.name }}</option></select><small>Al transferir la responsabilidad, esa persona recibe el rol de gestor.</small></label>
                             <label>Acceso<select v-model="form.visibility"><option value="private">Privado: miembros y administradores globales</option><option value="team">Equipo: también administradores y editores activos</option></select></label>
                             <p class="hint">{{ form.visibility === 'private' ? 'Solo las personas incorporadas al proyecto y los administradores globales pueden consultarlo.' : 'Los administradores y editores activos pueden colaborar. Un rol explícito de lector limita la edición de los editores.' }}</p>
+                            <AdminKanbanBoardSettings v-model="boardForm" :disabled="!editable || busy" />
                             <button v-if="project.permissions.manage" class="primary" type="submit">{{ busy ? 'Guardando…' : 'Guardar configuración' }}</button>
                         </fieldset>
                     </form>

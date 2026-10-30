@@ -1,8 +1,8 @@
 import type { ComputedRef } from 'vue'
-import type { Board, Issue, IssueReference, IssueStatus, Label, Member, Project, ProjectContext, ProjectPermissions, Sprint, Activity } from '~/types/kanban'
-import { KANBAN_COLUMNS } from '~/utils/kanban'
+import type { Board, Issue, IssuePatch, IssueReference, IssueStatus, Label, Member, Project, ProjectContext, ProjectPermissions, Sprint, Activity } from '~/types/kanban'
+import { KANBAN_COLUMNS, boardColumns } from '~/utils/kanban'
 
-export function useKanbanBoard(projectId: ComputedRef<number>) {
+export function useKanbanBoard(projectId: ComputedRef<number>, planning = false) {
     const api = useApi()
     const projectContext = useState<ProjectContext | null>('admin-active-project', () => null)
     const project = ref<Project | null>(null)
@@ -12,8 +12,12 @@ export function useKanbanBoard(projectId: ComputedRef<number>) {
     const online = ref<Member[]>([])
     const labels = ref<Label[]>([])
     const epics = ref<IssueReference[]>([])
+    const epicCards = ref<Issue[]>([])
     const sprints = ref<Sprint[]>([])
     const activities = ref<Activity[]>([])
+    const columns = ref(boardColumns(undefined))
+    const columnCounts = ref<Partial<Record<IssueStatus, number>>>({})
+    const wipWarnings = ref<IssueStatus[]>([])
     const loading = ref(true)
     const busy = ref(false)
     const dragging = ref(false)
@@ -37,7 +41,7 @@ export function useKanbanBoard(projectId: ComputedRef<number>) {
         const started = epoch
         const id = projectId.value
         try {
-            const { data } = await api.request<{ data: Board }>('kanban/board', { query: { project_id: id } })
+            const { data } = await api.request<{ data: Board }>(planning ? 'kanban/backlog' : 'kanban/board', { query: { project_id: id } })
             if (disposed || started !== epoch || dragging.value || id !== projectId.value) return
             if (data?.project?.id !== id || !Array.isArray(data.cards) || !Array.isArray(data.users) || typeof data.board_version !== 'number') {
                 throw new Error('KANBAN_INVALID_RESPONSE')
@@ -47,6 +51,8 @@ export function useKanbanBoard(projectId: ComputedRef<number>) {
             projectContext.value = { project: data.project, permissions: data.permissions }
             users.value = data.users; online.value = data.online_users; activities.value = data.activities
             labels.value = data.labels || []; epics.value = data.epics || []; sprints.value = data.sprints || []
+            epicCards.value = data.epic_cards || []
+            columns.value = boardColumns(data.columns); columnCounts.value = data.column_counts || {}; wipWarnings.value = data.wip_warnings || []
             if (force || revision !== data.board_version) {
                 for (const column of KANBAN_COLUMNS) lists[column.id] = data.cards.filter(card => card.status === column.id)
                 revision = data.board_version
@@ -60,7 +66,9 @@ export function useKanbanBoard(projectId: ComputedRef<number>) {
             if ([401, 403, 404, 419].includes(status)) {
                 for (const column of KANBAN_COLUMNS) lists[column.id] = []
                 project.value = null; activities.value = []; online.value = []; users.value = []; labels.value = []; epics.value = []; sprints.value = []
+                epicCards.value = []
                 projectContext.value = null
+                columns.value = boardColumns(undefined); columnCounts.value = {}; wipWarnings.value = []
             }
             retryable.value = ![403, 404].includes(status)
             notice.value = error instanceof Error && error.message === 'KANBAN_INVALID_RESPONSE'
@@ -101,13 +109,49 @@ export function useKanbanBoard(projectId: ComputedRef<number>) {
         }
     }
 
+    async function updateIssue(issue: Issue, patch: IssuePatch) {
+        if (busy.value || !canWrite.value) return
+        busy.value = true; epoch++; revision = -1
+        const id = projectId.value
+        let failure = ''
+        try {
+            const { data } = await api.request<{ data: Issue }>(`kanban/cards/${issue.id}`, {
+                method: 'PUT', query: { project_id: id }, body: { ...patch, expected_version: issue.version },
+            })
+            if (id === projectId.value && !disposed) applyIssue(data)
+        } catch (error) { failure = apiErrorMessage(error) }
+        finally {
+            busy.value = false
+            await refresh(true)
+            if (!disposed && id === projectId.value && failure) notice.value = failure
+        }
+    }
+
     function startDrag() { dragging.value = true; epoch++ }
+    async function planIssue(issue: Issue, sprintId: number | null, beforeId: number | null = null) {
+        if (busy.value || !canWrite.value) return
+        const boardVersion = revision
+        busy.value = true; epoch++; revision = -1
+        const id = projectId.value
+        let failure = ''
+        try {
+            await api.request(`kanban/cards/${issue.id}/plan`, { method: 'PUT', query: { project_id: id },
+                body: { sprint_id: sprintId, before_id: beforeId, expected_version: issue.version, expected_board_version: boardVersion } })
+        } catch (error) { failure = apiErrorMessage(error) }
+        finally {
+            busy.value = false
+            await refresh(true)
+            if (!disposed && id === projectId.value && failure) notice.value = failure
+        }
+    }
     function resetProject() {
         epoch++; revision = -1; loading.value = true; connected.value = false; retryable.value = true; notice.value = ''
         project.value = null; projectContext.value = null
         permissions.value = { manage: false, collaborate: false, role: null }
         for (const column of KANBAN_COLUMNS) lists[column.id] = []
         users.value = []; online.value = []; activities.value = []; labels.value = []; epics.value = []; sprints.value = []
+        epicCards.value = []
+        columns.value = boardColumns(undefined); columnCounts.value = {}; wipWarnings.value = []
         void refresh(true)
     }
     watch(projectId, resetProject)
@@ -118,5 +162,5 @@ export function useKanbanBoard(projectId: ComputedRef<number>) {
     onBeforeUnmount(() => { clearInterval(timer); disposed = true; epoch++ })
 
     return { project, permissions, lists, users, online, labels, epics, sprints, activities, loading, busy, dragging, suspended,
-        connected, retryable, notice, canWrite, refresh, applyIssue, move, startDrag }
+        connected, retryable, notice, canWrite, columns, columnCounts, wipWarnings, epicCards, refresh, applyIssue, move, updateIssue, planIssue, startDrag }
 }

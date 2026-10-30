@@ -2,7 +2,7 @@
 import { Plus, X, Loader2 } from 'lucide-vue-next'
 import type { Issue, IssueStatus, IssueType, Project } from '~/types/kanban'
 import { ISSUE_TYPES } from '~/utils/kanban'
-const props = defineProps<{ open: boolean; project: Project | null; status: IssueStatus; canWrite: boolean }>()
+const props = defineProps<{ open: boolean; project: Project | null; status: IssueStatus; canWrite: boolean; sprintId?: number | null; initialType?: IssueType }>()
 const emit = defineEmits<{ close: []; created: [issue: Issue]; dirty: [value: boolean]; saving: [value: boolean] }>()
 const api = useApi()
 const dialog = ref<HTMLDialogElement>()
@@ -17,7 +17,7 @@ watch(dirty, value => emit('dirty', value))
 watch(() => props.open, async open => {
     await nextTick()
     if (open) {
-        title.value = ''; type.value = 'task'; error.value = ''; discard.value = false
+        title.value = ''; type.value = props.initialType || 'task'; error.value = ''; discard.value = false
         dialog.value?.showModal(); titleInput.value?.focus()
     } else dialog.value?.close()
 }, { immediate: true })
@@ -31,7 +31,7 @@ async function create() {
     busy.value = true; emit('saving', true); error.value = ''
     try {
         const { data } = await api.request<{ data: Issue }>('kanban/cards', {
-            method: 'POST', query: { project_id: props.project.id }, body: { title: title.value.trim(), type: type.value, status: props.status },
+            method: 'POST', query: { project_id: props.project.id }, body: { title: title.value.trim(), type: type.value, status: props.status, sprint_id: props.sprintId ?? null },
         })
         title.value = ''; emit('dirty', false); busy.value = false; emit('saving', false); emit('created', data)
     } catch (failure) { error.value = apiErrorMessage(failure) }

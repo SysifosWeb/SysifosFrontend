@@ -1,6 +1,6 @@
 const interopDefault = r => r.default || r || [];
 const styles = {
-  "node_modules/.pnpm/nuxt@3.21.5_@parcel+watcher@2.5.6_@types+node@24.12.4_@vue+compiler-sfc@3.5.34_cac@6.7._ae42a2345aad80db1a47c307c7d755f2/node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.Dk0L5gcS.mjs').then(interopDefault),
+  "node_modules/.pnpm/nuxt@3.21.5_@parcel+watcher@2.5.6_@types+node@24.12.4_@vue+compiler-sfc@3.5.34_cac@6.7._ae42a2345aad80db1a47c307c7d755f2/node_modules/nuxt/dist/app/entry.js": () => import('./entry-styles.ogBa66jm.mjs').then(interopDefault),
   "pages/contacto.vue": () => import('./contacto-styles.DaIa7f61.mjs').then(interopDefault),
   "components/contacto/ContactFormSection.vue": () => import('./contacto-styles.DaIa7f61.mjs').then(interopDefault),
   "pages/nosotros.vue": () => import('./nosotros-styles.CYfCt7HK.mjs').then(interopDefault),
@@ -24,10 +24,8 @@ const styles = {
   "pages/admin/posts/[id].vue": () => import('./_id_-styles.GenAyHF-.mjs').then(interopDefault),
   "pages/admin/posts/edit.vue": () => import('./edit-styles.B0G65F5O.mjs').then(interopDefault),
   "pages/admin/contacts/[id].vue": () => import('./_id_-styles-2.BiutwwXi.mjs').then(interopDefault),
-  "pages/admin/kanban/[project].vue": () => import('./_project_-styles.DXqWEaPL.mjs').then(interopDefault),
-  "components/admin/kanban/IssuePanel.vue": () => import('./IssuePanel-styles.Bd0aRSVC.mjs').then(interopDefault),
   "pages/admin/mercado-publico/index.vue": () => import('./index-styles-3.C8LQUJcM.mjs').then(interopDefault),
-  "pages/admin/projects/[project]/settings.vue": () => import('./settings-styles.DvVLhTgU.mjs').then(interopDefault),
+  "pages/admin/projects/[project]/settings.vue": () => import('./settings-styles.0Jw7bVNM.mjs').then(interopDefault),
   "components/home/HomeValue.vue": () => import('./HomeValue-styles.CSi901TY.mjs').then(interopDefault),
   "components/home/HomeProblems.vue": () => import('./HomeProblems-styles.DbPsH6YU.mjs').then(interopDefault),
   "components/home/HomeProposition.vue": () => import('./HomeProposition-styles.Dfldi7ij.mjs').then(interopDefault),
@@ -39,7 +37,9 @@ const styles = {
   "components/HomeNavigation.vue": () => import('./HomeNavigation-styles.BO0eEBvi.mjs').then(interopDefault),
   "components/AppHeader.vue": () => import('./AppHeader-styles.jYm2DGmr.mjs').then(interopDefault),
   "layouts/secondary.vue": () => import('./secondary-styles.b-nl2h0o.mjs').then(interopDefault),
-  "components/AppHeaderSecundary.vue": () => import('./secondary-styles.b-nl2h0o.mjs').then(interopDefault)
+  "components/AppHeaderSecundary.vue": () => import('./secondary-styles.b-nl2h0o.mjs').then(interopDefault),
+  "components/admin/kanban/Workspace.vue": () => import('./Workspace-styles.C0mB_Odx.mjs').then(interopDefault),
+  "components/admin/kanban/IssuePanel.vue": () => import('./IssuePanel-styles.C6iwQura.mjs').then(interopDefault)
 };
 
 export { styles as default };
