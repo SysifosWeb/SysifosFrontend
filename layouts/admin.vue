@@ -102,6 +102,31 @@
                         </h1>
                     </div>
 
+                    <!-- Global search -->
+                    <div class="relative hidden min-w-0 flex-1 max-w-md md:block">
+                        <input
+                            v-model="searchQuery"
+                            data-global-search
+                            type="search"
+                            placeholder="Buscar issues… ( / )"
+                            aria-label="Buscar issues"
+                            class="h-9 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                            @focus="searchOpen = true"
+                            @keydown.esc.prevent="searchOpen = false"
+                        />
+                        <div v-if="searchOpen && (searchLoading || searchResults.length)" class="absolute left-0 right-0 top-11 z-50 max-h-80 overflow-auto rounded-xl border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-900">
+                            <p v-if="searchLoading" class="px-3 py-2 text-xs text-slate-500">Buscando…</p>
+                            <button v-for="issue in searchResults" :key="issue.id" class="flex w-full items-start gap-2 px-3 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-800" @click="goToIssue(issue)">
+                                <span class="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{{ issue.issue_key }}</span>
+                                <span class="min-w-0 flex-1">
+                                    <span class="block truncate text-sm font-medium text-slate-900 dark:text-white">{{ issue.title }}</span>
+                                    <span class="block truncate text-xs text-slate-500 dark:text-slate-400">{{ issue.project?.name || issue.project?.project_key || '' }}</span>
+                                </span>
+                            </button>
+                            <p v-if="!searchLoading && !searchResults.length && searchQuery.trim()" class="px-3 py-2 text-xs text-slate-500">Sin resultados.</p>
+                        </div>
+                    </div>
+
                     <div class="ml-auto flex items-center gap-1.5">
                         <NuxtLink v-if="activeProjectContext?.permissions.collaborate" :to="{ path: `/admin/kanban/${activeProjectContext.project.id}`, query: { ...route.query, issue: undefined, create: '1' } }" class="mr-2 inline-flex min-h-9 items-center gap-1.5 rounded-lg bg-sky-700 px-3 text-sm font-semibold text-white hover:bg-sky-800"><Plus class="h-4 w-4" />Crear</NuxtLink>
                         <!-- Dark mode -->
@@ -113,15 +138,7 @@
                         </button>
 
                         <!-- Notificaciones -->
-                        <NuxtLink to="/admin/contacts"
-                            class="relative flex h-11 w-11 items-center justify-center rounded-lg text-slate-600 transition-colors hover:bg-slate-200/70 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
-                            :title="newContactsCount > 0 ? `${newContactsCount} contactos nuevos` : 'Contactos'">
-                            <Bell class="h-[18px] w-[18px]" />
-                            <span v-if="newContactsCount > 0"
-                                class="absolute right-1.5 top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white ring-2 ring-white dark:ring-slate-950">
-                                {{ newContactsCount > 9 ? '9+' : newContactsCount }}
-                            </span>
-                        </NuxtLink>
+                        <AdminKanbanNotificationBell />
                     </div>
                 </div>
             </header>
@@ -133,30 +150,87 @@
             </main>
         </div>
 
+        <!-- Command palette -->
+        <div v-if="paletteOpen" class="fixed inset-0 z-[60] flex items-start justify-center bg-black/50 pt-16" @click.self="paletteOpen = false">
+            <div class="w-full max-w-lg overflow-hidden rounded-xl bg-white shadow-2xl dark:bg-slate-900">
+                <div class="border-b border-slate-200 p-3 dark:border-slate-800">
+                    <input
+                        ref="paletteInput"
+                        v-model="paletteQuery"
+                        type="search"
+                        placeholder="Comandos o buscar issues… (Ctrl+K)"
+                        aria-label="Paleta de comandos"
+                        class="h-9 w-full rounded-lg border border-slate-200 bg-transparent px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:border-slate-700 dark:text-slate-100"
+                        @keydown.esc.prevent="paletteOpen = false"
+                    />
+                </div>
+                <div class="max-h-80 overflow-auto p-2">
+                    <p v-if="paletteLoading" class="px-3 py-2 text-xs text-slate-500">Buscando…</p>
+                    <template v-else>
+                        <p class="px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Navegación</p>
+                        <button v-for="cmd in paletteCommands" :key="cmd.label" class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800" @click="runPaletteCommand(cmd)">
+                            <component :is="cmd.icon" class="h-4 w-4 text-slate-400" />
+                            {{ cmd.label }}
+                        </button>
+                        <p v-if="paletteResults.length" class="mt-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Issues</p>
+                        <button v-for="issue in paletteResults" :key="issue.id" class="flex w-full items-start gap-2 rounded-lg px-3 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-800" @click="goToIssue(issue)">
+                            <span class="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{{ issue.issue_key }}</span>
+                            <span class="min-w-0 flex-1">
+                                <span class="block truncate text-sm font-medium text-slate-900 dark:text-white">{{ issue.title }}</span>
+                                <span class="block truncate text-xs text-slate-500 dark:text-slate-400">{{ issue.project?.name || '' }}</span>
+                            </span>
+                        </button>
+                    </template>
+                </div>
+            </div>
+        </div>
+
         <!-- Overlay móvil -->
         <div v-show="sidebarOpen" class="fixed inset-0 z-40 bg-black/50 lg:hidden"
             @click="sidebarOpen = false" />
     </div>
 </template>
 
-<script setup>
-import { ref, computed, onMounted } from "vue";
+<script setup lang="ts">
+import { ref, computed, onMounted, nextTick, onBeforeUnmount, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import {
-    LayoutDashboard, SquareKanban, FileText, Tags, Inbox, Landmark,
-    ExternalLink, LogOut, Sun, Moon, Bell, ChevronRight, Menu, X, PanelLeftOpen, PanelLeftClose, Plus,
+    LayoutDashboard, SquareKanban, FileText, Tags, Inbox, Landmark, ClipboardList,
+    ExternalLink, LogOut, Sun, Moon, ChevronRight, Menu, X, PanelLeftOpen, PanelLeftClose, Plus,
 } from "lucide-vue-next";
 
 const route = useRoute();
 const router = useRouter();
-const projectContext = useState('admin-active-project', () => null);
+const projectContext = useState<any>('admin-active-project', () => null);
 const activeProjectContext = computed(() => projectContext.value?.project.id === Number(route.params.project) ? projectContext.value : null);
+const paletteCommands = computed(() => [
+    { label: 'Ir al inicio', to: '/admin', icon: LayoutDashboard },
+    { label: 'Mi trabajo', to: '/admin/kanban/my-work', icon: ClipboardList },
+    { label: 'Proyectos', to: '/admin/kanban', icon: SquareKanban },
+    { label: 'Posts del Blog', to: '/admin/posts', icon: FileText },
+    { label: 'Categorías', to: '/admin/categories', icon: Tags },
+    { label: 'Contactos', to: '/admin/contacts', icon: Inbox },
+])
+
 
 const isHome = computed(() => /^\/admin\/?$/.test(route.path));
 const sidebarOpen = ref(false);
 const sidebarCollapsed = ref(true);
 const isDark = ref(false);
 const newContactsCount = ref(0);
+const searchQuery = ref('')
+const searchResults = ref<any[]>([])
+const searchOpen = ref(false)
+const searchLoading = ref(false)
+let searchTimer: ReturnType<typeof setTimeout> | undefined
+
+const paletteOpen = ref(false)
+const paletteQuery = ref('')
+const paletteInput = ref<any>(null)
+const paletteResults = ref<any[]>([])
+const paletteLoading = ref(false)
+let paletteTimer: ReturnType<typeof setTimeout> | undefined
+
 
 const userEmail = useCookie('user_email');
 const userName = useCookie('user_name');
@@ -171,6 +245,7 @@ const navGroups = [
             { label: 'Inicio', to: '/admin', match: '/admin', icon: LayoutDashboard },
             { label: 'Mercado Público', to: '/admin/mercado-publico', match: '/admin/mercado-publico', icon: Landmark },
             { label: 'Proyectos', to: '/admin/kanban', match: '/admin/kanban', icon: SquareKanban },
+            { label: 'Mi trabajo', to: '/admin/kanban/my-work', match: '/admin/kanban/my-work', icon: ClipboardList },
         ],
     },
     {
@@ -191,7 +266,10 @@ const navGroups = [
 const pageTitle = computed(() => {
     const p = route.path;
     if (p === '/admin' || p === '/admin/') return 'Inicio';
+    if (p === '/admin/kanban/my-work' || p === '/admin/kanban/my-work/') return 'Mi trabajo';
     if (p === '/admin/kanban' || p === '/admin/kanban/') return 'Proyectos Kanban';
+    if (p.startsWith('/admin/kanban/') && p.endsWith('/timeline')) return 'Timeline del proyecto';
+    if (p.startsWith('/admin/kanban/') && p.endsWith('/reports')) return 'Reportes del proyecto';
     if (p.startsWith('/admin/kanban/')) return route.query.view === 'list' ? 'Issues del proyecto' : 'Tablero Kanban';
     if (p.startsWith('/admin/projects/')) return 'Configuración del proyecto';
     if (p.startsWith('/admin/mercado-publico')) return 'Mercado Público';
@@ -214,9 +292,10 @@ const pageTitle = computed(() => {
     return 'Panel de Administración';
 });
 
-const routeCurrent = (path) => {
+const routeCurrent = (path: string) => {
     if (path === '/admin') return isHome.value;
-    if (path === '/admin/kanban') return route.path.startsWith(path) || route.path.startsWith('/admin/projects/');
+    if (path === '/admin/kanban/my-work') return route.path === path || route.path.startsWith(path + '/');
+    if (path === '/admin/kanban') return (route.path === path || route.path.startsWith(path + '/')) && !route.path.startsWith('/admin/kanban/my-work') || route.path.startsWith('/admin/projects/');
     return route.path.startsWith(path);
 };
 
@@ -226,7 +305,8 @@ const fetchNewContacts = async () => {
             headers: { Authorization: `Bearer ${authToken.value}`, Accept: 'application/json' },
             query: { status: 'new', per_page: 1 },
         });
-        newContactsCount.value = res?.total ?? res?.data?.total ?? 0;
+        const r = res as any
+        newContactsCount.value = r?.total ?? r?.data?.total ?? 0;
     } catch {
         newContactsCount.value = 0;
     }
@@ -271,6 +351,96 @@ const toggleDarkMode = () => {
     }
 };
 
+const fetchSearch = async (q: string) => {
+    if (!q.trim()) return []
+    try {
+        const res = await $fetch<any>(`${config.public.apiUrl}kanban/search`, {
+            headers: { Authorization: `Bearer ${authToken.value}`, Accept: 'application/json' },
+            query: { q: q.trim(), limit: 15 },
+        })
+        return (res?.data || res || []) as any[]
+    } catch {
+        return []
+    }
+}
+
+const goToIssue = (issue: any) => {
+    searchOpen.value = false
+    paletteOpen.value = false
+    searchQuery.value = ''
+    paletteQuery.value = ''
+    searchResults.value = []
+    paletteResults.value = []
+    void router.push({ path: `/admin/kanban/${issue.kanban_project_id}`, query: { issue: String(issue.id) } })
+}
+
+const openPalette = () => {
+    paletteOpen.value = true
+    paletteQuery.value = ''
+    paletteResults.value = []
+    nextTick(() => paletteInput.value?.focus())
+}
+
+const runPaletteCommand = (cmd: any) => {
+    paletteOpen.value = false
+    paletteQuery.value = ''
+    paletteResults.value = []
+    void router.push(cmd.to)
+}
+
+const closeSearch = () => { searchOpen.value = false }
+
+watch(searchQuery, (q) => {
+    clearTimeout(searchTimer)
+    if (!q.trim()) { searchResults.value = []; return }
+    searchTimer = setTimeout(async () => {
+        searchLoading.value = true
+        searchResults.value = await fetchSearch(q)
+        searchLoading.value = false
+    }, 250)
+})
+
+watch(paletteQuery, (q) => {
+    clearTimeout(paletteTimer)
+    if (!q.trim()) { paletteResults.value = []; return }
+    paletteTimer = setTimeout(async () => {
+        paletteLoading.value = true
+        paletteResults.value = await fetchSearch(q)
+        paletteLoading.value = false
+    }, 250)
+})
+
+const handleKeydown = (e: KeyboardEvent) => {
+    const target = e.target as HTMLElement | null
+    const isInput = !!target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)
+    if (e.key === 'Escape') {
+        if (paletteOpen.value) { paletteOpen.value = false; e.preventDefault(); return }
+        if (searchOpen.value) { searchOpen.value = false; return }
+        return
+    }
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        if (paletteOpen.value) paletteOpen.value = false
+        else openPalette()
+        return
+    }
+    if (isInput) return
+    if (e.key === '/') {
+        e.preventDefault()
+        const input = document.querySelector('[data-global-search]') as HTMLInputElement | null
+        input?.focus()
+        searchOpen.value = true
+        return
+    }
+    if (e.key.toLowerCase() === 'c') {
+        const ctx = projectContext.value
+        if (ctx?.project?.id && ctx?.permissions?.collaborate) {
+            e.preventDefault()
+            void router.push({ path: `/admin/kanban/${ctx.project.id}`, query: { ...route.query, create: '1' } })
+        }
+    }
+}
+
 onMounted(() => {
     if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         isDark.value = true;
@@ -280,5 +450,10 @@ onMounted(() => {
         document.documentElement.classList.remove('dark');
     }
     fetchNewContacts();
+    window.addEventListener('keydown', handleKeydown);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('keydown', handleKeydown);
 });
 </script>

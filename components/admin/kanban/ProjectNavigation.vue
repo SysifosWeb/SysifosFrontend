@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SquareKanban, Rows3, Settings2, ListTodo, Layers } from 'lucide-vue-next'
+import { SquareKanban, Rows3, Settings2, ListTodo, Layers, Flag, CalendarRange, BarChart } from 'lucide-vue-next'
 import type { ProjectContext } from '~/types/kanban'
 const props = defineProps<{ context: ProjectContext; collapsed: boolean }>()
 const emit = defineEmits<{ navigate: [] }>()
@@ -10,7 +10,10 @@ const links = computed(() => {
         { name: 'Tablero', path: base, view: undefined, icon: SquareKanban, active: route.path === base && route.query.view !== 'list' },
         { name: 'Issues', path: base, view: 'list', icon: Rows3, active: route.path === base && route.query.view === 'list' },
         { name: 'Backlog', path: `${base}/backlog`, view: undefined, icon: ListTodo, active: route.path === `${base}/backlog` },
+        { name: 'Sprints', path: `${base}/sprints`, view: undefined, icon: Flag, active: route.path === `${base}/sprints` },
         { name: 'Épicas', path: `${base}/epics`, view: undefined, icon: Layers, active: route.path === `${base}/epics` },
+        { name: 'Timeline', path: `${base}/timeline`, view: undefined, icon: CalendarRange, active: route.path === `${base}/timeline` },
+        { name: 'Reportes', path: `${base}/reports`, view: undefined, icon: BarChart, active: route.path === `${base}/reports` },
         { name: 'Configuración', path: `/admin/projects/${props.context.project.id}/settings`, view: undefined, icon: Settings2, active: route.path === `/admin/projects/${props.context.project.id}/settings` },
     ]
 })

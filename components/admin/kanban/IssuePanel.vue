@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { X, Loader2, RefreshCw, Trash2, Check, GitBranch, ExternalLink, MessageSquare, Activity } from 'lucide-vue-next'
 import type { Column, Issue, IssueDetail, IssuePatch, IssueReference, Label, Member } from '~/types/kanban'
-import { ISSUE_PRIORITIES, ISSUE_TYPES, issueInitials, canTransition } from '~/utils/kanban'
+import { issueInitials, canTransition } from '~/utils/kanban'
 
 const props = defineProps<{
     issueId: number | null; projectId: number; projectName: string; canWrite: boolean
@@ -36,12 +36,21 @@ const dirty = computed(() => textDirty.size > 0
     || (labelOpen.value && !sameIds(labelDraft.value, issue.value?.labels.map(label => label.id) || [])))
 watch(dirty, value => emit('dirty', value))
 const assigneeOptions = computed(() => [...props.users, ...(issue.value?.assignees || []).filter(member => !props.users.some(user => user.id === member.id))])
-const typeOptions = computed(() => ISSUE_TYPES.filter(type => type.value !== 'subtask' || issue.value?.type === 'subtask'))
+
+// Dynamic options based on the current issue data
+const typeOptions = computed(() => {
+    // Filter out subtask option if the current issue is not a subtask
+    return issue.value ? 
+        [...new Set([issue.value.type, ...issue.value.labels.map(l => l.name)])].filter(t => t !== 'subtask' || issue.value?.type === 'subtask') :
+        []
+})
+
 const epicOptions = computed(() => {
     const options = props.epics.filter(epic => epic.id !== issue.value?.id)
     if (issue.value?.epic && !options.some(epic => epic.id === issue.value?.epic?.id)) options.push(issue.value.epic)
     return options
 })
+
 function markDirty(field: string, value: boolean) { if (value) textDirty.add(field); else textDirty.delete(field) }
 function clearDrafts() { textDirty.clear(); subtaskTitle.value = ''; assigneeOpen.value = false; labelOpen.value = false; discard.value = false; emit('dirty', false) }
 
@@ -134,6 +143,14 @@ async function createSubtask() {
     } catch (failure) { error.value = apiErrorMessage(failure) }
     finally { saving.value = false; emit('saving', false) }
 }
+
+async function collaborationChanged() {
+    try {
+        await loadIssue()
+        if (issue.value) emit('saved', issue.value)
+    } finally { collaborationBusy(false) }
+}
+function collaborationBusy(value: boolean) { saving.value = value; emit('saving', value) }
 async function changeSubtask(child: Issue, event: Event) {
     const select = event.target as HTMLSelectElement
     const status = select.value as Issue['status']
@@ -210,8 +227,8 @@ onBeforeUnmount(() => { disposed = true; sequence++; emit('dirty', false) })
                 <span v-if="saving" role="status" class="ml-auto inline-flex items-center gap-1.5 text-xs text-slate-500"><Loader2 class="h-3.5 w-3.5 animate-spin" />Guardando…</span>
                 <span v-else-if="saved" role="status" class="ml-auto inline-flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400"><Check class="h-3.5 w-3.5" />Guardado</span>
                 <span v-else class="ml-auto" />
-                <button :disabled="saving || dirty" aria-label="Actualizar detalle" class="rounded-lg p-2 text-slate-400 hover:bg-slate-100 disabled:opacity-40 dark:hover:bg-slate-800" @click="loadIssue()"><RefreshCw class="h-4 w-4" /></button>
-                <button :disabled="saving" aria-label="Cerrar detalle de issue" class="rounded-lg p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800" @click="close()"><X class="h-5 w-5" /></button>
+                <button :disabled="saving || dirty" aria-label="Actualizar detalle" class="rounded-lg p-2 text-slate-400 hover:bg-slate-100 disabled:opacity-40" @click="loadIssue()"><RefreshCw class="h-4 w-4" /></button>
+                <button :disabled="saving" aria-label="Cerrar detalle de issue" class="rounded-lg p-2 text-slate-500 hover:bg-slate-100 dark:text-slate-400" @click="close()"><X class="h-5 w-5" /></button>
             </header>
             <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain">
                 <div v-if="error" role="alert" class="mx-5 mt-4 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-500/20 dark:bg-amber-500/10 dark:text-amber-200">{{ error }}<button v-if="!issue && !loading" class="ml-2 font-semibold underline" @click="loadIssue(true)">Reintentar</button></div>
@@ -229,21 +246,22 @@ onBeforeUnmount(() => { disposed = true; sequence++; emit('dirty', false) })
                             <ul class="divide-y divide-slate-100 rounded-lg border border-slate-200 dark:divide-slate-800 dark:border-slate-700"><li v-for="child in issue.subtasks" :key="child.id" class="flex flex-wrap items-center gap-2 p-3"><button :disabled="saving || dirty" class="flex min-w-32 flex-1 items-start gap-2 text-left text-sm hover:text-sky-600" @click="emit('open', child.id)"><AdminKanbanIssueTypeIcon :type="child.type" /><span><span class="mr-2 text-xs text-slate-500 dark:text-slate-400">{{ child.issue_key }}</span>{{ child.title }}</span></button><select :value="child.status" :aria-label="`Estado de subtarea ${child.issue_key}`" :disabled="saving || mediaBusy || !canWrite" class="!min-h-9 !w-auto !max-w-40 !py-1 !text-xs" @change="changeSubtask(child, $event)"><option v-for="column in columns" :key="column.id" :value="column.id" :disabled="!canTransition(columns, child.status, column.id)">{{ column.label }}</option></select></li></ul>
                             <form v-if="canWrite" class="mt-3 flex items-end gap-2" @submit.prevent="createSubtask"><label class="min-w-0 flex-1 text-xs font-medium">Nueva subtarea<input v-model="subtaskTitle" required minlength="2" maxlength="255" :disabled="saving || mediaBusy" placeholder="¿Qué falta por hacer?" /></label><button :disabled="saving || mediaBusy || subtaskTitle.trim().length < 2" class="min-h-10 rounded-lg bg-sky-600 px-3 text-sm font-semibold text-white disabled:opacity-50">Crear subtarea</button></form>
                         </section>
+                        <AdminKanbanAttachments :key="issue.id" :project-id="projectId" :card-id="issue.id" :can-write="canWrite" :disabled="saving || mediaBusy" @busy="collaborationBusy" @changed="collaborationChanged" />
                         <section v-if="issue.links.length" aria-labelledby="issue-links-heading"><h3 id="issue-links-heading" class="mb-2 text-sm font-semibold">Enlaces externos</h3><ul class="space-y-2 text-xs"><li v-for="link in issue.links" :key="link.id" class="rounded-lg border border-slate-200 px-3 py-2 dark:border-slate-700"><a v-if="link.url && /^https?:\/\//i.test(link.url)" :href="link.url" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sky-600 dark:text-sky-400">{{ link.title }}<ExternalLink class="h-3 w-3" /></a><span v-else>{{ link.title }}</span><p class="mt-1 text-slate-400">{{ link.provider }} · {{ link.external_id }}</p></li></ul></section>
                         <section aria-labelledby="issue-activity-heading">
                             <h3 id="issue-activity-heading" class="mb-3 text-sm font-semibold">Actividad</h3>
                             <div class="mb-5 flex gap-4 border-b border-slate-200 dark:border-slate-800" role="tablist" aria-label="Actividad del issue" @keydown="tabKey"><button id="issue-activity-tab" role="tab" :aria-selected="tab === 'activity'" :tabindex="tab === 'activity' ? 0 : -1" aria-controls="issue-activity-panel" class="inline-flex items-center gap-1.5 border-b-2 pb-2 text-xs font-semibold" :class="tab === 'activity' ? 'border-sky-500 text-sky-600 dark:text-sky-400' : 'border-transparent text-slate-500'" @click="tab = 'activity'"><Activity class="h-3.5 w-3.5" />Historial</button><button id="issue-comments-tab" role="tab" :aria-selected="tab === 'comments'" :tabindex="tab === 'comments' ? 0 : -1" aria-controls="issue-comments-panel" class="inline-flex items-center gap-1.5 border-b-2 pb-2 text-xs font-semibold" :class="tab === 'comments' ? 'border-sky-500 text-sky-600 dark:text-sky-400' : 'border-transparent text-slate-500'" @click="tab = 'comments'"><MessageSquare class="h-3.5 w-3.5" />Comentarios <span class="text-slate-400">{{ issue.comments.length }}</span></button></div>
                             <div v-show="tab === 'activity'" id="issue-activity-panel" role="tabpanel" aria-labelledby="issue-activity-tab"><AdminKanbanActivityTimeline :activities="issue.activities" :columns="columns" :users="users" :labels="labels" /></div>
                             <div v-show="tab === 'comments'" id="issue-comments-panel" role="tabpanel" aria-labelledby="issue-comments-tab" class="space-y-5">
-                                <AdminKanbanInlineEdit v-if="canWrite" label="Comentario" value="" :readonly="!canWrite" :busy="saving || mediaBusy" :save="addComment" :upload-context="{ projectId, cardId: issue.id }" :maxlength="5000" multiline description placeholder="Escribe un comentario o adjunta capturas como evidencia." @dirty="markDirty('comment', $event)" @uploading="mediaBusy = $event" />
+                                <AdminKanbanInlineEdit v-if="canWrite" label="Comentario" value="" :readonly="!canWrite" :busy="saving || mediaBusy" :save="addComment" :mention-users="users" :upload-context="{ projectId, cardId: issue.id }" :maxlength="5000" multiline description placeholder="Escribe un comentario o adjunta capturas como evidencia." @dirty="markDirty('comment', $event)" @uploading="mediaBusy = $event" />
                                 <p v-if="!issue.comments.length" class="text-sm text-slate-500">Todavía no hay comentarios.</p>
-                                <ul v-else class="space-y-5"><li v-for="comment in issue.comments" :key="comment.id" class="flex gap-3"><span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-sky-100 text-[10px] font-semibold text-sky-700 dark:bg-sky-900 dark:text-sky-200">{{ issueInitials(comment.user?.name || 'Usuario') }}</span><div class="min-w-0"><p class="text-xs"><strong>{{ comment.user?.name || 'Usuario eliminado' }}</strong><time class="ml-2 text-slate-400">{{ fullDate(comment.created_at) }}</time><span v-if="comment.edited_at" class="ml-1 text-slate-400">(editado)</span></p><AdminKanbanDescriptionContent class="mt-1" :value="comment.body" /></div></li></ul>
+                                <ul v-else class="space-y-5"><li v-for="comment in issue.comments" :key="comment.id"><AdminKanbanComment :comment="comment" :project-id="projectId" :card-id="issue.id" :users="users" :can-write="canWrite" :disabled="saving || mediaBusy" :refresh="collaborationChanged" @dirty="markDirty(`comment-${comment.id}`, $event)" @busy="collaborationBusy" /></li></ul>
                             </div>
                         </section>
                     </section>
                     <aside aria-label="Campos del issue" class="space-y-5 border-t border-slate-200 bg-slate-50/60 p-5 dark:border-slate-800 dark:bg-slate-950/20 md:border-l md:border-t-0">
                         <label class="block space-y-1.5 text-xs font-semibold">Estado<select :value="issue.status" :disabled="saving || !canWrite" class="!text-sm" @change="changeSelect('status', $event)"><option v-for="column in columns" :key="column.id" :value="column.id" :disabled="!canTransition(columns, issue.status, column.id)">{{ column.label }}</option></select></label>
-                        <div><p class="mb-1.5 text-xs font-semibold">Responsables</p><button v-if="!assigneeOpen" :disabled="saving || !canWrite" class="flex min-h-10 w-full items-center gap-2 rounded-lg border border-transparent px-2 py-1.5 text-left text-sm hover:border-slate-200 hover:bg-white disabled:cursor-default dark:hover:border-slate-700 dark:hover:bg-slate-800" @click="assigneeDraft = issue.assignees.map(user => user.id); assigneeOpen = true"><AdminKanbanMemberAvatars v-if="issue.assignees.length" :members="issue.assignees" /><span class="min-w-0 flex-1 truncate text-xs text-slate-500 dark:text-slate-300">{{ issue.assignees.map(user => user.name).join(', ') || 'Sin asignar' }}</span></button><form v-else class="space-y-2 rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-700 dark:bg-slate-800" @submit.prevent="saveAssignees" @keydown.esc.stop.prevent="assigneeOpen = false"><fieldset :disabled="saving || !canWrite" class="max-h-48 space-y-2 overflow-y-auto"><legend class="sr-only">Elegir responsables</legend><label v-for="user in assigneeOptions" :key="user.id" class="flex items-center gap-2 text-xs font-normal"><input v-model="assigneeDraft" type="checkbox" :value="user.id" />{{ user.name }}<span v-if="!users.some(member => member.id === user.id)" class="text-amber-600">(sin acceso)</span></label><p v-if="!assigneeOptions.length" class="text-xs text-slate-500">No hay colaboradores disponibles.</p></fieldset><div class="flex gap-2"><button :disabled="saving || !canWrite" class="rounded bg-sky-600 px-2 py-1 text-xs text-white">Guardar</button><button type="button" :disabled="saving" class="px-2 text-xs text-slate-500" @click="assigneeOpen = false">Cancelar</button></div></form></div>
+                        <div><p class="mb-1.5 text-xs font-semibold">Responsables</p><button v-if="!assigneeOpen" :disabled="saving || !canWrite" class="flex min-h-10 w-full items-center gap-2 rounded-lg border border-transparent px-2 py-1.5 text-left text-sm hover:border-slate-200 hover:bg-white disabled:cursor-default dark:hover:border-slate-700 dark:hover:border-slate-800" @click="assigneeDraft = issue.assignees.map(user => user.id); assigneeOpen = true"><AdminKanbanMemberAvatars v-if="issue.assignees.length" :members="issue.assignees" /><span class="min-w-0 flex-1 truncate text-xs text-slate-500 dark:text-slate-300">{{ issue.assignees.map(user => user.name).join(', ') || 'Sin asignar' }}</span></button><form v-else class="space-y-2 rounded-lg border border-slate-200 bg-white p-3 dark:border-slate-700 dark:bg-slate-800" @submit.prevent="saveAssignees" @keydown.esc.stop.prevent="assigneeOpen = false"><fieldset :disabled="saving || !canWrite" class="max-h-48 space-y-2 overflow-y-auto"><legend class="sr-only">Elegir responsables</legend><label v-for="user in assigneeOptions" :key="user.id" class="flex items-center gap-2 text-xs font-normal"><input v-model="assigneeDraft" type="checkbox" :value="user.id" />{{ user.name }}<span v-if="!users.some(member => member.id === user.id)" class="text-amber-600">(sin acceso)</span></label><p v-if="!assigneeOptions.length" class="text-xs text-slate-500">No hay colaboradores disponibles.</p></fieldset><div class="flex gap-2"><button :disabled="saving || !canWrite" class="rounded bg-sky-600 px-2 py-1 text-xs text-white">Guardar</button><button type="button" :disabled="saving" class="px-2 text-xs text-slate-500" @click="assigneeOpen = false">Cancelar</button></div></form></div>
                         <label class="block space-y-1.5 text-xs font-semibold">Prioridad<select :value="issue.priority" :disabled="saving || !canWrite" class="!text-sm" @change="changeSelect('priority', $event)"><option v-for="(label, value) in ISSUE_PRIORITIES" :key="value" :value="value">{{ label }}</option></select></label>
                         <label class="block space-y-1.5 text-xs font-semibold">Tipo<select :value="issue.type" :disabled="saving || !canWrite" class="!text-sm" @change="changeSelect('type', $event)"><option v-for="type in typeOptions" :key="type.value" :value="type.value">{{ type.label }}</option></select></label>
                         <label v-if="issue.type !== 'epic' && issue.type !== 'subtask'" class="block space-y-1.5 text-xs font-semibold">Épica<select :value="issue.epic_id || ''" :disabled="saving || !canWrite" class="!text-sm" @change="changeSelect('epic_id', $event)"><option value="">Sin épica</option><option v-for="epic in epicOptions" :key="epic.id" :value="epic.id">{{ epic.issue_key }} · {{ epic.title }}</option></select></label>
@@ -264,3 +282,4 @@ onBeforeUnmount(() => { disposed = true; sequence++; emit('dirty', false) })
 <style>
 body:has(dialog.issue-panel[open]) { overflow: hidden; }
 </style>
+```

@@ -1344,44 +1344,44 @@ function getRouteRules(arg) {
     return {};
   }
 }
-const __nuxt_page_meta$p = {
+const __nuxt_page_meta$u = {
   layout: "hero",
   title: "Contacto"
 };
-const __nuxt_page_meta$o = {
+const __nuxt_page_meta$t = {
   layout: "secondary",
   title: "Nosotros"
 };
-const __nuxt_page_meta$n = { layout: false };
-const __nuxt_page_meta$m = {
+const __nuxt_page_meta$s = { layout: false };
+const __nuxt_page_meta$r = {
   layout: "hero",
   title: "Portfolio"
 };
-const __nuxt_page_meta$l = {
+const __nuxt_page_meta$q = {
   layout: "hero",
   title: "Servicios"
 };
-const __nuxt_page_meta$k = {
+const __nuxt_page_meta$p = {
   layout: "hero",
   title: "Blog & Insights"
 };
-const __nuxt_page_meta$j = {
+const __nuxt_page_meta$o = {
   layout: "hero",
   title: "Política de Privacidad"
 };
-const __nuxt_page_meta$i = { layout: "admin" };
-const __nuxt_page_meta$h = {
+const __nuxt_page_meta$n = { layout: "admin" };
+const __nuxt_page_meta$m = {
   layout: false
 };
-const __nuxt_page_meta$g = {
+const __nuxt_page_meta$l = {
   layout: "hero"
 };
-const __nuxt_page_meta$f = { layout: "admin" };
-const __nuxt_page_meta$e = { layout: "admin" };
-const __nuxt_page_meta$d = {
+const __nuxt_page_meta$k = { layout: "admin" };
+const __nuxt_page_meta$j = { layout: "admin" };
+const __nuxt_page_meta$i = {
   layout: "admin"
 };
-const __nuxt_page_meta$c = {
+const __nuxt_page_meta$h = {
   layout: "admin",
   middleware: (to) => {
     const id = typeof to.query.project === "string" ? Number(to.query.project) : NaN;
@@ -1391,26 +1391,31 @@ const __nuxt_page_meta$c = {
     return navigateTo({ path: `/admin/kanban/${id}`, query }, { replace: true });
   }
 };
-const __nuxt_page_meta$b = { layout: "admin" };
-const __nuxt_page_meta$a = { layout: "admin" };
-const __nuxt_page_meta$9 = { layout: "admin" };
-const __nuxt_page_meta$8 = {
+const __nuxt_page_meta$g = { layout: "admin" };
+const __nuxt_page_meta$f = { layout: "admin" };
+const __nuxt_page_meta$e = { layout: "admin" };
+const __nuxt_page_meta$d = { layout: "admin" };
+const __nuxt_page_meta$c = {
   layout: "admin"
 };
-const __nuxt_page_meta$7 = {
+const __nuxt_page_meta$b = {
   layout: "admin"
 };
-const __nuxt_page_meta$6 = {
+const __nuxt_page_meta$a = {
   layout: "admin"
 };
-const __nuxt_page_meta$5 = {
+const __nuxt_page_meta$9 = {
   layout: "admin"
 };
-const __nuxt_page_meta$4 = { layout: "admin" };
+const __nuxt_page_meta$8 = { layout: "admin" };
+const __nuxt_page_meta$7 = { layout: "admin", validate: (route) => /^[1-9]\d*$/.test(String(route.params.project)) && Number.isSafeInteger(Number(route.params.project)) };
+const __nuxt_page_meta$6 = { layout: "admin", validate: (route) => /^[1-9]\d*$/.test(String(route.params.project)) && Number.isSafeInteger(Number(route.params.project)) };
+const __nuxt_page_meta$5 = { layout: "admin", validate: (route) => /^[1-9]\d*$/.test(String(route.params.project)) && Number.isSafeInteger(Number(route.params.project)) };
+const __nuxt_page_meta$4 = { layout: "admin", validate: (route) => /^[1-9]\d*$/.test(String(route.params.project)) && Number.isSafeInteger(Number(route.params.project)) };
 const __nuxt_page_meta$3 = { layout: "admin", validate: (route) => /^[1-9]\d*$/.test(String(route.params.project)) && Number.isSafeInteger(Number(route.params.project)) };
 const __nuxt_page_meta$2 = { layout: "admin", validate: (route) => /^[1-9]\d*$/.test(String(route.params.project)) && Number.isSafeInteger(Number(route.params.project)) };
-const __nuxt_page_meta$1 = { layout: "admin", validate: (route) => /^[1-9]\d*$/.test(String(route.params.project)) && Number.isSafeInteger(Number(route.params.project)) };
-const __nuxt_page_meta = { layout: "admin", validate: (route2) => /^[1-9]\d*$/.test(String(route2.params.project)) && Number.isSafeInteger(Number(route2.params.project)) };
+const __nuxt_page_meta$1 = { layout: "admin", validate: (route2) => /^[1-9]\d*$/.test(String(route2.params.project)) && Number.isSafeInteger(Number(route2.params.project)) };
+const __nuxt_page_meta = { layout: "admin", validate: (route) => /^[1-9]\d*$/.test(String(route.params.project)) && Number.isSafeInteger(Number(route.params.project)) };
 const _routes = [
   {
     name: "index",
@@ -1420,158 +1425,188 @@ const _routes = [
   {
     name: "contacto",
     path: "/contacto",
-    meta: __nuxt_page_meta$p || {},
+    meta: __nuxt_page_meta$u || {},
     component: () => import('./contacto-DS6uRRNP.mjs')
   },
   {
     name: "nosotros",
     path: "/nosotros",
-    meta: __nuxt_page_meta$o || {},
+    meta: __nuxt_page_meta$t || {},
     component: () => import('./nosotros-HXgYNblx.mjs')
   },
   {
     name: "sinapsys",
     path: "/sinapsys",
-    meta: __nuxt_page_meta$n || {},
+    meta: __nuxt_page_meta$s || {},
     component: () => import('./sinapsys-54X0wM1m.mjs')
   },
   {
     name: "portfolio",
     path: "/portfolio",
-    meta: __nuxt_page_meta$m || {},
+    meta: __nuxt_page_meta$r || {},
     component: () => import('./portfolio-CkC2L7Qb.mjs')
   },
   {
     name: "servicios",
     path: "/servicios",
-    meta: __nuxt_page_meta$l || {},
+    meta: __nuxt_page_meta$q || {},
     component: () => import('./servicios-BhdUqj5T.mjs')
   },
   {
     name: "blog",
     path: "/blog",
-    meta: __nuxt_page_meta$k || {},
+    meta: __nuxt_page_meta$p || {},
     component: () => import('./index-eKPIQxNU.mjs')
   },
   {
     name: "privacidad",
     path: "/privacidad",
-    meta: __nuxt_page_meta$j || {},
+    meta: __nuxt_page_meta$o || {},
     component: () => import('./privacidad-Cztggj1k.mjs')
   },
   {
     name: "admin",
     path: "/admin",
-    meta: __nuxt_page_meta$i || {},
+    meta: __nuxt_page_meta$n || {},
     component: () => import('./index-DJQmPi-z.mjs')
   },
   {
     name: "admin-login",
     path: "/admin/login",
-    meta: __nuxt_page_meta$h || {},
+    meta: __nuxt_page_meta$m || {},
     component: () => import('./login-DnEpVPoK.mjs')
   },
   {
     name: "blog-slug",
     path: "/blog/:slug()",
-    meta: __nuxt_page_meta$g || {},
+    meta: __nuxt_page_meta$l || {},
     component: () => import('./_slug_-CF0N0Xt4.mjs')
   },
   {
     name: "admin-posts-id",
     path: "/admin/posts/:id()",
-    meta: __nuxt_page_meta$f || {},
+    meta: __nuxt_page_meta$k || {},
     component: () => import('./_id_-B_uCnIYf.mjs')
   },
   {
     name: "admin-posts-edit",
     path: "/admin/posts/edit",
-    meta: __nuxt_page_meta$e || {},
+    meta: __nuxt_page_meta$j || {},
     component: () => import('./edit-BCjtM1wl.mjs')
   },
   {
     name: "admin-posts",
     path: "/admin/posts",
-    meta: __nuxt_page_meta$d || {},
+    meta: __nuxt_page_meta$i || {},
     component: () => import('./index-CZ-KXaHy.mjs')
   },
   {
     name: "admin-kanban",
     path: "/admin/kanban",
-    meta: __nuxt_page_meta$c || {},
+    meta: __nuxt_page_meta$h || {},
     component: () => import('./index-BwqjLQBb.mjs')
   },
   {
     name: "admin-posts-create",
     path: "/admin/posts/create",
-    meta: __nuxt_page_meta$b || {},
+    meta: __nuxt_page_meta$g || {},
     component: () => import('./create-Dy1OpS2h.mjs')
   },
   {
     name: "admin-contacts-id",
     path: "/admin/contacts/:id()",
-    meta: __nuxt_page_meta$a || {},
+    meta: __nuxt_page_meta$f || {},
     component: () => import('./_id_-BZ_OvXFg.mjs')
   },
   {
     name: "admin-contacts",
     path: "/admin/contacts",
-    meta: __nuxt_page_meta$9 || {},
+    meta: __nuxt_page_meta$e || {},
     component: () => import('./index-DnFxmDYV.mjs')
+  },
+  {
+    name: "admin-kanban-my-work",
+    path: "/admin/kanban/my-work",
+    meta: __nuxt_page_meta$d || {},
+    component: () => import('./my-work-tieZVbff.mjs')
   },
   {
     name: "admin-categories-id",
     path: "/admin/categories/:id()",
-    meta: __nuxt_page_meta$8 || {},
+    meta: __nuxt_page_meta$c || {},
     component: () => import('./_id_-DoKMdRkb.mjs')
   },
   {
     name: "admin-categories-edit",
     path: "/admin/categories/edit",
-    meta: __nuxt_page_meta$7 || {},
+    meta: __nuxt_page_meta$b || {},
     component: () => import('./edit-BPfpI2qb.mjs')
   },
   {
     name: "admin-categories",
     path: "/admin/categories",
-    meta: __nuxt_page_meta$6 || {},
+    meta: __nuxt_page_meta$a || {},
     component: () => import('./index-4rMBu7bH.mjs')
   },
   {
     name: "admin-categories-create",
     path: "/admin/categories/create",
-    meta: __nuxt_page_meta$5 || {},
+    meta: __nuxt_page_meta$9 || {},
     component: () => import('./create-w2dz8X-_.mjs')
   },
   {
     name: "admin-mercado-publico",
     path: "/admin/mercado-publico",
-    meta: __nuxt_page_meta$4 || {},
+    meta: __nuxt_page_meta$8 || {},
     component: () => import('./index-C5Cpr0kv.mjs')
   },
   {
     name: "admin-kanban-project-epics",
     path: "/admin/kanban/:project()/epics",
-    meta: __nuxt_page_meta$3 || {},
-    component: () => import('./epics-Q2jUNjEj.mjs')
+    meta: __nuxt_page_meta$7 || {},
+    component: () => import('./epics-D5F43vm7.mjs')
   },
   {
     name: "admin-kanban-project",
     path: "/admin/kanban/:project()",
-    meta: __nuxt_page_meta$2 || {},
-    component: () => import('./index-BseoYnzk.mjs')
+    meta: __nuxt_page_meta$6 || {},
+    component: () => import('./index-C9JzPz2v.mjs')
   },
   {
     name: "admin-kanban-project-backlog",
     path: "/admin/kanban/:project()/backlog",
-    meta: __nuxt_page_meta$1 || {},
-    component: () => import('./backlog-CeArrO77.mjs')
+    meta: __nuxt_page_meta$5 || {},
+    component: () => import('./backlog-CR3epm4Z.mjs')
+  },
+  {
+    name: "admin-kanban-project-reports",
+    path: "/admin/kanban/:project()/reports",
+    meta: __nuxt_page_meta$4 || {},
+    component: () => import('./reports-CZFdG6CS.mjs')
+  },
+  {
+    name: "admin-kanban-project-sprints",
+    path: "/admin/kanban/:project()/sprints",
+    meta: __nuxt_page_meta$3 || {},
+    component: () => import('./sprints-BCPwTvvW.mjs')
+  },
+  {
+    name: "admin-kanban-project-timeline",
+    path: "/admin/kanban/:project()/timeline",
+    meta: __nuxt_page_meta$2 || {},
+    component: () => import('./timeline-DqcvCJA-.mjs')
   },
   {
     name: "admin-projects-project-settings",
     path: "/admin/projects/:project()/settings",
+    meta: __nuxt_page_meta$1 || {},
+    component: () => import('./settings-CHs9Eoyo.mjs')
+  },
+  {
+    name: "admin-kanban-project-active-sprint",
+    path: "/admin/kanban/:project()/active-sprint",
     meta: __nuxt_page_meta || {},
-    component: () => import('./settings-BucwC6ge.mjs')
+    component: () => import('./active-sprint-bZqrKrJR.mjs')
   }
 ];
 const validate = /* @__PURE__ */ defineNuxtRouteMiddleware(async (to, from) => {
@@ -2353,7 +2388,7 @@ const plugins = [
   prerender_server_qA5MrPdckYcikh2QLSwTmWCXZhfGRUAOHjAYaK_SVB4
 ];
 const layouts = {
-  admin: defineAsyncComponent(() => import('./admin-9HWSsuab.mjs').then((m) => m.default || m)),
+  admin: defineAsyncComponent(() => import('./admin-VL_NiUoL.mjs').then((m) => m.default || m)),
   default: defineAsyncComponent(() => import('./default-ChnSUAnM.mjs').then((m) => m.default || m)),
   hero: defineAsyncComponent(() => import('./hero-CLeqve4a.mjs').then((m) => m.default || m)),
   secondary: defineAsyncComponent(() => import('./secondary-NsgaG02T.mjs').then((m) => m.default || m))

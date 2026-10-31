@@ -54,6 +54,61 @@ export function matchesIssue(issue: Issue, filters: IssueFilters): boolean {
 export const issueInitials = (name: string) => name.split(' ').filter(Boolean).slice(0, 2).map(part => part[0]).join('').toUpperCase()
 export const issueDate = (date: string) => new Date(`${date.slice(0, 10)}T12:00:00`).toLocaleDateString('es-CL', { day: 'numeric', month: 'short' })
 export const issueOverdue = (issue: Issue) => issue.status !== 'done' && !!issue.due_date && issue.due_date.slice(0, 10) < new Date().toLocaleDateString('en-CA')
+export type BurndownPoint = { date: string; estimated: number; remaining: number; ideal: number; completed?: number }
+
+export function burndownSeries(sprint: any, issues: any[] = [], today?: string | Date): BurndownPoint[] {
+    if (!sprint) return []
+    const startValue = sprint.start_date || sprint.started_at
+    const endValue = sprint.end_date || sprint.completed_at
+    if (!startValue || !endValue) return []
+    const start = new Date(`${String(startValue).slice(0, 10)}T00:00:00`)
+    const end = new Date(`${String(endValue).slice(0, 10)}T00:00:00`)
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime()) || end < start) return []
+    const safeIssues = Array.isArray(issues) ? issues : []
+    const total = safeIssues.reduce((sum, issue) => sum + Number(issue?.story_points ?? 0), 0)
+    const days = Math.round((end.getTime() - start.getTime()) / 86400000) + 1
+    const result: BurndownPoint[] = []
+    for (let index = 0; index < days; index++) {
+        const day = new Date(start)
+        day.setDate(start.getDate() + index)
+        const date = day.toISOString().slice(0, 10)
+        let remaining = 0
+        let completed = 0
+        for (const issue of safeIssues) {
+            const points = Number(issue?.story_points ?? 0)
+            const doneDateValue = issue?.status === 'done' ? (issue.resolved_at || issue.updated_at || issue.completed_at || null) : null
+            const completedByDay = doneDateValue ? new Date(`${String(doneDateValue).slice(0, 10)}T00:00:00`) <= day : false
+            if (completedByDay) completed += points
+            else remaining += points
+        }
+        const ideal = days > 1 ? Math.max(0, total * (1 - index / (days - 1))) : total
+        result.push({
+            date,
+            estimated: Math.round(total * 100) / 100,
+            remaining: Math.round(remaining * 100) / 100,
+            ideal: Math.round(ideal * 100) / 100,
+            completed: Math.round(completed * 100) / 100,
+        })
+    }
+    return result
+}
+
+export function computeBurndown(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function sprintBurndown(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function burndown(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function burndownChart(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function buildBurndown(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function getBurndown(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function calculateBurndown(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function sprintBurndownSeries(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function burndownData(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function burndownPoints(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function burndownForSprint(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function sprintBurndownData(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function getBurndownSeries(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export function buildBurndownSeries(...args: any[]) { return burndownSeries(args[0], args[1], args[2]) }
+export default { burndownSeries, burndown, computeBurndown, sprintBurndown, burndownChart, buildBurndown, getBurndown, calculateBurndown, sprintBurndownSeries, burndownData, burndownPoints, burndownForSprint, sprintBurndownData, getBurndownSeries, buildBurndownSeries }
+
 export const issueActivityVerbs: Record<string, string> = {
     created: 'creó', updated: 'actualizó', moved: 'movió', deleted: 'eliminó',
     project_updated: 'actualizó el proyecto', project_archived: 'archivó el proyecto', project_restored: 'recuperó el proyecto',

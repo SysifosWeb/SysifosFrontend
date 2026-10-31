@@ -88,6 +88,9 @@ const sources = [
                 "loc": "/admin/contacts"
             },
             {
+                "loc": "/admin/kanban/my-work"
+            },
+            {
                 "loc": "/admin/categories/edit"
             },
             {

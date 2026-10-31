@@ -2,7 +2,7 @@ import type { ComputedRef } from 'vue'
 import type { Board, Issue, IssuePatch, IssueReference, IssueStatus, Label, Member, Project, ProjectContext, ProjectPermissions, Sprint, Activity } from '~/types/kanban'
 import { KANBAN_COLUMNS, boardColumns } from '~/utils/kanban'
 
-export function useKanbanBoard(projectId: ComputedRef<number>, planning = false) {
+export function useKanbanBoard(projectId: ComputedRef<number>, planning = false, scope: 'all' | 'active' | 'backlog' | 'sprint' = 'all', sprintId?: Ref<number | null>) {
     const api = useApi()
     const projectContext = useState<ProjectContext | null>('admin-active-project', () => null)
     const project = ref<Project | null>(null)
@@ -41,7 +41,10 @@ export function useKanbanBoard(projectId: ComputedRef<number>, planning = false)
         const started = epoch
         const id = projectId.value
         try {
-            const { data } = await api.request<{ data: Board }>(planning ? 'kanban/backlog' : 'kanban/board', { query: { project_id: id } })
+            const query: Record<string, unknown> = { project_id: id }
+            if (!planning && scope && scope !== 'all') query.scope = scope
+            if (!planning && scope === 'sprint' && sprintId?.value) query.sprint_id = sprintId.value
+            const { data } = await api.request<{ data: Board }>(planning ? 'kanban/backlog' : 'kanban/board', { query })
             if (disposed || started !== epoch || dragging.value || id !== projectId.value) return
             if (data?.project?.id !== id || !Array.isArray(data.cards) || !Array.isArray(data.users) || typeof data.board_version !== 'number') {
                 throw new Error('KANBAN_INVALID_RESPONSE')

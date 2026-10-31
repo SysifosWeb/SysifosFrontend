@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { defineOptions } from 'vue'
+
+defineOptions({ name: 'AdminKanbanBacklog' })
 import { ArrowUp, ArrowDown, Plus } from 'lucide-vue-next'
 import type { Issue, Sprint, Column } from '~/types/kanban'
 import { planningOrder, issueDate } from '~/utils/kanban'
