@@ -61,6 +61,7 @@ export default defineNuxtConfig({
 
     modules: ['@nuxtjs/tailwindcss', '@nuxt/image', '@nuxtjs/sitemap', 'nuxt-security'],
     security: {
+        sri: false,
         headers: {
             contentSecurityPolicy: {
                 'default-src': ["'self'"],
