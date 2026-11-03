@@ -74,6 +74,17 @@ test('a failed candidate never replaces the production output', t => {
     assert.equal(fs.readFileSync(path.join(app, '.output/marker'), 'utf8'), 'previous');
 });
 
+test('a later deployment replaces the existing symlink and preserves its target', t => {
+    const { app, run } = fixture(t);
+    assert.equal(run().status, 0);
+    const firstOutput = fs.realpathSync(path.join(app, '.output'));
+    const second = run();
+    assert.equal(second.status, 0, second.stderr);
+    assert.notEqual(fs.realpathSync(path.join(app, '.output')), firstOutput);
+    assert.equal(fs.readFileSync(path.join(app, '.releases/previous-output'), 'utf8').trim(), firstOutput);
+    assert.equal(fs.existsSync(firstOutput), true);
+});
+
 test('a production build mismatch restores the previous output and restarts it', t => {
     const { app, run } = fixture(t, { healthFails: true });
     const result = run();
