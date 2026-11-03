@@ -34,7 +34,7 @@ function fixture(t, { smokeFails = false, healthFails = false } = {}) {
     checkProductionBuild(candidate, { stamp: true });
     const archive = path.join(root, 'release.tar.gz');
     assert.equal(spawnSync('tar', ['-czf', archive, '-C', candidate, '.']).status, 0);
-    write(root, 'bin/curl', `#!/bin/bash\nif [[ "$*" == *latest.json* ]]; then echo '{"id":"${healthFails ? 'old-build' : 'new-build'}"}'; else echo SysifosWeb; fi\n`);
+    write(root, 'bin/curl', `#!/bin/bash\nif [[ "$*" == *latest.json* ]]; then echo '{"id":"${healthFails ? 'old-build' : 'new-build'}"}'; else printf 'SysifosWeb\\n%200000s\\n' x; fi\n`);
     fs.chmodSync(path.join(root, 'bin/curl'), 0o755);
     const script = fs.readFileSync(path.join(__dirname, 'deploy-production.sh'), 'utf8')
         .replace('APP_ROOT=/home/sysifosw/repositories/SysifosFrontend', `APP_ROOT=${app}`)

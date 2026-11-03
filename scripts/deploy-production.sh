@@ -91,7 +91,7 @@ build_id=$("$NODE" -p "require('$release/.output/build-source.json').buildId")
 for attempt in $(seq 1 12); do
     # A cache-busting URL and exact build ID prevent an old worker from passing.
     remote_id=$(curl --fail --silent --show-error --max-time 15 --header 'Cache-Control: no-cache' "$SITE/_nuxt/builds/latest.json?deploy=$revision-$attempt" | "$NODE" -e 'let s="";process.stdin.on("data",d=>s+=d);process.stdin.on("end",()=>{try{console.log(JSON.parse(s).id)}catch{process.exitCode=1}})') || remote_id=
-    if [[ $remote_id == "$build_id" ]] && curl --fail --silent --show-error --max-time 20 "$SITE/admin/login?deploy=$revision-$attempt" | grep -q 'SysifosWeb'; then
+    if [[ $remote_id == "$build_id" ]] && curl --fail --silent --show-error --max-time 20 "$SITE/admin/login?deploy=$revision-$attempt" | grep 'SysifosWeb' > /dev/null; then
         healthy=true
         break
     fi
