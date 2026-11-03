@@ -130,50 +130,50 @@ onBeforeUnmount(() => { clearInterval(timer); disposed = true })
     <div class="space-y-6">
         <header class="flex flex-wrap items-start justify-between gap-4">
             <div>
-                <h2 class="flex items-center gap-2 font-display text-2xl font-bold text-slate-900 dark:text-white"><FolderOpen class="h-6 w-6 text-sky-500" /> Proyectos</h2>
-                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Elige un proyecto para abrir su tablero o crea uno nuevo para comenzar.</p>
+                <h2 class="flex items-center gap-2 font-display text-2xl font-bold text-admin-ink dark:text-admin-ink"><FolderOpen class="h-6 w-6 text-admin-accent" /> Proyectos</h2>
+                <p class="mt-1 text-sm text-admin-muted dark:text-admin-muted">Elige un proyecto para abrir su tablero o crea uno nuevo para comenzar.</p>
             </div>
             <div class="flex items-center gap-2">
-                <button aria-label="Actualizar proyectos" :disabled="loading || busy" class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-slate-500 ring-1 ring-slate-200 hover:text-sky-600 disabled:opacity-50 dark:bg-slate-900 dark:text-slate-400 dark:ring-slate-800" @click="fetchProjects(true)"><RefreshCw class="h-4 w-4" /></button>
-                <button v-if="canCreate" :disabled="loading || busy || !connected" class="inline-flex min-h-11 items-center gap-2 rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-sky-600 disabled:opacity-50" @click="openProject"><Plus class="h-4 w-4" /> Crear proyecto Kanban</button>
+                <button aria-label="Actualizar proyectos" :disabled="loading || busy" class="flex h-11 w-11 items-center justify-center rounded-xl bg-admin-surface text-admin-muted ring-1 ring-admin-line hover:text-admin-accent disabled:opacity-50 dark:bg-admin-surface dark:text-admin-muted dark:ring-admin-line" @click="fetchProjects(true)"><RefreshCw class="h-4 w-4" /></button>
+                <button v-if="canCreate" :disabled="loading || busy || !connected" class="inline-flex min-h-11 items-center gap-2 rounded-xl bg-admin-action px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-admin-action disabled:opacity-50" @click="openProject"><Plus class="h-4 w-4" /> Crear proyecto Kanban</button>
             </div>
         </header>
 
         <form class="flex flex-wrap items-end gap-3" @submit.prevent="applyFilters">
-            <label class="min-w-0 flex-1 text-sm font-medium text-slate-700 dark:text-slate-200">Buscar proyectos<input v-model="search" type="search" maxlength="120" placeholder="Nombre o clave del proyecto" class="mt-1 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-slate-900 placeholder:text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-400" /></label>
-            <button :disabled="refreshing" class="min-h-11 rounded-xl bg-[#25222c] px-4 text-sm font-semibold text-white">Buscar</button>
-            <label class="flex min-h-11 items-center gap-2 text-sm text-slate-700 dark:text-slate-200"><input v-model="archived" type="checkbox" @change="page = 1" /> Archivados</label>
+            <label class="min-w-0 flex-1 text-sm font-medium text-admin-ink dark:text-admin-ink">Buscar proyectos<input v-model="search" type="search" maxlength="120" placeholder="Nombre o clave del proyecto" class="mt-1 min-h-11 w-full rounded-xl border border-admin-line bg-admin-surface px-3 text-admin-ink placeholder:text-admin-muted dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink dark:placeholder:text-admin-muted" /></label>
+            <button :disabled="refreshing" class="min-h-11 rounded-xl bg-admin-action px-4 text-sm font-semibold text-white">Buscar</button>
+            <label class="flex min-h-11 items-center gap-2 text-sm text-admin-ink dark:text-admin-ink"><input v-model="archived" type="checkbox" @change="page = 1" /> Archivados</label>
             <button v-if="appliedSearch" type="button" class="min-h-11 px-3 text-sm underline" @click="search = ''; applyFilters()">Limpiar búsqueda</button>
         </form>
-        <p v-if="refreshing && !loading" role="status" class="text-sm text-slate-500">Actualizando proyectos…</p>
+        <p v-if="refreshing && !loading" role="status" class="text-sm text-admin-muted">Actualizando proyectos…</p>
         <div v-if="notice" role="alert" class="rounded-xl border border-amber-300/50 bg-amber-50 p-4 text-sm text-amber-800 dark:bg-amber-500/10 dark:text-amber-300">
             <p>{{ notice }}</p>
             <button v-if="retryable" :disabled="loading || busy" class="mt-2 font-semibold underline underline-offset-2" @click="fetchProjects(true)">Reintentar conexión</button>
         </div>
 
-        <div v-if="loading" role="status" class="flex h-64 flex-col items-center justify-center gap-3"><Loader2 class="h-8 w-8 animate-spin text-sky-500" /><p class="text-sm text-slate-500 dark:text-slate-400">Cargando proyectos…</p></div>
+        <div v-if="loading" role="status" class="flex h-64 flex-col items-center justify-center gap-3"><Loader2 class="h-8 w-8 animate-spin text-admin-accent" /><p class="text-sm text-admin-muted dark:text-admin-muted">Cargando proyectos…</p></div>
 
-        <section v-else-if="connected && !projects.length" aria-labelledby="empty-projects-heading" class="flex flex-col items-center rounded-2xl bg-white px-6 py-16 text-center shadow-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800">
-            <div class="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-50 text-sky-500 dark:bg-sky-500/10"><FolderPlus class="h-8 w-8" /></div>
-            <h3 id="empty-projects-heading" class="text-lg font-bold text-slate-900 dark:text-white">{{ appliedSearch || archived ? 'No hay proyectos con estos filtros' : 'Todavía no hay proyectos' }}</h3>
-            <p class="mt-2 max-w-md text-sm leading-relaxed text-slate-500 dark:text-slate-400">Los proyectos que puedes consultar aparecerán aquí. Cambia los filtros o crea un proyecto si tienes permiso.</p>
-            <button v-if="canCreate && !archived" :disabled="busy" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-500 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-sky-600 disabled:opacity-50" @click="openProject"><Plus class="h-4 w-4" /> Crear proyecto Kanban</button>
+        <section v-else-if="connected && !projects.length" aria-labelledby="empty-projects-heading" class="flex flex-col items-center rounded-2xl bg-admin-surface px-6 py-16 text-center shadow-sm ring-1 ring-admin-line dark:bg-admin-surface dark:ring-admin-line">
+            <div class="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-admin-tint text-admin-accent dark:bg-admin-action/10"><FolderPlus class="h-8 w-8" /></div>
+            <h3 id="empty-projects-heading" class="text-lg font-bold text-admin-ink dark:text-admin-ink">{{ appliedSearch || archived ? 'No hay proyectos con estos filtros' : 'Todavía no hay proyectos' }}</h3>
+            <p class="mt-2 max-w-md text-sm leading-relaxed text-admin-muted dark:text-admin-muted">Los proyectos que puedes consultar aparecerán aquí. Cambia los filtros o crea un proyecto si tienes permiso.</p>
+            <button v-if="canCreate && !archived" :disabled="busy" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-admin-action px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-admin-action disabled:opacity-50" @click="openProject"><Plus class="h-4 w-4" /> Crear proyecto Kanban</button>
         </section>
 
         <section v-else-if="projects.length" aria-label="Proyectos Kanban" class="space-y-4">
-            <p class="text-xs font-medium text-slate-500 dark:text-slate-400">{{ total }} {{ total === 1 ? 'proyecto' : 'proyectos' }} · Solo se muestran proyectos a los que tienes acceso.</p>
+            <p class="text-xs font-medium text-admin-muted dark:text-admin-muted">{{ total }} {{ total === 1 ? 'proyecto' : 'proyectos' }} · Solo se muestran proyectos a los que tienes acceso.</p>
             <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                <NuxtLink v-for="project in projects" :key="project.id" :to="`/admin/kanban/${project.id}`" :aria-label="`Abrir tablero de ${project.name}`" :data-project="project.id" class="group flex min-w-0 flex-col rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:ring-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-500 dark:bg-slate-900 dark:ring-slate-800 dark:hover:ring-sky-700">
+                <NuxtLink v-for="project in projects" :key="project.id" :to="`/admin/kanban/${project.id}`" :aria-label="`Abrir tablero de ${project.name}`" :data-project="project.id" class="group flex min-w-0 flex-col rounded-2xl bg-admin-surface p-5 shadow-sm ring-1 ring-admin-line transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:ring-admin-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-admin-accent dark:bg-admin-surface dark:ring-admin-line dark:hover:ring-admin-accent">
                     <div class="mb-4 flex items-start justify-between gap-3">
-                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-50 text-sky-500 dark:bg-sky-500/10"><FolderOpen class="h-5 w-5" /></div>
-                        <span class="rounded-lg bg-slate-100 px-2 py-1 text-[11px] font-medium text-slate-500 dark:bg-slate-800 dark:text-slate-400">{{ project.project_key }}</span>
+                        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-admin-tint text-admin-accent dark:bg-admin-action/10"><FolderOpen class="h-5 w-5" /></div>
+                        <span class="rounded-lg bg-admin-elevated px-2 py-1 text-[11px] font-medium text-admin-muted dark:bg-admin-elevated dark:text-admin-muted">{{ project.project_key }}</span>
                     </div>
-                    <p class="mb-2 text-xs text-slate-500">{{ project.archived_at ? 'Archivado · Solo lectura' : project.visibility === 'private' ? 'Privado · Miembros del proyecto' : 'Equipo · Administradores y editores' }}</p>
-                    <h3 class="break-words font-display text-lg font-semibold text-slate-900 transition-colors group-hover:text-sky-600 dark:text-white dark:group-hover:text-sky-400">{{ project.name }}</h3>
-                    <p class="mb-5 mt-2 line-clamp-3 whitespace-pre-line break-words text-sm leading-relaxed text-slate-500 dark:text-slate-400">{{ project.description || 'Organiza y sigue las tareas de este proyecto.' }}</p>
-                    <div class="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4 dark:border-slate-800">
-                        <span class="flex items-center gap-1.5 text-xs font-medium text-slate-500 dark:text-slate-400"><SquareKanban class="h-4 w-4" />{{ project.cards_count }} {{ project.cards_count === 1 ? 'tarea' : 'tareas' }}</span>
-                        <span class="flex items-center gap-1.5 text-sm font-semibold text-sky-600 dark:text-sky-400">Abrir tablero<ArrowUpRight class="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
+                    <p class="mb-2 text-xs text-admin-muted">{{ project.archived_at ? 'Archivado · Solo lectura' : project.visibility === 'private' ? 'Privado · Miembros del proyecto' : 'Equipo · Administradores y editores' }}</p>
+                    <h3 class="break-words font-display text-lg font-semibold text-admin-ink transition-colors group-hover:text-admin-accent dark:text-admin-ink dark:group-hover:text-admin-accent">{{ project.name }}</h3>
+                    <p class="mb-5 mt-2 line-clamp-3 whitespace-pre-line break-words text-sm leading-relaxed text-admin-muted dark:text-admin-muted">{{ project.description || 'Organiza y sigue las tareas de este proyecto.' }}</p>
+                    <div class="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-admin-line pt-4 dark:border-admin-line">
+                        <span class="flex items-center gap-1.5 text-xs font-medium text-admin-muted dark:text-admin-muted"><SquareKanban class="h-4 w-4" />{{ project.cards_count }} {{ project.cards_count === 1 ? 'tarea' : 'tareas' }}</span>
+                        <span class="flex items-center gap-1.5 text-sm font-semibold text-admin-accent dark:text-admin-accent">Abrir tablero<ArrowUpRight class="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></span>
                     </div>
                 </NuxtLink>
             </div>
@@ -182,16 +182,16 @@ onBeforeUnmount(() => { clearInterval(timer); disposed = true })
         <nav v-if="lastPage > 1" aria-label="Páginas de proyectos" class="flex items-center justify-between gap-3 text-sm">
             <button :disabled="page <= 1 || busy || refreshing" class="min-h-11 rounded-xl border px-4 disabled:opacity-40" @click="page--">Anterior</button><span>Página {{ page }} de {{ lastPage }}</span><button :disabled="page >= lastPage || busy || refreshing" class="min-h-11 rounded-xl border px-4 disabled:opacity-40" @click="page++">Siguiente</button>
         </nav>
-        <dialog ref="projectDialog" aria-labelledby="project-heading" class="admin-scope m-auto max-h-[90vh] w-[min(520px,calc(100vw-32px))] overflow-y-auto rounded-2xl bg-white p-0 text-slate-800 shadow-2xl backdrop:bg-slate-950/60 dark:bg-slate-900 dark:text-slate-100" @close="dialogOpen = false" @cancel="busy && $event.preventDefault()">
+        <dialog ref="projectDialog" aria-labelledby="project-heading" class="admin-scope m-auto max-h-[90vh] w-[min(520px,calc(100vw-32px))] overflow-y-auto rounded-2xl bg-admin-surface p-0 text-admin-ink shadow-2xl backdrop:bg-admin-canvas/60 dark:bg-admin-surface dark:text-admin-ink" @close="dialogOpen = false" @cancel="busy && $event.preventDefault()">
             <form class="space-y-5 p-6" @submit.prevent="createProject">
-                <header class="flex items-center justify-between gap-3"><h3 id="project-heading" class="text-lg font-bold">Crear proyecto Kanban</h3><button type="button" aria-label="Cerrar creación de proyecto" :disabled="busy" class="flex h-11 w-11 items-center justify-center text-slate-400" @click="projectDialog?.close()"><X class="h-5 w-5" /></button></header>
-                <p class="text-sm text-slate-500 dark:text-slate-400">Cada proyecto tendrá su propio tablero, tareas e historial de actividad. El acceso depende de los miembros y de la visibilidad que elijas.</p>
+                <header class="flex items-center justify-between gap-3"><h3 id="project-heading" class="text-lg font-bold">Crear proyecto Kanban</h3><button type="button" aria-label="Cerrar creación de proyecto" :disabled="busy" class="flex h-11 w-11 items-center justify-center text-admin-muted" @click="projectDialog?.close()"><X class="h-5 w-5" /></button></header>
+                <p class="text-sm text-admin-muted dark:text-admin-muted">Cada proyecto tendrá su propio tablero, tareas e historial de actividad. El acceso depende de los miembros y de la visibilidad que elijas.</p>
                 <p v-if="projectError" role="alert" class="rounded-lg bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-500/10 dark:text-amber-300">{{ projectError }}</p>
-                <label class="block text-sm font-medium">Nombre del proyecto<input v-model="form.name" type="text" required minlength="2" maxlength="120" placeholder="Por ejemplo, Sitio web de un cliente" class="mt-1.5 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100" /></label>
-                <label class="block text-sm font-medium">Clave estable<input v-model="form.project_key" type="text" required minlength="2" maxlength="16" pattern="[A-Z][A-Z0-9]{1,15}" placeholder="WEB" class="mt-1.5 min-h-11 uppercase" @input="form.project_key = form.project_key.toUpperCase()" /><span class="mt-1 block text-xs text-slate-500">De 2 a 16 letras mayúsculas o números. Empieza por una letra. No podrá modificarse.</span></label>
+                <label class="block text-sm font-medium">Nombre del proyecto<input v-model="form.name" type="text" required minlength="2" maxlength="120" placeholder="Por ejemplo, Sitio web de un cliente" class="mt-1.5 w-full rounded-xl border border-admin-line bg-admin-surface px-3 py-2.5 text-sm text-admin-ink dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink" /></label>
+                <label class="block text-sm font-medium">Clave estable<input v-model="form.project_key" type="text" required minlength="2" maxlength="16" pattern="[A-Z][A-Z0-9]{1,15}" placeholder="WEB" class="mt-1.5 min-h-11 uppercase" @input="form.project_key = form.project_key.toUpperCase()" /><span class="mt-1 block text-xs text-admin-muted">De 2 a 16 letras mayúsculas o números. Empieza por una letra. No podrá modificarse.</span></label>
                 <label class="block text-sm font-medium">Acceso<select v-model="form.visibility" class="mt-1.5 min-h-11"><option value="private">Privado: solo miembros y administradores globales</option><option value="team">Equipo: también administradores y editores activos</option></select></label>
-                <label class="block text-sm font-medium">Descripción del proyecto<textarea v-model="form.description" rows="3" maxlength="2000" placeholder="Objetivo, contexto o alcance del proyecto…" class="mt-1.5 w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100" /></label>
-                <footer class="flex justify-end gap-2 border-t border-slate-200 pt-4 dark:border-slate-800"><button type="button" :disabled="busy" class="rounded-xl min-h-11 px-4 py-2 text-sm text-slate-500" @click="projectDialog?.close()">Cancelar</button><button type="submit" :disabled="busy" class="rounded-xl bg-sky-500 min-h-11 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"><Loader2 v-if="busy" class="mr-1 inline h-4 w-4 animate-spin" />{{ busy ? 'Creando…' : 'Crear proyecto' }}</button></footer>
+                <label class="block text-sm font-medium">Descripción del proyecto<textarea v-model="form.description" rows="3" maxlength="2000" placeholder="Objetivo, contexto o alcance del proyecto…" class="mt-1.5 w-full rounded-xl border border-admin-line bg-admin-surface px-3 py-2.5 text-sm text-admin-ink dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink" /></label>
+                <footer class="flex justify-end gap-2 border-t border-admin-line pt-4 dark:border-admin-line"><button type="button" :disabled="busy" class="rounded-xl min-h-11 px-4 py-2 text-sm text-admin-muted" @click="projectDialog?.close()">Cancelar</button><button type="submit" :disabled="busy" class="rounded-xl bg-admin-action min-h-11 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50"><Loader2 v-if="busy" class="mr-1 inline h-4 w-4 animate-spin" />{{ busy ? 'Creando…' : 'Crear proyecto' }}</button></footer>
             </form>
         </dialog>
     </div>

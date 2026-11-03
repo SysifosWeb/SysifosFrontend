@@ -1,19 +1,19 @@
 <template>
-    <div class="admin-scope min-h-screen bg-background-light text-slate-900 dark:bg-background-dark dark:text-slate-100">
+    <div class="admin-scope min-h-screen bg-background-light text-admin-ink dark:bg-background-dark dark:text-admin-ink">
         <!-- ===== Sidebar ===== -->
-        <aside id="admin-navigation" class="fixed inset-y-0 left-0 z-50 flex w-[264px] flex-col bg-background-dark text-white transition-[width,transform] duration-200 ease-out lg:translate-x-0 lg:inset-y-4 lg:left-4 lg:rounded-[24px]"
+        <aside id="admin-navigation" class="admin-sidebar fixed inset-y-0 left-0 z-50 flex w-[264px] flex-col bg-background-dark text-white transition-[width,transform] duration-200 ease-out lg:translate-x-0 lg:inset-y-4 lg:left-4 lg:rounded-[24px]"
             :class="[sidebarOpen ? 'translate-x-0' : '-translate-x-full', sidebarCollapsed ? 'lg:w-[64px]' : 'lg:w-[232px]']">
 
             <!-- Brand -->
             <div class="flex h-16 shrink-0 items-center gap-3 border-b border-white/10 px-5" :class="sidebarCollapsed ? 'lg:justify-center lg:px-2' : ''">
-                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white">
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-admin-surface">
                     <img src="/img/brand/mark.svg" alt="" class="h-6 w-6" />
                 </div>
                 <div class="min-w-0 leading-tight" :class="sidebarCollapsed ? 'lg:hidden' : ''">
                     <p class="truncate font-display text-sm font-semibold text-white">SysifosWeb</p>
-                    <p class="text-xs text-slate-400">Gestión del trabajo</p>
+                    <p class="text-xs text-admin-muted">Gestión del trabajo</p>
                 </div>
-                <button aria-label="Cerrar menú" class="ml-auto flex h-11 w-11 items-center justify-center rounded-lg text-slate-400 hover:bg-white/5 hover:text-white lg:hidden"
+                <button aria-label="Cerrar menú" class="ml-auto flex h-11 w-11 items-center justify-center rounded-lg text-admin-muted hover:bg-white/5 hover:text-white lg:hidden"
                     @click="sidebarOpen = false">
                     <X class="h-5 w-5" />
                 </button>
@@ -22,20 +22,20 @@
             <!-- Nav -->
             <nav aria-label="Navegación principal" class="flex-1 space-y-5 overflow-y-auto px-3 py-5 scrollbar-thin">
                 <div v-for="group in navGroups" :key="group.label">
-                    <p class="mb-2 px-3 text-xs font-medium text-slate-400" :class="sidebarCollapsed ? 'lg:hidden' : ''">
+                    <p class="mb-2 px-3 text-xs font-medium text-admin-muted" :class="sidebarCollapsed ? 'lg:hidden' : ''">
                         {{ group.label }}
                     </p>
                     <div class="space-y-1">
                         <NuxtLink v-for="item in group.items" :key="item.to" :to="item.to"
-                            class="group flex min-h-11 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
-                            :class="[routeCurrent(item.match) ? 'bg-accent text-background-dark' : 'text-slate-400 hover:bg-white/5 hover:text-white', sidebarCollapsed ? 'lg:justify-center lg:px-0' : '']"
+                            class="group flex min-h-11 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-admin-accent"
+                            :class="[routeCurrent(item.match) ? 'bg-accent text-background-dark' : 'text-admin-muted hover:bg-white/5 hover:text-white', sidebarCollapsed ? 'lg:justify-center lg:px-0' : '']"
                             :aria-label="item.to === '/admin/contacts' && newContactsCount > 0 ? `${item.label}, ${newContactsCount} nuevos` : item.label"
                             :title="sidebarCollapsed ? item.label : undefined"
                             @click="sidebarOpen = false">
                             <component :is="item.icon" class="h-[18px] w-[18px] shrink-0 text-current" />
                             <span class="truncate" :class="sidebarCollapsed ? 'lg:hidden' : ''">{{ item.label }}</span>
                             <span v-if="item.to === '/admin/contacts' && newContactsCount > 0"
-                                class="ml-auto inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1.5 text-[11px] font-semibold text-slate-900"
+                                class="ml-auto inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-admin-surface px-1.5 text-[11px] font-semibold text-admin-ink"
                                 :class="sidebarCollapsed ? 'lg:hidden' : ''">
                                 {{ newContactsCount }}
                             </span>
@@ -48,23 +48,23 @@
             <!-- Footer: ver sitio + usuario -->
             <div class="shrink-0 border-t border-white/10 p-3">
                 <NuxtLink to="/" target="_blank"
-                    class="flex min-h-11 items-center gap-3 rounded-lg px-3 text-sm font-medium text-slate-400 transition-colors hover:bg-white/5 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+                    class="flex min-h-11 items-center gap-3 rounded-lg px-3 text-sm font-medium text-admin-muted transition-colors hover:bg-white/5 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-admin-accent"
                     :class="sidebarCollapsed ? 'lg:justify-center lg:px-0' : ''" :aria-label="sidebarCollapsed ? 'Ver sitio web' : undefined" :title="sidebarCollapsed ? 'Ver sitio web' : undefined">
                     <ExternalLink class="h-[18px] w-[18px] shrink-0" />
                     <span :class="sidebarCollapsed ? 'lg:hidden' : ''">Ver sitio web</span>
-                    <ChevronRight class="ml-auto h-4 w-4 text-slate-500" :class="sidebarCollapsed ? 'lg:hidden' : ''" />
+                    <ChevronRight class="ml-auto h-4 w-4 text-admin-muted" :class="sidebarCollapsed ? 'lg:hidden' : ''" />
                 </NuxtLink>
 
-                <div class="mt-2 flex min-w-0 items-center gap-3 rounded-lg bg-white/5 p-2" :class="sidebarCollapsed ? 'lg:flex-col lg:justify-center lg:gap-1 lg:px-0' : ''">
-                    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sm font-semibold text-sky-900">
+                <div class="mt-2 flex min-w-0 items-center gap-3 rounded-lg bg-admin-surface/5 p-2" :class="sidebarCollapsed ? 'lg:flex-col lg:justify-center lg:gap-1 lg:px-0' : ''">
+                    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-admin-tint text-sm font-semibold text-admin-accent">
                         {{ (userName || 'Admin').charAt(0).toUpperCase() }}
                     </div>
                     <div class="min-w-0 flex-1 leading-tight" :class="sidebarCollapsed ? 'lg:hidden' : ''">
                         <p class="truncate text-sm font-medium text-white">{{ userName || 'Admin' }}</p>
-                        <p class="truncate text-xs text-slate-400">{{ userEmail || 'admin@sysifos.cl' }}</p>
+                        <p class="truncate text-xs text-admin-muted">{{ userEmail || 'admin@sysifos.cl' }}</p>
                     </div>
                     <button
-                        class="flex h-11 w-11 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+                        class="flex h-11 w-11 items-center justify-center rounded-lg text-admin-muted transition-colors hover:bg-admin-surface/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-admin-accent"
                         aria-label="Cerrar sesión" title="Cerrar sesión" @click="handleLogout">
                         <LogOut class="h-4 w-4" />
                     </button>
@@ -78,13 +78,13 @@
             <header class="sticky top-0 z-40 bg-background-light transition-colors dark:bg-background-dark">
                 <div class="flex h-14 items-center gap-3 px-4 sm:px-6 lg:px-8">
                     <button aria-label="Abrir menú" :aria-expanded="sidebarOpen"
-                        class="flex h-11 w-11 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-200/70 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:text-slate-300 dark:hover:bg-slate-800 lg:hidden"
+                        class="flex h-11 w-11 items-center justify-center rounded-lg text-admin-muted hover:bg-admin-line/70 hover:text-admin-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-admin-accent dark:text-admin-muted dark:hover:bg-admin-elevated lg:hidden"
                         @click="sidebarOpen = true">
                         <Menu class="h-5 w-5" />
                     </button>
 
                     <button :aria-label="sidebarCollapsed ? 'Expandir navegación' : 'Contraer navegación'" :aria-expanded="!sidebarCollapsed"
-                        class="hidden h-10 w-10 items-center justify-center rounded-lg text-slate-600 transition-colors hover:bg-slate-200/70 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:text-slate-300 dark:hover:bg-slate-800 lg:flex"
+                        class="hidden h-10 w-10 items-center justify-center rounded-lg text-admin-muted transition-colors hover:bg-admin-line/70 hover:text-admin-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-admin-accent dark:text-admin-muted dark:hover:bg-admin-elevated lg:flex"
                         @click="sidebarCollapsed = !sidebarCollapsed">
                         <PanelLeftOpen v-if="sidebarCollapsed" class="h-[18px] w-[18px]" />
                         <PanelLeftClose v-else class="h-[18px] w-[18px]" />
@@ -93,11 +93,11 @@
                     <!-- Breadcrumb -->
                     <div class="flex min-w-0 items-center gap-2">
                         <NuxtLink to="/admin"
-                            class="hidden text-sm font-medium text-slate-600 transition-colors hover:text-sky-800 dark:text-slate-300 dark:hover:text-sky-200 sm:block">
+                            class="hidden text-sm font-medium text-admin-muted transition-colors hover:text-admin-accent dark:text-admin-muted dark:hover:text-admin-accent sm:block">
                             SysifosWeb
                         </NuxtLink>
-                        <ChevronRight class="hidden h-4 w-4 text-slate-400 dark:text-slate-600 sm:block" />
-                        <h1 class="truncate text-sm font-semibold text-slate-950 dark:text-white sm:text-base">
+                        <ChevronRight class="hidden h-4 w-4 text-admin-muted dark:text-admin-muted sm:block" />
+                        <h1 class="truncate text-sm font-semibold text-admin-ink dark:text-admin-ink sm:text-base">
                             {{ pageTitle }}
                         </h1>
                     </div>
@@ -110,28 +110,28 @@
                             type="search"
                             placeholder="Buscar issues… ( / )"
                             aria-label="Buscar issues"
-                            class="h-9 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+                            class="h-9 w-full rounded-lg border border-admin-line bg-admin-surface px-3 text-sm text-admin-ink placeholder:text-admin-muted focus:border-admin-accent focus:outline-none focus:ring-2 focus:ring-admin-accent/20 dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink"
                             @focus="searchOpen = true"
                             @keydown.esc.prevent="searchOpen = false"
                         />
-                        <div v-if="searchOpen && (searchLoading || searchResults.length)" class="absolute left-0 right-0 top-11 z-50 max-h-80 overflow-auto rounded-xl border border-slate-200 bg-white shadow-lg dark:border-slate-700 dark:bg-slate-900">
-                            <p v-if="searchLoading" class="px-3 py-2 text-xs text-slate-500">Buscando…</p>
-                            <button v-for="issue in searchResults" :key="issue.id" class="flex w-full items-start gap-2 px-3 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-800" @click="goToIssue(issue)">
-                                <span class="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{{ issue.issue_key }}</span>
+                        <div v-if="searchOpen && (searchLoading || searchResults.length)" class="absolute left-0 right-0 top-11 z-50 max-h-80 overflow-auto rounded-xl border border-admin-line bg-admin-surface shadow-lg dark:border-admin-line dark:bg-admin-surface">
+                            <p v-if="searchLoading" class="px-3 py-2 text-xs text-admin-muted">Buscando…</p>
+                            <button v-for="issue in searchResults" :key="issue.id" class="flex w-full items-start gap-2 px-3 py-2 text-left hover:bg-admin-soft dark:hover:bg-admin-elevated" @click="goToIssue(issue)">
+                                <span class="shrink-0 rounded bg-admin-elevated px-1.5 py-0.5 font-mono text-[11px] font-semibold text-admin-muted dark:bg-admin-elevated dark:text-admin-muted">{{ issue.issue_key }}</span>
                                 <span class="min-w-0 flex-1">
-                                    <span class="block truncate text-sm font-medium text-slate-900 dark:text-white">{{ issue.title }}</span>
-                                    <span class="block truncate text-xs text-slate-500 dark:text-slate-400">{{ issue.project?.name || issue.project?.project_key || '' }}</span>
+                                    <span class="block truncate text-sm font-medium text-admin-ink dark:text-admin-ink">{{ issue.title }}</span>
+                                    <span class="block truncate text-xs text-admin-muted dark:text-admin-muted">{{ issue.project?.name || issue.project?.project_key || '' }}</span>
                                 </span>
                             </button>
-                            <p v-if="!searchLoading && !searchResults.length && searchQuery.trim()" class="px-3 py-2 text-xs text-slate-500">Sin resultados.</p>
+                            <p v-if="!searchLoading && !searchResults.length && searchQuery.trim()" class="px-3 py-2 text-xs text-admin-muted">Sin resultados.</p>
                         </div>
                     </div>
 
                     <div class="ml-auto flex items-center gap-1.5">
-                        <NuxtLink v-if="activeProjectContext?.permissions.collaborate" :to="{ path: `/admin/kanban/${activeProjectContext.project.id}`, query: { ...route.query, issue: undefined, create: '1' } }" class="mr-2 inline-flex min-h-9 items-center gap-1.5 rounded-lg bg-sky-700 px-3 text-sm font-semibold text-white hover:bg-sky-800"><Plus class="h-4 w-4" />Crear</NuxtLink>
+                        <NuxtLink v-if="activeProjectContext?.permissions.collaborate" :to="{ path: `/admin/kanban/${activeProjectContext.project.id}`, query: { ...route.query, issue: undefined, create: '1' } }" class="mr-2 inline-flex min-h-9 items-center gap-1.5 rounded-lg bg-admin-action-hover px-3 text-sm font-semibold text-white hover:bg-admin-action-hover"><Plus class="h-4 w-4" />Crear</NuxtLink>
                         <!-- Dark mode -->
                         <button
-                            class="flex h-11 w-11 items-center justify-center rounded-lg text-slate-600 transition-colors hover:bg-slate-200/70 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+                            class="flex h-11 w-11 items-center justify-center rounded-lg text-admin-muted transition-colors hover:bg-admin-line/70 hover:text-admin-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-admin-accent dark:text-admin-muted dark:hover:bg-admin-elevated dark:hover:text-white"
                             :title="isDark ? 'Modo claro' : 'Modo oscuro'" @click="toggleDarkMode">
                             <Sun v-if="isDark" class="h-[18px] w-[18px]" />
                             <Moon v-else class="h-[18px] w-[18px]" />
@@ -145,39 +145,39 @@
 
             <!-- Contenido -->
             <main class="admin-content mx-auto w-full min-w-0 max-w-[1600px] flex-1 px-4 pb-6 pt-2 sm:px-6"
-                :class="isHome ? '' : 'mb-4 rounded-2xl bg-white py-6 dark:bg-slate-900'">
+                :class="isHome ? '' : 'mb-4 rounded-2xl bg-admin-surface py-6 dark:bg-admin-surface'">
                 <slot />
             </main>
         </div>
 
         <!-- Command palette -->
         <div v-if="paletteOpen" class="fixed inset-0 z-[60] flex items-start justify-center bg-black/50 pt-16" @click.self="paletteOpen = false">
-            <div class="w-full max-w-lg overflow-hidden rounded-xl bg-white shadow-2xl dark:bg-slate-900">
-                <div class="border-b border-slate-200 p-3 dark:border-slate-800">
+            <div class="w-full max-w-lg overflow-hidden rounded-xl bg-admin-surface shadow-2xl dark:bg-admin-surface">
+                <div class="border-b border-admin-line p-3 dark:border-admin-line">
                     <input
                         ref="paletteInput"
                         v-model="paletteQuery"
                         type="search"
                         placeholder="Comandos o buscar issues… (Ctrl+K)"
                         aria-label="Paleta de comandos"
-                        class="h-9 w-full rounded-lg border border-slate-200 bg-transparent px-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:outline-none focus:ring-2 focus:ring-sky-500/20 dark:border-slate-700 dark:text-slate-100"
+                        class="h-9 w-full rounded-lg border border-admin-line bg-transparent px-3 text-sm text-admin-ink placeholder:text-admin-muted focus:border-admin-accent focus:outline-none focus:ring-2 focus:ring-admin-accent/20 dark:border-admin-line dark:text-admin-ink"
                         @keydown.esc.prevent="paletteOpen = false"
                     />
                 </div>
                 <div class="max-h-80 overflow-auto p-2">
-                    <p v-if="paletteLoading" class="px-3 py-2 text-xs text-slate-500">Buscando…</p>
+                    <p v-if="paletteLoading" class="px-3 py-2 text-xs text-admin-muted">Buscando…</p>
                     <template v-else>
-                        <p class="px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Navegación</p>
-                        <button v-for="cmd in paletteCommands" :key="cmd.label" class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800" @click="runPaletteCommand(cmd)">
-                            <component :is="cmd.icon" class="h-4 w-4 text-slate-400" />
+                        <p class="px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-admin-muted">Navegación</p>
+                        <button v-for="cmd in paletteCommands" :key="cmd.label" class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-admin-ink hover:bg-admin-soft dark:text-admin-ink dark:hover:bg-admin-elevated" @click="runPaletteCommand(cmd)">
+                            <component :is="cmd.icon" class="h-4 w-4 text-admin-muted" />
                             {{ cmd.label }}
                         </button>
-                        <p v-if="paletteResults.length" class="mt-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400">Issues</p>
-                        <button v-for="issue in paletteResults" :key="issue.id" class="flex w-full items-start gap-2 rounded-lg px-3 py-2 text-left hover:bg-slate-50 dark:hover:bg-slate-800" @click="goToIssue(issue)">
-                            <span class="shrink-0 rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">{{ issue.issue_key }}</span>
+                        <p v-if="paletteResults.length" class="mt-2 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-admin-muted">Issues</p>
+                        <button v-for="issue in paletteResults" :key="issue.id" class="flex w-full items-start gap-2 rounded-lg px-3 py-2 text-left hover:bg-admin-soft dark:hover:bg-admin-elevated" @click="goToIssue(issue)">
+                            <span class="shrink-0 rounded bg-admin-elevated px-1.5 py-0.5 font-mono text-[11px] font-semibold text-admin-muted dark:bg-admin-elevated dark:text-admin-muted">{{ issue.issue_key }}</span>
                             <span class="min-w-0 flex-1">
-                                <span class="block truncate text-sm font-medium text-slate-900 dark:text-white">{{ issue.title }}</span>
-                                <span class="block truncate text-xs text-slate-500 dark:text-slate-400">{{ issue.project?.name || '' }}</span>
+                                <span class="block truncate text-sm font-medium text-admin-ink dark:text-admin-ink">{{ issue.title }}</span>
+                                <span class="block truncate text-xs text-admin-muted dark:text-admin-muted">{{ issue.project?.name || '' }}</span>
                             </span>
                         </button>
                     </template>

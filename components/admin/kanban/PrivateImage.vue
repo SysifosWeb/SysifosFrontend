@@ -38,7 +38,7 @@ onBeforeUnmount(() => { sequence++; observer?.disconnect(); release() })
 </script>
 
 <template>
-    <span ref="container" class="my-3 block min-h-10 rounded-lg border border-slate-200 p-2 dark:border-slate-700">
+    <span ref="container" class="my-3 block min-h-10 rounded-lg border border-admin-line p-2 dark:border-admin-line">
         <span v-if="loading" role="status" class="text-xs">Cargando captura…</span>
         <span v-else-if="error" role="status" class="text-xs">{{ error }} <button type="button" class="underline" @click="load">Reintentar</button></span>
         <a v-else-if="source" :href="source" target="_blank" rel="noopener noreferrer" :aria-label="`Abrir captura: ${alt}`"><img :src="source" :alt="alt || 'Captura de evidencia'" class="max-h-96 max-w-full rounded object-contain" @error="error = 'No se pudo mostrar la captura.'" /></a>

@@ -41,11 +41,11 @@ async function create() {
 </script>
 
 <template>
-  <dialog ref="dialog" aria-labelledby="quick-issue-heading" class="admin-scope !m-auto w-[min(520px,calc(100vw-32px))] rounded-xl bg-white p-0 text-slate-900 shadow-2xl backdrop:bg-slate-950/50 dark:bg-slate-900 dark:text-slate-100" @cancel.prevent="close()">
+  <dialog ref="dialog" aria-labelledby="quick-issue-heading" class="admin-scope !m-auto w-[min(520px,calc(100vw-32px))] rounded-xl bg-admin-surface p-0 text-admin-ink shadow-2xl backdrop:bg-admin-canvas/50 dark:bg-admin-surface dark:text-admin-ink" @cancel.prevent="close()">
     <form class="space-y-5 p-6" @submit.prevent="create">
-      <header class="flex items-center justify-between"><h2 id="quick-issue-heading" class="text-lg font-semibold">Crear issue</h2><button type="button" aria-label="Cerrar creación de issue" :disabled="busy" class="rounded-md p-2 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800" @click="close()"><X class="h-4 w-4" /></button></header>
+      <header class="flex items-center justify-between"><h2 id="quick-issue-heading" class="text-lg font-semibold">Crear issue</h2><button type="button" aria-label="Cerrar creación de issue" :disabled="busy" class="rounded-md p-2 text-admin-muted hover:bg-admin-elevated dark:hover:bg-admin-elevated" @click="close()"><X class="h-4 w-4" /></button></header>
       <p v-if="error" role="alert" class="rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-500/10 dark:text-red-300">{{ error }}</p>
-      <p v-if="!canWrite" role="status" class="rounded-lg bg-slate-50 p-3 text-sm text-slate-600 dark:bg-slate-800 dark:text-slate-300">La creación no está disponible en este momento. Tu borrador se conserva.</p>
+      <p v-if="!canWrite" role="status" class="rounded-lg bg-admin-soft p-3 text-sm text-admin-muted dark:bg-admin-elevated dark:text-admin-muted">La creación no está disponible en este momento. Tu borrador se conserva.</p>
       <div v-if="discard" role="alert" class="rounded-lg bg-amber-50 p-3 text-sm text-amber-800 dark:bg-amber-500/10 dark:text-amber-200">
         <p>¿Descartar el título que escribiste?</p>
         <div class="mt-2 flex gap-3">
@@ -56,10 +56,10 @@ async function create() {
       <label class="block space-y-1.5 text-xs font-semibold">Proyecto<input :value="`${project?.project_key || ''} · ${project?.name || ''}`" readonly /></label>
       <label class="block space-y-1.5 text-xs font-semibold">Tipo<select v-model="type" :disabled="busy || !canWrite"><option v-for="item in ISSUE_TYPES.filter(item => item.value !== 'subtask')" :key="item.value" :value="item.value">{{ item.label }}</option></select></label>
       <label class="block space-y-1.5 text-xs font-semibold">Título<input ref="titleInput" v-model="title" required minlength="2" maxlength="255" :disabled="busy || !canWrite" placeholder="¿Qué hay que hacer?" /></label>
-      <p class="text-xs leading-relaxed text-slate-500 dark:text-slate-400">Completa la descripción, los responsables y el resto de los campos desde el detalle.</p>
-      <footer class="flex justify-end gap-2 border-t border-slate-200 pt-4 dark:border-slate-800">
-        <button type="button" :disabled="busy" class="rounded-lg px-3 py-2 text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800" @click="close()">Cancelar</button>
-        <button type="submit" :disabled="busy || !canWrite" class="inline-flex items-center gap-2 rounded-lg bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-50"><Loader2 v-if="busy" class="h-4 w-4 animate-spin" /><Plus v-else class="h-4 w-4" />{{ busy ? 'Creando…' : 'Crear y abrir' }}</button>
+      <p class="text-xs leading-relaxed text-admin-muted dark:text-admin-muted">Completa la descripción, los responsables y el resto de los campos desde el detalle.</p>
+      <footer class="flex justify-end gap-2 border-t border-admin-line pt-4 dark:border-admin-line">
+        <button type="button" :disabled="busy" class="rounded-lg px-3 py-2 text-sm text-admin-muted hover:bg-admin-elevated dark:hover:bg-admin-elevated" @click="close()">Cancelar</button>
+        <button type="submit" :disabled="busy || !canWrite" class="inline-flex items-center gap-2 rounded-lg bg-admin-action px-4 py-2 text-sm font-semibold text-white hover:bg-admin-action-hover disabled:opacity-50"><Loader2 v-if="busy" class="h-4 w-4 animate-spin" /><Plus v-else class="h-4 w-4" />{{ busy ? 'Creando…' : 'Crear y abrir' }}</button>
       </footer>
     </form>
   </dialog>

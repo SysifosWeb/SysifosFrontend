@@ -11,6 +11,7 @@ export default {
     theme: {
         extend: {
             colors: {
+                admin: Object.fromEntries(['canvas', 'surface', 'soft', 'elevated', 'line', 'ink', 'muted', 'accent', 'tint', 'action', 'action-hover'].map(role => [role, `rgb(var(--admin-${role}-rgb) / <alpha-value>)`])),
                 accent: 'var(--accent)',
                 content: 'var(--text-main)',
                 subdued: 'var(--text-secondary)',

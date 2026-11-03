@@ -47,8 +47,8 @@ const statusText = computed(() => {
 
         <!-- Error -->
         <div v-else-if="error || !category.id" class="text-center py-12">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Categoría no encontrada</h2>
-            <p class="mt-2 text-gray-500 dark:text-gray-400">La categoría que buscas no existe o fue eliminada.</p>
+            <h2 class="text-2xl font-bold text-admin-ink dark:text-admin-ink">Categoría no encontrada</h2>
+            <p class="mt-2 text-admin-muted dark:text-admin-muted">La categoría que buscas no existe o fue eliminada.</p>
             <NuxtLink to="/admin/categories"
                 class="mt-4 inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline">
                 Volver a categorías
@@ -60,10 +60,10 @@ const statusText = computed(() => {
             <div class="mb-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
+                        <h1 class="text-2xl font-semibold text-admin-ink dark:text-admin-ink">
                             {{ category.name }}
                         </h1>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <p class="mt-1 text-sm text-admin-muted dark:text-admin-muted">
                             Detalles y estadísticas de la categoría
                         </p>
                     </div>
@@ -73,7 +73,7 @@ const statusText = computed(() => {
                             Editar
                         </NuxtLink>
                         <NuxtLink to="/admin/categories"
-                            class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            class="inline-flex items-center px-4 py-2 bg-admin-line border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-admin-elevated focus:outline-none focus:ring-2 focus:ring-admin-line focus:ring-offset-2 transition ease-in-out duration-150">
                             Volver
                         </NuxtLink>
                     </div>
@@ -83,51 +83,51 @@ const statusText = computed(() => {
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2">
                     <div
-                        class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
+                        <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                            <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                 Información de la Categoría
                             </h3>
                         </div>
                         <div class="p-6 space-y-6">
                             <div class="flex items-center space-x-4">
-                                <div class="w-8 h-8 rounded-full border border-gray-300 dark:border-slate-600"
+                                <div class="w-8 h-8 rounded-full border border-admin-line dark:border-admin-line"
                                     :style="{ backgroundColor: category.color || '#3B82F6' }"></div>
                                 <div>
-                                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                    <h2 class="text-xl font-semibold text-admin-ink dark:text-admin-ink">
                                         {{ category.name }}
                                     </h2>
-                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                    <p class="text-sm text-admin-muted dark:text-admin-muted">
                                         Color: {{ category.color || 'Predeterminado' }}
                                     </p>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Slug (URL)
                                 </label>
                                 <code
-                                    class="px-3 py-1 bg-gray-100 dark:bg-slate-900 text-gray-800 dark:text-gray-200 rounded text-sm block overflow-x-auto">
+                                    class="px-3 py-1 bg-admin-elevated dark:bg-admin-surface text-admin-ink dark:text-admin-ink rounded text-sm block overflow-x-auto">
                                     /blog/categoria/{{ category.slug }}
                                 </code>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Descripción
                                 </label>
-                                <p v-if="category.description" class="text-gray-900 dark:text-white">
+                                <p v-if="category.description" class="text-admin-ink dark:text-admin-ink">
                                     {{ category.description }}
                                 </p>
-                                <p v-else class="text-gray-500 dark:text-gray-400 italic">
+                                <p v-else class="text-admin-muted dark:text-admin-muted italic">
                                     Sin descripción
                                 </p>
                             </div>
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                    <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                         Estado
                                     </label>
                                     <span
@@ -137,10 +137,10 @@ const statusText = computed(() => {
                                     </span>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                    <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                         Orden
                                     </label>
-                                    <p class="text-gray-900 dark:text-white">{{ category.sort_order }}</p>
+                                    <p class="text-admin-ink dark:text-admin-ink">{{ category.sort_order }}</p>
                                 </div>
                             </div>
                         </div>
@@ -149,9 +149,9 @@ const statusText = computed(() => {
 
                 <div class="space-y-6">
                     <div
-                        class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
+                        <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                            <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                 Estadísticas
                             </h3>
                         </div>
@@ -160,7 +160,7 @@ const statusText = computed(() => {
                                 <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">
                                     {{ category.blog_posts_count || 0 }}
                                 </div>
-                                <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                <div class="text-sm text-admin-muted dark:text-admin-muted mt-1">
                                     Posts asociados
                                 </div>
                             </div>
@@ -168,9 +168,9 @@ const statusText = computed(() => {
                     </div>
 
                     <div
-                        class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
+                        <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                            <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                 Acciones Rápidas
                             </h3>
                         </div>

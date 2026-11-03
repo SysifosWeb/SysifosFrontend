@@ -38,6 +38,16 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Verify public pages after hydration and navigation
         run: node scripts/public-pages.browser.cjs
+      - name: Verify admin themes and personal work experience
+        run: node scripts/admin-pages.browser.cjs
+      - name: Save admin visual checks
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: admin-review-${{ github.sha }}
+          path: .artifacts/admin/*.png
+          include-hidden-files: true
+          retention-days: 7
       - name: Package the exact source and compiled output
         run: |
           mkdir -p /tmp/frontend-release

@@ -25,8 +25,8 @@ async function upload(event: Event) {
 
 <template>
     <div class="space-y-1 text-xs">
-        <label class="inline-flex cursor-pointer items-center gap-2 rounded border border-slate-300 px-3 py-2 font-semibold dark:border-slate-600">{{ busy ? 'Subiendo captura…' : 'Subir captura' }}<input type="file" accept="image/png,image/jpeg,image/webp" :disabled="disabled || busy" class="max-w-48 text-xs" @change="upload" /></label>
-        <p class="text-slate-600 dark:text-slate-300">PNG, JPEG o WebP · hasta 5 MB · máximo 6000 × 6000 px. Privada para el proyecto. Se almacena al subirla, incluso si cancelas el borrador.</p>
+        <label class="inline-flex cursor-pointer items-center gap-2 rounded border border-admin-line px-3 py-2 font-semibold dark:border-admin-line">{{ busy ? 'Subiendo captura…' : 'Subir captura' }}<input type="file" accept="image/png,image/jpeg,image/webp" :disabled="disabled || busy" class="max-w-48 text-xs" @change="upload" /></label>
+        <p class="text-admin-muted dark:text-admin-muted">PNG, JPEG o WebP · hasta 5 MB · máximo 6000 × 6000 px. Privada para el proyecto. Se almacena al subirla, incluso si cancelas el borrador.</p>
         <p v-if="busy" role="status">Espera a que termine la subida.</p>
         <p v-if="error" role="alert" class="text-red-700 dark:text-red-300">{{ error }}</p>
     </div>

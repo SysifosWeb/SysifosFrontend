@@ -45,10 +45,10 @@ const formatDate = (date) => {
             <div class="mb-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
+                        <h1 class="text-2xl font-semibold text-admin-ink dark:text-admin-ink">
                             {{ post.title }}
                         </h1>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <p class="mt-1 text-sm text-admin-muted dark:text-admin-muted">
                             Visualización del post
                         </p>
                     </div>
@@ -58,7 +58,7 @@ const formatDate = (date) => {
                             Editar
                         </NuxtLink>
                         <NuxtLink to="/admin/posts"
-                            class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                            class="inline-flex items-center px-4 py-2 bg-admin-line border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-admin-elevated">
                             Volver
                         </NuxtLink>
                     </div>
@@ -85,17 +85,17 @@ const formatDate = (date) => {
 
                     <!-- Contenido principal -->
                     <div
-                        class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
+                        <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                            <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                 Contenido del Post
                             </h3>
                         </div>
                         <div class="p-6">
                             <!-- Extracto -->
                             <div v-if="post.excerpt" class="mb-6">
-                                <h4 class="text-sm font-medium text-gray-700 dark:text-gray-400 mb-2">Extracto</h4>
-                                <p class="text-gray-500 dark:text-gray-400 italic">{{ post.excerpt }}</p>
+                                <h4 class="text-sm font-medium text-admin-ink dark:text-admin-muted mb-2">Extracto</h4>
+                                <p class="text-admin-muted dark:text-admin-muted italic">{{ post.excerpt }}</p>
                             </div>
 
                             <!-- Contenido -->
@@ -107,27 +107,27 @@ const formatDate = (date) => {
 
                     <!-- SEO -->
                     <div v-if="post.meta_title || post.meta_description || post.meta_keywords"
-                        class="bg-white dark:bg-slate-800 rounded-lg shadow mt-6 border border-gray-100 dark:border-slate-700">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow mt-6 border border-admin-line dark:border-admin-line">
+                        <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                            <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                 Información SEO
                             </h3>
                         </div>
                         <div class="p-6 space-y-4">
                             <div v-if="post.meta_title">
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Meta Título
                                 </label>
-                                <p class="text-gray-900 dark:text-gray-100">{{ post.meta_title }}</p>
+                                <p class="text-admin-ink dark:text-admin-ink">{{ post.meta_title }}</p>
                             </div>
                             <div v-if="post.meta_description">
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Meta Descripción
                                 </label>
-                                <p class="text-gray-900 dark:text-gray-100">{{ post.meta_description }}</p>
+                                <p class="text-admin-ink dark:text-admin-ink">{{ post.meta_description }}</p>
                             </div>
                             <div v-if="post.meta_keywords && post.meta_keywords.length">
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Palabras Clave
                                 </label>
                                 <div class="flex flex-wrap gap-2">
@@ -146,15 +146,15 @@ const formatDate = (date) => {
                 <div class="space-y-6">
                     <!-- Información del post -->
                     <div
-                        class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
+                        <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                            <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                 Información
                             </h3>
                         </div>
                         <div class="p-6 space-y-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Estado
                                 </label>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
@@ -164,28 +164,28 @@ const formatDate = (date) => {
                             </div>
 
                             <div v-if="post.category">
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Categoría
                                 </label>
-                                <span class="inline-flex items-center gap-1.5 bg-slate-100 px-2.5 py-0.5 rounded-full text-xs font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                                <span class="inline-flex items-center gap-1.5 bg-admin-elevated px-2.5 py-0.5 rounded-full text-xs font-medium text-admin-ink dark:bg-admin-elevated dark:text-admin-ink">
                                     <span class="h-1.5 w-1.5 rounded-full" :style="{ backgroundColor: post.category.color || '#94a3b8' }" />
                                     {{ post.category.name }}
                                 </span>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Autor
                                 </label>
-                                <p class="text-gray-900 dark:text-gray-100">{{ post.user?.name || 'Usuario' }}</p>
+                                <p class="text-admin-ink dark:text-admin-ink">{{ post.user?.name || 'Usuario' }}</p>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Slug
                                 </label>
                                 <code
-                                    class="px-2 py-1 bg-gray-100 dark:bg-slate-900 rounded text-sm dark:text-gray-400">
+                                    class="px-2 py-1 bg-admin-elevated dark:bg-admin-surface rounded text-sm dark:text-admin-muted">
                                     /blog/{{ post.slug }}
                                 </code>
                             </div>
@@ -195,41 +195,41 @@ const formatDate = (date) => {
                                     <path
                                         d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                 </svg>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">Post destacado</span>
+                                <span class="text-sm text-admin-muted dark:text-admin-muted">Post destacado</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Estadísticas -->
                     <div
-                        class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
+                        <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                            <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                 Estadísticas
                             </h3>
                         </div>
                         <div class="p-6 space-y-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Creado
                                 </label>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ formatDate(post.created_at) }}
+                                <p class="text-sm text-admin-muted dark:text-admin-muted">{{ formatDate(post.created_at) }}
                                 </p>
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Actualizado
                                 </label>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ formatDate(post.updated_at) }}
+                                <p class="text-sm text-admin-muted dark:text-admin-muted">{{ formatDate(post.updated_at) }}
                                 </p>
                             </div>
 
                             <div v-if="post.published_at">
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                     Publicado
                                 </label>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ formatDate(post.published_at) }}
+                                <p class="text-sm text-admin-muted dark:text-admin-muted">{{ formatDate(post.published_at) }}
                                 </p>
                             </div>
                         </div>
@@ -237,9 +237,9 @@ const formatDate = (date) => {
 
                     <!-- Acciones rápidas -->
                     <div
-                        class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-                        <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
+                        <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                            <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                 Acciones
                             </h3>
                         </div>

@@ -295,13 +295,31 @@ input, textarea, select {
 
 .admin-scope {
   color-scheme: light;
-  --admin-text-muted: #475569;
-  --admin-link: #0369a1;
+  --admin-canvas-rgb: 245 249 253;
+  --admin-surface-rgb: 255 255 255;
+  --admin-soft-rgb: 240 245 251;
+  --admin-elevated-rgb: 231 239 248;
+  --admin-line-rgb: 217 227 239;
+  --admin-ink-rgb: 16 43 70;
+  --admin-muted-rgb: 82 103 127;
+  --admin-accent-rgb: 29 95 166;
+  --admin-tint-rgb: 231 239 248;
+  --admin-action-rgb: 29 95 166;
+  --admin-action-hover-rgb: 16 43 70;
+  --admin-text-muted: rgb(var(--admin-muted-rgb));
+  --admin-link: rgb(var(--admin-accent-rgb));
 }
 :where(.dark) .admin-scope {
   color-scheme: dark;
-  --admin-text-muted: #94a3b8;
-  --admin-link: #7dd3fc;
+  --admin-canvas-rgb: 16 43 70;
+  --admin-surface-rgb: 22 54 83;
+  --admin-soft-rgb: 25 60 91;
+  --admin-elevated-rgb: 29 65 99;
+  --admin-line-rgb: 54 80 105;
+  --admin-ink-rgb: 245 249 253;
+  --admin-muted-rgb: 184 207 229;
+  --admin-accent-rgb: 157 203 245;
+  --admin-tint-rgb: 29 65 99;
 }
 
 /* Paleta accesible para contenido y diálogos del admin. El sidebar conserva
@@ -382,25 +400,25 @@ input, textarea, select {
 :where(.dark .admin-scope) :where(input[type="url"]),
 :where(.dark .admin-scope) :where(textarea),
 :where(.dark .admin-scope) :where(select) {
-  background-color: #1a1920;
-  border-color: #3a3742;
-  color: #e2e8f0;
+  background-color: rgb(var(--admin-elevated-rgb));
+  border-color: rgb(var(--admin-line-rgb));
+  color: rgb(var(--admin-ink-rgb));
   box-shadow: none;
 }
 :where(.dark .admin-scope) :where(input)::placeholder,
 :where(.dark .admin-scope) :where(textarea)::placeholder {
-  color: #94a3b8;
+  color: rgb(var(--admin-muted-rgb));
 }
 :where(.dark .admin-scope) :where(select option) {
-  background-color: #1a1920;
-  color: #e2e8f0;
+  background-color: rgb(var(--admin-elevated-rgb));
+  color: rgb(var(--admin-ink-rgb));
 }
 
 :where(.admin-scope) :where(input:focus),
 :where(.admin-scope) :where(textarea:focus),
 :where(.admin-scope) :where(select:focus) {
-  border-color: #38bdf8;
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+  border-color: rgb(var(--admin-accent-rgb));
+  box-shadow: 0 0 0 3px rgb(var(--admin-accent-rgb) / 0.18);
 }
 
 /* ============================================
@@ -777,3 +795,6 @@ input, textarea, select {
 .consent-option label { display: flex; align-items: center; gap: .75rem; min-height: 44px; font-weight: 600; cursor: pointer; }
 .consent-option input { width: 22px; height: 22px; flex-shrink: 0; accent-color: #38bdf8; }
 @media (max-width: 400px) { .consent-actions { flex-direction: column; } .consent-actions button { flex-basis: auto; width: 100%; } }
+
+/* The navigation keeps a dark surface in both themes. */
+.admin-sidebar { --admin-muted-rgb:184 207 229; --admin-ink-rgb:245 249 253; --admin-surface-rgb:29 65 99; --admin-accent-rgb:157 203 245; }

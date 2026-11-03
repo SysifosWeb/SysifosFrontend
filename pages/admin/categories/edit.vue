@@ -101,15 +101,15 @@ const submit = async () => {
     <div class="max-w-4xl mx-auto">
         <div class="mb-6 flex items-center justify-between">
             <div>
-                <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
+                <h1 class="text-2xl font-semibold text-admin-ink dark:text-admin-ink">
                     Editar Categoría
                 </h1>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                <p class="mt-1 text-sm text-admin-muted dark:text-admin-muted">
                     Modifica los campos que necesites actualizar
                 </p>
             </div>
             <NuxtLink to="/admin/categories"
-                class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                class="inline-flex items-center px-4 py-2 bg-admin-line border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-admin-elevated focus:outline-none focus:ring-2 focus:ring-admin-line focus:ring-offset-2 transition ease-in-out duration-150">
                 Volver
             </NuxtLink>
         </div>
@@ -125,33 +125,33 @@ const submit = async () => {
         </div>
 
         <div v-else
-            class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700 overflow-hidden">
+            class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line overflow-hidden">
             <form @submit.prevent="submit" class="p-6 space-y-6">
                 <!-- Nombre -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Nombre</label>
+                    <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">Nombre</label>
                     <input v-model="form.name" @blur="generateSlug" type="text" required
-                        class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        class="w-full rounded-md border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.name }" />
                     <p v-if="errors.name" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors.name[0] }}</p>
                 </div>
 
                 <!-- Slug -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Slug (URL)</label>
+                    <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">Slug (URL)</label>
                     <input v-model="form.slug" type="text" required
-                        class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        class="w-full rounded-md border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.slug }" />
-                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Se usará en la URL: /blog/categoria/{slug}
+                    <p class="mt-1 text-xs text-admin-muted dark:text-admin-muted">Se usará en la URL: /blog/categoria/{slug}
                     </p>
                     <p v-if="errors.slug" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors.slug[0] }}</p>
                 </div>
 
                 <!-- Descripción -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Descripción</label>
+                    <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">Descripción</label>
                     <textarea v-model="form.description" rows="3"
-                        class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        class="w-full rounded-md border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink shadow-sm focus:border-blue-500 focus:ring-blue-500"
                         :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.description }"></textarea>
                     <p v-if="errors.description" class="mt-1 text-sm text-red-600 dark:text-red-400">{{
                         errors.description[0] }}</p>
@@ -160,12 +160,12 @@ const submit = async () => {
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <!-- Color -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Color
+                        <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">Color
                             representativo</label>
                         <div class="flex items-center space-x-3">
                             <input v-model="form.color" type="color"
-                                class="h-10 w-20 rounded border border-gray-300 dark:border-slate-600 cursor-pointer p-0" />
-                            <span class="text-sm font-mono text-gray-500 dark:text-gray-400">{{ form.color }}</span>
+                                class="h-10 w-20 rounded border border-admin-line dark:border-admin-line cursor-pointer p-0" />
+                            <span class="text-sm font-mono text-admin-muted dark:text-admin-muted">{{ form.color }}</span>
                         </div>
                         <p v-if="errors.color" class="mt-1 text-sm text-red-600 dark:text-red-400">{{ errors.color[0] }}
                         </p>
@@ -173,9 +173,9 @@ const submit = async () => {
 
                     <!-- Orden -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Orden</label>
+                        <label class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">Orden</label>
                         <input v-model="form.sort_order" type="number" min="0" required
-                            class="w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                            class="w-full rounded-md border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink shadow-sm focus:border-blue-500 focus:ring-blue-500"
                             :class="{ 'border-red-500 focus:border-red-500 focus:ring-red-500': errors.sort_order }" />
                         <p v-if="errors.sort_order" class="mt-1 text-sm text-red-600 dark:text-red-400">{{
                             errors.sort_order[0] }}</p>
@@ -185,8 +185,8 @@ const submit = async () => {
                     <div class="flex items-center pt-6">
                         <label class="flex items-center cursor-pointer">
                             <input v-model="form.active" type="checkbox"
-                                class="h-5 w-5 rounded border-gray-300 dark:border-slate-600 text-blue-600 focus:ring-blue-500 bg-white dark:bg-slate-900" />
-                            <span class="ml-2 text-sm text-gray-700 dark:text-gray-400">
+                                class="h-5 w-5 rounded border-admin-line dark:border-admin-line text-blue-600 focus:ring-blue-500 bg-admin-surface dark:bg-admin-surface" />
+                            <span class="ml-2 text-sm text-admin-ink dark:text-admin-muted">
                                 Categoría activa
                             </span>
                         </label>

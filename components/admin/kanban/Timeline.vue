@@ -94,20 +94,20 @@ const standalone = computed(() => items.value.filter((issue) => !issue.epic_id))
 
 <template>
     <div class="space-y-5">
-        <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400"><CalendarRange class="h-4 w-4" />Línea de tiempo (Gantt) agrupada por épica</div>
-        <div v-if="loading" class="h-48 animate-pulse rounded-xl bg-slate-100 dark:bg-slate-800" />
+        <div class="flex items-center gap-2 text-sm text-admin-muted dark:text-admin-muted"><CalendarRange class="h-4 w-4" />Línea de tiempo (Gantt) agrupada por épica</div>
+        <div v-if="loading" class="h-48 animate-pulse rounded-xl bg-admin-elevated dark:bg-admin-elevated" />
         <div v-else-if="error" class="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-900/40 dark:bg-red-950/30 dark:text-red-300">{{ error }}</div>
-        <div v-else-if="!items.length" class="rounded-xl border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">No hay issues con fechas de inicio o fin para mostrar.</div>
+        <div v-else-if="!items.length" class="rounded-xl border border-dashed border-admin-line p-8 text-center text-sm text-admin-muted dark:border-admin-line dark:text-admin-muted">No hay issues con fechas de inicio o fin para mostrar.</div>
         <div v-else class="space-y-6">
-            <div v-for="group in groups" :key="group.key" class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                <div class="mb-3 flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-white">
-                    <span v-if="group.epic" class="text-xs text-slate-500 dark:text-slate-400">{{ group.epic.issue_key }}</span>
+            <div v-for="group in groups" :key="group.key" class="rounded-xl border border-admin-line bg-admin-surface p-4 dark:border-admin-line dark:bg-admin-surface">
+                <div class="mb-3 flex items-center gap-2 text-sm font-semibold text-admin-ink dark:text-admin-ink">
+                    <span v-if="group.epic" class="text-xs text-admin-muted dark:text-admin-muted">{{ group.epic.issue_key }}</span>
                     {{ group.epic?.title || 'Sin épica' }}
                 </div>
-                <div class="relative h-10 w-full rounded bg-slate-100 dark:bg-slate-800">
-                    <div v-if="group.epic && (group.epic.start_date || group.epic.due_date)" class="absolute top-1 h-8 rounded bg-sky-500/80 text-xs text-white flex items-center px-2" :style="barStyle(group.epic)">{{ group.epic.issue_key }}</div>
+                <div class="relative h-10 w-full rounded bg-admin-elevated dark:bg-admin-elevated">
+                    <div v-if="group.epic && (group.epic.start_date || group.epic.due_date)" class="absolute top-1 h-8 rounded bg-admin-action/80 text-xs text-white flex items-center px-2" :style="barStyle(group.epic)">{{ group.epic.issue_key }}</div>
                 </div>
-                <div v-for="issue in group.issues" :key="issue.id" class="relative mt-2 h-8 w-full rounded bg-slate-50 dark:bg-slate-800/50">
+                <div v-for="issue in group.issues" :key="issue.id" class="relative mt-2 h-8 w-full rounded bg-admin-soft dark:bg-admin-elevated/50">
                     <div class="absolute top-0.5 h-7 rounded bg-indigo-500/80 text-xs text-white flex items-center px-2" :style="barStyle(issue)">{{ issue.issue_key }} · {{ issue.title }}</div>
                 </div>
             </div>

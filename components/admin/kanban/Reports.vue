@@ -63,67 +63,67 @@ const svgResolved = computed(() => {
 
 <template>
     <div class="space-y-5">
-        <div class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400"><BarChart3 class="h-4 w-4" />Reportes y métricas</div>
-        <div v-if="loading" class="h-48 animate-pulse rounded-xl bg-slate-100 dark:bg-slate-800" />
+        <div class="flex items-center gap-2 text-sm text-admin-muted dark:text-admin-muted"><BarChart3 class="h-4 w-4" />Reportes y métricas</div>
+        <div v-if="loading" class="h-48 animate-pulse rounded-xl bg-admin-elevated dark:bg-admin-elevated" />
         <div v-else-if="error" class="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700 dark:border-red-900/40 dark:bg-red-950/30 dark:text-red-300">{{ error }}</div>
-        <div v-else-if="!report" class="rounded-xl border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">Sin datos.</div>
+        <div v-else-if="!report" class="rounded-xl border border-dashed border-admin-line p-8 text-center text-sm text-admin-muted dark:border-admin-line dark:text-admin-muted">Sin datos.</div>
         <div v-else class="space-y-6">
             <div class="grid gap-4 sm:grid-cols-3">
-                <div class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Total issues</p>
-                    <p class="text-2xl font-semibold text-slate-900 dark:text-white">{{ report.total_issues ?? report.total ?? 0 }}</p>
+                <div class="rounded-xl border border-admin-line bg-admin-surface p-4 dark:border-admin-line dark:bg-admin-surface">
+                    <p class="text-xs text-admin-muted dark:text-admin-muted">Total issues</p>
+                    <p class="text-2xl font-semibold text-admin-ink dark:text-admin-ink">{{ report.total_issues ?? report.total ?? 0 }}</p>
                 </div>
-                <div class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Resueltos</p>
-                    <p class="text-2xl font-semibold text-slate-900 dark:text-white">{{ report.resolved_count ?? report.done_count ?? 0 }}</p>
+                <div class="rounded-xl border border-admin-line bg-admin-surface p-4 dark:border-admin-line dark:bg-admin-surface">
+                    <p class="text-xs text-admin-muted dark:text-admin-muted">Resueltos</p>
+                    <p class="text-2xl font-semibold text-admin-ink dark:text-admin-ink">{{ report.resolved_count ?? report.done_count ?? 0 }}</p>
                 </div>
-                <div class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Promedio resolución (días)</p>
-                    <p class="text-2xl font-semibold text-slate-900 dark:text-white">{{ avgResolution ?? '—' }}</p>
+                <div class="rounded-xl border border-admin-line bg-admin-surface p-4 dark:border-admin-line dark:bg-admin-surface">
+                    <p class="text-xs text-admin-muted dark:text-admin-muted">Promedio resolución (días)</p>
+                    <p class="text-2xl font-semibold text-admin-ink dark:text-admin-ink">{{ avgResolution ?? '—' }}</p>
                 </div>
             </div>
 
-            <section class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                <h3 class="mb-3 text-sm font-semibold text-slate-800 dark:text-white">Issues por estado</h3>
+            <section class="rounded-xl border border-admin-line bg-admin-surface p-4 dark:border-admin-line dark:bg-admin-surface">
+                <h3 class="mb-3 text-sm font-semibold text-admin-ink dark:text-admin-ink">Issues por estado</h3>
                 <div class="space-y-2">
                     <div v-for="row in byStatus" :key="row.status" class="flex items-center gap-3">
-                        <span class="w-24 text-xs text-slate-600 dark:text-slate-300">{{ row.status }}</span>
-                        <div class="h-3 flex-1 rounded bg-slate-100 dark:bg-slate-800"><div class="h-3 rounded bg-sky-500" :style="{ width: ((row.count / maxStatus) * 100) + '%' }" /></div>
-                        <span class="w-8 text-right text-xs text-slate-500">{{ row.count }}</span>
+                        <span class="w-24 text-xs text-admin-muted dark:text-admin-muted">{{ row.status }}</span>
+                        <div class="h-3 flex-1 rounded bg-admin-elevated dark:bg-admin-elevated"><div class="h-3 rounded bg-admin-action" :style="{ width: ((row.count / maxStatus) * 100) + '%' }" /></div>
+                        <span class="w-8 text-right text-xs text-admin-muted">{{ row.count }}</span>
                     </div>
                 </div>
             </section>
 
-            <section class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                <h3 class="mb-3 text-sm font-semibold text-slate-800 dark:text-white">Issues por prioridad</h3>
+            <section class="rounded-xl border border-admin-line bg-admin-surface p-4 dark:border-admin-line dark:bg-admin-surface">
+                <h3 class="mb-3 text-sm font-semibold text-admin-ink dark:text-admin-ink">Issues por prioridad</h3>
                 <div class="space-y-2">
                     <div v-for="row in byPriority" :key="row.priority" class="flex items-center gap-3">
-                        <span class="w-24 text-xs text-slate-600 dark:text-slate-300">{{ row.priority }}</span>
-                        <div class="h-3 flex-1 rounded bg-slate-100 dark:bg-slate-800"><div class="h-3 rounded bg-indigo-500" :style="{ width: ((row.count / maxPriority) * 100) + '%' }" /></div>
-                        <span class="w-8 text-right text-xs text-slate-500">{{ row.count }}</span>
+                        <span class="w-24 text-xs text-admin-muted dark:text-admin-muted">{{ row.priority }}</span>
+                        <div class="h-3 flex-1 rounded bg-admin-elevated dark:bg-admin-elevated"><div class="h-3 rounded bg-indigo-500" :style="{ width: ((row.count / maxPriority) * 100) + '%' }" /></div>
+                        <span class="w-8 text-right text-xs text-admin-muted">{{ row.count }}</span>
                     </div>
                 </div>
             </section>
 
-            <section class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                <h3 class="mb-3 text-sm font-semibold text-slate-800 dark:text-white">Issues por responsable</h3>
+            <section class="rounded-xl border border-admin-line bg-admin-surface p-4 dark:border-admin-line dark:bg-admin-surface">
+                <h3 class="mb-3 text-sm font-semibold text-admin-ink dark:text-admin-ink">Issues por responsable</h3>
                 <div class="space-y-2">
                     <div v-for="row in byAssignee" :key="row.name" class="flex items-center gap-3">
-                        <span class="w-32 truncate text-xs text-slate-600 dark:text-slate-300">{{ row.name }}</span>
-                        <div class="h-3 flex-1 rounded bg-slate-100 dark:bg-slate-800"><div class="h-3 rounded bg-emerald-500" :style="{ width: ((row.count / maxAssignee) * 100) + '%' }" /></div>
-                        <span class="w-8 text-right text-xs text-slate-500">{{ row.count }}</span>
+                        <span class="w-32 truncate text-xs text-admin-muted dark:text-admin-muted">{{ row.name }}</span>
+                        <div class="h-3 flex-1 rounded bg-admin-elevated dark:bg-admin-elevated"><div class="h-3 rounded bg-emerald-500" :style="{ width: ((row.count / maxAssignee) * 100) + '%' }" /></div>
+                        <span class="w-8 text-right text-xs text-admin-muted">{{ row.count }}</span>
                     </div>
                 </div>
             </section>
 
-            <section class="rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
-                <h3 class="mb-3 text-sm font-semibold text-slate-800 dark:text-white">Creados vs resueltos</h3>
+            <section class="rounded-xl border border-admin-line bg-admin-surface p-4 dark:border-admin-line dark:bg-admin-surface">
+                <h3 class="mb-3 text-sm font-semibold text-admin-ink dark:text-admin-ink">Creados vs resueltos</h3>
                 <svg viewBox="0 0 400 160" class="h-40 w-full">
                     <polyline :points="svgPoints" fill="none" stroke="#38bdf8" stroke-width="2" />
                     <polyline :points="svgResolved" fill="none" stroke="#34d399" stroke-width="2" />
                 </svg>
-                <div class="mt-2 flex gap-4 text-xs text-slate-500 dark:text-slate-400">
-                    <span><span class="inline-block h-2 w-2 rounded-full bg-sky-400" /> Creados</span>
+                <div class="mt-2 flex gap-4 text-xs text-admin-muted dark:text-admin-muted">
+                    <span><span class="inline-block h-2 w-2 rounded-full bg-admin-action" /> Creados</span>
                     <span><span class="inline-block h-2 w-2 rounded-full bg-emerald-400" /> Resueltos</span>
                 </div>
             </section>

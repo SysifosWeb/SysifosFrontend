@@ -17,13 +17,13 @@ function valueText(field: string, value: unknown): string {
 </script>
 
 <template>
-    <p v-if="!activities.length" class="py-3 text-sm text-slate-500 dark:text-slate-400">Todavía no hay actividad.</p>
-    <ol v-else class="relative space-y-5 before:absolute before:bottom-1 before:left-[5px] before:top-1 before:w-px before:bg-slate-200 dark:before:bg-slate-700">
-        <li v-for="log in activities" :key="log.id" class="relative pl-6 text-[13px] text-slate-600 dark:text-slate-400">
-            <span class="absolute left-0 top-[6px] h-2.5 w-2.5 rounded-full ring-4 ring-white dark:ring-slate-900" :class="log.action.includes('deleted') ? 'bg-red-400' : log.action === 'moved' ? 'bg-amber-400' : 'bg-sky-400'" />
-            <p><strong class="font-semibold text-slate-800 dark:text-slate-200">{{ log.user?.name || 'Usuario' }}</strong> {{ issueActivityVerbs[log.action] || 'modificó' }} «{{ log.card_title }}»<span v-if="log.action === 'moved'"> a {{ columns.find(column => column.id === log.to_status)?.label || log.to_status }}</span>.</p>
-            <dl v-if="log.metadata?.changes?.length" class="mt-2 space-y-1 rounded-lg bg-slate-50 px-3 py-2 text-xs dark:bg-slate-800/60"><div v-for="change in log.metadata.changes" :key="change.field" class="flex flex-wrap gap-x-1"><dt class="font-medium text-slate-700 dark:text-slate-300">{{ fields[change.field] || change.field }}:</dt><dd class="min-w-0 break-words">{{ valueText(change.field, change.before) }} <span aria-label="cambió a">→</span> <span class="text-slate-800 dark:text-slate-200">{{ valueText(change.field, change.after) }}</span></dd></div></dl>
-            <time class="mt-1 block text-[11px] text-slate-400" :datetime="log.created_at">{{ new Date(log.created_at).toLocaleString('es-CL') }}</time>
+    <p v-if="!activities.length" class="py-3 text-sm text-admin-muted dark:text-admin-muted">Todavía no hay actividad.</p>
+    <ol v-else class="relative space-y-5 before:absolute before:bottom-1 before:left-[5px] before:top-1 before:w-px before:bg-admin-line dark:before:bg-admin-elevated">
+        <li v-for="log in activities" :key="log.id" class="relative pl-6 text-[13px] text-admin-muted dark:text-admin-muted">
+            <span class="absolute left-0 top-[6px] h-2.5 w-2.5 rounded-full ring-4 ring-white dark:ring-admin-line" :class="log.action.includes('deleted') ? 'bg-red-400' : log.action === 'moved' ? 'bg-amber-400' : 'bg-admin-action'" />
+            <p><strong class="font-semibold text-admin-ink dark:text-admin-ink">{{ log.user?.name || 'Usuario' }}</strong> {{ issueActivityVerbs[log.action] || 'modificó' }} «{{ log.card_title }}»<span v-if="log.action === 'moved'"> a {{ columns.find(column => column.id === log.to_status)?.label || log.to_status }}</span>.</p>
+            <dl v-if="log.metadata?.changes?.length" class="mt-2 space-y-1 rounded-lg bg-admin-soft px-3 py-2 text-xs dark:bg-admin-elevated/60"><div v-for="change in log.metadata.changes" :key="change.field" class="flex flex-wrap gap-x-1"><dt class="font-medium text-admin-ink dark:text-admin-muted">{{ fields[change.field] || change.field }}:</dt><dd class="min-w-0 break-words">{{ valueText(change.field, change.before) }} <span aria-label="cambió a">→</span> <span class="text-admin-ink dark:text-admin-ink">{{ valueText(change.field, change.after) }}</span></dd></div></dl>
+            <time class="mt-1 block text-[11px] text-admin-muted" :datetime="log.created_at">{{ new Date(log.created_at).toLocaleString('es-CL') }}</time>
         </li>
     </ol>
 </template>

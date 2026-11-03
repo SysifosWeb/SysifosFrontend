@@ -152,20 +152,20 @@ const isPublished = computed(() => form.status === 'published');
             <div class="mb-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">
+                        <h1 class="text-2xl font-semibold text-admin-ink dark:text-admin-ink">
                             Editar Post
                         </h1>
-                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <p class="mt-1 text-sm text-admin-muted dark:text-admin-muted">
                             Modifica la información del post
                         </p>
                     </div>
                     <div class="flex items-center space-x-3">
                         <NuxtLink v-if="postId" :to="`/admin/posts/${postId}`"
-                            class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                            class="inline-flex items-center px-4 py-2 bg-admin-line border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-admin-elevated">
                             Ver Post
                         </NuxtLink>
                         <NuxtLink to="/admin/posts"
-                            class="inline-flex items-center px-4 py-2 bg-gray-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
+                            class="inline-flex items-center px-4 py-2 bg-admin-line border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-admin-elevated">
                             Cancelar
                         </NuxtLink>
                     </div>
@@ -185,19 +185,19 @@ const isPublished = computed(() => form.status === 'published');
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="lg:col-span-2 space-y-6">
                         <!-- Información básica -->
-                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-                            <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        <div class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
+                            <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                                <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                     Información Principal
                                 </h3>
                             </div>
                             <div class="p-6 space-y-6">
                                 <div>
-                                    <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                    <label for="title" class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                         Título *
                                     </label>
                                     <input id="title" v-model="form.title" type="text" required
-                                        class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        class="w-full border border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         placeholder="Título del post" />
                                     <div v-if="errors.title" class="mt-1 text-sm text-red-600">
                                         {{ errors.title[0] || errors.title }}
@@ -205,13 +205,13 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="slug" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                    <label for="slug" class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                         Slug *
                                     </label>
                                     <input id="slug" v-model="form.slug" type="text" required
-                                        class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        class="w-full border border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         placeholder="slug-del-post" />
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                    <p class="mt-1 text-sm text-admin-muted dark:text-admin-muted">
                                         URL: /blog/{{ form.slug }}
                                     </p>
                                     <div v-if="errors.slug" class="mt-1 text-sm text-red-600">
@@ -220,11 +220,11 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="excerpt" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                    <label for="excerpt" class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                         Extracto
                                     </label>
                                     <textarea id="excerpt" v-model="form.excerpt" rows="3"
-                                        class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        class="w-full border border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         placeholder="Breve descripción del post..."></textarea>
                                     <div v-if="errors.excerpt" class="mt-1 text-sm text-red-600">
                                         {{ errors.excerpt[0] || errors.excerpt }}
@@ -232,7 +232,7 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-2">
+                                    <label for="content" class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-2">
                                         Contenido *
                                     </label>
                                     <ClientOnly>
@@ -257,8 +257,8 @@ const isPublished = computed(() => form.status === 'published');
                                             }"
                                         />
                                         <template #fallback>
-                                            <div class="w-full h-[500px] flex items-center justify-center border border-gray-300 dark:border-slate-600 dark:bg-slate-900 rounded-md">
-                                                <span class="text-gray-500 dark:text-white/50">Cargando editor...</span>
+                                            <div class="w-full h-[500px] flex items-center justify-center border border-admin-line dark:border-admin-line dark:bg-admin-surface rounded-md">
+                                                <span class="text-admin-muted dark:text-admin-ink/50">Cargando editor...</span>
                                             </div>
                                         </template>
                                     </ClientOnly>
@@ -270,19 +270,19 @@ const isPublished = computed(() => form.status === 'published');
                         </div>
 
                         <!-- SEO -->
-                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-                            <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        <div class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
+                            <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                                <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                     Optimización SEO
                                 </h3>
                             </div>
                             <div class="p-6 space-y-6">
                                 <div>
-                                    <label for="meta_title" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                    <label for="meta_title" class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                         Meta Título
                                     </label>
                                     <input id="meta_title" v-model="form.meta_title" type="text"
-                                        class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        class="w-full border border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         placeholder="Título para SEO (opcional)" />
                                     <div v-if="errors.meta_title" class="mt-1 text-sm text-red-600">
                                         {{ errors.meta_title[0] || errors.meta_title }}
@@ -290,11 +290,11 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="meta_description" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                    <label for="meta_description" class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                         Meta Descripción
                                     </label>
                                     <textarea id="meta_description" v-model="form.meta_description" rows="3"
-                                        class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        class="w-full border border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         placeholder="Descripción para motores de búsqueda..."></textarea>
                                     <div v-if="errors.meta_description" class="mt-1 text-sm text-red-600">
                                         {{ errors.meta_description[0] || errors.meta_description }}
@@ -302,13 +302,13 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="meta_keywords" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                    <label for="meta_keywords" class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                         Palabras Clave
                                     </label>
                                     <input id="meta_keywords" v-model="form.meta_keywords" type="text"
-                                        class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        class="w-full border border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         placeholder="palabra1, palabra2, palabra3" />
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                    <p class="mt-1 text-sm text-admin-muted dark:text-admin-muted">
                                         Separa las palabras con comas
                                     </p>
                                     <div v-if="errors.meta_keywords" class="mt-1 text-sm text-red-600">
@@ -321,19 +321,19 @@ const isPublished = computed(() => form.status === 'published');
 
                     <div class="space-y-6">
                         <!-- Configuración -->
-                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-                            <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        <div class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
+                            <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                                <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                     Configuración
                                 </h3>
                             </div>
                             <div class="p-6 space-y-6">
                                 <div>
-                                    <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                    <label for="status" class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                         Estado
                                     </label>
                                     <select id="status" v-model="form.status"
-                                        class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                        class="w-full border border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                                         <option v-for="option in statusOptions" :key="option.value"
                                             :value="option.value">
                                             {{ option.label }}
@@ -345,11 +345,11 @@ const isPublished = computed(() => form.status === 'published');
                                 </div>
 
                                 <div>
-                                    <label for="category_id" class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                    <label for="category_id" class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                         Categoría
                                     </label>
                                     <select id="category_id" v-model="form.category_id"
-                                        class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                        class="w-full border border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                                         <option value="">Sin categoría</option>
                                         <option v-for="category in categories" :key="category.id" :value="category.id">
                                             {{ category.name }}
@@ -362,11 +362,11 @@ const isPublished = computed(() => form.status === 'published');
 
                                 <div>
                                     <label for="featured_image_url"
-                                        class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">
+                                        class="block text-sm font-medium text-admin-ink dark:text-admin-muted mb-1">
                                         Imagen Destacada (URL)
                                     </label>
                                     <input id="featured_image_url" v-model="form.featured_image_url" type="url"
-                                        class="w-full border border-gray-300 dark:border-slate-600 dark:bg-slate-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        class="w-full border border-admin-line dark:border-admin-line dark:bg-admin-surface dark:text-admin-ink rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         placeholder="https://ejemplo.com/imagen.jpg" />
                                     <div v-if="errors.featured_image_url" class="mt-1 text-sm text-red-600">
                                         {{ errors.featured_image_url[0] || errors.featured_image_url }}
@@ -375,8 +375,8 @@ const isPublished = computed(() => form.status === 'published');
 
                                 <div class="flex items-center">
                                     <input id="featured" v-model="form.featured" type="checkbox"
-                                        class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 dark:border-slate-600 dark:bg-slate-900 rounded" />
-                                    <label for="featured" class="ml-2 block text-sm text-gray-900 dark:text-gray-400">
+                                        class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-admin-line dark:border-admin-line dark:bg-admin-surface rounded" />
+                                    <label for="featured" class="ml-2 block text-sm text-admin-ink dark:text-admin-muted">
                                         Post destacado
                                     </label>
                                 </div>
@@ -384,9 +384,9 @@ const isPublished = computed(() => form.status === 'published');
                         </div>
 
                         <!-- Vista previa de imagen -->
-                        <div v-if="form.featured_image_url" class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
-                            <div class="px-6 py-4 border-b border-gray-200 dark:border-slate-700">
-                                <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                        <div v-if="form.featured_image_url" class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
+                            <div class="px-6 py-4 border-b border-admin-line dark:border-admin-line">
+                                <h3 class="text-lg font-medium text-admin-ink dark:text-admin-ink">
                                     Vista Previa
                                 </h3>
                             </div>
@@ -397,7 +397,7 @@ const isPublished = computed(() => form.status === 'published');
                         </div>
 
                         <!-- Acciones -->
-                        <div class="bg-white dark:bg-slate-800 rounded-lg shadow border border-gray-100 dark:border-slate-700">
+                        <div class="bg-admin-surface dark:bg-admin-elevated rounded-lg shadow border border-admin-line dark:border-admin-line">
                             <div class="p-6">
                                 <button type="submit" :disabled="processing"
                                     class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed">

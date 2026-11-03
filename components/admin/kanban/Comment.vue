@@ -23,8 +23,8 @@ async function mutate(body?: string): Promise<boolean> {
 onBeforeUnmount(() => emit('dirty', false))
 </script>
 <template>
-    <article class="space-y-2 rounded-lg border border-slate-200 p-3 dark:border-slate-700">
-        <p class="text-xs"><strong>{{ comment.user?.name || 'Usuario eliminado' }}</strong><time class="ml-2 text-slate-500 dark:text-slate-400">{{ new Date(comment.created_at).toLocaleString('es-CL') }}</time><span v-if="comment.edited_at" class="ml-1 text-slate-500 dark:text-slate-400">(editado)</span></p>
+    <article class="space-y-2 rounded-lg border border-admin-line p-3 dark:border-admin-line">
+        <p class="text-xs"><strong>{{ comment.user?.name || 'Usuario eliminado' }}</strong><time class="ml-2 text-admin-muted dark:text-admin-muted">{{ new Date(comment.created_at).toLocaleString('es-CL') }}</time><span v-if="comment.edited_at" class="ml-1 text-admin-muted dark:text-admin-muted">(editado)</span></p>
         <p v-if="error" role="alert" class="text-sm text-amber-800 dark:text-amber-200">{{ error }}</p>
         <AdminKanbanInlineEdit :label="`Comentario #${comment.id}`" :value="comment.body" :readonly="!canWrite || !comment.can_update" :busy="busy || disabled" :save="mutate" :mention-users="users" :upload-context="{ projectId, cardId }" multiline description :maxlength="5000" @dirty="emit('dirty', $event)" @uploading="emit('busy', $event)" />
         <button v-if="canWrite && comment.can_delete && !confirming" :disabled="busy || disabled" class="text-xs font-semibold text-red-700 underline dark:text-red-400" @click="confirming = true">Eliminar comentario #{{ comment.id }}</button>

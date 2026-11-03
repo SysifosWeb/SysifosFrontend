@@ -194,15 +194,15 @@ onBeforeUnmount(() => { disposed = true; searchVersion++; detailVersion++ })
 <template>
     <div class="space-y-6">
         <header>
-            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-sky-600 dark:text-sky-400">Desarrollo comercial</p>
-            <h2 class="flex items-center gap-3 text-2xl font-bold text-slate-900 dark:text-white"><Landmark class="h-7 w-7 text-sky-500" /> Mercado Público</h2>
-            <p class="mt-2 max-w-2xl text-sm text-slate-500 dark:text-slate-400">Encuentren requerimientos para Sysifosweb y revisen sus antecedentes antes de preparar una oferta.</p>
+            <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-admin-accent dark:text-admin-accent">Desarrollo comercial</p>
+            <h2 class="flex items-center gap-3 text-2xl font-bold text-admin-ink dark:text-admin-ink"><Landmark class="h-7 w-7 text-admin-accent" /> Mercado Público</h2>
+            <p class="mt-2 max-w-2xl text-sm text-admin-muted dark:text-admin-muted">Encuentren requerimientos para Sysifosweb y revisen sus antecedentes antes de preparar una oferta.</p>
         </header>
         <nav aria-label="Tipo de consulta" class="flex flex-wrap gap-2">
-            <button v-for="tab in tabs" :key="tab.id" type="button" :aria-pressed="source === tab.id" class="rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-500" :class="source === tab.id ? 'bg-sky-600 text-white' : 'bg-white text-slate-600 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-800'" @click="selectSource(tab.id)">{{ tab.label }}</button>
+            <button v-for="tab in tabs" :key="tab.id" type="button" :aria-pressed="source === tab.id" class="rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-admin-accent" :class="source === tab.id ? 'bg-admin-action text-white' : 'bg-admin-surface text-admin-muted ring-1 ring-admin-line dark:bg-admin-surface dark:text-admin-muted dark:ring-admin-line'" @click="selectSource(tab.id)">{{ tab.label }}</button>
         </nav>
-        <form class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800 sm:p-6" @submit.prevent="search()">
-            <p class="mb-5 text-sm text-slate-600 dark:text-slate-300">{{ activeDescription }}</p>
+        <form class="rounded-2xl bg-admin-surface p-5 shadow-sm ring-1 ring-admin-line dark:bg-admin-surface dark:ring-admin-line sm:p-6" @submit.prevent="search()">
+            <p class="mb-5 text-sm text-admin-muted dark:text-admin-muted">{{ activeDescription }}</p>
             <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <label class="mp-label">Código exacto <input v-model="form.codigo" class="mp-input" maxlength="100" placeholder="Opcional: buscar un proceso específico" /></label>
                 <label class="mp-label">Estado<select v-model="form.estado" class="mp-input" :disabled="!!form.codigo.trim()"><option v-for="option in stateOptions" :key="option[0]" :value="option[0]">{{ option[1] }}</option></select></label>
@@ -215,43 +215,43 @@ onBeforeUnmount(() => { disposed = true; searchVersion++; detailVersion++ })
                     <label class="mp-label">Región del comprador<select v-model="form.region" class="mp-input" :disabled="!!form.codigo.trim()"><option value="">Todas las regiones</option><option v-for="(region, index) in regions" :key="region" :value="String(index + 1)">{{ region }}</option></select></label>
                 </template>
             </div>
-            <div class="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-5 dark:border-slate-800">
-                <p class="max-w-xl text-xs leading-relaxed text-slate-500 dark:text-slate-400">Una coincidencia no confirma que cumplan los requisitos. Los montos y fechas deben contrastarse con las bases y el portal oficial.</p>
-                <button type="submit" :disabled="loading" class="inline-flex items-center gap-2 rounded-xl bg-sky-600 px-5 py-3 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-50"><Loader2 v-if="loading" class="h-4 w-4 animate-spin" /><Search v-else class="h-4 w-4" />{{ loading ? 'Consultando…' : 'Buscar' }}</button>
+            <div class="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-admin-line pt-5 dark:border-admin-line">
+                <p class="max-w-xl text-xs leading-relaxed text-admin-muted dark:text-admin-muted">Una coincidencia no confirma que cumplan los requisitos. Los montos y fechas deben contrastarse con las bases y el portal oficial.</p>
+                <button type="submit" :disabled="loading" class="inline-flex items-center gap-2 rounded-xl bg-admin-action px-5 py-3 text-sm font-semibold text-white hover:bg-admin-action-hover disabled:opacity-50"><Loader2 v-if="loading" class="h-4 w-4 animate-spin" /><Search v-else class="h-4 w-4" />{{ loading ? 'Consultando…' : 'Buscar' }}</button>
             </div>
         </form>
         <div v-if="error" role="alert" class="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-200">{{ error }}</div>
         <section aria-live="polite" :aria-busy="loading" class="space-y-4">
-            <div v-if="loading" role="status" class="rounded-2xl border border-dashed border-slate-300 py-14 text-center text-slate-500 dark:border-slate-700"><Loader2 class="mx-auto mb-3 h-7 w-7 animate-spin text-sky-500" />Consultando Mercado Público. Puede tardar unos segundos.</div>
+            <div v-if="loading" role="status" class="rounded-2xl border border-dashed border-admin-line py-14 text-center text-admin-muted dark:border-admin-line"><Loader2 class="mx-auto mb-3 h-7 w-7 animate-spin text-admin-accent" />Consultando Mercado Público. Puede tardar unos segundos.</div>
             <template v-else-if="result">
-                <div class="flex flex-wrap items-center justify-between gap-3"><h3 class="font-semibold text-slate-900 dark:text-white">{{ result.meta.total }} resultados</h3><p class="text-xs text-slate-500">Consulta: {{ dateText(result.meta.consultado_en) }}</p></div>
-                <p class="rounded-xl bg-sky-50 p-3 text-sm text-sky-900 dark:bg-sky-500/10 dark:text-sky-200">{{ result.meta.advertencia }}</p>
-                <div v-if="!result.data.length" class="rounded-2xl bg-white p-10 text-center text-slate-500 ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800">No hay resultados para estos filtros. Prueba otra palabra o amplía las fechas.</div>
-                <article v-for="item in result.data" :key="item.codigo" class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 dark:bg-slate-900 dark:ring-slate-800">
+                <div class="flex flex-wrap items-center justify-between gap-3"><h3 class="font-semibold text-admin-ink dark:text-admin-ink">{{ result.meta.total }} resultados</h3><p class="text-xs text-admin-muted">Consulta: {{ dateText(result.meta.consultado_en) }}</p></div>
+                <p class="rounded-xl bg-admin-tint p-3 text-sm text-admin-accent dark:bg-admin-action/10 dark:text-admin-accent">{{ result.meta.advertencia }}</p>
+                <div v-if="!result.data.length" class="rounded-2xl bg-admin-surface p-10 text-center text-admin-muted ring-1 ring-admin-line dark:bg-admin-surface dark:ring-admin-line">No hay resultados para estos filtros. Prueba otra palabra o amplía las fechas.</div>
+                <article v-for="item in result.data" :key="item.codigo" class="rounded-2xl bg-admin-surface p-5 shadow-sm ring-1 ring-admin-line dark:bg-admin-surface dark:ring-admin-line">
                     <div class="flex flex-col justify-between gap-4 sm:flex-row">
-                        <div class="min-w-0 flex-1"><div class="mb-2 flex flex-wrap items-center gap-2 text-xs"><span class="font-mono text-slate-500 dark:text-slate-400">{{ item.codigo }}</span><span v-if="item.estado" class="rounded-full bg-slate-100 px-2 py-1 text-slate-600 dark:bg-slate-800 dark:text-slate-300">{{ item.estado }}</span></div><h4 class="break-words font-semibold text-slate-900 dark:text-white">{{ item.nombre }}</h4><p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ item.organismo || 'Organismo disponible en el detalle' }}<span v-if="item.region"> · {{ item.region }}</span></p></div>
-                        <div class="shrink-0 sm:text-right"><p class="font-semibold text-slate-900 dark:text-white">{{ money(item) }}</p><p v-if="source !== 'ordenes-compra'" class="mt-2 text-xs text-slate-500 dark:text-slate-400">Cierre: {{ dateText(item.cierre) }}</p><button class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-sky-600 hover:underline dark:text-sky-400" @click="openDetail(item)">Revisar detalle <ArrowRight class="h-4 w-4" /></button></div>
+                        <div class="min-w-0 flex-1"><div class="mb-2 flex flex-wrap items-center gap-2 text-xs"><span class="font-mono text-admin-muted dark:text-admin-muted">{{ item.codigo }}</span><span v-if="item.estado" class="rounded-full bg-admin-elevated px-2 py-1 text-admin-muted dark:bg-admin-elevated dark:text-admin-muted">{{ item.estado }}</span></div><h4 class="break-words font-semibold text-admin-ink dark:text-admin-ink">{{ item.nombre }}</h4><p class="mt-2 text-sm text-admin-muted dark:text-admin-muted">{{ item.organismo || 'Organismo disponible en el detalle' }}<span v-if="item.region"> · {{ item.region }}</span></p></div>
+                        <div class="shrink-0 sm:text-right"><p class="font-semibold text-admin-ink dark:text-admin-ink">{{ money(item) }}</p><p v-if="source !== 'ordenes-compra'" class="mt-2 text-xs text-admin-muted dark:text-admin-muted">Cierre: {{ dateText(item.cierre) }}</p><button class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-admin-accent hover:underline dark:text-admin-accent" @click="openDetail(item)">Revisar detalle <ArrowRight class="h-4 w-4" /></button></div>
                     </div>
                 </article>
-                <div v-if="result.meta.total_paginas > 1" class="flex items-center justify-between gap-3"><button class="mp-secondary" :disabled="page <= 1" @click="search(page - 1, true)">Anterior</button><p class="text-sm text-slate-500">Página {{ page }} de {{ result.meta.total_paginas }}</p><button class="mp-secondary" :disabled="page >= result.meta.total_paginas" @click="search(page + 1, true)">Siguiente</button></div>
+                <div v-if="result.meta.total_paginas > 1" class="flex items-center justify-between gap-3"><button class="mp-secondary" :disabled="page <= 1" @click="search(page - 1, true)">Anterior</button><p class="text-sm text-admin-muted">Página {{ page }} de {{ result.meta.total_paginas }}</p><button class="mp-secondary" :disabled="page >= result.meta.total_paginas" @click="search(page + 1, true)">Siguiente</button></div>
             </template>
-            <div v-else-if="!error" class="rounded-2xl border border-dashed border-slate-300 p-10 text-center dark:border-slate-700"><Search class="mx-auto mb-3 h-8 w-8 text-slate-400" /><h3 class="font-semibold text-slate-800 dark:text-slate-200">Comienza por una búsqueda</h3><p class="mt-2 text-sm text-slate-500">Los filtros iniciales incluyen servicios tecnológicos. Puedes cambiarlos para explorar otros requerimientos.</p></div>
+            <div v-else-if="!error" class="rounded-2xl border border-dashed border-admin-line p-10 text-center dark:border-admin-line"><Search class="mx-auto mb-3 h-8 w-8 text-admin-muted" /><h3 class="font-semibold text-admin-ink dark:text-admin-ink">Comienza por una búsqueda</h3><p class="mt-2 text-sm text-admin-muted">Los filtros iniciales incluyen servicios tecnológicos. Puedes cambiarlos para explorar otros requerimientos.</p></div>
         </section>
-        <dialog ref="detailDialog" aria-labelledby="procurement-title" class="m-auto w-[calc(100%-2rem)] max-w-3xl rounded-2xl bg-white p-0 text-slate-900 shadow-2xl backdrop:bg-slate-950/60 dark:bg-slate-900 dark:text-white" @close="detailVersion++">
+        <dialog ref="detailDialog" aria-labelledby="procurement-title" class="m-auto w-[calc(100%-2rem)] max-w-3xl rounded-2xl bg-admin-surface p-0 text-admin-ink shadow-2xl backdrop:bg-admin-canvas/60 dark:bg-admin-surface dark:text-admin-ink" @close="detailVersion++">
             <div class="max-h-[85vh] overflow-y-auto p-6">
-                <div class="mb-5 flex items-center justify-between gap-3"><h3 id="procurement-title" class="text-lg font-bold">Detalle del proceso</h3><button aria-label="Cerrar detalle" class="rounded-lg p-2 hover:bg-slate-100 dark:hover:bg-slate-800" @click="detailDialog?.close()"><X class="h-5 w-5" /></button></div>
+                <div class="mb-5 flex items-center justify-between gap-3"><h3 id="procurement-title" class="text-lg font-bold">Detalle del proceso</h3><button aria-label="Cerrar detalle" class="rounded-lg p-2 hover:bg-admin-elevated dark:hover:bg-admin-elevated" @click="detailDialog?.close()"><X class="h-5 w-5" /></button></div>
                 <p v-if="detailLoading" role="status" class="flex items-center gap-2 py-10"><Loader2 class="h-5 w-5 animate-spin" />Cargando antecedentes…</p>
                 <p v-if="detailError" role="alert" class="mb-4 rounded-xl bg-red-50 p-3 text-sm text-red-800 dark:bg-red-950 dark:text-red-200">{{ detailError }}</p>
                 <div v-if="detail" class="space-y-5">
-                    <div><p class="mb-2 font-mono text-xs text-slate-500">{{ detail.codigo }}</p><h4 class="text-xl font-bold">{{ detail.nombre }}</h4><p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ detail.organismo || 'Organismo no informado' }}</p></div>
-                    <dl class="grid grid-cols-2 gap-4 rounded-xl bg-slate-50 p-4 text-sm dark:bg-slate-800"><div><dt class="text-slate-500 dark:text-slate-400">Monto informado</dt><dd class="mt-1 font-semibold">{{ money(detail) }}</dd></div><div><dt class="text-slate-500 dark:text-slate-400">Estado</dt><dd class="mt-1">{{ detail.estado || 'No informado' }}</dd></div><div v-if="detail.fuente !== 'ordenes-compra'"><dt class="text-slate-500 dark:text-slate-400">Cierre</dt><dd class="mt-1">{{ dateText(detail.cierre) }}</dd></div><div v-if="detail.proveedor"><dt class="text-slate-500 dark:text-slate-400">Proveedor</dt><dd class="mt-1">{{ detail.proveedor }}</dd></div></dl>
-                    <section><h5 class="mb-2 font-semibold">Descripción</h5><p class="whitespace-pre-wrap break-words text-sm leading-relaxed text-slate-600 dark:text-slate-300">{{ detail.descripcion || 'La API no informó una descripción. Revisa los documentos en Mercado Público.' }}</p></section>
-                    <section v-if="detail.productos?.length"><h5 class="mb-2 font-semibold">Servicios o productos solicitados</h5><ul class="space-y-3"><li v-for="(product, index) in detail.productos" :key="index" class="rounded-xl border border-slate-200 p-3 text-sm dark:border-slate-700"><p class="font-semibold">{{ product.nombre }} <span v-if="product.cantidad !== null" class="font-normal text-slate-500">· Cantidad: {{ product.cantidad }}</span></p><p v-if="product.descripcion" class="mt-1 whitespace-pre-wrap break-words text-slate-600 dark:text-slate-300">{{ product.descripcion }}</p></li></ul></section>
-                    <section v-if="detail.documentos?.length"><h5 class="mb-2 font-semibold">Documentos informados</h5><ul class="list-inside list-disc text-sm text-slate-600 dark:text-slate-300"><li v-for="(document, index) in detail.documentos" :key="index">{{ document.nombre }}</li></ul><p class="mt-2 text-xs text-slate-500">Descarga los archivos desde el proceso en el portal oficial.</p></section>
+                    <div><p class="mb-2 font-mono text-xs text-admin-muted">{{ detail.codigo }}</p><h4 class="text-xl font-bold">{{ detail.nombre }}</h4><p class="mt-2 text-sm text-admin-muted dark:text-admin-muted">{{ detail.organismo || 'Organismo no informado' }}</p></div>
+                    <dl class="grid grid-cols-2 gap-4 rounded-xl bg-admin-soft p-4 text-sm dark:bg-admin-elevated"><div><dt class="text-admin-muted dark:text-admin-muted">Monto informado</dt><dd class="mt-1 font-semibold">{{ money(detail) }}</dd></div><div><dt class="text-admin-muted dark:text-admin-muted">Estado</dt><dd class="mt-1">{{ detail.estado || 'No informado' }}</dd></div><div v-if="detail.fuente !== 'ordenes-compra'"><dt class="text-admin-muted dark:text-admin-muted">Cierre</dt><dd class="mt-1">{{ dateText(detail.cierre) }}</dd></div><div v-if="detail.proveedor"><dt class="text-admin-muted dark:text-admin-muted">Proveedor</dt><dd class="mt-1">{{ detail.proveedor }}</dd></div></dl>
+                    <section><h5 class="mb-2 font-semibold">Descripción</h5><p class="whitespace-pre-wrap break-words text-sm leading-relaxed text-admin-muted dark:text-admin-muted">{{ detail.descripcion || 'La API no informó una descripción. Revisa los documentos en Mercado Público.' }}</p></section>
+                    <section v-if="detail.productos?.length"><h5 class="mb-2 font-semibold">Servicios o productos solicitados</h5><ul class="space-y-3"><li v-for="(product, index) in detail.productos" :key="index" class="rounded-xl border border-admin-line p-3 text-sm dark:border-admin-line"><p class="font-semibold">{{ product.nombre }} <span v-if="product.cantidad !== null" class="font-normal text-admin-muted">· Cantidad: {{ product.cantidad }}</span></p><p v-if="product.descripcion" class="mt-1 whitespace-pre-wrap break-words text-admin-muted dark:text-admin-muted">{{ product.descripcion }}</p></li></ul></section>
+                    <section v-if="detail.documentos?.length"><h5 class="mb-2 font-semibold">Documentos informados</h5><ul class="list-inside list-disc text-sm text-admin-muted dark:text-admin-muted"><li v-for="(document, index) in detail.documentos" :key="index">{{ document.nombre }}</li></ul><p class="mt-2 text-xs text-admin-muted">Descarga los archivos desde el proceso en el portal oficial.</p></section>
                     <div class="rounded-xl bg-amber-50 p-4 text-sm text-amber-900 dark:bg-amber-500/10 dark:text-amber-200">Antes de ofertar, revisen requisitos acreditables, plazo de entrega, costos iniciales, garantías y condiciones de pago. Este detalle todavía no es una evaluación de viabilidad.</div>
-                    <section aria-labelledby="import-issue-title" class="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+                    <section aria-labelledby="import-issue-title" class="rounded-xl border border-admin-line p-4 dark:border-admin-line">
                         <h5 id="import-issue-title" class="mb-3 font-semibold">Llevar al backlog del proyecto</h5>
-                        <p v-if="importProjectsLoading" role="status" class="text-sm text-slate-500">Cargando proyectos…</p>
+                        <p v-if="importProjectsLoading" role="status" class="text-sm text-admin-muted">Cargando proyectos…</p>
                         <div v-else-if="importProjects.length" class="flex flex-wrap items-end gap-3">
                             <label class="mp-label min-w-0 flex-1">Proyecto destino
                                 <select v-model="importProjectId" class="mp-input" :disabled="importing">
@@ -259,18 +259,18 @@ onBeforeUnmount(() => { disposed = true; searchVersion++; detailVersion++ })
                                     <option v-for="project in importProjects" :key="project.id" :value="project.id">{{ project.project_key }} · {{ project.name }}</option>
                                 </select>
                             </label>
-                            <button type="button" :disabled="!importProjectId || importing || !!importedIssue" class="inline-flex items-center gap-2 rounded-xl bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-sky-700 disabled:opacity-50" @click="convertToIssue">
+                            <button type="button" :disabled="!importProjectId || importing || !!importedIssue" class="inline-flex items-center gap-2 rounded-xl bg-admin-action px-4 py-2.5 text-sm font-semibold text-white hover:bg-admin-action-hover disabled:opacity-50" @click="convertToIssue">
                                 <Loader2 v-if="importing" class="h-4 w-4 animate-spin" /><Check v-else class="h-4 w-4" />{{ importing ? 'Creando issue…' : importedIssue ? 'Proceso vinculado' : 'Convertir a issue' }}
                             </button>
                         </div>
-                        <p v-else-if="!importError" class="text-sm text-slate-500 dark:text-slate-400">No tienes proyectos activos con permiso de gestión para importar este proceso.</p>
+                        <p v-else-if="!importError" class="text-sm text-admin-muted dark:text-admin-muted">No tienes proyectos activos con permiso de gestión para importar este proceso.</p>
                         <p v-if="importError" role="alert" class="mt-3 text-sm text-red-700 dark:text-red-300">{{ importError }}</p>
                         <div v-if="importedIssue" role="status" class="mt-3 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-900 dark:bg-emerald-500/10 dark:text-emerald-200">
                             <p>{{ importedIssue.warning || `Issue ${importedIssue.issue_key} creado en el backlog.` }}</p>
                             <NuxtLink :to="`/admin/kanban/${importedIssue.kanban_project_id}`" class="mt-2 inline-flex items-center gap-1 font-semibold underline">Abrir tablero · {{ importedIssue.issue_key }}<ArrowRight class="h-4 w-4" /></NuxtLink>
                         </div>
                     </section>
-                    <footer class="flex flex-wrap gap-3 border-t border-slate-200 pt-4 dark:border-slate-800"><button class="mp-secondary" @click="copySummary"><Copy class="h-4 w-4" />{{ copied ? 'Resumen copiado' : 'Copiar resumen para analizar' }}</button><a href="https://www.mercadopublico.cl/" target="_blank" rel="noopener noreferrer" class="mp-secondary"><ExternalLink class="h-4 w-4" />Abrir Mercado Público</a></footer>
+                    <footer class="flex flex-wrap gap-3 border-t border-admin-line pt-4 dark:border-admin-line"><button class="mp-secondary" @click="copySummary"><Copy class="h-4 w-4" />{{ copied ? 'Resumen copiado' : 'Copiar resumen para analizar' }}</button><a href="https://www.mercadopublico.cl/" target="_blank" rel="noopener noreferrer" class="mp-secondary"><ExternalLink class="h-4 w-4" />Abrir Mercado Público</a></footer>
                 </div>
             </div>
         </dialog>
@@ -278,8 +278,8 @@ onBeforeUnmount(() => { disposed = true; searchVersion++; detailVersion++ })
 </template>
 
 <style scoped>
-.mp-label { @apply block text-sm font-medium text-slate-700 dark:text-slate-200; }
-.mp-input { @apply mt-2 block w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-slate-900 outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100; }
-.mp-help { @apply mt-1.5 block text-xs font-normal text-slate-500 dark:text-slate-400; }
-.mp-secondary { @apply inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50 disabled:opacity-40 dark:bg-slate-800 dark:text-slate-200 dark:ring-slate-700 dark:hover:bg-slate-700; }
+.mp-label { @apply block text-sm font-medium text-admin-ink dark:text-admin-ink; }
+.mp-input { @apply mt-2 block w-full rounded-xl border border-admin-line bg-admin-surface px-3 py-2.5 text-sm text-admin-ink outline-none focus:border-admin-accent focus:ring-2 focus:ring-admin-accent/20 disabled:opacity-40 dark:border-admin-line dark:bg-admin-canvas dark:text-admin-ink; }
+.mp-help { @apply mt-1.5 block text-xs font-normal text-admin-muted dark:text-admin-muted; }
+.mp-secondary { @apply inline-flex items-center gap-2 rounded-xl bg-admin-surface px-4 py-2.5 text-sm font-semibold text-admin-ink ring-1 ring-admin-line hover:bg-admin-soft disabled:opacity-40 dark:bg-admin-elevated dark:text-admin-ink dark:ring-admin-line dark:hover:bg-admin-elevated; }
 </style>
