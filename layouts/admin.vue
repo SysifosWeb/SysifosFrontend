@@ -321,10 +321,11 @@ const handleLogout = async () => {
         showCancelButton: true,
         confirmButtonText: 'Sí, cerrar sesión',
         cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#0ea5e9',
+        confirmButtonColor: '#1D5FA6',
         cancelButtonColor: '#64748b',
-        background: '#1e293b',
-        color: '#fff',
+        customClass: { popup: 'admin-scope' },
+        background: 'rgb(var(--admin-surface-rgb))',
+        color: 'rgb(var(--admin-ink-rgb))',
     });
     if (result.isConfirmed) {
         try {

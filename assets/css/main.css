@@ -798,3 +798,6 @@ input, textarea, select {
 
 /* The navigation keeps a dark surface in both themes. */
 .admin-sidebar { --admin-muted-rgb:184 207 229; --admin-ink-rgb:245 249 253; --admin-surface-rgb:29 65 99; --admin-accent-rgb:157 203 245; }
+.admin-scope :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline-color: rgb(var(--admin-accent-rgb));
+}

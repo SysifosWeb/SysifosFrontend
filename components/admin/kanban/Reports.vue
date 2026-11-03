@@ -119,7 +119,7 @@ const svgResolved = computed(() => {
             <section class="rounded-xl border border-admin-line bg-admin-surface p-4 dark:border-admin-line dark:bg-admin-surface">
                 <h3 class="mb-3 text-sm font-semibold text-admin-ink dark:text-admin-ink">Creados vs resueltos</h3>
                 <svg viewBox="0 0 400 160" class="h-40 w-full">
-                    <polyline :points="svgPoints" fill="none" stroke="#38bdf8" stroke-width="2" />
+                    <polyline :points="svgPoints" fill="none" stroke="rgb(var(--admin-accent-rgb))" stroke-width="2" />
                     <polyline :points="svgResolved" fill="none" stroke="#34d399" stroke-width="2" />
                 </svg>
                 <div class="mt-2 flex gap-4 text-xs text-admin-muted dark:text-admin-muted">

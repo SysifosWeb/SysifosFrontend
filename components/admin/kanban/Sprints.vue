@@ -143,8 +143,8 @@ function viewActiveSprint() {
                         <h3 class="mb-4 flex items-center gap-2 text-sm font-semibold text-admin-ink dark:text-admin-ink"><Target class="h-4 w-4 text-admin-muted" /> Burndown</h3>
                         <div v-if="!burndown.length" class="text-sm text-admin-muted">Sin fechas definidas o sin issues para calcular el burndown.</div>
                         <svg v-else :viewBox="`0 0 ${Math.max(burndown.length * 40, 200) } 160`" class="w-full" role="img" aria-label="Burndown chart">
-                            <polyline :points="burndown.map((p, i) => `${i * 40 + 20},${140 - (p.ideal / Math.max(...burndown.map(x=>x.estimated),1)) * 120}`).join(' ')" fill="none" stroke="#94a3b8" stroke-dasharray="4 4" stroke-width="2" />
-                            <polyline :points="burndown.map((p, i) => `${i * 40 + 20},${140 - (p.remaining / Math.max(...burndown.map(x=>x.estimated),1)) * 120}`).join(' ')" fill="none" stroke="#0ea5e9" stroke-width="2.5" />
+                            <polyline :points="burndown.map((p, i) => `${i * 40 + 20},${140 - (p.ideal / Math.max(...burndown.map(x=>x.estimated),1)) * 120}`).join(' ')" fill="none" stroke="rgb(var(--admin-muted-rgb))" stroke-dasharray="4 4" stroke-width="2" />
+                            <polyline :points="burndown.map((p, i) => `${i * 40 + 20},${140 - (p.remaining / Math.max(...burndown.map(x=>x.estimated),1)) * 120}`).join(' ')" fill="none" stroke="rgb(var(--admin-accent-rgb))" stroke-width="2.5" />
                             <text v-for="(p, i) in burndown" :key="p.date" :x="i * 40 + 20" y="155" text-anchor="middle" class="fill-slate-400 text-[9px]">{{ p.date.slice(5) }}</text>
                         </svg>
                         <div class="mt-2 flex items-center gap-4 text-xs text-admin-muted dark:text-admin-muted">

@@ -10,8 +10,9 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-    background: '#1e293b',
-    color: '#fff',
+    customClass: { popup: 'admin-scope' },
+        background: 'rgb(var(--admin-surface-rgb))',
+    color: 'rgb(var(--admin-ink-rgb))',
 });
 
 definePageMeta({ layout: 'admin' })

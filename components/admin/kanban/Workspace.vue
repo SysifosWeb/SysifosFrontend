@@ -129,6 +129,6 @@ onMounted(() => { reduceMotion.value = window.matchMedia('(prefers-reduced-motio
 
 <style>
 .kanban-ghost, .kanban-drag { pointer-events: none; }
-.kanban-ghost { opacity: .3; outline: 2px dashed #38bdf8; }
+.kanban-ghost { opacity: .3; outline: 2px dashed rgb(var(--admin-accent-rgb)); }
 .kanban-drag { box-shadow: 0 12px 30px rgb(0 0 0 / .18); }
 </style>

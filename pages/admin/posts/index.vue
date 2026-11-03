@@ -14,8 +14,9 @@ const Toast = Swal.mixin({
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
-    background: '#1e293b',
-    color: '#fff',
+    customClass: { popup: 'admin-scope' },
+        background: 'rgb(var(--admin-surface-rgb))',
+    color: 'rgb(var(--admin-ink-rgb))',
 });
 definePageMeta({
     layout: 'admin'
@@ -158,12 +159,13 @@ const deletePost = async (post) => {
         text: `Se eliminará el post "${post.title}"`,
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#0ea5e9',
+        confirmButtonColor: '#1D5FA6',
         cancelButtonColor: '#ef4444',
         confirmButtonText: 'Sí, eliminar',
         cancelButtonText: 'Cancelar',
-        background: '#1e293b',
-        color: '#fff',
+        customClass: { popup: 'admin-scope' },
+        background: 'rgb(var(--admin-surface-rgb))',
+        color: 'rgb(var(--admin-ink-rgb))',
     });
 
     if (result.isConfirmed) {
