@@ -53,11 +53,13 @@ async function run() {
                 assert.equal(await page.getByRole('button', { name: /^Vencidas/ }).getAttribute('aria-pressed'), 'true');
                 await page.getByRole('button', { name: /^Asignadas a mí/ }).click();
                 const rows = page.locator('.work-row');
-                await page.waitForFunction(() => document.querySelectorAll('.work-row').length === 10);
-                assert.equal(await rows.count(), 10);
+                await page.waitForFunction(() => document.querySelectorAll('.work-row').length === 8);
+                assert.equal(await rows.count(), 8);
+                await page.waitForFunction(() => getComputedStyle(document.querySelector('.admin-scope > div > header')).backgroundColor === (document.documentElement.classList.contains('dark') ? 'rgb(16, 43, 70)' : 'rgb(245, 249, 253)'));
+                assert.equal(await page.locator('#admin-navigation a[href="/admin"]').evaluate(el => getComputedStyle(el).color), 'rgb(184, 207, 229)', 'Navigation remains readable in both themes');
                 await page.screenshot({ path: `.artifacts/admin/my-work-${theme}-${width}.png`, fullPage: true });
                 await page.getByRole('button', { name: 'Página siguiente', exact: true }).click();
-                await page.waitForFunction(() => document.querySelectorAll('.work-row').length === 5);
+                await page.waitForFunction(() => document.querySelectorAll('.work-row').length === 7);
                 await page.getByRole('searchbox', { name: 'Buscar en esta vista' }).fill('facturacion');
                 await page.waitForFunction(() => document.querySelectorAll('.work-row').length === 3);
                 await page.waitForURL(/q=facturacion/);
@@ -68,11 +70,11 @@ async function run() {
                 await page.getByText('No tienes entregas previstas para los próximos 7 días.', { exact: true }).waitFor();
                 assert.equal(await page.locator('.work-inbox section').count(), 1);
                 await page.getByRole('button', { name: /^Asignadas a mí/ }).click();
-                await page.waitForFunction(() => document.querySelectorAll('.work-row').length === 10);
+                await page.waitForFunction(() => document.querySelectorAll('.work-row').length === 8);
                 mode = 'failure';
                 await page.getByRole('button', { name: 'Actualizar', exact: true }).click();
                 await page.getByRole('alert').waitFor();
-                assert.equal(await rows.count(), 10, 'Failed refresh preserves the prior work');
+                assert.equal(await rows.count(), 8, 'Failed refresh preserves the prior work');
                 mode = 'empty';
                 await page.getByRole('button', { name: 'Actualizar', exact: true }).click();
                 await page.getByText('No tienes tareas asignadas pendientes.', { exact: true }).waitFor();
@@ -83,6 +85,7 @@ async function run() {
                     await page.goto(origin + route);
                     await page.locator('main').waitFor({ state: 'visible' });
                     await page.waitForFunction(theme => document.documentElement.classList.contains('dark') === (theme === 'dark'), theme);
+                    await page.waitForFunction(() => getComputedStyle(document.querySelector('.admin-scope > div > header')).backgroundColor === (document.documentElement.classList.contains('dark') ? 'rgb(16, 43, 70)' : 'rgb(245, 249, 253)'));
                     assert.equal(await page.locator('main').evaluate(el => getComputedStyle(el).backgroundColor), theme === 'dark' ? 'rgb(22, 54, 83)' : 'rgb(255, 255, 255)', `${route} shares the brand surface`);
                     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, `${route}: overflow`);
                     await page.screenshot({ path: `.artifacts/admin/${route.split('/').pop()}-${theme}-${width}.png`, fullPage: true });

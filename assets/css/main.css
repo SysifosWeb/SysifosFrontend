@@ -801,3 +801,5 @@ input, textarea, select {
 .admin-scope :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
   outline-color: rgb(var(--admin-accent-rgb));
 }
+
+.admin-scope .admin-sidebar .text-admin-muted { color:#B8CFE5; }

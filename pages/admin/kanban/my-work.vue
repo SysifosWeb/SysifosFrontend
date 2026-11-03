@@ -42,9 +42,10 @@ const items = computed(() => data.value?.[selected.value.key] || [])
 const projects = computed(() => [...new Map(items.value.map(issue => [issue.kanban_project_id, issue.project?.name || issue.project?.project_key || 'Proyecto'])).entries()])
 const statuses = computed(() => [...new Map(items.value.map(issue => [issue.status, statusLabel(issue)])).entries()])
 const filtered = computed(() => filterWork(items.value, { search: search.value, project: query('project'), status: query('status'), sort: query('sort') || (selected.value.key === 'recently_modified' ? 'updated' : 'attention') }))
-const pageCount = computed(() => Math.max(1, Math.ceil(filtered.value.length / 10)))
+const pageSize = 8
+const pageCount = computed(() => Math.max(1, Math.ceil(filtered.value.length / pageSize)))
 const page = computed(() => Math.min(pageCount.value, Math.max(1, Number.parseInt(query('page'), 10) || 1)))
-const visible = computed(() => filtered.value.slice((page.value - 1) * 10, page.value * 10))
+const visible = computed(() => filtered.value.slice((page.value - 1) * pageSize, page.value * pageSize))
 const hasFilters = computed(() => Boolean(search.value || query('project') || query('status')))
 function statusLabel(issue: WorkIssue) {
     return issue.status_label || issue.status_name || ({ backlog: 'Backlog', todo: 'Por hacer', in_progress: 'En curso', review: 'En revisión', done: 'Hecho' } as Record<string, string>)[issue.status] || issue.status
@@ -66,14 +67,14 @@ onMounted(refresh)
 <template>
     <div class="work-inbox text-admin-ink">
         <header class="flex flex-wrap items-start justify-between gap-4">
-            <div><h2 class="font-display text-2xl font-semibold tracking-tight">Mi trabajo</h2><p class="mt-1 text-sm text-admin-muted">Lo que necesita tu atención, en un solo lugar.</p></div>
+            <div class="min-w-0 flex-1"><h2 class="font-display text-2xl font-semibold tracking-tight">Mi trabajo</h2><p class="mt-1 text-sm text-admin-muted">Lo que necesita tu atención, en un solo lugar.</p></div>
             <button class="inline-flex min-h-11 items-center gap-2 rounded-lg border border-admin-line px-3 text-sm font-medium hover:bg-admin-soft disabled:opacity-50" :disabled="refreshing" @click="refresh"><RefreshCw :size="16" :class="{ 'animate-spin': refreshing }" aria-hidden="true" /> {{ refreshing ? 'Actualizando…' : 'Actualizar' }}</button>
         </header>
         <p v-if="error" role="alert" class="mt-5 rounded-lg border border-rose-300 bg-rose-50 p-3 text-sm text-rose-900 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-200">{{ error }} <span v-if="data">Se conserva la última información cargada.</span></p>
         <div v-if="loading" class="mt-6 space-y-3" role="status" aria-label="Cargando tu trabajo"><div v-for="i in 3" :key="i" class="h-12 animate-pulse rounded-lg bg-admin-elevated" /></div>
         <template v-else-if="data">
-            <nav class="mt-6 flex flex-wrap gap-1 border-b border-admin-line pb-3" aria-label="Filtrar mi trabajo">
-                <button v-for="view in definitions" :key="view.key" :aria-pressed="selected.key === view.key" class="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm transition-colors hover:bg-admin-soft" :class="selected.key === view.key ? 'bg-admin-elevated font-semibold text-admin-ink' : 'text-admin-muted'" @click="setQuery({ view: view.key, project: '', status: '', page: '' })">{{ view.title }} <span class="text-xs tabular-nums" :class="view.key === 'overdue' && data.overdue?.length ? 'text-rose-700 dark:text-rose-300' : 'text-admin-muted'">{{ data[view.key]?.length || 0 }}</span></button>
+            <nav class="mt-6 flex gap-1 overflow-x-auto border-b border-admin-line pb-3" aria-label="Filtrar mi trabajo">
+                <button v-for="view in definitions" :key="view.key" :aria-pressed="selected.key === view.key" class="inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-lg px-3 text-sm transition-colors hover:bg-admin-soft" :class="selected.key === view.key ? 'bg-admin-elevated font-semibold text-admin-ink' : 'text-admin-muted'" @click="setQuery({ view: view.key, project: '', status: '', page: '' })">{{ view.title }} <span class="text-xs tabular-nums" :class="view.key === 'overdue' && data.overdue?.length ? 'text-rose-700 dark:text-rose-300' : 'text-admin-muted'">{{ data[view.key]?.length || 0 }}</span></button>
             </nav>
             <section class="mt-5" :aria-label="selected.title">
                 <div class="mb-4 flex flex-wrap items-center justify-between gap-3"><p class="text-sm text-admin-muted">{{ selected.description }}</p><span class="text-xs text-admin-muted">{{ selected.key === 'recently_modified' ? 'Hasta 20 tareas recientes' : 'Hasta 50 tareas por vista' }}</span></div>
@@ -93,7 +94,7 @@ onMounted(refresh)
                         <span class="text-xs text-admin-muted">{{ statusLabel(issue) }}</span><span class="text-xs" :class="issueOverdue(issue) ? 'font-semibold text-rose-700 dark:text-rose-300' : 'text-admin-muted'">{{ issue.due_date ? (issueOverdue(issue) ? 'Venció ' : 'Entrega ') + issueDate(issue.due_date) : 'Sin fecha' }}</span><ArrowUpRight :size="16" class="work-arrow text-admin-muted" aria-hidden="true" />
                     </NuxtLink></li>
                 </ul>
-                <div v-if="filtered.length" class="mt-3 flex flex-wrap items-center justify-between gap-3 text-xs text-admin-muted" role="status" aria-live="polite"><span>{{ (page - 1) * 10 + 1 }}–{{ Math.min(page * 10, filtered.length) }} de {{ filtered.length }} tareas en esta vista</span><div v-if="pageCount > 1" class="flex items-center gap-2"><button aria-label="Página anterior" class="grid min-h-11 min-w-11 place-items-center rounded-lg border border-admin-line hover:bg-admin-soft disabled:opacity-40" :disabled="page === 1" @click="setQuery({ page: String(page - 1) })"><ChevronLeft :size="16" aria-hidden="true" /></button><span>{{ page }} / {{ pageCount }}</span><button aria-label="Página siguiente" class="grid min-h-11 min-w-11 place-items-center rounded-lg border border-admin-line hover:bg-admin-soft disabled:opacity-40" :disabled="page === pageCount" @click="setQuery({ page: String(page + 1) })"><ChevronRight :size="16" aria-hidden="true" /></button></div></div>
+                <div v-if="filtered.length" class="mt-3 flex flex-wrap items-center justify-between gap-3 text-xs text-admin-muted" role="status" aria-live="polite"><span>{{ (page - 1) * pageSize + 1 }}–{{ Math.min(page * pageSize, filtered.length) }} de {{ filtered.length }} tareas en esta vista</span><div v-if="pageCount > 1" class="flex items-center gap-2"><button aria-label="Página anterior" class="grid min-h-11 min-w-11 place-items-center rounded-lg border border-admin-line hover:bg-admin-soft disabled:opacity-40" :disabled="page === 1" @click="setQuery({ page: String(page - 1) })"><ChevronLeft :size="16" aria-hidden="true" /></button><span>{{ page }} / {{ pageCount }}</span><button aria-label="Página siguiente" class="grid min-h-11 min-w-11 place-items-center rounded-lg border border-admin-line hover:bg-admin-soft disabled:opacity-40" :disabled="page === pageCount" @click="setQuery({ page: String(page + 1) })"><ChevronRight :size="16" aria-hidden="true" /></button></div></div>
             </section>
         </template>
     </div>
