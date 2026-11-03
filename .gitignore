@@ -1,5 +1,7 @@
 # Nuxt
 .nuxt
+.output/
+.output.zip
 .env
 # Node
 node_modules

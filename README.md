@@ -83,6 +83,11 @@ El proyecto está configurado con:
 - ESLint para calidad de código
 - Tailwind CSS para estilos consistentes
 
+## Despliegue
+
+Los pushes a `main` se compilan y publican mediante GitHub Actions. No es necesario
+compilar `.output` en un equipo personal. Consulta [el flujo de despliegue y recuperación](docs/deployment.md).
+
 ## 📝 Licencia
 
 Este proyecto es un clon educativo del sitio web de Sysifosweb.

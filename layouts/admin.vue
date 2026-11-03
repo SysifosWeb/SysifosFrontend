@@ -1,7 +1,7 @@
 <template>
-    <div class="admin-scope min-h-screen bg-[#f6f4fa] text-slate-900 dark:bg-[#141318] dark:text-slate-100">
+    <div class="admin-scope min-h-screen bg-background-light text-slate-900 dark:bg-background-dark dark:text-slate-100">
         <!-- ===== Sidebar ===== -->
-        <aside id="admin-navigation" class="fixed inset-y-0 left-0 z-50 flex w-[264px] flex-col bg-[#17161b] text-white transition-[width,transform] duration-200 ease-out lg:translate-x-0 lg:inset-y-4 lg:left-4 lg:rounded-[24px]"
+        <aside id="admin-navigation" class="fixed inset-y-0 left-0 z-50 flex w-[264px] flex-col bg-background-dark text-white transition-[width,transform] duration-200 ease-out lg:translate-x-0 lg:inset-y-4 lg:left-4 lg:rounded-[24px]"
             :class="[sidebarOpen ? 'translate-x-0' : '-translate-x-full', sidebarCollapsed ? 'lg:w-[64px]' : 'lg:w-[232px]']">
 
             <!-- Brand -->
@@ -28,7 +28,7 @@
                     <div class="space-y-1">
                         <NuxtLink v-for="item in group.items" :key="item.to" :to="item.to"
                             class="group flex min-h-11 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
-                            :class="[routeCurrent(item.match) ? 'bg-[#ded4f0] text-[#24202e]' : 'text-slate-400 hover:bg-white/5 hover:text-white', sidebarCollapsed ? 'lg:justify-center lg:px-0' : '']"
+                            :class="[routeCurrent(item.match) ? 'bg-accent text-background-dark' : 'text-slate-400 hover:bg-white/5 hover:text-white', sidebarCollapsed ? 'lg:justify-center lg:px-0' : '']"
                             :aria-label="item.to === '/admin/contacts' && newContactsCount > 0 ? `${item.label}, ${newContactsCount} nuevos` : item.label"
                             :title="sidebarCollapsed ? item.label : undefined"
                             @click="sidebarOpen = false">
@@ -75,7 +75,7 @@
         <!-- ===== Main ===== -->
         <div class="flex min-h-screen flex-col transition-[padding] duration-200 ease-out" :class="sidebarCollapsed ? 'lg:pl-[96px]' : 'lg:pl-[264px]'">
             <!-- Topbar -->
-            <header class="sticky top-0 z-40 bg-[#f6f4fa] transition-colors dark:bg-[#141318]">
+            <header class="sticky top-0 z-40 bg-background-light transition-colors dark:bg-background-dark">
                 <div class="flex h-14 items-center gap-3 px-4 sm:px-6 lg:px-8">
                     <button aria-label="Abrir menú" :aria-expanded="sidebarOpen"
                         class="flex h-11 w-11 items-center justify-center rounded-lg text-slate-600 hover:bg-slate-200/70 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600 dark:text-slate-300 dark:hover:bg-slate-800 lg:hidden"

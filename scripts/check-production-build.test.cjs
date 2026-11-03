@@ -2,10 +2,11 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { mkdtempSync, mkdirSync, writeFileSync, rmSync } = require('node:fs');
 const path = require('node:path');
+const { tmpdir } = require('node:os');
 const { checkProductionBuild } = require('./check-production-build.cjs');
 
 function fixture(t) {
-    const root = mkdtempSync('/tmp/opencode/production-build-test-');
+    const root = mkdtempSync(path.join(tmpdir(), 'production-build-test-'));
     t.after(() => rmSync(root, { recursive: true, force: true }));
     function write(relative, content) {
         const file = path.join(root, relative);

@@ -171,12 +171,12 @@ const monthHeight = (value) => `${Math.max(0, Number(value) || 0) / maxMonthlyVa
 </div>
 </template>
 <style scoped>
-.workspace { --surface:#fff; --ink:#25222c; --muted:#696473; --soft:#f7f5fa; --line:#eeebf2; color:var(--ink); font-size:14px; }
-.welcome { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 28px; border-radius:20px; background:#ded4f0; }
+.workspace { --surface:#fff; --ink:var(--bg-dark); --muted:#52677F; --soft:#E7EFF8; --line:#D9E3EF; --brand:#1D5FA6; --brand-hover:#102B46; --chart-secondary:#9DCBF5; color:var(--ink); font-size:14px; }
+.welcome { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:24px 28px; border-radius:20px; background:var(--soft); }
 .welcome h2 { font-family:Manrope,sans-serif; font-size:26px; font-weight:600; line-height:1.3; letter-spacing:-.025em; }
-.welcome p { margin-top:6px; color:#51465f; }
-.button { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 18px; border-radius:999px; font-weight:600; white-space:nowrap; background:#25222c; color:white; }
-.button:hover { background:#41384e; }
+.welcome p { margin-top:6px; color:var(--muted); }
+.button { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 18px; border-radius:999px; font-weight:600; white-space:nowrap; background:var(--brand); color:white; }
+.button:hover { background:var(--brand-hover); }
 .workspace-date { display:flex; justify-content:space-between; gap:12px; padding:16px 2px; color:var(--muted); font-size:12px; }
 .workspace-date time { text-transform:none; }
 .workspace-grid { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:16px; align-items:start; }
@@ -209,15 +209,15 @@ h4 { font-size:14px; font-weight:600; overflow:hidden; text-overflow:ellipsis; w
 .contact-row>div { flex:1; min-width:0; }
 .contact-row p { color:var(--muted); font-size:12px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 small { color:var(--muted); font-size:12px; }
-.avatar { display:grid; place-items:center; width:32px; height:32px; flex-shrink:0; border-radius:50%; background:#eae3f2; color:#51465f; font-weight:600; }
+.avatar { display:grid; place-items:center; width:32px; height:32px; flex-shrink:0; border-radius:50%; background:var(--soft); color:var(--brand); font-weight:600; }
 .status { flex:none; white-space:nowrap; padding:3px 8px; border-radius:999px; background:var(--soft); color:var(--muted); font-size:11px; }
-.unread { background:#fce8e6; color:#943a32; }
+.unread { background:var(--soft); color:var(--brand); }
 .chart-panel { position:relative; }
 .legend { display:flex; gap:12px; font-size:12px; color:var(--muted); flex-wrap:wrap; }
 .legend>span { display:flex; align-items:center; gap:5px; }
 .legend i { width:8px; height:8px; border-radius:2px; }
-.post-key,.post-bar { background:#a58bc9; }
-.contact-key,.contact-bar { background:#47404f; }
+.post-key,.post-bar { background:var(--brand); }
+.contact-key,.contact-bar { background:var(--chart-secondary); }
 .chart { display:flex; gap:10px; height:172px; margin-left:30px; border-bottom:1px solid var(--line); }
 .month { display:flex; flex:1; min-width:0; flex-direction:column; gap:8px; text-align:center; }
 .bars { display:flex; align-items:flex-end; justify-content:center; gap:3px; flex:1; min-height:0; }
@@ -226,18 +226,18 @@ small { color:var(--muted); font-size:12px; }
 .chart-scale { position:absolute; top:82px; bottom:39px; left:20px; display:flex; flex-direction:column; justify-content:space-between; color:var(--muted); font-size:11px; }
 .activity-row { display:flex; gap:12px; padding:10px 0; line-height:1.5; overflow-wrap:anywhere; }
 .activity-row b { font-weight:600; }
-.activity-dot { width:6px; height:6px; margin-top:7px; border-radius:50%; background:#a58bc9; flex-shrink:0; }
+.activity-dot { width:6px; height:6px; margin-top:7px; border-radius:50%; background:var(--brand); flex-shrink:0; }
 .post-row { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--line); }
 .post-row:last-child { border:0; }
 .post-row>div { flex:1; min-width:0; }
 .category-row { display:flex; justify-content:space-between; gap:16px; padding:10px 0; border-bottom:1px solid var(--line); }
 .category-row strong { font-weight:500; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .performance-note { margin-top:12px; color:var(--muted); font-size:12px; }
-.workspace :is(a,button):focus-visible { outline:2px solid #765494; outline-offset:4px; }
-:global(.dark .workspace) { --surface:#211f26; --ink:#f4f1f7; --muted:#b9b2c3; --soft:#2b2832; --line:#38323f; }
-:global(.dark .welcome) { background:#3c304d; }
-:global(.dark .welcome p) { color:#d8c9e8; }
-:global(.dark .workspace .button) { background:#e4d9f1; color:#25222c; }
+.workspace :is(a,button):focus-visible { outline:2px solid var(--brand); outline-offset:4px; }
+:global(.dark .workspace) { --surface:var(--bg-surface); --ink:var(--text-main); --muted:var(--text-secondary); --soft:var(--bg-elevated); --line:#365069; --brand:var(--accent); --brand-hover:var(--accent-hover); --chart-secondary:#4F8FC5; }
+:global(.dark .welcome) { background:var(--bg-elevated); }
+:global(.dark .welcome p) { color:var(--text-secondary); }
+:global(.dark .workspace .button) { background:var(--accent); color:var(--bg-dark); }
 @media(min-width:1100px) {
 .workspace-grid { grid-template-areas: 'projects projects projects projects projects projects projects projects contacts contacts contacts contacts' 'metrics metrics metrics metrics metrics metrics metrics metrics activity activity activity activity' 'chart chart chart chart chart chart chart chart posts posts posts posts' 'categories categories categories categories categories categories categories categories performance performance performance performance'; align-items:stretch; }
 .projects { grid-area:projects; } .contacts { grid-area:contacts; } .metrics { grid-area:metrics; } .activity { grid-area:activity; } .chart-panel { grid-area:chart; } .posts { grid-area:posts; } .categories { grid-area:categories; } .performance { grid-area:performance; }

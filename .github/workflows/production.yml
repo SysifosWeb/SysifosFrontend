@@ -1,0 +1,86 @@
+name: Build and deploy production
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontend-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Unit tests
+        run: node --experimental-strip-types --test tests/*.test.mjs scripts/check-production-build.test.cjs scripts/restart-production.test.cjs scripts/deploy-production.test.cjs
+      - name: Build Node server
+        run: npm run build
+        env:
+          NITRO_PRESET: node-server
+          NUXT_PUBLIC_TINYMCE_API_KEY: ${{ vars.NUXT_PUBLIC_TINYMCE_API_KEY }}
+      - name: Smoke test the compiled server
+        run: node scripts/smoke-production.cjs
+      - name: Package the exact source and compiled output
+        run: |
+          mkdir -p /tmp/frontend-release
+          git archive HEAD | tar -x -C /tmp/frontend-release
+          cp -a .output /tmp/frontend-release/.output
+          printf '%s\n' "$GITHUB_SHA" > /tmp/frontend-release/REVISION
+          node /tmp/frontend-release/scripts/check-production-build.cjs
+          tar -czf frontend-release.tar.gz -C /tmp/frontend-release .
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: frontend-${{ github.sha }}
+          path: frontend-release.tar.gz
+          retention-days: 14
+          if-no-files-found: error
+          compression-level: 0
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    environment: production
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: frontend-${{ github.sha }}
+      - name: Deploy the compiled artifact over SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.FRONTEND_SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.FRONTEND_SSH_KNOWN_HOSTS }}
+          SSH_HOST: ${{ vars.FRONTEND_SSH_HOST }}
+          SSH_PORT: ${{ vars.FRONTEND_SSH_PORT }}
+          SSH_USER: ${{ vars.FRONTEND_SSH_USER }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${SSH_PRIVATE_KEY:?Configure FRONTEND_SSH_KEY}"
+          : "${SSH_KNOWN_HOSTS:?Configure FRONTEND_SSH_KNOWN_HOSTS}"
+          [[ "$SSH_HOST" =~ ^[a-zA-Z0-9.-]+$ ]]
+          [[ "$SSH_PORT" =~ ^[0-9]+$ ]]
+          [[ "$SSH_USER" =~ ^[a-zA-Z0-9_-]+$ ]]
+          install -d -m 700 ~/.ssh
+          umask 077
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/frontend_key
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          trap 'rm -f ~/.ssh/frontend_key' EXIT
+          ssh -i ~/.ssh/frontend_key -p "$SSH_PORT" \
+            -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes \
+            -o ConnectTimeout=20 -o ServerAliveInterval=20 \
+            "$SSH_USER@$SSH_HOST" "deploy $GITHUB_SHA" < frontend-release.tar.gz
