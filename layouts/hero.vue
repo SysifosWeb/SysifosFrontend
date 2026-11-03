@@ -11,7 +11,7 @@ const route = useRoute()
     </main>
     <Footer />
     <!-- Floating WhatsApp -->
-    <a href="https://wa.me/56985021549?text=Hola%20SysifosWeb!%20Quiero%20más%20información%20sobre%20sus%20servicios"
+    <a v-if="route.path !== '/contacto'" href="https://wa.me/56985021549?text=Hola%20SysifosWeb!%20Quiero%20más%20información%20sobre%20sus%20servicios"
        target="_blank"
        rel="noopener"
        aria-label="WhatsApp"

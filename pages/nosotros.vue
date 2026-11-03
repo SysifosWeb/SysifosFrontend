@@ -2,7 +2,7 @@
 
 // Page Layout configuration
 definePageMeta({
-  layout: 'secondary',
+  layout: 'hero',
   title: 'Nosotros'
 })
 
@@ -26,6 +26,7 @@ setSchema({
 </script>
 <template>
   <div class="bg-section-dark min-h-[100svh]">
+    <AppHeaderSecundary title="Nosotros" />
     <NosotrosHistoriaYPrincipios />
     
     <!-- BREAK 1: The Belief -->

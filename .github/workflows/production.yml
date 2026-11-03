@@ -34,6 +34,10 @@ jobs:
           NUXT_PUBLIC_TINYMCE_API_KEY: ${{ vars.NUXT_PUBLIC_TINYMCE_API_KEY }}
       - name: Smoke test the compiled server
         run: node scripts/smoke-production.cjs
+      - name: Install browser for hydration checks
+        run: npx playwright install --with-deps chromium
+      - name: Verify public pages after hydration and navigation
+        run: node scripts/public-pages.browser.cjs
       - name: Package the exact source and compiled output
         run: |
           mkdir -p /tmp/frontend-release

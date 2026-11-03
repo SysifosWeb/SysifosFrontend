@@ -145,7 +145,7 @@ const submitForm = async (event) => {
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Inputs premium -->
                 <div class="space-y-2">
-                  <label for="contact-name" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Nombre</label>
+                  <label for="contact-name" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Nombre *</label>
                   <input id="contact-name" name="name" autocomplete="name" minlength="2" maxlength="255" v-model="form.name" type="text" required placeholder="Tu nombre"
                     class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
                 </div>
