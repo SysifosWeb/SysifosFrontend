@@ -1,10 +1,26 @@
 (() => {
   const menu = document.getElementById('home-menu');
-  menu?.addEventListener('toggle', () => menu.querySelector('summary').setAttribute('aria-label', menu.open ? 'Cerrar menú' : 'Abrir menú'));
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && menu?.open) { menu.open = false; menu.querySelector('summary').focus(); }
-  });
-  document.addEventListener('click', event => { if (menu?.open && !menu.contains(event.target)) menu.open = false; });
+  if (menu) {
+    const trigger = menu.querySelector('summary');
+    const lastLink = menu.querySelector('li:last-child a');
+    const desktop = matchMedia('(min-width: 1024px)');
+    desktop.addEventListener('change', event => {
+      if (event.matches) menu.open = false;
+    });
+    document.addEventListener('keydown', event => {
+      if (!menu.open) return;
+      if (event.key === 'Escape') {
+        menu.open = false;
+        trigger.focus();
+      } else if (event.key === 'Tab' && event.shiftKey && document.activeElement === trigger) {
+        event.preventDefault();
+        lastLink.focus();
+      } else if (event.key === 'Tab' && !event.shiftKey && document.activeElement === lastLink) {
+        event.preventDefault();
+        trigger.focus();
+      }
+    });
+  }
   const tilt = document.querySelector('.hero-project-tilt');
   const motion = document.querySelector('.hero-project-motion');
   if (tilt && motion && matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) {

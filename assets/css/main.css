@@ -549,10 +549,34 @@ input, textarea, select {
   box-shadow: 0 12px 24px rgba(16, 43, 70, 0.3);
 }
 
+.back-to-top {
+  position: fixed;
+  right: var(--floating-control-offset);
+  bottom: calc(var(--floating-control-offset) + var(--floating-control-size) + .75rem);
+  z-index: 100;
+  display: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--bg-surface);
+  color: var(--accent);
+}
+
+.site-near-bottom .back-to-top { display: grid; }
+.back-to-top:hover { background: var(--bg-elevated); }
+.back-to-top:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
 @media (max-width: 639px) {
   .whatsapp-float {
     right: var(--floating-control-mobile-offset);
     bottom: var(--floating-control-mobile-offset);
+  }
+
+  .back-to-top {
+    right: var(--floating-control-mobile-offset);
+    bottom: calc(var(--floating-control-mobile-offset) + var(--floating-control-size) + .75rem);
   }
 }
 
@@ -700,7 +724,7 @@ input, textarea, select {
   letter-spacing: var(--ls-hero);
   text-wrap: balance;
 }
-.impulso-hybrid .display-accent { color: #1D5FA6; }
+.impulso-hybrid .display-accent { color: var(--accent); }
 
 .blog-zoom-card { transition: transform .3s ease; transform-origin: center; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
@@ -746,8 +770,79 @@ input, textarea, select {
 
 /* Navigation chrome, needed in the first viewport */
 
+.site-nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1002;
+}
+
+.site-nav-frame {
+  border-bottom: 1px solid var(--border);
+  transition: border-color .28s ease;
+}
+
+.site-nav-bar {
+  transition: padding .28s ease;
+}
+
+/* A separate layer keeps the fixed mobile menu relative to the viewport. */
+.site-nav::before {
+  position: absolute;
+  inset: .5rem max(1rem, calc((100% - 1400px) / 2)) 0;
+  z-index: -1;
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  background: var(--bg-surface);
+  box-shadow: 0 10px 28px rgba(16, 43, 70, .12);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+  content: '';
+}
+
+.site-nav-scrolled .site-nav::before {
+  opacity: 1;
+}
+
+@supports (backdrop-filter: blur(16px)) {
+  .site-nav-scrolled .site-nav::before {
+    background: color-mix(in srgb, var(--bg-surface) 82%, transparent);
+    backdrop-filter: blur(16px) saturate(150%);
+  }
+}
+
+.site-nav-scrolled .site-nav-frame {
+  border-color: transparent;
+}
+
+.site-nav-scrolled .site-nav-bar {
+  padding-block: 1rem .5rem;
+}
+
 .site-nav .font-tech {
   font-family: var(--font-tech);
+}
+
+.site-theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  margin-inline-start: auto;
+  border-radius: .5rem;
+  color: var(--accent);
+}
+
+.site-theme-toggle:hover { background: var(--bg-elevated); }
+.site-theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.site-theme-toggle__light,
+[data-site-theme="dark"] .site-theme-toggle__dark { display: none; }
+[data-site-theme="dark"] .site-theme-toggle__light { display: block; }
+
+@media (min-width: 1024px) {
+  .site-nav-bar > :first-child { margin-inline-end: auto; }
+  .site-theme-toggle { margin-inline-start: .75rem; }
 }
 
 .site-nav .technical-grid {

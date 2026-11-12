@@ -1,21 +1,14 @@
-<script setup>
-</script>
-
 <template>
-  <section class="portfolio-hero bg-section-dark">
-    <div class="section-container relative z-20 text-center flex flex-col items-center">
-        <h1 class="portfolio-headline mb-8" v-reveal data-delay="100">
-          Ideas que toman <span class="display-accent">forma digital.</span>
-        </h1>
-
-        <div class="relative max-w-xl mx-auto" v-reveal data-delay="200">
-            <p class="portfolio-subtitle">
-                Conoce algunos de los sitios y plataformas que hemos creado para nuestros clientes.
-            </p>
-        </div>
-        
+  <header class="portfolio-hero bg-section-dark">
+    <div class="site-container text-center">
+      <h1 class="display-title portfolio-headline">
+        Diseño web <span class="display-accent">en acción</span>
+      </h1>
+      <p class="portfolio-subtitle">
+        Una selección de sitios diseñados por SysifosWeb. Selecciona un proyecto para ver su diseño en detalle.
+      </p>
     </div>
-  </section>
+  </header>
 </template>
 
 <style scoped>
@@ -24,25 +17,14 @@
   padding: clamp(8rem, 14vw, 12rem) 0 clamp(3.5rem, 7vw, 6rem);
 }
 
-.section-container {
-  position: relative;
-  z-index: 10;
-  width: 90%;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
 .portfolio-headline {
-  max-inline-size: 18ch;
-  font-size: var(--fs-page-hero);
   font-weight: var(--fw-hero);
-  line-height: var(--lh-hero);
-  letter-spacing: var(--ls-hero);
   color: var(--text-main);
-  text-wrap: balance;
 }
 
 .portfolio-subtitle {
+  max-width: 55ch;
+  margin: 1.5rem auto 0;
   font-size: var(--fs-lead);
   line-height: var(--lh-lead);
   color: var(--text-secondary);

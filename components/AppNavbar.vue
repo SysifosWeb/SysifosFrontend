@@ -75,9 +75,9 @@ watch(() => route.fullPath, () => {
 </script>
 
 <template>
-  <nav class="site-nav absolute top-0 left-0 w-full z-[1002] bg-transparent">
-    <div class="site-container border-b border-[var(--border)]">
-      <div class="flex items-center justify-between py-10 lg:py-12">
+  <nav class="site-nav">
+    <div class="site-container site-nav-frame">
+      <div class="site-nav-bar flex items-center justify-between py-10 lg:py-12">
         <!-- LOGO -->
         <NuxtLink external to="/" class="flex items-center">
           <BrandLogo class="h-8 md:h-10 w-auto aspect-[403/80]" />
@@ -85,7 +85,7 @@ watch(() => route.fullPath, () => {
 
         <!-- MENÚ DESKTOP -->
         <div class="hidden lg:flex items-center">
-          <ul class="flex items-center gap-12">
+          <ul class="flex items-center gap-7 xl:gap-12">
             <li v-for="item in [
               { to: '/', label: 'Inicio' },
               { to: '/nosotros', label: 'Nosotros' },
@@ -107,6 +107,8 @@ watch(() => route.fullPath, () => {
             </li>
           </ul>
         </div>
+
+        <SiteThemeToggle />
 
         <!-- BOTÓN HAMBURGUESA -->
         <button

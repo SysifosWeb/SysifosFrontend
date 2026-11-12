@@ -37,7 +37,7 @@ SysifosWeb (Sysifos) construye productos digitales escalables: sitios web de alt
 
 - [Inicio](${SITE_URL}/): propuesta de valor, unidades de negocio y testimonios de clientes
 - [Nosotros](${SITE_URL}/nosotros): historia, equipo de ingenieros y metodología de trabajo
-- [Portfolio](${SITE_URL}/portfolio): casos de éxito reales (Ansar Automotriz, Maestranza Faremin, StahlForm)
+- [Portfolio](${SITE_URL}/portfolio): casos de éxito reales (Maestranza Faremin y StahlForm)
 - [Contacto](${SITE_URL}/contacto): formulario de cotización para proyectos web y software
 - [Blog](${SITE_URL}/blog): artículos sobre desarrollo web, software, ecommerce y SEO
 - [Sinapsys](${SITE_URL}/sinapsys): hub de enlaces y recursos

@@ -240,6 +240,32 @@
   color: var(--text-main);
 }
 
+[data-site-theme="dark"] .impulso-hybrid {
+  color-scheme: dark;
+  --bg-dark: #0C1B2B;
+  --bg-surface: #12263A;
+  --bg-elevated: #1B354D;
+  --accent: #9DCBF5;
+  --accent-text: #9DCBF5;
+  --accent-hover: #C2E0FA;
+  --accent-glow: rgba(157, 203, 245, .16);
+  --purple: var(--accent);
+  --purple-glow: var(--accent-glow);
+  --text-main: #F5F9FD;
+  --text-secondary: #B8CFE5;
+  --text-muted: #A4BCD4;
+  --border: #365069;
+  --border-accent: rgba(157, 203, 245, .35);
+  --surface: rgba(18, 38, 58, .95);
+  --button-text: #102B46;
+  --decoration-rgb: 157, 203, 245;
+  --neutral-rgb: 255, 255, 255;
+  --heading-gradient-start: var(--text-main);
+  --heading-gradient-end: var(--accent);
+  --logo-light-display: none;
+  --logo-dark-display: block;
+}
+
 .impulso-closing {
   --bg-dark: #102B46;
   --bg-surface: #163653;

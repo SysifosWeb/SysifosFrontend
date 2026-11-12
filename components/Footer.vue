@@ -145,11 +145,17 @@
       </div>
 
     </div>
+    <a href="#" class="back-to-top" data-back-to-top aria-label="Volver arriba" title="Volver arriba">
+      <ArrowUp :size="22" aria-hidden="true" />
+    </a>
   </footer>
 </template>
 
 <script>
+import { ArrowUp } from 'lucide-vue-next'
+
 export default {
+  components: { ArrowUp },
   data() {
     return {
       navLinks: [

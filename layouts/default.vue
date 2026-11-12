@@ -4,7 +4,7 @@ useHead({ script: [{ src: '/home-interactions.js', defer: true }] })
 <template>
   <div class="min-h-screen font-sans impulso-hybrid">
     <div>
-      <HomeNavigation class="absolute top-0 left-0 w-full z-10"/>
+      <HomeNavigation />
       <AppHeader />
     </div>
     <a href="#contenido" class="skip-link">Saltar al contenido</a>
