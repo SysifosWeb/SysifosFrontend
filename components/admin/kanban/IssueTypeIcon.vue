@@ -3,8 +3,8 @@ import { SquareCheck, Bug, BookOpen, Layers, GitBranch } from 'lucide-vue-next'
 import type { IssueType } from '~/types/kanban'
 import { ISSUE_TYPES } from '~/utils/kanban'
 const props = defineProps<{ type: IssueType }>()
-const icons = { task: SquareCheck, story: BookOpen, bug: Bug, epic: Layers, subtask: GitBranch }
-const colors = { task: 'text-admin-accent', story: 'text-emerald-500', bug: 'text-red-500', epic: 'text-violet-500', subtask: 'text-admin-muted' }
+const icons: Record<string, typeof SquareCheck> = { task: SquareCheck, story: BookOpen, bug: Bug, epic: Layers, subtask: GitBranch }
+const colors: Record<string, string> = { task: 'text-admin-accent', story: 'text-emerald-500', bug: 'text-red-500', epic: 'text-violet-500', subtask: 'text-admin-muted' }
 const label = computed(() => ISSUE_TYPES.find(item => item.value === props.type)?.label || props.type)
 </script>
 

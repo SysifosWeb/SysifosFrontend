@@ -7,8 +7,7 @@ import {
 
 definePageMeta({ layout: 'admin' })
 
-const config = useRuntimeConfig()
-const token = useCookie('auth_token')
+const { request } = useApi()
 const router = useRouter()
 
 const filters = reactive({
@@ -24,14 +23,7 @@ const queryParams = computed(() => {
     return q;
 })
 
-const { data: contactsResponse, pending, refresh } = await useFetch(() => `${config.public.apiUrl}contact`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
-    },
-    query: queryParams,
-    watch: false
-})
+const { data: contactsResponse, pending, refresh } = await useAsyncData('admin-contacts-list', () => request('contact', { query: queryParams.value }))
 
 const contacts = computed(() => {
     const r = contactsResponse.value
@@ -57,13 +49,7 @@ const search = () => {
 
 const markAsRead = async (contact) => {
     try {
-        await $fetch(`${config.public.apiUrl}contact/${contact.id}/mark-as-read`, {
-            method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            }
-        });
+        await request(`contact/${contact.id}/mark-as-read`, { method: 'PUT' });
         refresh();
     } catch (e) {
         console.error('Error al marcar como leído:', e);
@@ -73,13 +59,7 @@ const markAsRead = async (contact) => {
 
 const markAsReplied = async (contact) => {
     try {
-        await $fetch(`${config.public.apiUrl}contact/${contact.id}/mark-as-replied`, {
-            method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            }
-        });
+        await request(`contact/${contact.id}/mark-as-replied`, { method: 'PUT' });
         refresh();
     } catch (e) {
         console.error('Error al marcar como respondido:', e);
@@ -90,13 +70,7 @@ const markAsReplied = async (contact) => {
 const archiveContact = async (contact) => {
     if (confirm(`¿Estás seguro de que quieres archivar el contacto de "${contact.name}"?`)) {
         try {
-            await $fetch(`${config.public.apiUrl}contact/${contact.id}/mark-as-archived`, {
-                method: 'PUT',
-                headers: {
-                    Authorization: `Bearer ${token.value}`,
-                    Accept: 'application/json'
-                }
-            });
+            await request(`contact/${contact.id}/mark-as-archived`, { method: 'PUT' });
             refresh();
         } catch (e) {
             console.error('Error al archivar:', e);

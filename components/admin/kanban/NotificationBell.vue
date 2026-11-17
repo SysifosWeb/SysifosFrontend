@@ -3,7 +3,7 @@ import { Bell, RefreshCw } from 'lucide-vue-next'
 type Notice = { id: string; read_at: string | null; created_at: string; data: { project_id: number; card_id: number; issue_key: string; title: string; actor: string; kind: string } }
 const api = useApi()
 const router = useRouter()
-const token = useCookie('auth_token')
+const sessionVerified = useState<boolean>('admin-session-verified', () => false)
 const notices = ref<Notice[]>([])
 const unread = ref(0)
 const page = ref(1)
@@ -16,7 +16,7 @@ let disposed = false
 let epoch = 0
 let timer: ReturnType<typeof setInterval> | undefined
 async function refresh(append = false) {
-    if (busy.value || !token.value) return
+    if (busy.value || !sessionVerified.value) return
     const started = epoch
     busy.value = true; error.value = ''
     try {
@@ -45,7 +45,7 @@ async function open(notice: Notice) {
     if (dropdown.value) dropdown.value.open = false
     await router.push({ path: `/admin/kanban/${notice.data.project_id}`, query: { issue: String(notice.data.card_id) } })
 }
-watch(token, () => { epoch++; notices.value = []; unread.value = 0; busy.value = false; if (token.value) void refresh() })
+watch(sessionVerified, () => { epoch++; notices.value = []; unread.value = 0; busy.value = false; if (sessionVerified.value) void refresh() })
 onMounted(() => { void refresh(); timer = setInterval(() => { if (document.visibilityState === 'visible' && (!dropdown.value?.open || page.value === 1)) void refresh() }, 15000) })
 onBeforeUnmount(() => { disposed = true; epoch++; clearInterval(timer) })
 </script>

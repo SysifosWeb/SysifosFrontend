@@ -3,39 +3,31 @@ export default defineNuxtRouteMiddleware(async (to) => {
     return
   }
 
-  const token = useCookie('auth_token')
+  const sessionVerified = useState<boolean>('admin-session-verified', () => false)
+  const requestFetch = useRequestFetch()
+
+  let authenticated = sessionVerified.value
+  if (!authenticated || import.meta.server || to.path === '/admin/login') {
+    try {
+      const session = await requestFetch<{ authenticated: boolean }>('/api/auth/session', {
+        headers: { Accept: 'application/json' },
+      })
+      authenticated = Boolean(session?.authenticated)
+      sessionVerified.value = authenticated
+    } catch {
+      authenticated = false
+      sessionVerified.value = false
+    }
+  }
 
   if (to.path === '/admin/login') {
-    if (!token.value) {
-      return
-    }
-
-    // Con sesión vigente (p. ej. "Recordarme") no se piden credenciales de
-    // nuevo: se valida el token contra /auth/me y se entra directo al admin.
-    const config = useRuntimeConfig()
-    let valid = false
-    try {
-      await $fetch(`${config.public.apiUrl}auth/me`, {
-        headers: { Authorization: `Bearer ${token.value}`, Accept: 'application/json' },
-      })
-      valid = true
-    } catch (error: any) {
-      const status = error?.response?.status ?? error?.status
-      if (status === 401 || status === 403) {
-        // Token vencido o revocado: limpiar sesión local y mostrar el login.
-        token.value = null
-        useCookie('user_email').value = null
-        useCookie('user_name').value = null
-      }
-    }
-
-    if (valid) {
+    if (authenticated) {
       return navigateTo('/admin')
     }
     return
   }
 
-  if (!token.value) {
+  if (!authenticated) {
     return navigateTo('/admin/login')
   }
 })

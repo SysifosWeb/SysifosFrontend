@@ -8,8 +8,7 @@ definePageMeta({
 
 const route = useRoute();
 const router = useRouter();
-const config = useRuntimeConfig();
-const token = useCookie('auth_token');
+const { request } = useApi();
 
 const loading = ref(false);
 const fetching = ref(true);
@@ -41,12 +40,7 @@ onMounted(async () => {
     }
 
     try {
-        const response = await $fetch(`${config.public.apiUrl}category/${categoryId}`, {
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            }
-        });
+        const response = await request(`category/${categoryId}`);
 
         const data = response?.data || response || {};
 
@@ -74,12 +68,8 @@ const submit = async () => {
     errors.value = {};
 
     try {
-        await $fetch(`${config.public.apiUrl}category/${categoryId}/update`, {
+        await request(`category/${categoryId}/update`, {
             method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            },
             body: form.value
         });
 

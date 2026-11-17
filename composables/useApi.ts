@@ -24,25 +24,26 @@ export function apiErrorMessage(error: unknown, fallback = 'No se pudo guardar e
 
 export function useApi() {
     const config = useRuntimeConfig()
-    const token = useCookie<string | null>('auth_token')
     const userName = useCookie<string | null>('user_name')
     const userEmail = useCookie<string | null>('user_email')
+    const sessionVerified = useState<boolean>('admin-session-verified', () => false)
     const projectContext = useState('admin-active-project', () => null)
     const nuxt = useNuxtApp()
+    const requestFetch = useRequestFetch()
     const base = String(config.public.apiUrl).replace(/\/$/, '')
 
     async function request<T>(path: string, options: FetchOptions<'json'> = {}): Promise<T> {
-        const requestToken = token.value
         const headers = new Headers(options.headers)
         headers.set('Accept', 'application/json')
-        if (requestToken) headers.set('Authorization', `Bearer ${requestToken}`)
         try {
-            // Proxy paths are dynamic Laravel endpoints, not Nitro's typed local routes.
-            const fetchApi = $fetch as unknown as $Fetch
+            // Proxy paths are dynamic Laravel endpoints; Nitro injects the httpOnly auth_token.
+            const fetchApi = requestFetch as unknown as $Fetch
             return await fetchApi<T>(`${base}/${path.replace(/^\/+/, '')}`, { retry: 0, timeout: 20000, ...options, headers })
         } catch (error) {
-            if ([401, 419].includes(apiStatus(error)) && token.value === requestToken) {
-                token.value = null; userName.value = null; userEmail.value = null; projectContext.value = null
+            if ([401, 419].includes(apiStatus(error))) {
+                sessionVerified.value = false
+                userName.value = null; userEmail.value = null; projectContext.value = null
+                await $fetch('/api/auth/logout', { method: 'POST' }).catch(() => {})
                 await nuxt.runWithContext(() => navigateTo('/admin/login'))
             }
             throw error

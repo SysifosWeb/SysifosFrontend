@@ -6,8 +6,7 @@ definePageMeta({
     layout: 'admin'
 });
 
-const config = useRuntimeConfig();
-const token = useCookie('auth_token');
+const { request } = useApi();
 const router = useRouter();
 
 const loading = ref(false);
@@ -33,12 +32,8 @@ const submit = async () => {
     errors.value = {};
 
     try {
-        await $fetch(`${config.public.apiUrl}category/create`, {
+        await request('category/create', {
             method: 'POST',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            },
             body: form.value
         });
 

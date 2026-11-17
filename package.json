@@ -8,15 +8,14 @@
         "build": "nuxt build && node scripts/check-production-build.cjs --stamp",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
-        "postinstall": "nuxt prepare"
+        "postinstall": "nuxt prepare",
+        "test": "node --test tests/*.test.mjs",
+        "typecheck": "vue-tsc --noEmit"
     },
     "dependencies": {
-        "@heroicons/vue": "^2.2.0",
         "@nuxt/image": "^1.11.0",
-        "@tinymce/tinymce-vue": "^6.3.0",
         "lucide-vue-next": "^1.0.0",
         "nuxt": "^3.21.5",
-        "nuxt-gtag": "^4.1.0",
         "nuxt-security": "^2.6.0",
         "sharp": "^0.35.2",
         "sortablejs": "^1.15.7",

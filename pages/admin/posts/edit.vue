@@ -1,8 +1,8 @@
 <script setup>
 import { ref, reactive, computed, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import Editor from '@tinymce/tinymce-vue';
 import Swal from 'sweetalert2';
+import { useApi } from '~/composables/useApi';
 
 const Toast = Swal.mixin({
     toast: true,
@@ -17,31 +17,18 @@ const Toast = Swal.mixin({
 
 definePageMeta({ layout: 'admin' })
 
-const config = useRuntimeConfig()
-const token = useCookie('auth_token')
+const { request } = useApi()
 const router = useRouter()
 const route = useRoute()
 
 const postId = route.query.id
 
-const { data: postResponse, pending: postPending, refresh: refreshPost } = await useFetch(
-    () => `${config.public.apiUrl}blog/${postId}`,
-    {
-        key: `post-edit-${postId}`,
-        headers: {
-            Authorization: `Bearer ${token.value}`,
-            Accept: 'application/json'
-        },
-        getCachedData: () => null   // deshabilitar caché, siempre fetch fresco
-    }
+const { data: postResponse, pending: postPending, refresh: refreshPost } = await useAsyncData(
+    `post-edit-${postId}`,
+    () => request(`blog/${postId}`)
 )
 
-const { data: categoriesResponse } = await useFetch(() => `${config.public.apiUrl}category`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
-    }
-})
+const { data: categoriesResponse } = await useAsyncData('admin-categories', () => request('category'))
 
 const post = computed(() => postResponse.value?.data || postResponse.value || {})
 const categories = computed(() => categoriesResponse.value?.data || [])
@@ -108,12 +95,8 @@ const submit = async () => {
     processing.value = true;
     errors.value = {};
     try {
-        await $fetch(`${config.public.apiUrl}blog/${postId}/update`, {
+        await request(`blog/${postId}/update`, {
             method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            },
             body: {
                 ...form,
                 category_id: form.category_id ? Number(form.category_id) : null,
@@ -237,28 +220,13 @@ const isPublished = computed(() => form.status === 'published');
                                         Contenido *
                                     </label>
                                     <ClientOnly>
-                                        <Editor
-                                            :api-key="config.public.tinymceApiKey"
+                                        <AdminArticleEditor
                                             v-model="form.content"
-                                            :init="{
-                                                height: 500,
-                                                menubar: false,
-                                                plugins: [
-                                                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                                                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                                                    'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
-                                                ],
-                                                toolbar: 'undo redo | blocks | ' +
-                                                'bold italic forecolor | alignleft aligncenter ' +
-                                                'alignright alignjustify | bullist numlist outdent indent | ' +
-                                                'removeformat | help',
-                                                skin: 'oxide-dark',
-                                                content_css: 'dark',
-                                                placeholder: 'Escribe el contenido del post aquí...'
-                                            }"
+                                            placeholder="Escribe el contenido del post aquí..."
+                                            min-height="480px"
                                         />
                                         <template #fallback>
-                                            <div class="w-full h-[500px] flex items-center justify-center border border-admin-line dark:border-admin-line dark:bg-admin-surface rounded-md">
+                                            <div class="w-full h-[480px] flex items-center justify-center border border-admin-line dark:border-admin-line dark:bg-admin-surface rounded-md">
                                                 <span class="text-admin-muted dark:text-admin-ink/50">Cargando editor...</span>
                                             </div>
                                         </template>

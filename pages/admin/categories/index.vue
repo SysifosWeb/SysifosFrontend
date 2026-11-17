@@ -9,8 +9,7 @@ definePageMeta({
     layout: 'admin'
 })
 
-const config = useRuntimeConfig()
-const token = useCookie('auth_token')
+const { request } = useApi()
 const router = useRouter()
 
 const filters = reactive({
@@ -26,15 +25,7 @@ const queryParams = computed(() => {
     return q;
 })
 
-const { data: categoriesResponse, pending, refresh } = await useFetch(() => `${config.public.apiUrl}category`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
-    },
-    query: queryParams,
-    watch: false,
-    getCachedData: () => null   // siempre fetch fresco
-})
+const { data: categoriesResponse, pending, refresh } = await useAsyncData('admin-categories-list', () => request('category', { query: queryParams.value }))
 
 // Since useFetch with unref query might auto-fetch, let's just use it declaratively
 const categories = computed(() => {
@@ -61,12 +52,8 @@ const clearFilters = () => {
 
 const toggleActive = async (category) => {
     try {
-        await $fetch(`${config.public.apiUrl}category/${category.id}/toggle-active`, {
+        await request(`category/${category.id}/toggle-active`, {
             method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            }
         })
         refresh()
     } catch (e) {
@@ -84,12 +71,8 @@ const deleteCategory = async (category) => {
     if (!confirm(`¿Estás seguro de que quieres eliminar "${category.name}"?`)) return;
 
     try {
-        await $fetch(`${config.public.apiUrl}category/${category.id}/delete`, {
+        await request(`category/${category.id}/delete`, {
             method: 'DELETE',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            }
         })
 
         // Eliminar la categoría del array local inmediatamente (actualización reactiva)

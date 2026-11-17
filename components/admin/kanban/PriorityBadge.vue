@@ -2,7 +2,7 @@
 import type { IssuePriority } from '~/types/kanban'
 import { ISSUE_PRIORITIES } from '~/utils/kanban'
 defineProps<{ priority: IssuePriority }>()
-const colors = {
+const colors: Record<string, string> = {
     urgent: 'bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-300',
     high: 'bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300',
     medium: 'bg-admin-elevated text-admin-muted dark:bg-admin-elevated/70 dark:text-admin-muted',

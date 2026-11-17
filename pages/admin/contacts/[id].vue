@@ -4,18 +4,12 @@ import { useRoute, useRouter } from "vue-router";
 
 definePageMeta({ layout: 'admin' })
 
-const config = useRuntimeConfig()
-const token = useCookie('auth_token')
+const { request } = useApi()
 const route = useRoute()
 const router = useRouter()
 const contactId = route.params.id
 
-const { data: contactResponse, pending, refresh } = await useFetch(() => `${config.public.apiUrl}contact/${contactId}`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
-    }
-})
+const { data: contactResponse, pending, refresh } = await useAsyncData(`admin-contact-${contactId}`, () => request(`contact/${contactId}`))
 
 const contact = computed(() => contactResponse.value?.data || contactResponse.value || {})
 
@@ -52,13 +46,7 @@ const formatDate = (date) => {
 
 const markAsRead = async () => {
     try {
-        await $fetch(`${config.public.apiUrl}contact/${contactId}/mark-as-read`, {
-            method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            }
-        });
+        await request(`contact/${contactId}/mark-as-read`, { method: 'PUT' });
         refresh();
     } catch (e) {
         console.error('Error al marcar como leído:', e);
@@ -68,13 +56,7 @@ const markAsRead = async () => {
 
 const markAsReplied = async () => {
     try {
-        await $fetch(`${config.public.apiUrl}contact/${contactId}/mark-as-replied`, {
-            method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            }
-        });
+        await request(`contact/${contactId}/mark-as-replied`, { method: 'PUT' });
         refresh();
     } catch (e) {
         console.error('Error al marcar como respondido:', e);
@@ -84,13 +66,7 @@ const markAsReplied = async () => {
 
 const archiveContact = async () => {
     try {
-        await $fetch(`${config.public.apiUrl}contact/${contactId}/mark-as-archived`, {
-            method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            }
-        });
+        await request(`contact/${contactId}/mark-as-archived`, { method: 'PUT' });
         refresh();
     } catch (e) {
         console.error('Error al archivar:', e);
@@ -101,13 +77,7 @@ const archiveContact = async () => {
 const deleteContact = async () => {
     if (confirm(`¿Estás seguro de que quieres eliminar el contacto de "${contact.value.name}"?`)) {
         try {
-            await $fetch(`${config.public.apiUrl}contact/${contactId}/delete`, {
-                method: 'DELETE',
-                headers: {
-                    Authorization: `Bearer ${token.value}`,
-                    Accept: 'application/json'
-                }
-            });
+            await request(`contact/${contactId}/delete`, { method: 'DELETE' });
             router.push('/admin/contacts');
         } catch (e) {
             console.error('Error al eliminar contacto:', e);

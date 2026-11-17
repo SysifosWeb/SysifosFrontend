@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { Sun, Moon, Mail, Lock, ArrowLeft, Loader2, AlertCircle, ShieldCheck } from 'lucide-vue-next';
 
@@ -18,36 +18,16 @@ const form = ref({
     remember: false
 });
 
-const config = useRuntimeConfig();
 const errorMessage = ref('');
-const REMEMBER_MAX_AGE = 60 * 60 * 24 * 30; // 30 días cuando se marca "Recordarme"
-// Cookies de sesión por defecto (mueren al cerrar el navegador);
-// con "Recordarme" se extienden a REMEMBER_MAX_AGE en handleLogin.
-const tokenCookie = useCookie('auth_token'); // Definir de forma sincrona en setup
-const userEmailCookie = useCookie('user_email');
-const userNameCookie = useCookie('user_name');
+const sessionVerified = useState('admin-session-verified', () => false);
 
-// Extiende las cookies de auth a 30 días (solo con "Recordarme").
-const persistRememberCookies = () => {
-    const secure = window.location.protocol === 'https:' ? '; Secure' : '';
-    const entries = [
-        ['auth_token', tokenCookie.value],
-        ['user_email', userEmailCookie.value],
-        ['user_name', userNameCookie.value],
-    ];
-    for (const [name, value] of entries) {
-        if (!value) continue;
-        document.cookie = `${name}=${encodeURIComponent(value)}; max-age=${REMEMBER_MAX_AGE}; path=/; SameSite=Lax${secure}`;
-    }
-};
-
-// Manejo del Login
+// Manejo del Login (la cookie auth_token httpOnly se emite desde Nitro)
 const handleLogin = async () => {
     loading.value = true;
     errorMessage.value = '';
 
     try {
-        const response = await $fetch(`${config.public.apiUrl}auth/login`, {
+        await $fetch('/api/auth/login', {
             method: 'POST',
             body: {
                 email: form.value.email,
@@ -56,21 +36,7 @@ const handleLogin = async () => {
             }
         });
 
-        // Guardar token en cookie
-        tokenCookie.value = response.token || response?.data?.token || response?.access_token;
-
-        const profile = response.user || await $fetch(`${config.public.apiUrl}auth/me`, {
-            headers: { Authorization: `Bearer ${tokenCookie.value}`, Accept: 'application/json' }
-        });
-        userEmailCookie.value = profile.email || form.value.email;
-        userNameCookie.value = profile.name || 'Admin';
-
-        if (form.value.remember) {
-            await nextTick(); // deja que Nuxt escriba primero las cookies de sesión
-            persistRememberCookies();
-        }
-
-        // Redirigir al área de admin
+        sessionVerified.value = true;
         await navigateTo('/admin');
     } catch (error) {
         console.error('Error de login:', error);

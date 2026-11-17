@@ -1,20 +1,16 @@
 <script setup>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
+import { useApi } from "~/composables/useApi";
+import { sanitizeArticleHtml } from "~/utils/sanitizeHtml";
 
 definePageMeta({ layout: 'admin' })
 
-const config = useRuntimeConfig()
-const token = useCookie('auth_token')
+const { request } = useApi()
 const route = useRoute()
 const postId = route.params.id
 
-const { data: postResponse, pending } = await useFetch(() => `${config.public.apiUrl}blog/${postId}`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
-    }
-})
+const { data: postResponse, pending } = await useAsyncData(`admin-post-${postId}`, () => request(`blog/${postId}`))
 
 const post = computed(() => postResponse.value?.data || postResponse.value || {})
 const statusClass = computed(() => {
@@ -100,7 +96,7 @@ const formatDate = (date) => {
 
                             <!-- Contenido -->
                             <div class="prose dark:prose-invert max-w-none">
-                                <div v-html="post.content"></div>
+                                <div v-html="sanitizeArticleHtml(post.content)"></div>
                             </div>
                         </div>
                     </div>

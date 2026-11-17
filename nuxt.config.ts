@@ -32,10 +32,9 @@ export default defineNuxtConfig({
         '/nosotros': { prerender: true },
         '/portfolio': { prerender: true },
         '/contacto': { prerender: true },
-        // Blog es contenido dinámico servido por la API: renderizado SSR sin caché
-        // para que los posts nuevos aparezcan de inmediato y no se sirvan payloads
-        // vacíos cacheados durante una hora.
-        '/blog': { ssr: true },
+        '/sinapsys': { prerender: true },
+        '/privacidad': { prerender: true },
+        '/blog': { swr: 300 },
         '/blog/**': { ssr: true },
         '/admin': { ssr: true, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
         '/admin/**': { ssr: true, headers: { 'X-Robots-Tag': 'noindex, nofollow' } }
@@ -47,7 +46,6 @@ export default defineNuxtConfig({
         apiBase: 'https://olimpo.sysifosweb.cl/api/',
         public: {
             apiUrl: '/api/',
-            tinymceApiKey: process.env.NUXT_PUBLIC_TINYMCE_API_KEY || 'no-api-key'
         }
     },
 
@@ -62,13 +60,13 @@ export default defineNuxtConfig({
     modules: ['@nuxtjs/tailwindcss', '@nuxt/image', '@nuxtjs/sitemap', 'nuxt-security'],
     security: {
         sri: false,
+        rateLimiter: false,
         headers: {
             contentSecurityPolicy: {
                 'default-src': ["'self'"],
                 'script-src': [
                     "'self'",
                     "'unsafe-inline'",
-                    "'unsafe-eval'",
                     "https://www.googletagmanager.com",
                     "https://*.googletagmanager.com",
                     "https://*.google-analytics.com",
@@ -165,7 +163,7 @@ export default defineNuxtConfig({
         url: 'https://sysifosweb.cl'
     },
     sitemap: {
-        cacheMaxAgeSeconds: 0, // Desactivar caché para ver URLs nuevas al instante
+        cacheMaxAgeSeconds: 600,
         // La fuente del blog se resuelve en server/plugins/blog-sitemap.ts para propagar fallos de la API.
         exclude: ['/admin/**'],
         // Prioridades por tipo de ruta

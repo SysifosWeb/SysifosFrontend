@@ -52,7 +52,7 @@ const allPosts = computed(() => {
     excerpt: p.excerpt,
     category: p.category || { name: 'Blog', slug: 'blog' },
     reading_time: (p.reading_time || 1) + ' min',
-    date: new Date(p.published_at || p.created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }),
+    date: new Date(p.published_at || p.created_at).toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'America/Santiago' }),
     author: p.user?.name || 'Sysifos Team',
     image: p.featured_image || '/img/og-blog.jpg',
     featured: !!p.featured

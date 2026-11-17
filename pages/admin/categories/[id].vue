@@ -7,16 +7,10 @@ definePageMeta({
 });
 
 const route = useRoute();
-const config = useRuntimeConfig();
-const token = useCookie('auth_token');
+const { request } = useApi();
 
 // Fetch data from API
-const { data: categoryResponse, pending, error } = await useFetch(() => `${config.public.apiUrl}category/${route.params.id}`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
-    }
-});
+const { data: categoryResponse, pending, error } = await useAsyncData(`admin-category-${route.params.id}`, () => request(`category/${route.params.id}`));
 
 // En Laravel Resource, comúnmente viene envuelto en 'data'
 const category = computed(() => categoryResponse.value?.data || categoryResponse.value || {});

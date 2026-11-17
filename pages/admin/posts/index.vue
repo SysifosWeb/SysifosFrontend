@@ -22,8 +22,7 @@ definePageMeta({
     layout: 'admin'
 })
 
-const config = useRuntimeConfig()
-const token = useCookie('auth_token')
+const { request } = useApi()
 const router = useRouter()
 
 const filters = reactive({
@@ -43,21 +42,9 @@ const queryParams = computed(() => {
     return q;
 })
 
-const { data: postsResponse, pending, refresh } = await useFetch(() => `${config.public.apiUrl}blog`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
-    },
-    query: queryParams,
-    watch: false
-})
+const { data: postsResponse, pending, refresh } = await useAsyncData('admin-posts-list', () => request('blog', { query: queryParams.value }))
 
-const { data: categoriesResponse } = await useFetch(() => `${config.public.apiUrl}category`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
-    }
-})
+const { data: categoriesResponse } = await useAsyncData('admin-posts-categories', () => request('category'))
 
 const posts = computed(() => {
     const r = postsResponse.value
@@ -104,12 +91,8 @@ watch(() => filters.search, (newValue) => {
 
 const toggleFeatured = async (post) => {
     try {
-        await $fetch(`${config.public.apiUrl}blog/${post.id}/update`, {
+        await request(`blog/${post.id}/update`, {
             method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            },
             body: { featured: !post.featured }
         })
         refresh()
@@ -121,12 +104,8 @@ const toggleFeatured = async (post) => {
 
 const publishPost = async (post) => {
     try {
-        await $fetch(`${config.public.apiUrl}blog/${post.id}/update`, {
+        await request(`blog/${post.id}/update`, {
             method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            },
             body: { status: 'published' }
         })
         refresh()
@@ -138,12 +117,8 @@ const publishPost = async (post) => {
 
 const unpublishPost = async (post) => {
     try {
-        await $fetch(`${config.public.apiUrl}blog/${post.id}/update`, {
+        await request(`blog/${post.id}/update`, {
             method: 'PUT',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            },
             body: { status: 'draft' }
         })
         refresh()
@@ -170,12 +145,8 @@ const deletePost = async (post) => {
 
     if (result.isConfirmed) {
         try {
-            await $fetch(`${config.public.apiUrl}blog/${post.id}/delete`, {
+            await request(`blog/${post.id}/delete`, {
                 method: 'DELETE',
-                headers: {
-                    Authorization: `Bearer ${token.value}`,
-                    Accept: 'application/json'
-                }
             })
             Toast.fire({ icon: 'success', title: 'Post eliminado exitosamente' });
             refresh()

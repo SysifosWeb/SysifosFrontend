@@ -7,22 +7,12 @@ import {
 
 definePageMeta({ layout: 'admin' })
 
-const config = useRuntimeConfig()
-const token = useCookie('auth_token')
+const { request } = useApi()
 const userName = useCookie('user_name')
 
-const { data: dashboardData, pending, error: dashboardError, refresh: refreshDashboard } = await useFetch(() => `${config.public.apiUrl}dashboard`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
-    }
-})
+const { data: dashboardData, pending, error: dashboardError, refresh: refreshDashboard } = await useAsyncData('admin-dashboard', () => request('dashboard'))
 
-const { data: kanbanProjectsResponse, error: kanbanProjectsError, pending: kanbanProjectsPending, refresh: refreshProjects } = await useFetch(() => `${config.public.apiUrl}kanban/projects`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
-    },
+const { data: kanbanProjectsResponse, error: kanbanProjectsError, pending: kanbanProjectsPending, refresh: refreshProjects } = await useAsyncData('admin-kanban-projects', () => request('kanban/projects'), {
     default: () => ({ data: [] }),
 })
 

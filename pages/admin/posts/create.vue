@@ -1,8 +1,8 @@
 <script setup>
 import { ref, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
-import Editor from '@tinymce/tinymce-vue';
 import Swal from 'sweetalert2';
+import { useApi } from '~/composables/useApi';
 
 const Toast = Swal.mixin({
     toast: true,
@@ -17,16 +17,10 @@ const Toast = Swal.mixin({
 
 definePageMeta({ layout: 'admin' })
 
-const config = useRuntimeConfig()
-const token = useCookie('auth_token')
+const { request } = useApi()
 const router = useRouter()
 
-const { data: categoriesResponse } = await useFetch(() => `${config.public.apiUrl}category`, {
-    headers: {
-        Authorization: `Bearer ${token.value}`,
-        Accept: 'application/json'
-    }
-})
+const { data: categoriesResponse } = await useAsyncData('admin-categories', () => request('category'))
 const categories = computed(() => categoriesResponse.value?.data || [])
 
 const form = reactive({
@@ -122,12 +116,8 @@ const submit = async () => {
             }
         });
 
-        await $fetch(`${config.public.apiUrl}blog/create`, {
+        await request('blog/create', {
             method: 'POST',
-            headers: {
-                Authorization: `Bearer ${token.value}`,
-                Accept: 'application/json'
-            },
             body: formData
         });
 
@@ -292,28 +282,13 @@ const metaDescriptionLength = computed(() => form.meta_description?.length || 0)
                             Contenido del Post *
                         </label>
                         <ClientOnly>
-                            <Editor
-                                :api-key="config.public.tinymceApiKey"
+                            <AdminArticleEditor
                                 v-model="form.content"
-                                :init="{
-                                    height: 500,
-                                    menubar: false,
-                                    plugins: [
-                                        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                                        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                                        'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
-                                    ],
-                                    toolbar: 'undo redo | blocks | ' +
-                                    'bold italic forecolor | alignleft aligncenter ' +
-                                    'alignright alignjustify | bullist numlist outdent indent | ' +
-                                    'removeformat | help',
-                                    skin: 'oxide-dark',
-                                    content_css: 'dark',
-                                    placeholder: 'Escribe aquí el contenido completo del post...'
-                                }"
+                                placeholder="Escribe aquí el contenido completo del post..."
+                                min-height="480px"
                             />
                             <template #fallback>
-                                <div class="w-full h-[500px] flex items-center justify-center border border-admin-line dark:border-admin-line dark:bg-admin-surface rounded-md">
+                                <div class="w-full h-[480px] flex items-center justify-center border border-admin-line dark:border-admin-line dark:bg-admin-surface rounded-md">
                                     <span class="text-admin-muted dark:text-admin-ink/50">Cargando editor...</span>
                                 </div>
                             </template>

@@ -234,8 +234,8 @@ let paletteTimer: ReturnType<typeof setTimeout> | undefined
 
 const userEmail = useCookie('user_email');
 const userName = useCookie('user_name');
-const authToken = useCookie('auth_token');
-const config = useRuntimeConfig();
+const sessionVerified = useState('admin-session-verified', () => false);
+const { request } = useApi();
 useHead({ meta: [{ name: 'robots', content: 'noindex, nofollow' }] });
 
 const navGroups = [
@@ -301,12 +301,10 @@ const routeCurrent = (path: string) => {
 
 const fetchNewContacts = async () => {
     try {
-        const res = await $fetch(`${config.public.apiUrl}contact`, {
-            headers: { Authorization: `Bearer ${authToken.value}`, Accept: 'application/json' },
+        const res = await request<any>('contact', {
             query: { status: 'new', per_page: 1 },
         });
-        const r = res as any
-        newContactsCount.value = r?.total ?? r?.data?.total ?? 0;
+        newContactsCount.value = res?.total ?? res?.data?.total ?? 0;
     } catch {
         newContactsCount.value = 0;
     }
@@ -329,11 +327,9 @@ const handleLogout = async () => {
     });
     if (result.isConfirmed) {
         try {
-            await $fetch(`${config.public.apiUrl}auth/logout`, {
-                method: 'POST', headers: { Authorization: `Bearer ${authToken.value}`, Accept: 'application/json' }
-            });
+            await $fetch('/api/auth/logout', { method: 'POST' });
         } catch { /* La sesión local debe cerrarse también si el servidor no responde. */ }
-        authToken.value = null;
+        sessionVerified.value = false;
         userEmail.value = null;
         userName.value = null;
         projectContext.value = null;
@@ -355,8 +351,7 @@ const toggleDarkMode = () => {
 const fetchSearch = async (q: string) => {
     if (!q.trim()) return []
     try {
-        const res = await $fetch<any>(`${config.public.apiUrl}kanban/search`, {
-            headers: { Authorization: `Bearer ${authToken.value}`, Accept: 'application/json' },
+        const res = await request<any>('kanban/search', {
             query: { q: q.trim(), limit: 15 },
         })
         return (res?.data || res || []) as any[]

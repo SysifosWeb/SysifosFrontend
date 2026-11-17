@@ -35,10 +35,7 @@ function day(offset = 0) {
 }
 const source = ref<Source>('licitaciones')
 const form = reactive({ q: 'web, software, informática, digitalización', excluir: '', codigo: '', estado: 'activas', fecha: '', desde: day(-14), hasta: day(), region: '' })
-const token = useCookie('auth_token')
-const config = useRuntimeConfig()
-const base = `${String(config.public.apiUrl).replace(/\/$/, '')}/mercado-publico/procesos`
-const headers = () => ({ Authorization: `Bearer ${token.value}`, Accept: 'application/json' })
+const { request } = useApi()
 const loading = ref(false)
 const error = ref('')
 const result = ref<SearchResult | null>(null)
@@ -63,8 +60,6 @@ const activeDescription = computed(() => tabs.find(tab => tab.id === source.valu
 async function messageFor(error: any): Promise<string> {
     const status = error.statusCode || error.status || error.response?.status
     if ([401, 419].includes(status)) {
-        token.value = null
-        await navigateTo('/admin/login')
         return 'Tu sesión venció. Inicia sesión nuevamente.'
     }
     if (status === 403) return 'Esta sección está disponible para administradores activos.'
@@ -101,7 +96,7 @@ async function search(nextPage = 1, reuse = false) {
     const version = ++searchVersion
     loading.value = true; error.value = ''; result.value = null
     try {
-        const response = await $fetch<SearchResult>(`${base}/${current.source}`, { headers: headers(), query: { ...current.query, pagina: nextPage }, retry: 0, timeout: 50000 })
+        const response = await request<SearchResult>(`mercado-publico/procesos/${current.source}`, { query: { ...current.query, pagina: nextPage }, timeout: 50000 })
         if (disposed || version !== searchVersion) return
         if (!Array.isArray(response.data) || !response.meta || typeof response.meta.total !== 'number') throw new Error('Respuesta inesperada del servidor.')
         result.value = response; page.value = nextPage
@@ -118,7 +113,7 @@ async function openDetail(item: RecordItem) {
     detailDialog.value?.showModal()
     void loadImportProjects(version)
     try {
-        const response = await $fetch<{ data: RecordItem }>(`${base}/${item.fuente}/${encodeURIComponent(item.codigo)}`, { headers: headers(), retry: 0, timeout: 50000 })
+        const response = await request<{ data: RecordItem }>(`mercado-publico/procesos/${item.fuente}/${encodeURIComponent(item.codigo)}`, { timeout: 50000 })
         if (!disposed && version === detailVersion) detail.value = response.data
     } catch (e: any) {
         if (!disposed && version === detailVersion) detailError.value = await messageFor(e)
@@ -130,8 +125,8 @@ async function loadImportProjects(version: number) {
     importProjectsLoading.value = true
     importProjects.value = []
     try {
-        const response = await $fetch<{ data: ImportProject[] }>(`${String(config.public.apiUrl).replace(/\/$/, '')}/kanban/projects`, {
-            headers: headers(), query: { per_page: 100 }, retry: 0
+        const response = await request<{ data: ImportProject[] }>('kanban/projects', {
+            query: { per_page: 100 }
         })
         if (disposed || version !== detailVersion) return
         importProjects.value = response.data.filter(project => project.permissions.manage && project.permissions.collaborate)
@@ -172,9 +167,8 @@ async function convertToIssue() {
     const projectId = importProjectId.value
     importing.value = true; importError.value = ''
     try {
-        const response = await $fetch<{ data: ImportedIssue }>(`${String(config.public.apiUrl).replace(/\/$/, '')}/kanban/import`, {
+        const response = await request<{ data: ImportedIssue }>('kanban/import', {
             method: 'POST',
-            headers: headers(),
             query: { project_id: projectId },
             body: { source: item.fuente, code: item.codigo },
             retry: 0, timeout: 50000

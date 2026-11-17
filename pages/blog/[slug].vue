@@ -29,7 +29,7 @@ const post = computed(() => {
         id: postData.value.id,
         title: postData.value.title,
         category: postData.value.category?.name || 'Blog',
-        date: new Date(postData.value.published_at || postData.value.created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }),
+        date: new Date(postData.value.published_at || postData.value.created_at).toLocaleDateString('es-CL', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'America/Santiago' }),
         readingTime: (postData.value.reading_time || 1) + ' min de lectura',
         author: {
             name: postData.value.user?.name || 'Sysifos Team',
@@ -289,7 +289,7 @@ const relatedPosts = computed(() => {
 
         <!-- Article Content -->
         <section class="max-w-[700px] w-[90%] mx-auto relative z-20">
-            <div class="prose impulso-article prose-lg max-w-none text-subdued" v-if="post" v-html="post.content">
+            <div class="prose impulso-article prose-lg max-w-none text-subdued" v-if="post" v-html="sanitizeArticleHtml(post.content)">
             </div>
 
             <!-- Share & Tags -->
