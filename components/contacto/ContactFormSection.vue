@@ -1,18 +1,44 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { Mail, Phone, MapPin, Clock, MessageSquare, Send, X, ExternalLink } from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
+const route = useRoute()
+
+const planLabels = {
+  'landing-express': 'Cotización: Landing Express (desde $200.000 + IVA)',
+  'captacion-web': 'Cotización: Sistema de Captación Web (desde $350.000 + IVA)',
+  'web-flujo-comercial': 'Cotización: Web + Flujo Comercial / Agenda ($590.000 - $650.000 + IVA)',
+  'automatizacion-flujo': 'Evaluación: Automatización e Integraciones (desde $450.000 + IVA)',
+  'ecommerce-estandar': 'Cotización: E-commerce Estándar (desde $650.000 + IVA)',
+  'continuidad-mensual': 'Solicitud: Plan Continuidad & Soporte ($49.000 - $89.000/mes + IVA)',
+  'software-a-medida': 'Diagnóstico: Software a medida / Piloto Control de Asistencia'
+}
+
+const selectedPlan = computed(() => {
+  const raw = route.query.plan
+  return typeof raw === 'string' && raw in planLabels ? raw : null
+})
 
 const form = reactive({
   name: '',
   email: '',
   phone: '',
   company: '',
-  subject: '',
+  subject: selectedPlan.value ? planLabels[selectedPlan.value] : '',
   message: '',
   consent: false
 })
+
+const trackWhatsAppClick = () => {
+  if (typeof window !== 'undefined' && window.SysifosConsent) {
+    window.SysifosConsent.track('generate_lead', {
+      method: 'whatsapp',
+      origin: 'contact_page',
+      plan: selectedPlan.value || 'general'
+    })
+  }
+}
 
 const isSubmitting = ref(false)
 const showSuccess = ref(false)
@@ -59,7 +85,8 @@ const submitForm = async (event) => {
         subject: form.subject,
         message: form.message,
         consent: form.consent,
-        source: 'contact_form'
+        source: 'contact_form',
+        plan: selectedPlan.value
       })
     })
 
@@ -239,6 +266,7 @@ const submitForm = async (event) => {
             <!-- WhatsApp CTA -->
             <a href="https://wa.me/56985021549" target="_blank"
               rel="noopener noreferrer"
+              @click="trackWhatsAppClick"
               class="whatsapp-card block w-full p-6 rounded-2xl border border-line bg-panel group">
               <div class="flex justify-between items-center mb-2">
                 <h4 class="text-content font-bold text-body flex items-center gap-2">

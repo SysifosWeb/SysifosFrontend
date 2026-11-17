@@ -9,9 +9,9 @@ definePageMeta({
 const { setMeta, setSchema } = useSEO()
 
 setMeta({
-  title: 'Servicios de Desarrollo Web, Ecommerce y Software a Medida | SysifosWeb Chile',
-  description: 'Páginas web profesionales, tiendas online, aplicaciones móviles, software a medida y mantenimiento web para empresas en Chile. Trabajamos con Laravel, Vue.js, React y Flutter. Cotiza tu proyecto gratis.',
-  keywords: 'servicios desarrollo web chile, diseño páginas web empresas chile, tienda online chile, ecommerce chile, landing pages profesionales, software a medida empresas, aplicaciones móviles chile, mantenimiento web',
+  title: 'Servicios de Captación Web, Automatización y Software | SysifosWeb Chile',
+  description: 'Sistemas de captación web, flujos comerciales para B2B y clínicas, automatización de procesos, ecommerce y software a medida en Coquimbo y todo Chile. Cotiza tu diagnóstico.',
+  keywords: 'sistemas captacion web chile, automatizacion procesos pymes chile, desarrollo web coquimbo, software a medida b2b, tienda online chile, mantenimiento web cpanel',
   image: '/img/og-servicios.webp'
 })
 
@@ -45,7 +45,7 @@ setSchema({
     description: 'Agencia de desarrollo de software, páginas web profesionales y tiendas online en coquimbo, Chile.',
     telephone: '+56-9-8502-1549',
     email: 'contacto@sysifosweb.cl',
-    addressLocality: 'coquimbo',
+    addressLocality: 'Coquimbo',
     addressRegion: 'Coquimbo',
     addressCountry: 'CL',
     openingHours: [
