@@ -23,7 +23,7 @@ setSchema({
     description: 'Agencia de desarrollo de software, páginas web profesionales y tiendas online en coquimbo, Chile. Especialistas en Laravel, Nuxt, Vue.js y React.',
     telephone: '+56-9-8502-1549',
     email: 'contacto@sysifosweb.cl',
-    addressLocality: 'coquimbo',
+    addressLocality: 'Coquimbo',
     addressRegion: 'Coquimbo',
     addressCountry: 'CL',
     openingHours: [

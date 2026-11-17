@@ -9,12 +9,12 @@
         <p class="section-eyebrow mb-6" v-reveal data-delay="0">Soluciones digitales</p>
 
         <h1 class="hero-headline mb-8" v-reveal data-delay="100">
-          Páginas web, ecommerce <span class="display-accent">y software a medida.</span>
+          Captación web, automatización <span class="display-accent">y software práctico.</span>
         </h1>
 
         <div class="relative max-w-2xl mx-auto mb-10" v-reveal data-delay="200">
             <p class="hero-subtitle">
-                Brindamos la tecnología, el diseño y la infraestructura que tu empresa necesita para moverse rápido, captar más clientes y operar sin fricción.
+                Infraestructura digital que ordena tus cotizaciones, evita que se pierdan clientes y automatiza trabajo manual sin costos inflados de servidores.
             </p>
         </div>
         
