@@ -20,19 +20,34 @@ setSchema({
   data: {
     services: [
       {
-        name: 'Páginas Web Profesionales',
-        description: 'Páginas web modernas, rápidas y optimizadas para captar clientes. Diseño Mobile-First, copywriting persuasivo y estructura lista para SEO.',
-        serviceType: 'Desarrollo de Páginas Web'
+        name: 'Landing Express',
+        description: 'Landing page de una página sobre plantilla propia para validar una oferta concreta desde $200.000 + IVA.',
+        serviceType: 'Desarrollo de Landing Page'
       },
       {
-        name: 'Tiendas Online y Ecommerce',
-        description: 'Tiendas online construidas para vender y cobrar automáticamente. Proceso de compra optimizado, integración de pagos y panel autoadministrable.',
+        name: 'Sistema de Captación Web',
+        description: 'Sitio orientado a conversión con respaldo automático de contactos en base de datos, medición de WhatsApp y alertas al equipo desde $350.000 + IVA.',
+        serviceType: 'Sistemas de Captación Web'
+      },
+      {
+        name: 'Web + Flujo Comercial / Agenda',
+        description: 'Plataforma web con cotizador técnico para maestranzas/B2B o flujo de solicitud de hora para clínicas y servicios ($590.000 - $650.000 + IVA).',
+        serviceType: 'Desarrollo Web con Flujo Comercial'
+      },
+      {
+        name: 'Automatización e Integraciones Acotadas',
+        description: 'Flujos automatizados compatibles con cPanel para conectar formularios, WhatsApp, correos y planillas desde $450.000 + IVA.',
+        serviceType: 'Automatización de Procesos'
+      },
+      {
+        name: 'E-commerce Estándar',
+        description: 'Tienda online autoadministrable con pasarelas de pago chilenas (Webpay, Flow o MercadoPago) desde $650.000 + IVA.',
         serviceType: 'Desarrollo de Tiendas Online y Ecommerce'
       },
       {
-        name: 'Sistemas y Software a Medida',
-        description: 'Sistemas robustos que reducen costos operativos y automatizan procesos empresariales. Desarrollo full-stack con tecnologías modernas.',
-        serviceType: 'Desarrollo de Software a Medida'
+        name: 'Plan Continuidad & Soporte',
+        description: 'Mantenimiento mensual en cPanel, SSL, respaldos, monitoreo de formularios y horas de ajustes desde $49.000/mes + IVA.',
+        serviceType: 'Mantenimiento y Soporte Web'
       }
     ]
   }
