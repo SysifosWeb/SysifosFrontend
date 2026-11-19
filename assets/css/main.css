@@ -127,62 +127,62 @@ a {
 }
 
 /* ============================================
-   MODULAR BENTO TÉCNICO — Cabeceras Compactas
+   ESTUDIO DIGITAL BOLD — Cabeceras Monumentales y Bloques de Color
    ============================================ */
-.bento-hero {
-  background-color: var(--bg-dark);
-  padding: clamp(9.5rem, 11vw, 11.25rem) 0 clamp(2.25rem, 3.5vw, 3.25rem);
+.bold-hero {
+  background-color: var(--bg-elevated);
+  padding: clamp(9.5rem, 11.5vw, 12rem) 0 clamp(3.5rem, 6vw, 5.25rem);
   text-align: center;
 }
 
-.bento-hero__inner {
+.bold-hero__inner {
   width: 90%;
-  max-width: 960px;
+  max-width: 1120px;
   margin: 0 auto;
 }
 
-.bento-hero__title {
+.bold-hero__title {
   font-family: var(--font-heading);
-  font-size: clamp(2.25rem, 1.35rem + 3.2vw, 3.85rem);
+  font-size: clamp(2.5rem, 1.4rem + 4.1vw, 4.65rem);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.035em;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
   color: var(--text-main);
-  max-inline-size: 18ch;
-  margin: 0 auto 1rem;
+  max-inline-size: 16ch;
+  margin: 0 auto 1.5rem;
   text-wrap: balance;
 }
 
-.bento-hero__title span {
+.bold-hero__title span {
   color: var(--accent);
 }
 
-.bento-hero__lead {
-  font-size: var(--fs-lead);
+.bold-hero__lead {
+  font-size: clamp(1.125rem, 1.02rem + 0.45vw, 1.375rem);
   line-height: 1.5;
   color: var(--text-secondary);
-  max-width: 56ch;
+  max-width: 54ch;
   margin: 0 auto;
   text-wrap: pretty;
 }
 
-.bento-hero__actions {
+.bold-hero__actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
+  gap: 0.875rem;
+  margin-top: 2.25rem;
 }
 
 @media (max-width: 640px) {
-  .bento-hero__title {
+  .bold-hero__title {
     max-inline-size: none;
   }
-  .bento-hero__actions {
+  .bold-hero__actions {
     flex-direction: column;
     align-items: stretch;
   }
-  .bento-hero__actions .btn {
+  .bold-hero__actions .btn {
     width: 100%;
     justify-content: center;
   }

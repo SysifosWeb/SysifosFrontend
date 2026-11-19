@@ -1,76 +1,68 @@
 <template>
-  <section class="bento-section bg-section-dark" aria-labelledby="problems-title">
+  <section class="bold-problems impulso-closing bg-section-dark" aria-labelledby="problems-title">
     <div class="section-container">
-      <div class="bento-head">
-        <h2 id="problems-title" class="section-title max-w-[24ch] mx-auto" v-reveal data-delay="0">
+      <div class="bold-problems__head">
+        <h2 id="problems-title" class="bold-section-title" v-reveal data-delay="0">
           Dónde se escapan clientes y horas todos los meses.
         </h2>
-        <p class="section-subtitle max-w-[56ch] mx-auto mt-3 mb-0" v-reveal data-delay="60">
-          Atacamos los tres cuellos de botella operativos que frenan a empresas B2B y servicios en Chile.
+        <p class="bold-section-lead" v-reveal data-delay="70">
+          Una web informativa suelta no resuelve el cuello de botella comercial. Estos son los tres puntos que corregimos desde el primer día.
         </p>
       </div>
 
-      <div class="bento-grid">
-        <!-- Tile 1 (7 cols, Deep Navy): Connected Lead Pipeline -->
-        <article class="b-tile b-tile--navy b-span-7" v-reveal data-delay="60">
-          <h3 class="b-tile__title">Flujo conectado sin fuga de contactos</h3>
-          <p class="b-tile__desc">
-            Cada formulario y clic a WhatsApp queda medido y respaldado en base de datos antes de disparar alertas por correo, eliminando pérdidas silenciosas.
-          </p>
-          <div class="mini-pipeline" aria-label="Flujo de respaldo de contactos">
-            <span class="mini-node"><Globe class="w-4 h-4" aria-hidden="true" /> Web / WhatsApp</span>
-            <ArrowRight class="w-4 h-4 mini-arrow" aria-hidden="true" />
-            <span class="mini-node"><Database class="w-4 h-4" aria-hidden="true" /> Respaldo BD</span>
-            <ArrowRight class="w-4 h-4 mini-arrow" aria-hidden="true" />
-            <span class="mini-node"><BellRing class="w-4 h-4" aria-hidden="true" /> Alerta equipo</span>
-          </div>
-        </article>
-
-        <!-- Tile 2 (5 cols, White): Lost WhatsApp quotes -->
-        <article class="b-tile b-tile--surface b-span-5" v-reveal data-delay="100">
-          <MessageSquareWarning class="w-6 h-6 text-accent mb-4" aria-hidden="true" />
-          <h3 class="b-tile__title">Cotizaciones enterradas en chats</h3>
-          <p class="b-tile__desc m-0">
-            Reemplazamos mensajes sueltos por formularios con adjuntos, urgencia y registro centralizado para responder en menos de 24 h.
+      <div class="bold-problems__grid">
+        <article v-for="(pain, index) in pains" :key="pain.num" v-reveal :data-delay="index * 80" class="bold-pain-block">
+          <span class="bold-pain-block__num tabular-nums">{{ pain.num }}</span>
+          <h3 class="bold-pain-block__title">{{ pain.title }}</h3>
+          <p class="bold-pain-block__desc">{{ pain.description }}</p>
+          <p class="bold-pain-block__fix">
+            <CheckCircle2 class="w-4 h-4 shrink-0 mt-0.5" aria-hidden="true" />
+            <span>{{ pain.solution }}</span>
           </p>
         </article>
+      </div>
 
-        <!-- Tile 3 (5 cols, Ice Tint): Manual Excel/PDF work -->
-        <article class="b-tile b-tile--tint b-span-5" v-reveal data-delay="120">
-          <Zap class="w-6 h-6 text-accent mb-4" aria-hidden="true" />
-          <h3 class="b-tile__title">Horas copiando Excel y PDF</h3>
-          <p class="b-tile__desc m-0">
-            Automatizamos generación de PDFs, consolidación de leads y avisos internos sobre hosting cPanel sin servidores caros.
-          </p>
-        </article>
-
-        <!-- Tile 4 (7 cols, White): Mobile speed + CTA -->
-        <article class="b-tile b-tile--surface b-span-7 b-tile--action" v-reveal data-delay="140">
-          <div>
-            <Gauge class="w-6 h-6 text-accent mb-4" aria-hidden="true" />
-            <h3 class="b-tile__title">Velocidad móvil y trazabilidad real</h3>
-            <p class="b-tile__desc">
-              Sitios rápidos con SEO técnico verificado y eventos de conversión reales para saber exactamente qué canal trae clientes.
-            </p>
-          </div>
-          <NuxtLink to="/contacto?plan=captacion-web" class="btn btn-primary py-3.5 px-6 self-start">
-            Auditar mi flujo en 15 minutos
-            <ArrowRight class="w-4 h-4" aria-hidden="true" />
-          </NuxtLink>
-        </article>
+      <div class="bold-problems__cta" v-reveal data-delay="180">
+        <NuxtLink to="/contacto?plan=captacion-web" class="btn btn-primary px-8 py-4">
+          Revisar mi caso en 15 minutos
+          <ArrowRight class="w-4 h-4" aria-hidden="true" />
+        </NuxtLink>
+        <NuxtLink to="/servicios" class="bold-problems__link">
+          Ver paquetes y valores
+        </NuxtLink>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ArrowRight, Globe, Database, BellRing, MessageSquareWarning, Zap, Gauge } from 'lucide-vue-next'
+import { CheckCircle2, ArrowRight } from 'lucide-vue-next'
+
+const pains = [
+  {
+    num: '01',
+    title: 'Cotizaciones perdidas entre WhatsApp y correo',
+    description: 'Cuando un formulario falla en silencio o un mensaje queda enterrado en un chat personal, la venta se enfría antes de responder.',
+    solution: 'Respaldo automático en base de datos + alerta inmediata al equipo.'
+  },
+  {
+    num: '02',
+    title: 'Horas copiando datos entre Excel, formularios y PDF',
+    description: 'Transcribir planos, solicitudes técnicas o confirmar horas a mano consume tiempo que debería estar en producción o ventas.',
+    solution: 'Flujos automatizados sobre hosting cPanel sin servidores caros.'
+  },
+  {
+    num: '03',
+    title: 'Un sitio lento que no refleja el nivel de tu empresa',
+    description: 'En maestranzas, B2B y clínicas privadas, un sitio desactualizado en celular hace que el cliente cotice con otro proveedor.',
+    solution: 'Diseño veloz en móvil, SEO técnico y trazabilidad real de leads.'
+  }
+]
 </script>
 
 <style scoped>
-.bento-section {
-  padding: clamp(4.5rem, 8vw, 7rem) 0;
-  border-bottom: 1px solid var(--border);
+.bold-problems {
+  padding: clamp(5rem, 9vw, 8rem) 0;
 }
 
 .section-container {
@@ -79,100 +71,118 @@ import { ArrowRight, Globe, Database, BellRing, MessageSquareWarning, Zap, Gauge
   margin: 0 auto;
 }
 
-.bento-head {
+.bold-problems__head {
   text-align: center;
-  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+  max-width: 46rem;
+  margin: 0 auto clamp(3rem, 6vw, 4.5rem);
 }
 
-.bento-grid {
+.bold-section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.15rem, 1.35rem + 2.8vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  color: var(--text-main);
+  margin: 0 0 1.25rem;
+  text-wrap: balance;
+}
+
+.bold-section-lead {
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.bold-problems__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
-.b-tile {
+.bold-pain-block {
   display: flex;
   flex-direction: column;
-  padding: clamp(1.75rem, 3vw, 2.25rem);
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
   border-radius: 1.25rem;
-  border: 1px solid var(--border);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  background: var(--bg-surface);
 }
 
-.b-tile--surface { background: var(--bg-surface); }
-.b-tile--tint { background: var(--bg-elevated); }
-.b-tile--navy {
-  background: #102B46;
-  border-color: #244A70;
-  color: #F5F9FD;
-  box-shadow: 0 20px 48px rgba(16, 43, 70, 0.16);
-}
-
-.b-tile--action {
-  justify-content: space-between;
-  gap: 1.25rem;
-}
-
-.b-tile__title {
+.bold-pain-block__num {
   font-family: var(--font-heading);
-  font-size: clamp(1.2rem, 1.1rem + 0.35vw, 1.45rem);
-  font-weight: 700;
-  line-height: 1.22;
-  color: var(--text-main);
-  margin: 0 0 0.65rem;
+  font-size: clamp(2rem, 1.6rem + 1.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
 }
 
-.b-tile__desc {
+.bold-pain-block__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 1.1rem + 0.3vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-main);
+  margin: 0 0 0.75rem;
+}
+
+.bold-pain-block__desc {
   font-size: var(--fs-body);
   line-height: 1.55;
   color: var(--text-secondary);
   margin: 0 0 1.5rem;
+  flex: 1;
 }
 
-.b-tile--navy .b-tile__title { color: #F5F9FD; }
-.b-tile--navy .b-tile__desc { color: #B8CFE5; }
+.bold-pain-block__fix {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid rgba(184, 207, 229, 0.2);
+  font-family: var(--font-heading);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  line-height: 1.45;
+  color: var(--accent);
+  margin: 0;
+}
 
-.mini-pipeline {
+.bold-problems__cta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.6rem;
-  margin-top: auto;
-  padding-top: 1.25rem;
-  border-top: 1px solid rgba(184, 207, 229, 0.2);
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: clamp(2.5rem, 5vw, 3.75rem);
 }
 
-.mini-node {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.5rem 0.85rem;
-  border-radius: 0.625rem;
-  background: #163653;
-  border: 1px solid rgba(157, 203, 245, 0.25);
+.bold-problems__link {
   font-family: var(--font-heading);
-  font-size: 0.8125rem;
+  font-size: var(--fs-body);
   font-weight: 700;
-  color: #F5F9FD;
+  color: var(--accent);
 }
 
-.mini-node svg,
-.mini-arrow {
-  color: #9DCBF5;
+.bold-problems__link:hover {
+  text-decoration: underline;
 }
 
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .b-tile:hover {
-    transform: translateY(-2px);
-    border-color: var(--border-accent);
+@media (min-width: 960px) {
+  .bold-problems__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 1024px) {
-  .bento-grid {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
+@media (max-width: 640px) {
+  .bold-problems__cta {
+    flex-direction: column;
   }
-  .b-span-5 { grid-column: span 5; }
-  .b-span-7 { grid-column: span 7; }
+  .bold-problems__cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 </style>
