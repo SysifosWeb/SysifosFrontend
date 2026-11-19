@@ -9,18 +9,17 @@ import osman from '@/assets/img/Osman-optimized.webp'
 
     <div class="relative z-10 w-[90%] max-w-7xl mx-auto flex flex-col gap-20">
 
-      <!-- Editorial Header — asymmetric, not centered-generic -->
+      <!-- Editorial Header -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-end">
         <div class="equipo-header__left">
           <h2 class="equipo-headline" v-reveal data-delay="100">
-            El equipo que<br />
-            <em>hace que suceda.</em>
+            Quiénes diseñan y<br />
+            <em>programan tu proyecto.</em>
           </h2>
         </div>
         <div class="equipo-header__right">
           <p class="equipo-descriptor" v-reveal data-delay="200">
-            Dos especialistas, un estándar de ingeniería. Construimos software que escala, resiste y evoluciona con tu
-            negocio.
+            Trato directo desde la primera reunión hasta la puesta en marcha, sin ejecutivos intermediarios.
           </p>
         </div>
       </div>
@@ -36,12 +35,12 @@ import osman from '@/assets/img/Osman-optimized.webp'
           <div class="roster-info">
             <div class="roster-role">
               <Database class="roster-role__icon roster-role__icon--purple" />
-              <span class="roster-role__text roster-role__text--purple">DBA &amp; Frontend</span>
+              <span class="roster-role__text roster-role__text--purple">Bases de datos y Frontend</span>
             </div>
             <h3 class="roster-name">Karen Godoy</h3>
             <p class="roster-bio">
-              Control estructural enfocado en optimización de bases de datos relacionales con eficiencia visual
-              ininterrumpida.
+              Diseña y ordena bases de datos relacionales e interfaces web claras, rápidas y fáciles de mantener en el
+              día a día.
             </p>
           </div>
           <div class="roster-accent-line roster-accent-line--purple"></div>
@@ -55,11 +54,12 @@ import osman from '@/assets/img/Osman-optimized.webp'
           <div class="roster-info">
             <div class="roster-role">
               <Smartphone class="roster-role__icon" />
-              <span class="roster-role__text">Web &amp; Mobile Dev</span>
+              <span class="roster-role__text">Desarrollo Full Stack y Móvil</span>
             </div>
             <h3 class="roster-name">Osman Ahumada</h3>
             <p class="roster-bio">
-              Especialista arquitectónico en ecosistemas híbridos Flutter. Gestión fluida en compilación cross-platform.
+              Desarrolla sitios web, backends en Laravel, automatizaciones y aplicaciones móviles con foco en
+              rendimiento y estabilidad.
             </p>
           </div>
           <div class="roster-accent-line roster-accent-line--cyan"></div>

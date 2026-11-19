@@ -364,9 +364,9 @@ const relatedPosts = computed(() => {
                 <div class="text-center md:text-left">
                     <p class="text-[0.65rem] font-bold uppercase tracking-widest text-accent mb-1">Escrito por</p>
                     <h4 class="text-lg font-bold text-content mb-2">{{ post.author.name }}</h4>
-                    <p class="text-sm text-subdued leading-relaxed">Equipo de ingenieros y arquitectos cloud de
-                        SysifosWeb. Apasionados por el performance, sistemas distribuidos y la construcción de productos
-                        digitales escalables.</p>
+                    <p class="text-sm text-subdued leading-relaxed">Equipo de desarrollo de SysifosWeb en Coquimbo.
+                        Escribimos sobre captación web, automatización de procesos y decisiones técnicas prácticas para
+                        empresas en Chile.</p>
                 </div>
             </div>
         </section>
@@ -374,7 +374,7 @@ const relatedPosts = computed(() => {
         <!-- Related Articles -->
         <section class="py-24 bg-section-dark relative z-10 border-t border-line mt-16">
             <div class="max-w-[1200px] w-[90%] mx-auto">
-                <h3 class="text-2xl font-bold text-content mb-10">Lecturas Recomendadas</h3>
+                <h3 class="text-2xl font-bold text-content mb-10">Lecturas recomendadas</h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                     <NuxtLink v-for="relPost in relatedPosts" :key="relPost.id" :to="`/blog/${relPost.slug}`"
@@ -411,7 +411,7 @@ const relatedPosts = computed(() => {
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
-                <span class="text-sm font-medium text-content">Enlace copiado exitosamente</span>
+                <span class="text-sm font-medium text-content">Enlace copiado</span>
             </div>
         </div>
         </div>

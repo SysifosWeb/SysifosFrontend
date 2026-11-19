@@ -57,7 +57,7 @@ setSchema({
   type: 'LocalBusiness',
   data: {
     name: 'Sysifos Web',
-    description: 'Agencia de desarrollo de software, páginas web profesionales y tiendas online en coquimbo, Chile.',
+    description: 'Equipo de desarrollo de software, páginas web profesionales y tiendas online en Coquimbo, Chile.',
     telephone: '+56-9-8502-1549',
     email: 'contacto@sysifosweb.cl',
     addressLocality: 'Coquimbo',

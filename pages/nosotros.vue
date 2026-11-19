@@ -10,8 +10,8 @@ definePageMeta({
 const { setMeta, setSchema } = useSEO()
 
 setMeta({
-  title: 'Nosotros | Equipo de Desarrollo Web y Software en Chile — SysifosWeb',
-  description: 'Somos SysifosWeb, una agencia de desarrollo de software ubicada en Coquimbo, Chile. Nuestro equipo de ingenieros full stack construye soluciones digitales escalables para empresas. Conoce quiénes somos.',
+  title: 'Nosotros | Equipo de Desarrollo Web y Software en Chile | SysifosWeb',
+  description: 'Somos SysifosWeb, un equipo de desarrollo web y software en Coquimbo, Chile. Diseñamos sitios de captación, flujos comerciales y automatizaciones para empresas.',
   keywords: 'equipo desarrollo software chile, agencia desarrollo web coquimbo, empresa desarrollo software chile, desarrolladores full stack chile, quiénes somos sysifosweb',
   image: '/img/og-nosotros.webp'
 })
@@ -19,8 +19,8 @@ setMeta({
 setSchema({
   type: 'WebPage',
   data: {
-    name: 'Nosotros — SysifosWeb',
-    description: 'Equipo de ingenieros de software especializados en desarrollo web, ecommerce y soluciones digitales para empresas en Chile y el mundo.'
+    name: 'Nosotros | SysifosWeb',
+    description: 'Equipo de desarrollo web, automatización y software a medida en Coquimbo, Chile.'
   }
 })
 </script>
@@ -31,8 +31,8 @@ setSchema({
     
     <!-- BREAK 1: The Belief -->
     <NosotrosStorytellingBreak 
-      id="software-impulsar"
-      headline="El software debe <em>impulsar</em> tu ventaja."
+      id="software-util"
+      headline="El software tiene que <em>ordenar</em> tu operación, no complicarla."
       :oversized="true"
     />
 
@@ -40,9 +40,9 @@ setSchema({
 
     <!-- BREAK 2: The Promise -->
     <NosotrosStorytellingBreak 
-      overline="Arquitectura que acompaña tu crecimiento"
-      headline="Construimos para escalar contigo."
-      subheadline="Sistemas estables. Resultados tangibles."
+      overline="Pensado para durar"
+      headline="Código claro que crece al ritmo de tu empresa."
+      subheadline="Sin plataformas sobredimensionadas ni licencias que te aten a un proveedor."
       glow="indigo"
     />
 

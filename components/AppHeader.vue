@@ -22,7 +22,7 @@ const followPointer = (event) => {
           Captación web, flujos comerciales <span>y automatización práctica.</span>
         </h1>
         <p class="hero-description">
-          Diseñamos y construimos sitios de conversión, cotizadores B2B, flujos de agenda y automatizaciones para empresas en Coquimbo y todo Chile — sin servidores cloud inflados.
+          Diseñamos y construimos sitios de conversión, cotizadores B2B, flujos de agenda y automatizaciones para empresas en Coquimbo y todo Chile, sin servidores cloud inflados.
         </p>
 
         <div class="hero-actions">

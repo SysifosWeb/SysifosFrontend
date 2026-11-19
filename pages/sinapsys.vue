@@ -20,7 +20,7 @@ setMeta({
   keywords: 'enlaces sysifosweb, contacto sysifos, redes sociales sysifosweb',
   image: '/img/og-sinapsys.jpg'
 })
-setSchema({ type: 'WebPage', data: { name: 'Sinapsys — Enlaces de SysifosWeb', description: 'Sitio web, proyectos, redes sociales y contacto de SysifosWeb.' } })
+setSchema({ type: 'WebPage', data: { name: 'Sinapsys · Enlaces de SysifosWeb', description: 'Sitio web, proyectos, redes sociales y contacto de SysifosWeb.' } })
 </script>
 
 <template>
@@ -34,9 +34,9 @@ setSchema({ type: 'WebPage', data: { name: 'Sinapsys — Enlaces de SysifosWeb',
 
       <main class="sinapsys-main">
         <section class="sinapsys-intro" aria-labelledby="sinapsys-title">
-          <p class="sinapsys-eyebrow">Diseño y desarrollo con propósito</p>
-          <h1 id="sinapsys-title">Tu próximo paso digital{{ ' ' }}<span>empieza aquí.</span></h1>
-          <p class="sinapsys-description">Páginas web y software a medida, con un equipo cercano.</p>
+          <p class="sinapsys-eyebrow">Coquimbo y todo Chile</p>
+          <h1 id="sinapsys-title">Sitios web y automatización{{ ' ' }}<span>para tu negocio.</span></h1>
+          <p class="sinapsys-description">Páginas web, flujos comerciales y software a medida, con trato directo desde el primer día.</p>
           <a class="sinapsys-whatsapp" href="https://wa.me/56985021549?text=Hola%2C%20quiero%20conversar%20sobre%20un%20proyecto%20digital." target="_blank" rel="noopener noreferrer">
             <MessageCircle aria-hidden="true" /> Hablemos de tu proyecto <ArrowUpRight class="sinapsys-cta-arrow" aria-hidden="true" />
           </a>
@@ -59,7 +59,7 @@ setSchema({ type: 'WebPage', data: { name: 'Sinapsys — Enlaces de SysifosWeb',
       </main>
 
       <footer class="sinapsys-footer">
-        <p>Código que impulsa. Soluciones que transforman.</p>
+        <p>Sitios web, automatización y software a medida.</p>
         <span><MapPin aria-hidden="true" /> Coquimbo, Chile</span>
       </footer>
     </div>

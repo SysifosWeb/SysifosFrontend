@@ -8,25 +8,24 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
     <div class="section-container">
       
       <!-- ═══ SECTION HEADER ═══ -->
-      <!-- Left-aligned, not centered — breaks symmetry for rhythm -->
       <div class="metodologia-header">
         <div>
           <h2 class="metodologia-headline" v-reveal data-delay="100">
-            Operativa<br/>
-            <em>estandarizada.</em>
+            Cómo trabajamos<br/>
+            <em>cada proyecto.</em>
           </h2>
         </div>
         <p class="metodologia-descriptor" v-reveal data-delay="200">
-          Ejecución eficiente mediante protocolos ágiles. Precisión funcional, tiempos predecibles y código que sobrevive a la escala.
+          Trabajamos por entregas cortas y verificables, con fechas acordadas y pruebas antes de subir cualquier cambio a producción.
         </p>
       </div>
 
       <!-- ═══ MAIN CONTENT ═══ -->
       <div class="metodologia-grid">
 
-        <!-- LEFT: Process Steps — as a vertical timeline, not icon blocks -->
+        <!-- LEFT: Process Steps -->
         <div class="process-col">
-          <p class="col-label">Protocolos de Desarrollo</p>
+          <p class="col-label">Forma de trabajo</p>
 
           <div class="process-steps">
 
@@ -36,8 +35,8 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
                 <span class="step-line"></span>
               </div>
               <div class="step-body">
-                <h4 class="step-title">Scrum Framework</h4>
-                <p class="step-text">Sprints de 2 semanas con métricas de entrega incrementales y ventanas de feedback continuo.</p>
+                <h4 class="step-title">Entregas cada dos semanas</h4>
+                <p class="step-text">Dividimos el proyecto en bloques acotados para que revises avances reales en navegador y podamos ajustar a tiempo.</p>
               </div>
             </div>
 
@@ -47,8 +46,8 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
                 <span class="step-line"></span>
               </div>
               <div class="step-body">
-                <h4 class="step-title">Sincronización Continua</h4>
-                <p class="step-text">Alineación estratégica mediante stand-ups diarios, demostraciones de avance y comunicación transparente.</p>
+                <h4 class="step-title">Comunicación directa</h4>
+                <p class="step-text">Reuniones breves de seguimiento y canal abierto para resolver dudas rápido, sin tickets ni capas de intermediarios.</p>
               </div>
             </div>
 
@@ -57,24 +56,24 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
                 <span class="step-node step-node--cyan"></span>
               </div>
               <div class="step-body">
-                <h4 class="step-title">QA &amp; Estabilidad</h4>
-                <p class="step-text">Testing unitario, code reviews estrictos y clean-code para garantizar arquitecturas sólidas en producción.</p>
+                <h4 class="step-title">Pruebas antes de publicar</h4>
+                <p class="step-text">Validamos formularios, correos, versiones móviles y respaldos en entorno controlado antes de pasar a tu dominio.</p>
               </div>
             </div>
 
           </div>
         </div>
 
-        <!-- RIGHT: Tech Stack — as a lean table, not cards -->
+        <!-- RIGHT: Tech Stack -->
         <div class="stack-col">
-          <p class="col-label">Stack Tecnológico</p>
+          <p class="col-label">Tecnologías que usamos</p>
 
           <div class="stack-table">
             
             <div class="stack-row" v-reveal data-delay="0">
               <div class="stack-row__layer">
                 <span class="stack-row__label">Frontend</span>
-                <span class="stack-row__sublabel">Interfaces de alto rendimiento</span>
+                <span class="stack-row__sublabel">Sitios rápidos y accesibles</span>
               </div>
               <span class="stack-row__tech stack-row__tech--cyan">Vue.js / Nuxt / React</span>
             </div>
@@ -82,22 +81,22 @@ import { Box, Radio, ShieldCheck } from 'lucide-vue-next';
             <div class="stack-row" v-reveal data-delay="100">
               <div class="stack-row__layer">
                 <span class="stack-row__label">Backend</span>
-                <span class="stack-row__sublabel">Lógica y bases de datos</span>
+                <span class="stack-row__sublabel">APIs, automatización y datos</span>
               </div>
-              <span class="stack-row__tech stack-row__tech--purple">Laravel / Node.js</span>
+              <span class="stack-row__tech stack-row__tech--purple">Laravel / Node.js / MySQL</span>
             </div>
 
             <div class="stack-row" v-reveal data-delay="200">
               <div class="stack-row__layer">
-                <span class="stack-row__label">Mobile</span>
-                <span class="stack-row__sublabel">Desarrollo multiplataforma</span>
+                <span class="stack-row__label">Móvil</span>
+                <span class="stack-row__sublabel">Aplicaciones multiplataforma</span>
               </div>
-              <span class="stack-row__tech stack-row__tech--cyan">Flutter / React Native</span>
+              <span class="stack-row__tech stack-row__tech--cyan">React Native / Expo</span>
             </div>
 
-            <!-- Bottom note — signals maturity -->
+            <!-- Bottom note -->
             <p class="stack-note" v-reveal data-delay="300">
-              Seleccionamos la tecnología óptima para cada contexto. Sin dogma, con criterio.
+              Elegimos herramientas probadas según el presupuesto y la operación de cada empresa, evitando infraestructura que no necesitas.
             </p>
           </div>
         </div>

@@ -76,8 +76,8 @@ const submitForm = async (event) => {
             <div class="w-16 h-16 mx-auto bg-panel rounded-2xl border border-line flex items-center justify-center mb-6">
                 <svg class="w-6 h-6 text-content" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z"></path></svg>
             </div>
-            <h3 class="text-2xl lg:text-3xl font-bold text-content mb-4">Recibe insights tecnológicos</h3>
-            <p class="text-subdued text-sm mb-8">Únete a nuestra lista para recibir artículos mensuales sobre arquitectura web y escalabilidad. Sin spam.</p>
+            <h3 class="text-2xl lg:text-3xl font-bold text-content mb-4">Recibe nuestras guías por correo</h3>
+            <p class="text-subdued text-sm mb-8">Un correo al mes con notas prácticas sobre web, automatización y gestión digital para pymes. Sin spam.</p>
 
             <form @submit="submitForm" class="flex flex-col sm:flex-row gap-3">
                 <input v-model="form.email" aria-label="Correo electrónico para el boletín" type="email" placeholder="tu@email.com" autocomplete="email" class="flex-grow bg-panel border border-line rounded-xl px-5 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 transition-colors" required>

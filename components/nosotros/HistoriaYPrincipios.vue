@@ -17,16 +17,16 @@ import { Medal } from "lucide-vue-next";
           <p class="text-small text-accent mb-7" v-reveal data-delay="0">Fundada en 2024, Coquimbo, Chile</p>
 
           <h2 class="text-4xl md:text-5xl lg:text-[3.6rem] font-extrabold leading-[1.08] tracking-tight text-content mb-8" v-reveal data-delay="100">
-            Arquitectura que
-            <em class="not-italic text-accent">resiste la escala.</em>
+            Software práctico hecho
+            <em class="not-italic text-accent">desde Coquimbo.</em>
           </h2>
 
           <div class="flex flex-col gap-4 mb-10" v-reveal data-delay="200">
             <p class="text-body text-subdued">
-              SysifosWeb nace con una convicción: la tecnología de vanguardia no debería ser un privilegio de las grandes corporaciones. La democratizamos.
+              SysifosWeb partió en 2024 en Coquimbo con una idea simple: las pymes y empresas regionales necesitan sitios web y herramientas internas bien construidas, sin pagar presupuestos de gran corporación ni servidores innecesarios.
             </p>
             <p class="text-body text-subdued">
-              Inspirados en el mito de Sísifo — perseverancia, precisión, esfuerzo sostenido — convertimos cada desafío técnico en una solución de alto rendimiento con impacto medible en tu negocio.
+              El nombre viene del mito de Sísifo, llevado a lo cotidiano de la ingeniería: trabajo constante, iteración ordenada y foco en resolver problemas concretos de captación, cotizaciones y operación diaria.
             </p>
           </div>
 
@@ -51,11 +51,11 @@ import { Medal } from "lucide-vue-next";
         <!-- Right: Image with editorial frame -->
         <div class="relative group" v-reveal data-delay="200">
           <div class="relative rounded-[var(--radius-lg)] overflow-hidden bg-panel">
-            <img :src="team" alt="SysifosWeb, arquitecto de nodo" class="w-full h-[480px] object-cover object-center block brightness-[0.88] contrast-[1.04] transition-[filter,transform] duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:brightness-[0.96] group-hover:contrast-[1.02] group-hover:scale-[1.02]" loading="lazy" />
+            <img :src="team" alt="Interfaz de producto digital desarrollada por SysifosWeb" class="w-full h-[480px] object-cover object-center block brightness-[0.88] contrast-[1.04] transition-[filter,transform] duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:brightness-[0.96] group-hover:contrast-[1.02] group-hover:scale-[1.02]" loading="lazy" />
             <!-- Overlay caption -->
             <div class="impulso-closing absolute bottom-0 inset-x-0 py-4 px-6 bg-section-dark flex items-center gap-2.5 text-small font-medium text-subdued">
               <span class="w-[5px] h-[5px] rounded-full bg-accent opacity-70"></span>
-              <span>Node Architecture · v2.4</span>
+              <span>Coquimbo · Chile</span>
             </div>
           </div>
         </div>
@@ -67,21 +67,21 @@ import { Medal } from "lucide-vue-next";
         <div class="principle-panel" v-reveal data-delay="0">
           <div>
             <h3 class="text-h3 text-content mb-3">Misión</h3>
-            <p class="text-body text-subdued">Empoderar corporaciones mediante arquitecturas robustas que aceleren su crecimiento y maximicen su competitividad global.</p>
+            <p class="text-body text-subdued">Construir sitios web, flujos comerciales y automatizaciones que ayuden a empresas chilenas a captar mejores clientes y ahorrar horas de trabajo manual.</p>
           </div>
         </div>
 
         <div class="principle-panel" v-reveal data-delay="150">
           <div>
             <h3 class="text-h3 text-content mb-3">Visión</h3>
-            <p class="text-body text-subdued">Ser el referente de desarrollo de software más confiable de la región, distinguidos por excelencia técnica inquebrantable.</p>
+            <p class="text-body text-subdued">Consolidarnos como un equipo técnico de confianza en la Región de Coquimbo y todo Chile, reconocidos por entregar a tiempo y explicar cada decisión sin rodeos.</p>
           </div>
         </div>
 
         <div class="principle-panel" v-reveal data-delay="300">
           <div>
             <h3 class="text-h3 text-content mb-3">Valores</h3>
-            <p class="text-body text-subdued">Innovación pragmática, calidad sistemática, transparencia operacional. La ingeniería sólida construye futuros sustentables.</p>
+            <p class="text-body text-subdued">Alcance claro antes de empezar, código limpio que puedas mantener en el tiempo y trato directo con quienes diseñan y programan tu proyecto.</p>
           </div>
         </div>
 

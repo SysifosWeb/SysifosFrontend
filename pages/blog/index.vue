@@ -4,7 +4,7 @@ import { fetchPublicBlog } from '~/utils/publicBlog'
 
 definePageMeta({
   layout: 'hero',
-  title: 'Blog & Insights'
+  title: 'Blog'
 })
 
 const config = useRuntimeConfig()
@@ -13,7 +13,7 @@ const apiUrl = config.public.apiUrl
 // SEO Configuration
 const { setMeta, setSchema } = useSEO()
 setMeta({
-  title: 'Blog | Tecnología, Desarrollo Web y Negocios Digitales — SysifosWeb',
+  title: 'Blog | Tecnología, Desarrollo Web y Negocios Digitales | SysifosWeb',
   description: 'Artículos sobre desarrollo web, software, ecommerce, SEO y estrategias digitales para empresas. Aprende cómo escalar tu negocio con tecnología de parte del equipo de SysifosWeb.',
   keywords: 'blog desarrollo web chile, artículos tecnología empresas, tips ecommerce chile, arquitectura de software, marketing digital pymes, SEO para negocios, digitalización empresas',
   image: '/img/og-blog.jpg'
@@ -127,7 +127,7 @@ const filteredPosts = computed(() => {
   return filteredPostsAll.value.slice(start, end)
 })
 useHead(() => ({
-  title: currentPage.value > 1 ? `Blog, página ${currentPage.value} | SysifosWeb` : 'Blog | Tecnología y negocios digitales — SysifosWeb',
+  title: currentPage.value > 1 ? `Blog, página ${currentPage.value} | SysifosWeb` : 'Blog | Tecnología y negocios digitales | SysifosWeb',
   link: [{ rel: 'canonical', href: `https://sysifosweb.cl/blog${currentPage.value > 1 ? `?page=${currentPage.value}` : ''}` }]
 }))
 </script>

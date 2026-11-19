@@ -11,7 +11,7 @@ setMeta({
 setSchema({
   type: 'WebPage',
   data: {
-    name: 'SysifosWeb — Desarrollo de Software y Páginas Web en Chile',
+    name: 'SysifosWeb | Desarrollo de Software y Páginas Web en Chile',
     description: 'Agencia de desarrollo de software, páginas web y ecommerce para empresas en Chile. Laravel, Nuxt, Vue.js y más.'
   }
 })
@@ -20,7 +20,7 @@ setSchema({
   type: 'LocalBusiness',
   data: {
     name: 'Sysifos Web',
-    description: 'Agencia de desarrollo de software, páginas web profesionales y tiendas online en coquimbo, Chile. Especialistas en Laravel, Nuxt, Vue.js y React.',
+    description: 'Equipo de desarrollo de software, páginas web profesionales y tiendas online en Coquimbo, Chile. Especialistas en Laravel, Nuxt, Vue.js y React.',
     telephone: '+56-9-8502-1549',
     email: 'contacto@sysifosweb.cl',
     addressLocality: 'Coquimbo',

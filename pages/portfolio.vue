@@ -6,7 +6,7 @@ import contactBackdrop from '@/assets/img/design-optimized.webp'
 const { setMeta, setSchema } = useSEO()
 
 setMeta({
-  title: 'Portfolio | Proyectos de Desarrollo Web y Software a Medida — SysifosWeb',
+  title: 'Portfolio | Proyectos de Desarrollo Web y Software a Medida | SysifosWeb',
   description: 'Explora una selección de diseños web de SysifosWeb.',
   keywords: 'portfolio desarrollo web chile, casos de éxito software, proyectos desarrollo web empresas, ejemplos software a medida, ecommerce chile',
   image: '/img/og-portfolio.webp'
@@ -15,7 +15,7 @@ setMeta({
 setSchema({
   type: 'WebPage',
   data: {
-    name: 'Portfolio de Proyectos — SysifosWeb',
+    name: 'Portfolio de Proyectos | SysifosWeb',
     description: 'Selección de diseños web y casos de desarrollo de SysifosWeb.'
   }
 })
