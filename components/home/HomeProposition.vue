@@ -1,117 +1,131 @@
 <template>
-  <section class="proposition-section bg-section-dark">
-
+  <section class="proposition-section bg-section-surface" aria-labelledby="proposition-title">
     <div class="section-container">
-
-      <!-- Claim + Diferenciadores -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-        <!-- Izquierda: Claim -->
-        <div>
-          <p class="section-eyebrow section-eyebrow--purple mb-4" v-reveal data-delay="0">Nuestra propuesta de valor</p>
-          <h2 class="section-title proposition-title mb-6" v-reveal data-delay="100">
-            Construimos motores de crecimiento digital.
+      <div class="proposition-grid">
+        <div class="proposition-lead">
+          <h2 id="proposition-title" class="section-title proposition-title" v-reveal data-delay="0">
+            Ingeniería práctica que ordena tu negocio sin servidores caros.
           </h2>
-          <p class="section-subtitle mb-10" v-reveal data-delay="200">
-            No construimos páginas web. Cada proyecto que entregamos está diseñado para generar resultados medibles:
-            más visitas, más conversiones y más ventas.
+          <p class="section-subtitle proposition-copy" v-reveal data-delay="80">
+            Combinamos diseño de conversión con backend Laravel, automatizaciones y respaldo en base de datos optimizados para correr de forma estable y económica.
           </p>
-          <NuxtLink to="/contacto" class="cta-primary-btn" v-reveal data-delay="300">
-            Agenda una asesoría gratuita
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
-          </NuxtLink>
-        </div>
-
-        <!-- Derecha: Diferenciadores -->
-        <div class="flex flex-col gap-4">
-          <div v-for="(diff, index) in differentiators" :key="diff.title"
-               v-reveal :data-delay="index * 150"
-               class="diff-card flex items-start gap-5">
-            <div class="diff-icon"><component :is="diff.icon" class="w-5 h-5" aria-hidden="true" /></div>
-            <div>
-              <h3 class="card-title mb-1">{{ diff.title }}</h3>
-              <p class="card-text">{{ diff.description }}</p>
-            </div>
+          <div class="mt-8" v-reveal data-delay="140">
+            <NuxtLink to="/contacto" class="btn btn-primary">
+              Agendar diagnóstico sin costo
+              <ArrowRight class="w-4 h-4" aria-hidden="true" />
+            </NuxtLink>
           </div>
         </div>
 
+        <dl class="proposition-list">
+          <div v-for="(diff, index) in differentiators" :key="diff.title" v-reveal :data-delay="index * 70" class="proposition-item">
+            <dt class="proposition-item__title">
+              <component :is="diff.icon" class="w-5 h-5 text-accent shrink-0" aria-hidden="true" />
+              <span>{{ diff.title }}</span>
+            </dt>
+            <dd class="proposition-item__desc">{{ diff.description }}</dd>
+          </div>
+        </dl>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { Handshake, LockKeyhole, Target, Zap } from 'lucide-vue-next'
+import { ArrowRight, Handshake, LockKeyhole, Server, Zap } from 'lucide-vue-next'
 
 const differentiators = [
   {
     icon: Zap,
-    title: 'Ves resultados rápido',
-    description: 'No esperamos meses para mostrarte avances. En 2–4 semanas ya tienes algo real funcionando.'
+    title: 'Avances verificables en 2 a 4 semanas',
+    description: 'Trabajamos con alcance cerrado y entregas visibles desde las primeras semanas, sin meses de espera antes de ver resultados.'
   },
   {
-    icon: Target,
-    title: 'Nos importa tu negocio, no solo el código',
-    description: 'Medimos el éxito en ventas, leads y crecimiento. No en cuántas líneas de código escribimos.'
+    icon: Server,
+    title: 'Arquitectura frugal lista para cPanel',
+    description: 'Diseñamos sistemas y automatizaciones que operan en hosting compartido estándar, evitando cuentas cloud infladas cada mes.'
   },
   {
     icon: LockKeyhole,
-    title: 'Tu plataforma crece contigo',
-    description: 'Construimos pensando en el futuro de tu empresa. Sin bloqueos técnicos ni reescrituras costosas.'
+    title: 'Código propio y datos bajo tu control',
+    description: 'Sin amarras ni licencias sorpresivas: tu sitio, formularios y base de datos crecen al ritmo real de tu empresa.'
   },
   {
     icon: Handshake,
-    title: 'Hablas con quien construye',
-    description: 'Sin intermediarios. Tienes acceso directo al equipo que trabaja en tu proyecto, siempre.'
+    title: 'Trato directo con el equipo técnico',
+    description: 'Conversas directamente con quienes diseñan y programan tu solución en Coquimbo y de forma remota para todo Chile.'
   }
 ]
 </script>
 
 <style scoped>
-/* ── Layout ─────────────────────────────── */
 .proposition-section {
   position: relative;
-  padding: 4rem 0 5rem;
-  overflow: hidden;
+  padding: clamp(4.5rem, 8vw, 7rem) 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .section-container {
-  position: relative;
-  z-index: 10;
   width: 90%;
-  max-width: 1380px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
-/* ── Título ──────────────────────────────── */
+.proposition-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+
 .proposition-title {
-  max-width: 22ch;
+  max-width: 20ch;
+  margin-bottom: 1.25rem;
 }
 
-
-
-/* ── Diferenciadores ─────────────────────── */
-.diff-card {
-  padding: 1.25rem 1.5rem;
-  border-radius: var(--radius-lg);
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  transition: border-color 0.25s ease, background-color 0.25s ease;
+.proposition-copy {
+  max-width: 48ch;
+  font-size: var(--fs-lead);
+  line-height: 1.5;
 }
 
-.diff-card:hover { border-color: var(--border-accent); background: var(--bg-elevated); }
+.proposition-list {
+  margin: 0;
+  border-top: 1px solid var(--border);
+}
 
-.diff-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--radius-md);
-  background: var(--bg-elevated);
+.proposition-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.proposition-item__title {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--accent);
-  flex-shrink: 0;
+  gap: 0.75rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem);
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.45rem;
+}
+
+.proposition-item__desc {
+  margin: 0;
+  padding-left: 2rem;
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 56ch;
+}
+
+@media (min-width: 1024px) {
+  .proposition-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  }
+  .proposition-lead {
+    position: sticky;
+    top: 7rem;
+  }
 }
 </style>

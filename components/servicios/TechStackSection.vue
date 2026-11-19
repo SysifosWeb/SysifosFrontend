@@ -1,112 +1,165 @@
 <script setup>
+const frontendSpecs = [
+  {
+    name: 'Nuxt y Vue',
+    role: 'Sitios de conversión y SEO técnico',
+    detail: 'Renderizado rápido en servidor, URLs canónicas y carga fluida en conexiones móviles.'
+  },
+  {
+    name: 'React y React Native / Expo',
+    role: 'Interfaces interactivas y apps móviles',
+    detail: 'Experiencias fluidas y aplicaciones con persistencia local cuando la operación exige trabajo en terreno.'
+  },
+  {
+    name: 'Tailwind CSS y tokens propios',
+    role: 'Diseño consistente y accesible',
+    detail: 'Sistema visual adaptable a modo claro y oscuro sin peso innecesario de plantillas genéricas.'
+  }
+]
+
+const backendSpecs = [
+  {
+    name: 'Laravel (PHP 8.3)',
+    role: 'APIs, formularios y automatización',
+    detail: 'Validaciones estrictas, colas compatibles con cPanel y mantenimiento predecible.'
+  },
+  {
+    name: 'MariaDB / PostgreSQL',
+    role: 'Respaldo y trazabilidad de datos',
+    detail: 'Cada lead, cotización y evento queda guardado con respaldos periódicos y control de acceso.'
+  },
+  {
+    name: 'TypeScript y pruebas automatizadas',
+    role: 'Estabilidad antes de publicar',
+    detail: 'Contratos claros, pruebas de regresión y despliegues con rollback inmediato.'
+  }
+]
 </script>
 
 <template>
-  <section class="relative bg-section-dark py-12 lg:py-20 overflow-hidden">
-    
-    <div class="section-container relative z-20 text-center mb-20 flex flex-col items-center">
-        <p class="section-eyebrow mb-4" v-reveal data-delay="0">Infraestructura tecnológica</p>
-        <h2 class="section-title tech-title mb-2" v-reveal data-delay="100">
-           Tecnología orientada a resultados.
+  <section class="tech-section bg-section-dark" aria-labelledby="tech-stack-title">
+    <div class="section-container">
+      <div class="tech-head">
+        <h2 id="tech-stack-title" class="section-title max-w-[22ch] m-0" v-reveal data-delay="0">
+          Tecnología elegida por estabilidad y costo real.
         </h2>
-        <p class="text-subdued text-lead max-w-2xl mt-6" v-reveal data-delay="200">
-          Elegimos nuestro stack tecnológico no por estar a la moda, sino porque garantizan el rendimiento, seguridad y escala que tu empresa requiere.
+        <p class="section-subtitle max-w-[52ch] m-0" v-reveal data-delay="80">
+          No usamos herramientas de moda que encarecen tu operación: elegimos un stack probado que corre rápido y se mantiene sin fricciones.
         </p>
-    </div>
+      </div>
 
-    <div class="section-container grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24 relative z-10">
-        
-        <!-- Rendimiento & Frontend -->
+      <div class="tech-columns">
         <div>
-            <h3 class="text-h3 mb-6 flex items-center gap-3 text-main">
-                Experiencia y velocidad
-            </h3>
-            <div class="space-y-4">
-                <div class="tech-card card-border bg-panel border border-line p-6 flex flex-col gap-2 group hover:border-accent/30" v-reveal data-delay="0">
-                    <div class="flex flex-wrap justify-between items-start gap-3 mb-4">
-                        <span class="card-title m-0 font-bold text-content">Velocidad Extrema & Mejor SEO</span>
-                         <span class="text-small font-semibold text-accent">VUE / NUXT</span>
-                    </div>
-                    <p class="text-body text-subdued">Tiempos de carga casi instantáneos que reducen la tasa de rebote y te posicionan más alto en Google.</p>
-                </div>
-                
-                <div class="tech-card card-border bg-panel border border-line p-6 flex flex-col gap-2 group hover:border-accent/30" v-reveal data-delay="100">
-                    <div class="flex flex-wrap justify-between items-start gap-3 mb-4">
-                        <span class="card-title m-0 font-bold text-content">Interfaces Inmersivas</span>
-                         <span class="text-small font-semibold text-accent">REACT / NEXT.JS</span>
-                    </div>
-                    <p class="text-body text-subdued">Desarrollo de aplicaciones fluidas, reactivas y modernas que aumentan la retención del usuario.</p>
-                </div>
-
-                <div class="tech-card card-border bg-panel border border-line p-6 flex flex-col gap-2 group hover:border-accent/30" v-reveal data-delay="200">
-                    <div class="flex flex-wrap justify-between items-start gap-3 mb-4">
-                        <span class="card-title m-0 font-bold text-content">Diseño Pixel-Perfect</span>
-                         <span class="text-small font-semibold text-accent">TAILWINDCSS</span>
-                    </div>
-                    <p class="text-body text-subdued">Estética hiper-personalizada sin plantillas, garantizando que tu marca se vea única y premium en cualquier pantalla.</p>
-                </div>
+          <h3 class="tech-col-title">Experiencia y Frontend</h3>
+          <dl class="tech-ledger">
+            <div v-for="spec in frontendSpecs" :key="spec.name" class="tech-row">
+              <dt>
+                <span class="tech-row__role">{{ spec.role }}</span>
+                <span class="tech-row__name">{{ spec.name }}</span>
+              </dt>
+              <dd>{{ spec.detail }}</dd>
             </div>
+          </dl>
         </div>
 
-        <!-- Arquitectura & Backend -->
         <div>
-            <h3 class="text-h3 mb-6 flex items-center gap-3 text-main">
-                Estabilidad y escala
-            </h3>
-            <div class="space-y-4">
-                <div class="tech-card card-border bg-panel border border-line p-6 flex flex-col gap-2 group hover:border-purple/30" v-reveal data-delay="0">
-                    <div class="flex flex-wrap justify-between items-start gap-3 mb-4">
-                        <span class="card-title m-0 font-bold text-content">Arquitectura Escalable</span>
-                         <span class="text-small font-semibold text-purple">LARAVEL / NODE</span>
-                    </div>
-                    <p class="text-body text-subdued">Motores de negocio construidos para soportar miles de transacciones concurrentes sin caerse.</p>
-                </div>
-
-                <div class="tech-card card-border bg-panel border border-line p-6 flex flex-col gap-2 group hover:border-purple/30" v-reveal data-delay="100">
-                    <div class="flex flex-wrap justify-between items-start gap-3 mb-4">
-                        <span class="card-title m-0 font-bold text-content">Seguridad de Datos</span>
-                         <span class="text-small font-semibold text-purple">POSTGRESQL</span>
-                    </div>
-                    <p class="text-body text-subdued">Bases de datos estructuradas con encriptación de nivel bancario para proteger tu información más valiosa.</p>
-                </div>
-
-                <div class="tech-card card-border bg-panel border border-line p-6 flex flex-col gap-2 group hover:border-purple/30" v-reveal data-delay="200">
-                    <div class="flex flex-wrap justify-between items-start gap-3 mb-4">
-                        <span class="card-title m-0 font-bold text-content">Estabilidad a Largo Plazo</span>
-                         <span class="text-small font-semibold text-purple">TYPESCRIPT</span>
-                    </div>
-                    <p class="text-body text-subdued">Código altamente tipado que previene errores críticos antes de que lleguen a producción, garantizando disponibilidad 24/7.</p>
-                </div>
+          <h3 class="tech-col-title">Backend, datos y continuidad</h3>
+          <dl class="tech-ledger">
+            <div v-for="spec in backendSpecs" :key="spec.name" class="tech-row">
+              <dt>
+                <span class="tech-row__role">{{ spec.role }}</span>
+                <span class="tech-row__name">{{ spec.name }}</span>
+              </dt>
+              <dd>{{ spec.detail }}</dd>
             </div>
+          </dl>
         </div>
-
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
+.tech-section {
+  padding: clamp(4.5rem, 8vw, 6.5rem) 0;
+  border-bottom: 1px solid var(--border);
+}
+
 .section-container {
-  position: relative;
-  z-index: 10;
   width: 90%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin-inline: auto;
 }
 
-.text-main { color: var(--text-main); }
-.bg-purple { background-color: var(--purple); }
-.text-purple { color: var(--purple); }
-.hover\:border-purple\/30:hover { border-color: rgba(var(--decoration-rgb), 0.3); }
-.tech-title { max-width: 22ch; }
-
-.tech-card {
-  transition: opacity 1.2s ease, transform 1.2s ease, translate .25s ease,
-    box-shadow .25s ease, border-color .25s ease;
+.tech-head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .tech-card:hover {
-    translate: 0 -4px;
-    box-shadow: 0 12px 28px rgba(16, 43, 70, .1);
+
+.tech-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.tech-col-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 1.15rem + 0.3vw, 1.45rem);
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 1.25rem;
+}
+
+.tech-ledger {
+  margin: 0;
+  border-top: 1px solid var(--border);
+}
+
+.tech-row {
+  padding: 1.35rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tech-row dt {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.45rem;
+}
+
+.tech-row__role {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.tech-row__name {
+  font-family: var(--font-heading);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.tech-row dd {
+  margin: 0;
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+@media (min-width: 960px) {
+  .tech-head,
+  .tech-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .tech-head {
+    align-items: end;
+    gap: 3rem;
   }
 }
 </style>

@@ -1,153 +1,303 @@
 <script setup>
-import { PanelsTopLeft, MessageCircle } from 'lucide-vue-next'
-const fareminImage = '/img/projects/faremin-1200.webp'
-const fareminOptimized = fareminImage
+import { ArrowRight, ArrowUpRight, Server, ShieldCheck, MapPin } from 'lucide-vue-next'
 import { ref } from 'vue'
 
+const fareminImage = '/img/projects/faremin-1200.webp'
 const tiltStyle = ref({})
 const resetTilt = () => { tiltStyle.value = {} }
 const followPointer = (event) => {
   if (event.pointerType !== 'mouse' || !window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)').matches) return
   const bounds = event.currentTarget.getBoundingClientRect()
-  const x = Math.max(-.5, Math.min(.5, (event.clientX - bounds.left) / bounds.width - .5))
-  const y = Math.max(-.5, Math.min(.5, (event.clientY - bounds.top) / bounds.height - .5))
-  tiltStyle.value = { transform: `perspective(1400px) rotateX(${-y * 7}deg) rotateY(${x * 9}deg) translate3d(${x * 8}px, ${y * 6}px, 0)` }
+  const x = Math.max(-0.5, Math.min(0.5, (event.clientX - bounds.left) / bounds.width - 0.5))
+  const y = Math.max(-0.5, Math.min(0.5, (event.clientY - bounds.top) / bounds.height - 0.5))
+  tiltStyle.value = { transform: `perspective(1400px) rotateX(${-y * 4}deg) rotateY(${x * 5}deg) translate3d(${x * 4}px, ${y * 3}px, 0)` }
 }
-
 </script>
 
 <template>
   <section class="hero-section" aria-labelledby="home-title">
     <div class="site-container hero-content">
       <div class="hero-copy">
-        <p class="hero-eyebrow"><span aria-hidden="true"></span>Diseño y desarrollo para tu empresa</p>
-        <h1 id="home-title">Desarrollo web y software <span>para tu empresa.</span></h1>
-        <p class="hero-description">Creamos páginas web, tiendas online y sistemas a medida para empresas en Chile. Definimos el alcance contigo y te acompañamos desde la idea hasta el lanzamiento.</p>
+        <h1 id="home-title">
+          Captación web, flujos comerciales <span>y automatización práctica.</span>
+        </h1>
+        <p class="hero-description">
+          Diseñamos y construimos sitios de conversión, cotizadores B2B, flujos de agenda y automatizaciones para empresas en Coquimbo y todo Chile — sin servidores cloud inflados.
+        </p>
+
         <div class="hero-actions">
-          <a href="https://wa.me/56985021549?text=Hola%20SysifosWeb!%20Quiero%20cotizar%20mi%20proyecto%20web%2Fsoftware" target="_blank" rel="noopener" class="btn btn-primary">
-            Hablemos de tu proyecto <span aria-hidden="true">↗</span>
-          </a>
-          <NuxtLink to="/portfolio" class="btn btn-secondary">Ver nuestros proyectos <span aria-hidden="true">↓</span></NuxtLink>
+          <NuxtLink to="/contacto?plan=captacion-web" class="btn btn-primary">
+            Solicitar diagnóstico gratuito
+            <ArrowRight class="w-4 h-4" aria-hidden="true" />
+          </NuxtLink>
+          <NuxtLink to="/servicios" class="btn btn-secondary">
+            Ver servicios y valores
+          </NuxtLink>
         </div>
-        <div class="hero-details">
-        <div class="hero-detail hero-detail--design" aria-hidden="true"><PanelsTopLeft /><span>Diseño a medida</span></div>
-        <div class="hero-detail hero-detail--team" aria-hidden="true"><MessageCircle /><span>Contacto directo</span></div>
-        </div>
+
+        <dl class="hero-proof">
+          <div class="hero-proof__item">
+            <dt><MapPin class="w-4 h-4 text-accent" aria-hidden="true" /> Región de Coquimbo y remoto Chile</dt>
+            <dd>Trato directo con quienes diseñan y programan.</dd>
+          </div>
+          <div class="hero-proof__item">
+            <dt><Server class="w-4 h-4 text-accent" aria-hidden="true" /> Infraestructura frugal</dt>
+            <dd>Arquitectura optimizada para hosting cPanel sin costos ocultos.</dd>
+          </div>
+          <div class="hero-proof__item">
+            <dt><ShieldCheck class="w-4 h-4 text-accent" aria-hidden="true" /> Alcance y valores claros</dt>
+            <dd>Paquetes desde $200.000 + IVA con respaldo de cada contacto.</dd>
+          </div>
+        </dl>
       </div>
 
       <div class="hero-project-motion" @pointermove="followPointer" @pointerleave="resetTilt" @pointercancel="resetTilt">
-      <div class="hero-project-tilt" :style="tiltStyle">
-      <figure class="hero-project">
-        <div class="hero-project__bar">
-          <div class="hero-project__dots" aria-hidden="true"><i></i><i></i><i></i></div>
-          <span>Una muestra de nuestro trabajo</span>
-          <span class="hero-project__type">Desarrollo web</span>
+        <div class="hero-project-tilt" :style="tiltStyle">
+          <figure class="hero-project">
+            <div class="hero-project__bar">
+              <span class="hero-project__kicker">Caso publicado</span>
+              <span class="hero-project__meta">Ingeniería B2B · Maestranza</span>
+            </div>
+            <NuxtLink to="/portfolio" class="hero-project__preview" aria-label="Ver el proyecto Maestranza Faremin en nuestro portfolio">
+              <img :src="fareminImage" alt="Sitio web desarrollado para Maestranza Faremin, con su presentación de ingeniería para la industria minera" width="1600" height="911" fetchpriority="high" />
+            </NuxtLink>
+            <figcaption>
+              <div>
+                <h2>Maestranza Faremin</h2>
+                <p class="hero-project__caption">Sitio corporativo y captación técnica para proveedores mineros.</p>
+              </div>
+              <NuxtLink to="/portfolio" class="hero-project__link">
+                Ver portfolio
+                <ArrowUpRight class="w-4 h-4" aria-hidden="true" />
+              </NuxtLink>
+            </figcaption>
+          </figure>
         </div>
-        <NuxtLink to="/portfolio" class="hero-project__preview" aria-label="Ver el proyecto Maestranza Faremin en nuestro portfolio">
-          <picture>
-          <source media="(max-width: 640px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
-          <source :srcset="fareminOptimized" type="image/webp" />
-          <img :src="fareminImage" alt="Sitio web desarrollado para Maestranza Faremin, con su presentación de ingeniería para la industria minera" width="1600" height="911" fetchpriority="high" />
-          </picture>
-        </NuxtLink>
-        <figcaption>
-          <div><span class="hero-project__label">Proyecto destacado</span><h2>Maestranza Faremin</h2></div>
-          <NuxtLink to="/portfolio" class="hero-project__link">Conoce nuestro trabajo <span aria-hidden="true">↗</span></NuxtLink>
-        </figcaption>
-      </figure>
-      </div>
       </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.hero-project-tilt { transition: transform .25s ease-out; }
-@media (prefers-reduced-motion: reduce) { .hero-project-tilt { transform: none !important; transition: none; } }
-.hero-section { position: relative; overflow: hidden; background: var(--bg-dark); padding: clamp(10rem, 12vw, 12rem) 0 var(--section-py-sm); }
-.hero-section::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 48%, rgba(157,203,245,0.18), transparent 65%); }
-.hero-content { position: relative; display: grid; align-items: center; gap: 3rem; }
-.hero-copy { position: relative; min-width: 0; text-align: center; max-width: 42rem; margin: 0 auto; }
-.hero-project-motion { min-width: 0; width: 100%; }
-.hero-eyebrow { display: inline-flex; align-items: center; gap: 0.625rem; padding: 0.5rem 0.875rem; border: 1px solid var(--border); background: var(--bg-surface); border-radius: 999px; font-size: var(--fs-small); color: var(--text-secondary); }
-.hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-h1 { font-family: var(--font-heading); margin: 1.5rem auto; font-size: var(--fs-page-hero); font-weight: 700; line-height: 1.14; letter-spacing: -0.045em; color: var(--text-main); text-wrap: balance; }
-h1 span { color: var(--accent); }
-.hero-description { font-family: var(--font-family); max-width: 39rem; margin: 0 auto; font-size: var(--fs-lead); line-height: 1.55; color: var(--text-secondary); text-wrap: pretty; }
-.hero-actions { display: flex; align-items: center; justify-content: center; gap: 0.875rem; flex-wrap: wrap; margin-top: 2rem; }
-.hero-details { display: flex; justify-content: center; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.5rem; }
-.hero-detail { display: inline-flex; align-items: center; gap: .5rem; font-size: var(--fs-small); color: var(--text-secondary); }
-.hero-detail svg { width: 1.125rem; height: 1.125rem; color: var(--accent); }
-.hero-project { position: relative; max-width: 66rem; margin: 0 auto; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-surface); overflow: hidden; box-shadow: 0 20px 55px rgba(16,43,70,0.1); }
-.hero-project__bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.875rem 1.25rem; font-size: var(--fs-small); color: var(--text-secondary); background: var(--bg-surface); }
-.hero-project__dots { display: flex; gap: 5px; }
-.hero-project__dots i { display: block; width: 7px; height: 7px; border-radius: 50%; background: #9DCBF5; }
-.hero-project__type { color: var(--accent); }
-.hero-project__preview { display: block; border-block: 1px solid var(--border); }
-.hero-project__preview img { display: block; width: 100%; height: auto; }
-figcaption { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 1.25rem 1.5rem; }
-.hero-project__label { color: var(--text-secondary); font-size: var(--fs-small); }
-figcaption h2 { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-top: 0.25rem; }
-.hero-project__link { color: var(--accent); font-size: var(--fs-body); font-weight: 600; }
-.hero-project__link:hover { text-decoration: underline; }
-@media (min-width: 1024px) {
-  .hero-section { padding-top: clamp(10rem, 12vw, 12rem); padding-bottom: clamp(4rem, 7vw, 7rem); }
-  .hero-content { grid-template-columns: minmax(0, .95fr) minmax(0, 1.1fr); gap: clamp(2rem, 4vw, 4rem); }
-  .hero-copy { text-align: left; max-width: none; margin: 0; }
-  h1 { font-size: clamp(2.5rem, 3.8vw, 3.75rem); margin-inline: 0; }
-  .hero-description { margin-inline: 0; }
-  .hero-actions, .hero-details { justify-content: flex-start; }
-  .hero-actions .btn { padding-inline: 1.25rem; }
-  .hero-project__type { display: none; }
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-dark);
+  padding: clamp(9rem, 11vw, 11.25rem) 0 clamp(3.5rem, 6vw, 5.5rem);
+  border-bottom: 1px solid var(--border);
 }
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .hero-actions { align-items: flex-start; flex-direction: column; }
+
+.hero-content {
+  position: relative;
+  display: grid;
+  align-items: start;
+  gap: clamp(2.5rem, 4.5vw, 4.5rem);
+}
+
+.hero-copy {
+  position: relative;
+  min-width: 0;
+  max-width: 40rem;
+}
+
+h1 {
+  font-family: var(--font-heading);
+  margin: 0 0 1.5rem;
+  font-size: clamp(2.35rem, 1.5rem + 3vw, 3.85rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  color: var(--text-main);
+  text-wrap: balance;
+}
+
+h1 span {
+  color: var(--accent);
+}
+
+.hero-description {
+  font-family: var(--font-family);
+  max-width: 58ch;
+  margin: 0;
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.hero-proof {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.hero-proof__item dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.2rem;
+}
+
+.hero-proof__item dd {
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.hero-project-motion {
+  min-width: 0;
+  width: 100%;
+}
+
+.hero-project-tilt {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-project {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  overflow: hidden;
+  box-shadow: 0 24px 56px rgba(16, 43, 70, 0.12);
+}
+
+.hero-project__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem;
+  font-size: var(--fs-small);
+  background: var(--bg-surface);
+}
+
+.hero-project__kicker {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.hero-project__meta {
+  color: var(--text-secondary);
+}
+
+.hero-project__preview {
+  display: block;
+  border-block: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.hero-project__preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+}
+
+figcaption h2 {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 0.2rem;
+}
+
+.hero-project__caption {
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.hero-project__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hero-project__link:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 640px) {
+  .hero-proof {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-content {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: center;
+  }
+  .hero-copy {
+    max-width: none;
+  }
+  .hero-proof {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .hero-proof__item:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .hero-project__preview:hover img {
+    transform: scale(1.02);
+  }
 }
 
 @media (max-width: 640px) {
-  .hero-project-motion { display: none; }
-  .hero-section { padding-top: 9rem; }
-  .hero-eyebrow { font-size: 0.875rem; }
-  .hero-description { font-size: 1.125rem; }
-  .hero-actions { flex-direction: column; align-items: stretch; }
-  .hero-actions .btn { width: 100%; }
-
-  .hero-project__bar { padding: 0.75rem; gap: 0.5rem; font-size: 0.8125rem; }
-  .hero-project__type { display: none; }
-  figcaption { padding: 1rem; }
-}
-
-/* Entrada escalonada: el contenido conserva su posición final sin JS adicional. */
-@media (prefers-reduced-motion: no-preference) {
-  .hero-eyebrow { animation: hero-enter 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
-
-
-  .hero-actions { animation: hero-enter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.46s both; }
-  .hero-section::before { animation: hero-light-drift 16s ease-in-out infinite alternate; }
-  .hero-project {
-    transform-origin: center top;
-    animation: hero-project-enter 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
   }
-  .hero-project__preview img { transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-  .hero-actions .btn span { display: inline-block; transition: transform 0.25s ease; }
-  .hero-actions .btn:hover span { transform: translate(2px, -2px); }
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  figcaption {
+    padding: 1rem 1.25rem;
+  }
 }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  .hero-project__preview:hover img { transform: scale(1.018); }
-}
-@keyframes hero-project-enter {
-  from { opacity: 0; transform: perspective(1200px) translateY(48px) rotateX(6deg) scale(0.97); }
-  to { opacity: 1; transform: perspective(1200px) translateY(0) rotateX(0) scale(1); }
-}
-@keyframes hero-enter {
-  from { opacity: 0; transform: translateY(22px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes hero-light-drift {
-  from { transform: translate(-2%, -2%) scale(1); opacity: 0.7; }
-  to { transform: translate(2%, 2%) scale(1.12); opacity: 1; }
-}
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-project { opacity: 1; transform: none; animation: none; transition: none; }
+  .hero-project-tilt {
+    transform: none !important;
+    transition: none;
+  }
 }
 </style>

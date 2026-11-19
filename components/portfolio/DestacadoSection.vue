@@ -5,18 +5,12 @@ import ansar from '@/assets/img/ansar.gif';
 
 <template>
   <section class="relative bg-section-surface py-20 lg:py-28 overflow-hidden border-b border-line">
-    
-    <div class="section-glow-purple glow-center-left"></div>
 
     <div class="section-container relative z-10">
       
       <!-- Encabezado de Sección -->
-      <div class="mb-16 flex flex-col items-start">
-          <div class="eyebrow-badge mb-4" v-reveal data-delay="0">
-            <span class="eyebrow-badge__dot"></span>
-            <span class="eyebrow-badge__text">Proyecto Destacado</span>
-          </div>
-          <h2 class="section-title text-4xl md:text-5xl lg:text-6xl" v-reveal data-delay="100">
+      <div class="mb-14 flex flex-col items-start">
+          <h2 class="section-title text-4xl md:text-5xl lg:text-6xl" v-reveal data-delay="0">
             Ansar <span class="text-accent">Automotriz.</span>
           </h2>
       </div>

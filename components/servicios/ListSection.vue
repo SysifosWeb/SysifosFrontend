@@ -1,14 +1,14 @@
 <script setup>
 import { ArrowRight, CheckCircle2, LayoutTemplate, TrendingUp, Workflow, Zap, ShoppingBag, ShieldCheck } from 'lucide-vue-next'
 
-const services = [
+const corePackages = [
   {
-    id: '01',
     slug: 'landing-express',
-    eyebrow: 'PUERTA DE ENTRADA ACOTADA',
     title: 'Landing Express',
-    price: 'Desde $200.000 + IVA',
-    description: 'Presencia rápida en 1 página sobre plantilla propia para validar una oferta concreta sin sobrecostos.',
+    audience: 'Validación rápida en 1 página',
+    price: '$200.000',
+    priceMeta: 'Desde · CLP neto + IVA',
+    description: 'Presencia rápida sobre plantilla propia para validar una oferta concreta sin sobrecostos.',
     icon: LayoutTemplate,
     features: [
       '1 página de aterrizaje con textos y fotos entregados por el cliente.',
@@ -16,15 +16,15 @@ const services = [
       'Formulario de contacto + enlace directo a WhatsApp.',
       'Excluye sesiones fotográficas, redacción extensa o lógica a medida.'
     ],
-    ctaText: 'Solicitar Landing Express',
+    ctaText: 'Solicitar Landing Express'
   },
   {
-    id: '02',
     slug: 'captacion-web',
-    eyebrow: 'ENTRADA RECOMENDADA',
-    title: 'Sistema de Captación Web',
-    price: 'Desde $350.000 + IVA',
     featured: true,
+    title: 'Sistema de Captación Web',
+    audience: 'Entrada recomendada para PYMEs',
+    price: '$350.000',
+    priceMeta: 'Desde · CLP neto + IVA',
     description: 'Sitio orientado a conversión con respaldo en base de datos para no perder ningún contacto aunque falle el correo.',
     icon: TrendingUp,
     features: [
@@ -33,14 +33,14 @@ const services = [
       'Medición real de envíos de formulario y clics a WhatsApp.',
       'Aviso por correo al equipo ante cada nueva solicitud.'
     ],
-    ctaText: 'Solicitar Captación Web',
+    ctaText: 'Solicitar Captación Web'
   },
   {
-    id: '03',
     slug: 'web-flujo-comercial',
-    eyebrow: 'MAESTRANZAS B2B · CLÍNICAS',
     title: 'Web + Flujo Comercial / Agenda',
-    price: '$590.000 – $650.000 + IVA',
+    audience: 'Maestranzas B2B y Clínicas',
+    price: '$590.000 – $650.000',
+    priceMeta: 'CLP neto + IVA',
     description: 'Pensado para empresas B2B y servicios que necesitan ordenar cotizaciones técnicas o solicitudes de hora.',
     icon: Workflow,
     features: [
@@ -49,130 +49,149 @@ const services = [
       'Panel de seguimiento de requerimientos y estados.',
       'Validaciones de negocio y pruebas end-to-end antes de publicar.'
     ],
-    ctaText: 'Cotizar Web + Flujo',
-  },
+    ctaText: 'Cotizar Web + Flujo'
+  }
+]
+
+const specializedOffers = [
   {
-    id: '04',
     slug: 'automatizacion-flujo',
-    eyebrow: 'AHORRO DE HORAS-HOMBRE',
+    icon: Zap,
     title: 'Automatización e Integraciones',
     price: 'Desde $450.000 + IVA',
-    description: 'Conecta formularios, WhatsApp, correos y planillas sin pagar servidores cloud caros en dólares.',
-    icon: Zap,
-    features: [
-      '1 flujo acotado de alto impacto (ej. cotización PDF o consolidación de leads).',
-      'Arquitectura frugal compatible con cPanel y colas persistentes.',
-      'Alertas operativas y trazabilidad de cada ejecución.',
+    summary: 'Conecta formularios, WhatsApp, correos y planillas sin pagar servidores cloud caros en dólares.',
+    bullets: [
+      '1 flujo acotado de alto impacto (PDF de cotización, alertas o consolidación de leads).',
+      'Arquitectura compatible con cPanel y colas persistentes.',
       'Integraciones múltiples o APIs complejas: $900.000+ según alcance.'
     ],
-    ctaText: 'Evaluar Automatización',
+    ctaText: 'Evaluar Automatización'
   },
   {
-    id: '05',
     slug: 'ecommerce-estandar',
-    eyebrow: 'VENTA ONLINE CHILE',
+    icon: ShoppingBag,
     title: 'E-commerce Estándar',
     price: 'Desde $650.000 + IVA',
-    description: 'Tienda online lista para cobrar con pasarelas chilenas y administración simple de catálogo y pedidos.',
-    icon: ShoppingBag,
-    features: [
+    summary: 'Tienda online lista para cobrar con pasarelas chilenas y administración simple de catálogo y pedidos.',
+    bullets: [
       'Catálogo estándar autoadministrable y carrito optimizado en móvil.',
       'Integración con Webpay, Flow o MercadoPago.',
-      'Notificaciones de pedido y control básico de stock.',
       'Integraciones con ERP, facturación SII o inventario avanzado se cotizan aparte.'
     ],
-    ctaText: 'Cotizar Tienda Online',
+    ctaText: 'Cotizar Tienda Online'
   },
   {
-    id: '06',
     slug: 'continuidad-mensual',
-    eyebrow: 'ESTABILIDAD Y EVOLUCIÓN',
+    icon: ShieldCheck,
     title: 'Plan Continuidad & Soporte',
     price: '$49.000 – $89.000 / mes + IVA',
-    description: 'Mantén tu sitio, correos y formularios funcionando sin caídas ni sorpresas técnicas mes a mes.',
-    icon: ShieldCheck,
-    features: [
+    summary: 'Mantén tu sitio, correos y formularios funcionando sin caídas ni sorpresas técnicas mes a mes.',
+    bullets: [
       'Plan Base ($49.000/mes): hosting cPanel, SSL, respaldos, monitoreo de formularios + 1 h/mes ajustes.',
       'Plan Crecimiento ($89.000/mes): incluye reporte mensual de contactos + 2 a 3 h/mes de mejoras.',
       'Soporte directo sin tickets interminables.'
     ],
-    ctaText: 'Activar Continuidad',
+    ctaText: 'Activar Continuidad'
   }
 ]
 </script>
 
 <template>
-  <section class="relative bg-section-dark py-12 lg:py-20 overflow-hidden">
+  <section id="paquetes" class="catalog-section bg-section-dark">
+    <div class="section-container">
 
-    <div class="section-container relative z-10">
-
-      <!-- Uniform Grid Layout (3 items per row) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-
-        <div v-for="(item, index) in services" :key="item.id" v-reveal :data-delay="index * 80"
-          class="plan-card group relative flex flex-col p-8 lg:p-9 rounded-2xl bg-panel border overflow-hidden hover:bg-quiet hover:border-accent/30"
-          :class="item.featured ? 'border-accent/50 shadow-[0_12px_32px_rgba(var(--decoration-rgb),0.08)]' : 'border-line'">
-
-          <!-- Header -->
-          <div class="flex flex-wrap justify-between items-start gap-4 mb-5 relative z-10">
-            <div
-              class="plan-icon w-14 h-14 shrink-0 rounded-2xl bg-quiet flex items-center justify-center border border-line text-accent transition-colors duration-300 group-hover:bg-accent/10 group-hover:border-accent/30">
-              <component :is="item.icon" class="w-7 h-7" />
-            </div>
-            <span class="text-small font-semibold text-accent">
-              {{ item.eyebrow }}
-            </span>
-          </div>
-
-          <!-- Titles & Price -->
-          <h3 class="text-h3 text-content mb-2 relative z-10">
-            {{ item.title }}
-          </h3>
-          <p class="text-body font-bold text-accent mb-4 relative z-10">
-            {{ item.price }}
-          </p>
-          <p class="text-subdued text-body leading-relaxed mb-6 relative z-10">
-            {{ item.description }}
-          </p>
-
-          <!-- Features (What you get) -->
-          <div class="flex-grow mb-8 relative z-10">
-            <p class="text-small font-semibold text-accent mb-4">Alcance y condiciones</p>
-            <ul class="flex flex-col gap-3">
-              <li v-for="feature in item.features" :key="feature"
-                class="flex items-start gap-3 text-body text-content font-medium">
-                <div class="flex items-center justify-center mt-0.5">
-                  <CheckCircle2 class="w-5 h-5 text-accent shrink-0" />
-                </div>
-                <span class="leading-tight">{{ feature }}</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Call to Action -->
-          <NuxtLink :to="`/contacto?plan=${item.slug}`"
-            class="btn w-full relative z-10 py-3.5"
-            :class="item.featured ? 'btn-primary' : 'btn-secondary hover:bg-accent hover:text-action hover:border-accent'">
-            {{ item.ctaText }}
-            <ArrowRight class="w-4 h-4" />
-          </NuxtLink>
-
-        </div>
-
+      <!-- Band 1: Core implementation packages -->
+      <div class="band-head">
+        <h2 class="section-title m-0">Implementación web y captación</h2>
+        <p class="section-subtitle m-0 max-w-[52ch]">
+          Tres niveles con alcance cerrado para que pagues exactamente por la capacidad operativa que tu empresa necesita hoy.
+        </p>
       </div>
 
-      <!-- Software a medida / Piloto -->
-      <div class="mt-10 rounded-2xl border border-line bg-panel p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6" v-reveal data-delay="200">
-        <div class="max-w-2xl">
-          <p class="text-small font-semibold text-accent mb-2">BAJO DIAGNÓSTICO TÉCNICO</p>
-          <h3 class="text-h3 text-content mb-2">Software a medida y Control de Asistencia</h3>
-          <p class="text-body text-subdued leading-relaxed mb-0">
+      <div class="core-grid">
+        <article v-for="(item, index) in corePackages" :key="item.slug" v-reveal :data-delay="index * 70"
+          class="tier-card" :class="{ 'tier-card--featured': item.featured }">
+          <div class="tier-head">
+            <div class="tier-title-wrap">
+              <component :is="item.icon" class="w-5 h-5 tier-icon shrink-0" aria-hidden="true" />
+              <h3 class="tier-title">{{ item.title }}</h3>
+            </div>
+            <p class="tier-audience">{{ item.audience }}</p>
+          </div>
+
+          <div class="tier-pricing">
+            <p class="tier-price tabular-nums">{{ item.price }}</p>
+            <p class="tier-price-meta">{{ item.priceMeta }}</p>
+          </div>
+
+          <p class="tier-desc">{{ item.description }}</p>
+
+          <ul class="tier-features">
+            <li v-for="feature in item.features" :key="feature">
+              <CheckCircle2 class="w-4 h-4 tier-check shrink-0" aria-hidden="true" />
+              <span>{{ feature }}</span>
+            </li>
+          </ul>
+
+          <div class="tier-cta-wrap">
+            <NuxtLink :to="`/contacto?plan=${item.slug}`" class="btn w-full justify-center py-3.5"
+              :class="item.featured ? 'tier-btn-featured' : 'btn-secondary hover:bg-accent hover:text-action hover:border-accent'">
+              {{ item.ctaText }}
+              <ArrowRight class="w-4 h-4" aria-hidden="true" />
+            </NuxtLink>
+          </div>
+        </article>
+      </div>
+
+      <!-- Band 2: Specialized automation, ecommerce & monthly continuity (hairline ledger, not another card wall) -->
+      <div class="specialized-block">
+        <div class="band-head">
+          <h2 class="section-title m-0">Automatización, ventas y continuidad mensual</h2>
+          <p class="section-subtitle m-0 max-w-[52ch]">
+            Servicios modulares para ahorrar horas manuales, cobrar online o mantener tu plataforma monitoreada mes a mes.
+          </p>
+        </div>
+
+        <div class="specialized-ledger">
+          <article v-for="(offer, index) in specializedOffers" :key="offer.slug" v-reveal :data-delay="index * 70"
+            class="ledger-item">
+            <div class="ledger-item__meta">
+              <div class="ledger-item__title-row">
+                <component :is="offer.icon" class="w-5 h-5 text-accent shrink-0" aria-hidden="true" />
+                <h3 class="ledger-item__title">{{ offer.title }}</h3>
+              </div>
+              <p class="ledger-item__price tabular-nums">{{ offer.price }}</p>
+              <p class="ledger-item__summary">{{ offer.summary }}</p>
+            </div>
+
+            <ul class="ledger-item__bullets">
+              <li v-for="bullet in offer.bullets" :key="bullet">
+                <CheckCircle2 class="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
+                <span>{{ bullet }}</span>
+              </li>
+            </ul>
+
+            <div class="ledger-item__action">
+              <NuxtLink :to="`/contacto?plan=${offer.slug}`" class="btn btn-secondary py-3 px-5 hover:bg-accent hover:text-action hover:border-accent">
+                {{ offer.ctaText }}
+                <ArrowRight class="w-4 h-4" aria-hidden="true" />
+              </NuxtLink>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Band 3: Custom software & attendance pilot -->
+      <div class="custom-band" v-reveal data-delay="120">
+        <div class="custom-band__copy">
+          <h3 class="custom-band__title">Software a medida y Piloto Control de Asistencia</h3>
+          <p class="custom-band__desc">
             Si necesitas portales internos, integraciones con sistemas propios o evaluar un piloto de control de asistencia y turnos en terreno, definimos alcance, plazos y presupuesto tras una reunión de diagnóstico.
           </p>
         </div>
-        <NuxtLink to="/contacto?plan=software-a-medida" class="btn btn-secondary shrink-0 py-3.5 px-6 hover:bg-accent hover:text-action hover:border-accent">
+        <NuxtLink to="/contacto?plan=software-a-medida" class="btn btn-primary shrink-0 py-3.5 px-6">
           Solicitar Diagnóstico
-          <ArrowRight class="w-4 h-4" />
+          <ArrowRight class="w-4 h-4" aria-hidden="true" />
         </NuxtLink>
       </div>
 
@@ -181,24 +200,286 @@ const services = [
 </template>
 
 <style scoped>
+.catalog-section {
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0 clamp(4rem, 7vw, 6rem);
+  border-bottom: 1px solid var(--border);
+}
+
 .section-container {
   width: 90%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
-.plan-card {
-  transition: opacity 1.2s ease, transform 1.2s ease, translate .25s ease,
-    box-shadow .25s ease, background-color .25s ease, border-color .25s ease;
+.band-head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2.25rem;
 }
-.plan-icon svg { transition: transform .25s ease; }
+
+.core-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.tier-card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tier-card--featured {
+  background: #102B46;
+  border-color: #244A70;
+  color: #F5F9FD;
+  box-shadow: 0 20px 44px rgba(16, 43, 70, 0.16);
+}
+
+.tier-head {
+  margin-bottom: 1.25rem;
+}
+
+.tier-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.35rem;
+}
+
+.tier-icon {
+  color: var(--accent);
+}
+
+.tier-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 1.15rem + 0.3vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.tier-audience {
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.tier-pricing {
+  padding: 1.15rem 0;
+  margin-bottom: 1.25rem;
+  border-block: 1px solid var(--border);
+}
+
+.tier-price {
+  font-family: var(--font-heading);
+  font-size: clamp(1.65rem, 1.4rem + 0.7vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  color: var(--text-main);
+  margin: 0 0 0.25rem;
+}
+
+.tier-price-meta {
+  font-size: var(--fs-small);
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0;
+}
+
+.tier-desc {
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem;
+}
+
+.tier-features {
+  list-style: none;
+  margin: 0 0 2rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex: 1;
+}
+
+.tier-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--text-main);
+}
+
+.tier-check {
+  color: var(--accent);
+  margin-top: 0.15rem;
+}
+
+/* Featured navy contrast overrides (works in both light & dark themes) */
+.tier-card--featured .tier-title,
+.tier-card--featured .tier-price {
+  color: #F5F9FD;
+}
+.tier-card--featured .tier-audience,
+.tier-card--featured .tier-desc,
+.tier-card--featured .tier-features li {
+  color: #B8CFE5;
+}
+.tier-card--featured .tier-icon,
+.tier-card--featured .tier-price-meta,
+.tier-card--featured .tier-check {
+  color: #9DCBF5;
+}
+.tier-card--featured .tier-pricing {
+  border-color: rgba(184, 207, 229, 0.2);
+}
+.tier-btn-featured {
+  background: #9DCBF5;
+  color: #102B46;
+  border: 1px solid #9DCBF5;
+  font-weight: 700;
+}
+.tier-btn-featured:hover {
+  background: #F5F9FD;
+  border-color: #F5F9FD;
+  color: #102B46;
+}
+
+/* Band 2: Specialized hairline ledger */
+.specialized-block {
+  margin-top: clamp(4rem, 7vw, 6rem);
+}
+
+.specialized-ledger {
+  border-top: 1px solid var(--border);
+}
+
+.ledger-item {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: clamp(1.75rem, 3vw, 2.5rem) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.ledger-item__title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.35rem;
+}
+
+.ledger-item__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 1.1rem + 0.3vw, 1.4rem);
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.ledger-item__price {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin: 0 0 0.65rem;
+}
+
+.ledger-item__summary {
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 44ch;
+}
+
+.ledger-item__bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.ledger-item__bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+  color: var(--text-main);
+}
+
+.ledger-item__action {
+  display: flex;
+  align-items: center;
+}
+
+/* Band 3: Custom software */
+.custom-band {
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.custom-band__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 1.15rem + 0.35vw, 1.55rem);
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 0.5rem;
+}
+
+.custom-band__desc {
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 62ch;
+  margin: 0;
+}
+
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .plan-card:hover, .plan-card:focus-within {
-    translate: 0 -5px;
-    box-shadow: 0 16px 36px rgba(16, 43, 70, .12);
+  .tier-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-accent);
   }
-  .plan-card:hover .plan-icon svg, .plan-card:focus-within .plan-icon svg {
-    transform: translateY(-2px) scale(1.06);
+}
+
+@media (min-width: 960px) {
+  .band-head {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: end;
+    gap: 3rem;
+  }
+  .core-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .ledger-item {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.25fr) auto;
+    align-items: center;
+    gap: 2.5rem;
+  }
+  .custom-band {
+    flex-direction: row;
+    align-items: center;
   }
 }
 </style>

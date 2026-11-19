@@ -1,72 +1,106 @@
 <template>
-  <section class="home-closing relative w-full py-24 md:py-32 flex items-center justify-center overflow-hidden bg-section-dark impulso-closing">
-    
-    <!-- Marco técnico discreto: evita competir con el mensaje final. -->
-    <div class="absolute inset-0 pointer-events-none z-0 portal-backdrop">
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl">
-        <svg viewBox="0 0 1000 1000" class="w-full h-full">
-          <g class="portal-lines" stroke="var(--accent)" stroke-width="0.3">
-            <line x1="500" y1="500" v-for="n in 36" :key="'line-'+n" 
-                  :x2="500 + Math.cos(n * 10 * Math.PI/180) * 800" 
-                  :y2="500 + Math.sin(n * 10 * Math.PI/180) * 800" 
-                  class="portal-ray" />
-            <circle cx="500" cy="500" r="150" fill="none" stroke-dasharray="4 8" />
-            <circle cx="500" cy="500" r="300" fill="none" stroke-dasharray="2 10" />
-          </g>
-        </svg>
-      </div>
-    </div>
+  <section class="home-closing impulso-closing bg-section-dark" aria-labelledby="home-closing-title">
+    <div class="section-container">
+      <div class="closing-panel">
+        <div class="closing-copy">
+          <h2 id="home-closing-title" class="closing-title" v-reveal data-delay="0">
+            Conversemos 15 minutos sobre cómo captar y ordenar más clientes.
+          </h2>
+          <p class="closing-description" v-reveal data-delay="80">
+            Revisamos tu sitio actual, formularios y procesos manuales sin compromiso. Si no necesitas un desarrollo a medida, te lo decimos directo.
+          </p>
+        </div>
 
-    <div class="max-w-[1000px] w-[88%] mx-auto relative z-10 text-center">
-      <p class="banner-eyebrow mb-4" v-reveal data-delay="0">Empieza hoy</p>
-      <h2 class="section-title banner-title mx-auto mb-6" v-reveal data-delay="100">
-        ¿Listo para hacer crecer tu negocio?
-      </h2>
-      <p class="banner-description mb-12 max-w-2xl mx-auto" style="color: var(--text-secondary);" v-reveal data-delay="200">
-        Agenda una llamada de 30 minutos sin costo. Te escuchamos y te decimos honestamente cómo podemos ayudarte.
-      </p>
-
-      <div class="flex flex-col items-center gap-5" v-reveal data-delay="300">
-        <NuxtLink to="/contacto" 
-                  class="btn btn-primary px-10 py-4">
-          Agenda tu asesoría gratuita
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
-        </NuxtLink>
-        <p class="text-small" style="color: var(--text-muted);">Sin compromisos &middot; Sin contratos largos &middot; Respuesta en 24 horas</p>
+        <div class="closing-actions" v-reveal data-delay="140">
+          <NuxtLink to="/contacto" class="btn btn-primary px-8 py-4">
+            Solicitar diagnóstico gratuito
+            <ArrowRight class="w-4 h-4" aria-hidden="true" />
+          </NuxtLink>
+          <NuxtLink to="/servicios" class="closing-secondary">
+            Ver servicios y valores
+          </NuxtLink>
+          <p class="closing-note">Respuesta en menos de 24 horas hábiles · Región de Coquimbo y todo Chile</p>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
+<script setup>
+import { ArrowRight } from 'lucide-vue-next'
+</script>
+
 <style scoped>
-.portal-ray {
-  opacity: 0.65;
+.home-closing {
+  padding: clamp(5rem, 9vw, 8rem) 0;
+  border-top: 1px solid var(--border);
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.section-container {
+  width: 90%;
+  max-width: 1240px;
+  margin: 0 auto;
 }
 
-.portal-lines {
-  transform-origin: center;
-  animation: spin 90s linear infinite;
+.closing-panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  padding: clamp(2.25rem, 5vw, 4rem);
+  border-radius: var(--radius-xl);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
 }
 
-.home-closing { min-height: 640px; padding-block: clamp(6rem, 12vw, 10rem); }
-.portal-backdrop { opacity: .22; }
-.banner-eyebrow { font-size: var(--fs-body); color: var(--text-secondary); }
-.banner-title {
-  max-width: 19ch;
-  font-size: clamp(2.25rem, 1.5rem + 2.8vw, 4rem);
+.closing-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 1.35rem + 2.4vw, 3.25rem);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: var(--ls-hero);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: var(--text-main);
+  max-width: 20ch;
+  margin: 0 0 1.25rem;
   text-wrap: balance;
 }
-.banner-description { font-size: var(--fs-lead); line-height: 1.55; }
-@media (prefers-reduced-motion: reduce) { .portal-lines { animation: none; } }
-@media (max-width: 640px) { .home-closing { min-height: auto; } }
+
+.closing-description {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 54ch;
+  margin: 0;
+}
+
+.closing-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.closing-secondary {
+  font-family: var(--font-heading);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.closing-secondary:hover {
+  text-decoration: underline;
+}
+
+.closing-note {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+  margin: 0.25rem 0 0;
+}
+
+@media (min-width: 960px) {
+  .closing-panel {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+    align-items: center;
+    gap: 4rem;
+  }
+}
 </style>

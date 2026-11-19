@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
-import { Mail, Phone, MapPin, Clock, MessageSquare, Send, X, ExternalLink } from 'lucide-vue-next'
+import { Mail, Clock, MessageSquare, Send, X, CheckCircle2, AlertCircle } from 'lucide-vue-next'
 
 const config = useRuntimeConfig()
 const route = useRoute()
@@ -92,7 +92,6 @@ const submitForm = async (event) => {
 
     const data = await response.json()
     if (response.ok) {
-      // Lead real: solo aquí se mide (antes disparaba en cada vista de página)
       if (window.SysifosConsent) {
         window.SysifosConsent.track('generate_lead', { method: 'contact_form' })
       }
@@ -104,11 +103,11 @@ const submitForm = async (event) => {
       form.subject = ''
       form.message = ''
       form.consent = false
-      setTimeout(() => showSuccess.value = false, 5000)
+      setTimeout(() => { showSuccess.value = false }, 5000)
     } else {
       errorMessage.value = data.message || 'Hubo un error al enviar tu mensaje.'
       showError.value = true
-      }
+    }
   } catch (error) {
     errorMessage.value = 'Error de conexión. Intenta nuevamente.'
     showError.value = true
@@ -119,167 +118,144 @@ const submitForm = async (event) => {
 </script>
 
 <template>
-  <section class="relative bg-section-dark py-20 lg:py-32 overflow-hidden border-b border-line">
-
-    <!-- Ambient glows -->
-    <div
-      class="absolute rounded-full pointer-events-none blur-[120px] w-[500px] h-[500px] bg-accent opacity-5 -top-40 -left-40">
-    </div>
-    <div
-      class="absolute rounded-full pointer-events-none blur-[120px] w-[400px] h-[400px] bg-accent opacity-5 top-[30%] -right-20">
-    </div>
+  <section class="contact-section bg-section-dark border-b border-line">
 
     <!-- Alertas -->
     <div v-if="showSuccess" role="status" aria-live="polite"
-      class="fixed top-24 right-4 z-50 rounded-xl bg-panel p-4 border border-accent/30 shadow-[0_8px_32px_rgba(var(--decoration-rgb), 0.2)]">
-      <div class="flex items-center gap-3">
-        <span class="text-accent animate-pulse font-bold">✓</span>
-        <p class="text-body text-content mb-0 font-medium">Mensaje enviado exitosamente. Te contactaremos pronto.</p>
-        <button aria-label="Cerrar confirmación" @click="showSuccess = false" class="ml-4 text-subdued hover:text-content transition-colors">
-          <X class="w-4 h-4" />
-        </button>
-      </div>
+      class="toast-notice toast-notice--success">
+      <CheckCircle2 class="w-5 h-5 text-accent shrink-0" aria-hidden="true" />
+      <p class="text-body text-content mb-0 font-medium">Mensaje enviado. Te responderemos en menos de 24 horas hábiles.</p>
+      <button aria-label="Cerrar confirmación" @click="showSuccess = false" class="ml-2 text-subdued hover:text-content transition-colors">
+        <X class="w-4 h-4" />
+      </button>
     </div>
 
     <div v-if="showError" role="alert"
-      class="fixed top-24 right-4 z-50 rounded-xl bg-panel p-4 border border-red-500/30 shadow-[0_8px_32px_rgba(239,68,68,0.2)]">
-      <div class="flex items-center gap-3">
-        <span class="text-red-500 font-bold">!</span>
-        <p class="text-body text-red-400 mb-0 font-medium">{{ errorMessage }}</p>
-        <button aria-label="Cerrar error" @click="showError = false" class="ml-4 text-subdued hover:text-content transition-colors">
-          <X class="w-4 h-4" />
-        </button>
-      </div>
+      class="toast-notice toast-notice--error">
+      <AlertCircle class="w-5 h-5 text-red-500 shrink-0" aria-hidden="true" />
+      <p class="text-body text-content mb-0 font-medium">{{ errorMessage }}</p>
+      <button aria-label="Cerrar error" @click="showError = false" class="ml-2 text-subdued hover:text-content transition-colors">
+        <X class="w-4 h-4" />
+      </button>
     </div>
 
-    <div class="relative z-10 w-[90%] max-w-[1200px] mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
+    <div class="section-container">
+      <div class="contact-grid">
 
-        <!-- Contenedor del Formulario (Col-span-3) -->
-        <div class="lg:col-span-3 relative" v-reveal data-delay="0">
-          <!-- Glassmorphism Card -->
-          <div
-            class="relative p-8 lg:p-12 rounded-[2rem] border border-line bg-panel shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl">
-            <div class="mb-10">
-              <h2 class="text-h2 font-extrabold text-content mb-3 tracking-tight">
-                Cuéntanos tu idea.
-              </h2>
-              <p class="text-subdued text-body">Nuestros ingenieros revisarán tus requerimientos y te contactarán a la
-                brevedad.</p>
+        <!-- Contenedor del Formulario -->
+        <div class="contact-form-panel" v-reveal data-delay="0">
+          <div class="mb-8">
+            <h2 class="text-h2 font-bold text-content mb-2 tracking-tight">
+              Cuéntanos qué necesitas resolver.
+            </h2>
+            <p class="text-subdued text-body m-0">
+              Cada solicitud queda respaldada en nuestro sistema y la revisamos directamente Osman y el equipo técnico.
+            </p>
+          </div>
+
+          <form @submit="submitForm" class="space-y-6 flex flex-col">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="space-y-2">
+                <label for="contact-name" class="field-label">Nombre *</label>
+                <input id="contact-name" name="name" autocomplete="name" minlength="2" maxlength="255" v-model="form.name" type="text" required placeholder="Tu nombre"
+                  class="field-input">
+              </div>
+              <div class="space-y-2">
+                <label for="contact-email" class="field-label">Email *</label>
+                <input id="contact-email" name="email" autocomplete="email" maxlength="255" v-model="form.email" type="email" required placeholder="tu@empresa.cl"
+                  class="field-input">
+              </div>
             </div>
 
-            <form @submit="submitForm" class="space-y-8 flex flex-col">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Inputs premium -->
-                <div class="space-y-2">
-                  <label for="contact-name" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Nombre *</label>
-                  <input id="contact-name" name="name" autocomplete="name" minlength="2" maxlength="255" v-model="form.name" type="text" required placeholder="Tu nombre"
-                    class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
-                </div>
-                <div class="space-y-2">
-                  <label for="contact-email" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Email *</label>
-                  <input id="contact-email" name="email" autocomplete="email" maxlength="255" v-model="form.email" type="email" required placeholder="tu@email.com"
-                    class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
-                </div>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="space-y-2">
-                  <label for="contact-company" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Empresa
-                    (Opcional)</label>
-                  <input id="contact-company" name="company" autocomplete="organization" maxlength="255" v-model="form.company" type="text" placeholder="Tu empresa"
-                    class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
-                </div>
-                <div class="space-y-2 hidden">
-                  <!-- Invisible phone field to keep the model intact if backend requires it but we don't force it -->
-                  <input v-model="form.phone" type="tel">
-                </div>
-                <div class="space-y-2">
-                  <label for="contact-subject" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Asunto *</label>
-                  <input id="contact-subject" name="subject" minlength="5" maxlength="255" v-model="form.subject" type="text" required placeholder="¿En qué te podemos ayudar?"
-                    class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300">
-                </div>
-              </div>
-
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div class="space-y-2">
-                <label for="contact-message" class="text-bodyall font-semibold uppercase tracking-wider text-subdued">Detalles del Proyecto
-                  *</label>
-                <textarea id="contact-message" name="message" minlength="10" maxlength="2000" v-model="form.message" rows="4" required placeholder="¿Qué te gustaría construir?"
-                  class="w-full bg-quiet border border-line rounded-xl px-4 py-3.5 text-content placeholder-subdued focus:outline-none focus:border-accent/50 focus:bg-panel transition-all duration-300 resize-y min-h-[120px]"></textarea>
+                <label for="contact-company" class="field-label">Empresa (Opcional)</label>
+                <input id="contact-company" name="company" autocomplete="organization" maxlength="255" v-model="form.company" type="text" placeholder="Nombre de tu empresa"
+                  class="field-input">
               </div>
-
-              <!-- Consentimiento de datos personales -->
+              <div class="space-y-2 hidden">
+                <input v-model="form.phone" type="tel">
+              </div>
               <div class="space-y-2">
-                <label class="flex items-start gap-3 cursor-pointer select-none">
-                  <input v-model="form.consent" type="checkbox" required class="mt-1 w-4 h-4 rounded border-line bg-quiet accent-accent">
-                  <span class="text-body text-subdued leading-relaxed">
-                    Acepto que mis datos personales sean tratados de acuerdo a la
-                    <NuxtLink to="/privacidad" class="text-accent underline hover:text-accent transition-colors">Política de Privacidad</NuxtLink>
-                    y autorizo a Sysifos a contactarme sobre mi consulta. Puedo ejercer mis derechos de acceso, rectificación, cancelación y oposición cuando lo desee.
-                  </span>
-                </label>
+                <label for="contact-subject" class="field-label">Asunto *</label>
+                <input id="contact-subject" name="subject" minlength="5" maxlength="255" v-model="form.subject" type="text" required placeholder="Ej. Sistema de Captación Web"
+                  class="field-input">
               </div>
+            </div>
 
-              <button type="submit" :disabled="isSubmitting"
-                class="w-full py-4 mt-2 rounded-xl bg-accent text-action font-bold text-body hover:bg-quiet hover:text-content transition-colors flex items-center justify-center group"
-                :class="isSubmitting ? 'opacity-50 cursor-not-allowed' : ''">
-                {{ isSubmitting ? 'Enviando...' : 'Comenzar colaboración' }}
-                <Send v-if="!isSubmitting" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </form>
-          </div>
+            <div class="space-y-2">
+              <label for="contact-message" class="field-label">Detalles del proyecto *</label>
+              <textarea id="contact-message" name="message" minlength="10" maxlength="2000" v-model="form.message" rows="4" required placeholder="Cuéntanos brevemente tu rubro, cómo recibes consultas hoy y qué te gustaría mejorar."
+                class="field-input resize-y min-h-[120px]"></textarea>
+            </div>
+
+            <!-- Consentimiento de datos personales -->
+            <div class="space-y-2">
+              <label class="flex items-start gap-3 cursor-pointer select-none">
+                <input v-model="form.consent" type="checkbox" required class="mt-1 w-4 h-4 rounded border-line bg-quiet accent-accent">
+                <span class="text-small text-subdued leading-relaxed">
+                  Acepto que mis datos personales sean tratados de acuerdo a la
+                  <NuxtLink to="/privacidad" class="text-accent underline hover:text-accent transition-colors">Política de Privacidad</NuxtLink>
+                  y autorizo a SysifosWeb a contactarme sobre mi consulta.
+                </span>
+              </label>
+            </div>
+
+            <button type="submit" :disabled="isSubmitting"
+              class="btn btn-primary w-full py-4 justify-center"
+              :class="isSubmitting ? 'opacity-50 cursor-not-allowed' : ''">
+              {{ isSubmitting ? 'Enviando solicitud...' : 'Enviar solicitud de diagnóstico' }}
+              <Send v-if="!isSubmitting" class="w-4 h-4" aria-hidden="true" />
+            </button>
+          </form>
         </div>
 
-        <!-- Info Section (Col-span-2) -->
-        <div class="lg:col-span-2 flex flex-col justify-center gap-8" v-reveal data-delay="150">
-          <div class="mb-4">
-            <h3 class="text-h3 font-bold text-content mb-2">Siempre a tu alcance.</h3>
-            <p class="text-body text-subdued leading-relaxed">Respondemos en menos de 24 hrs. Trabajamos de manera remota
-              con empresas en todo Chile y Latinoamérica, creando plataformas escalables y confiables.</p>
+        <!-- Info Section -->
+        <aside class="contact-aside" v-reveal data-delay="100">
+          <div>
+            <h3 class="text-h3 font-bold text-content mb-2">Respuesta directa, sin intermediarios.</h3>
+            <p class="text-body text-subdued leading-relaxed m-0">
+              Trabajamos desde la Región de Coquimbo con empresas de todo Chile. Respondemos en menos de 24 horas hábiles.
+            </p>
           </div>
 
-          <div class="space-y-8">
-            <div class="flex items-center gap-4 group">
-              <div
-                class="w-12 h-12 rounded-full border border-line bg-panel flex items-center justify-center group-hover:border-accent/50 group-hover:bg-accent/10 transition-colors flex-shrink-0">
-                <Mail class="w-5 h-5 text-accent" />
-              </div>
-              <div>
-                <p class="text-bodyall font-bold uppercase tracking-wider text-subdued mb-1">Email Directo</p>
+          <dl class="contact-info-list">
+            <div class="contact-info-row">
+              <dt>
+                <Mail class="w-4 h-4 text-accent" aria-hidden="true" />
+                Email directo
+              </dt>
+              <dd>
                 <a href="mailto:contacto@sysifosweb.cl" class="text-body text-content font-medium underline">contacto@sysifosweb.cl</a>
-              </div>
+              </dd>
             </div>
 
-            <div class="flex items-center gap-4 group">
-              <div
-                class="w-12 h-12 rounded-full border border-line bg-panel flex items-center justify-center group-hover:border-accent/50 group-hover:bg-accent/10 transition-colors flex-shrink-0">
-                <Clock class="w-5 h-5 text-accent" />
-              </div>
-              <div>
-                <p class="text-bodyall font-bold uppercase tracking-wider text-subdued mb-1">Soporte y Respuesta</p>
-                <p class="text-body text-content font-medium">Lun - Vie, 09:00 a 18:00 hrs</p>
-              </div>
+            <div class="contact-info-row">
+              <dt>
+                <Clock class="w-4 h-4 text-accent" aria-hidden="true" />
+                Horario de atención
+              </dt>
+              <dd class="text-body text-content font-medium">Lun - Vie, 09:00 a 18:00 hrs (Chile)</dd>
             </div>
-          </div>
+          </dl>
 
-          <div class="pt-6 border-t border-line">
-            <!-- WhatsApp CTA -->
+          <div class="pt-4">
             <a href="https://wa.me/56985021549" target="_blank"
               rel="noopener noreferrer"
               @click="trackWhatsAppClick"
               class="whatsapp-card block w-full p-6 rounded-2xl border border-line bg-panel group">
               <div class="flex justify-between items-center mb-2">
-                <h4 class="text-content font-bold text-body flex items-center gap-2">
-                  <MessageSquare class="whatsapp-card__icon w-5 h-5" /> WhatsApp
+                <h4 class="text-content font-bold text-body flex items-center gap-2 m-0">
+                  <MessageSquare class="whatsapp-card__icon w-5 h-5" aria-hidden="true" /> WhatsApp
                 </h4>
-                <span
-                  class="whatsapp-card__action text-small font-bold">Abrir
-                  chat <span class="whatsapp-card__arrow" aria-hidden="true">&rarr;</span></span>
+                <span class="whatsapp-card__action text-small font-bold">
+                  Abrir chat <span class="whatsapp-card__arrow" aria-hidden="true">&rarr;</span>
+                </span>
               </div>
-              <p class="text-small text-subdued">¿Prefieres un mensaje rápido? Escríbenos y conversemos directamente.</p>
+              <p class="text-small text-subdued m-0">¿Prefieres un mensaje rápido? Escríbenos y conversemos directamente.</p>
             </a>
           </div>
-        </div>
+        </aside>
 
       </div>
     </div>
@@ -287,24 +263,144 @@ const submitForm = async (event) => {
 </template>
 
 <style scoped>
-input, textarea { font-size: var(--fs-body); line-height: var(--lh-body); }
-.whatsapp-card { transition: background-color .25s ease, border-color .25s ease, box-shadow .25s ease, transform .25s ease; }
+.contact-section {
+  position: relative;
+  padding: clamp(3rem, 6vw, 5rem) 0 clamp(4.5rem, 8vw, 7rem);
+}
+
+.section-container {
+  width: 90%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.contact-form-panel {
+  padding: clamp(1.75rem, 4vw, 3rem);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background: var(--bg-surface);
+  box-shadow: 0 18px 44px rgba(16, 43, 70, 0.08);
+}
+
+.field-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.field-input {
+  width: 100%;
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-main);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.field-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-surface);
+}
+
+.contact-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact-info-list {
+  margin: 0;
+  border-top: 1px solid var(--border);
+}
+
+.contact-info-row {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.contact-info-row dt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+.contact-info-row dd {
+  margin: 0;
+}
+
+.toast-notice {
+  position: fixed;
+  top: 6rem;
+  right: 1rem;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 32px rgba(16, 43, 70, 0.16);
+}
+
+.toast-notice--success {
+  border-color: var(--accent);
+}
+
+.toast-notice--error {
+  border-color: #dc2626;
+}
+
+.whatsapp-card {
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
 .whatsapp-card__icon, .whatsapp-card__action { color: #16803d; }
 .whatsapp-card__action { display: inline-flex; align-items: center; }
 .whatsapp-card:hover, .whatsapp-card:focus-visible {
   background-color: #25D366;
   border-color: #25D366;
-  box-shadow: 0 12px 28px rgba(37, 211, 102, .2);
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.2);
 }
 .whatsapp-card:hover :is(h4, p, span, svg),
 .whatsapp-card:focus-visible :is(h4, p, span, svg) { color: #102B46; }
 .whatsapp-card:focus-visible { outline: 3px solid #102B46; outline-offset: 4px; }
-.whatsapp-card__arrow { display: inline-block; margin-left: .35rem; transition: transform .25s ease; }
+.whatsapp-card__arrow { display: inline-block; margin-left: 0.35rem; transition: transform 0.25s ease; }
+
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .whatsapp-card:hover, .whatsapp-card:focus-visible { transform: translateY(-4px); }
+  .whatsapp-card:hover, .whatsapp-card:focus-visible { transform: translateY(-3px); }
   .whatsapp-card:hover .whatsapp-card__arrow, .whatsapp-card:focus-visible .whatsapp-card__arrow { transform: translateX(3px); }
 }
+
+@media (min-width: 1024px) {
+  .contact-grid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.9fr);
+  }
+}
+
 @media (max-width: 400px) {
-  .whatsapp-card > div { flex-wrap: wrap; gap: .5rem; }
+  .whatsapp-card > div { flex-wrap: wrap; gap: 0.5rem; }
 }
 </style>

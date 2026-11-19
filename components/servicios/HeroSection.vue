@@ -1,35 +1,29 @@
 <script setup>
+import { ArrowRight } from 'lucide-vue-next'
 </script>
 
 <template>
-  <section class="hero-section bg-section-dark pt-32 lg:pt-48 pb-16 lg:pb-24">
-
-    <div class="section-container text-center flex flex-col items-center">
-        
-        <p class="section-eyebrow mb-6" v-reveal data-delay="0">Soluciones digitales</p>
-
-        <h1 class="hero-headline mb-8" v-reveal data-delay="100">
-          Captación web, automatización <span class="display-accent">y software práctico.</span>
+  <section class="hero-section bg-section-dark pt-36 lg:pt-44 pb-12 lg:pb-16">
+    <div class="section-container">
+      <div class="hero-inner">
+        <h1 class="hero-headline" v-reveal data-delay="0">
+          Captación web, automatización <span class="display-accent">y&nbsp;software práctico.</span>
         </h1>
 
-        <div class="relative max-w-2xl mx-auto mb-10" v-reveal data-delay="200">
-            <p class="hero-subtitle">
-                Infraestructura digital que ordena tus cotizaciones, evita que se pierdan clientes y automatiza trabajo manual sin costos inflados de servidores.
-            </p>
+        <p class="hero-subtitle" v-reveal data-delay="80">
+          Infraestructura digital que ordena tus cotizaciones, evita que se pierdan clientes y automatiza trabajo manual sin costos inflados de servidores. Todos los valores en CLP netos + IVA.
+        </p>
+
+        <div class="hero-actions" v-reveal data-delay="140">
+          <NuxtLink to="/contacto?plan=captacion-web" class="btn btn-primary">
+            Solicitar diagnóstico gratuito
+            <ArrowRight class="w-4 h-4" aria-hidden="true" />
+          </NuxtLink>
+          <a href="#paquetes" class="btn btn-secondary">
+            Ver paquetes y valores
+          </a>
         </div>
-        
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto" v-reveal data-delay="300">
-            <NuxtLink to="/contacto" class="cta-primary-btn w-full sm:w-auto justify-center">
-                Iniciar un proyecto
-                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-            </NuxtLink>
-            <NuxtLink to="/portfolio" class="cta-ghost w-full sm:w-auto justify-center">
-                Ver proyectos
-            </NuxtLink>
-        </div>
-        
+      </div>
     </div>
   </section>
 </template>
@@ -38,37 +32,56 @@
 .hero-section {
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid var(--border);
 }
 
 .section-container {
-  position: relative;
-  z-index: 10;
   width: 90%;
-  max-width: 1000px;
+  max-width: 1240px;
   margin: 0 auto;
+}
+
+.hero-inner {
+  max-width: 48rem;
 }
 
 .hero-headline {
   font-family: var(--font-heading);
-  font-size: var(--fs-page-hero);
-  font-weight: var(--fw-hero);
-  line-height: var(--lh-hero);
-  letter-spacing: var(--ls-hero);
+  font-size: clamp(2.25rem, 1.4rem + 3.2vw, 3.85rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
   color: var(--text-main);
-  max-inline-size: 21ch;
+  max-inline-size: 20ch;
   text-wrap: balance;
+  margin: 0 0 1.25rem;
 }
 
 .hero-subtitle {
   font-size: var(--fs-lead);
-  line-height: var(--lh-lead);
+  line-height: 1.55;
   color: var(--text-secondary);
-  font-weight: 400;
+  max-width: 60ch;
+  margin: 0 0 2rem;
 }
 
-@media (max-width: 480px) {
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+}
+
+@media (max-width: 640px) {
   .hero-headline {
     max-inline-size: none;
+  }
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 </style>

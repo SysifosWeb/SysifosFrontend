@@ -2,26 +2,44 @@
 </script>
 
 <template>
-  <section class="relative bg-section-dark pt-32 pb-16 lg:pt-48 lg:pb-24 overflow-hidden border-b border-line">
-    
-    <div class="absolute rounded-full pointer-events-none blur-[120px] w-[600px] h-[600px] bg-accent opacity-[0.03] top-0 left-1/2 -translate-x-1/2"></div>
-    
-    <div class="relative z-20 w-[90%] max-w-[1000px] mx-auto text-center flex flex-col items-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-line bg-panel mb-8 backdrop-blur-sm" v-reveal data-delay="0">
-          <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
-          <span class="text-small font-bold tracking-[0.2em] uppercase text-subdued">Iniciemos una colaboración</span>
-        </div>
-        
-        <h1 class="display-title font-extrabold mb-8 text-content" v-reveal data-delay="100">
-          Hablemos de tu <br class="md:hidden"/>
-          <span class="display-accent">próximo proyecto.</span>
+  <section class="contact-hero bg-section-dark pt-36 pb-12 lg:pt-44 lg:pb-16 border-b border-line">
+    <div class="section-container">
+      <div class="max-w-[46rem]">
+        <h1 class="contact-hero__title" v-reveal data-delay="0">
+          Hablemos de tu <span class="display-accent">próximo proyecto.</span>
         </h1>
-        
-        <div class="relative max-w-xl mx-auto" v-reveal data-delay="200">
-            <p class="text-lead text-subdued leading-relaxed font-medium">
-                Nos apasiona resolver desafíos técnicos complejos. Cuéntanos qué quieres construir y nuestro equipo evaluará la arquitectura óptima para escalar tu idea.
-            </p>
-        </div>
+
+        <p class="contact-hero__subtitle" v-reveal data-delay="80">
+          Cuéntanos qué quieres mejorar en captación, cotizaciones o automatización. Te respondemos en menos de 24 horas hábiles con un diagnóstico honesto y alcance claro.
+        </p>
+      </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+.section-container {
+  width: 90%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.contact-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 1.4rem + 3.2vw, 3.85rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  color: var(--text-main);
+  margin: 0 0 1.25rem;
+  text-wrap: balance;
+}
+
+.contact-hero__subtitle {
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 58ch;
+  margin: 0;
+}
+</style>

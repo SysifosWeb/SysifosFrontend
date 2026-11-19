@@ -1,138 +1,165 @@
 <template>
-  <section class="problems-section bg-section-dark">
-
+  <section class="problems-section bg-section-dark" aria-labelledby="problems-title">
     <div class="section-container">
-
-      <!-- Header -->
-      <div class="text-center mb-12">
-        <p class="section-eyebrow mb-4" v-reveal data-delay="0">El problema que frena tu crecimiento</p>
-        <h2 class="section-title problems-title" v-reveal data-delay="100">
-          Tu negocio merece más que un sitio web genérico.
+      <div class="problems-header">
+        <h2 id="problems-title" class="section-title problems-title" v-reveal data-delay="0">
+          Dónde se escapan clientes y horas todos los meses.
         </h2>
+        <p class="section-subtitle max-w-[54ch]" v-reveal data-delay="80">
+          Una web informativa suelta no resuelve el cuello de botella comercial. Estos son los tres puntos que auditamos antes de escribir código.
+        </p>
       </div>
 
-      <!-- Pain Point Cards -->
-      <div class="flex flex-col gap-4">
-        <div v-for="(pain, index) in pains" :key="pain.id"
-             v-reveal :data-delay="index * 150"
-             class="pain-card group relative flex flex-col md:flex-row items-start md:items-center gap-6 bg-section-surface card-border">
-
-          <!-- Ícono con color dinámico por tipo -->
-          <div class="pain-icon shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-               :class="pain.iconClass">
-            <component :is="pain.icon" class="w-5 h-5" :class="pain.colorClass" :stroke-width="1.8"/>
-          </div>
-
-          <!-- Texto -->
-          <div class="flex-1 min-w-0">
-            <h3 class="card-title mb-1.5">{{ pain.title }}</h3>
+      <ol class="problems-ledger">
+        <li v-for="(pain, index) in pains" :key="pain.id" v-reveal :data-delay="index * 80" class="ledger-row">
+          <div class="ledger-problem">
+            <h3 class="ledger-title">{{ pain.title }}</h3>
             <p class="card-text">{{ pain.description }}</p>
           </div>
-
-          <!-- Solución -->
-          <div class="solution-pill shrink-0 hidden lg:flex">
-            <component :is="CheckCircle" class="w-4 h-4 shrink-0 text-accent"/>
-            <span class="solution-pill__text">{{ pain.solution }}</span>
+          <div class="ledger-resolution">
+            <CheckCircle2 class="w-5 h-5 text-accent shrink-0 mt-0.5" aria-hidden="true" />
+            <div>
+              <span class="ledger-label">Cómo lo resolvemos</span>
+              <p class="ledger-solution">{{ pain.solution }}</p>
+            </div>
           </div>
+        </li>
+      </ol>
 
-          <!-- Hover glow -->
-          <div class="card-hover-glow"></div>
-        </div>
-      </div>
-
-      <!-- CTA inferior -->
-      <div class="mt-12 text-center" v-reveal data-delay="400">
-        <p class="card-text mb-5">¿Te identificas con alguno de estos problemas?</p>
-        <NuxtLink to="/contacto" class="cta-ghost">
-          Hablemos de tu proyecto
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
+      <div class="problems-footer" v-reveal data-delay="200">
+        <p class="card-text m-0">¿Reconoces alguno de estos cuellos de botella en tu operación?</p>
+        <NuxtLink to="/contacto?plan=captacion-web" class="cta-ghost">
+          Revisar mi caso en 15 minutos
+          <ArrowRight class="w-4 h-4" aria-hidden="true" />
         </NuxtLink>
       </div>
-
     </div>
   </section>
 </template>
 
 <script setup>
-import { Gauge, TrendingDown, Layers, CheckCircle } from 'lucide-vue-next'
+import { CheckCircle2, ArrowRight } from 'lucide-vue-next'
 
 const pains = [
   {
     id: 1,
-    icon: Gauge,
-    title: 'Tu web tarda en cargar y pierdes clientes antes de que te conozcan',
-    description: 'Cada segundo de espera cuesta visitas, confianza y ventas. Una web lenta es una oportunidad perdida antes de comenzar.',
-    solution: 'Construimos con velocidad como prioridad desde el primer día',
-    iconClass: 'pain-icon--cyan',
-    colorClass: 'text-accent',
+    title: 'Cotizaciones y consultas que se pierden entre WhatsApp y el correo',
+    description: 'Cuando un formulario falla en silencio o un mensaje queda enterrado en un chat personal, la oportunidad se enfría antes de responder.',
+    solution: 'Cada consulta queda respaldada en base de datos, con alerta inmediata al equipo y trazabilidad por canal.'
   },
   {
     id: 2,
-    icon: TrendingDown,
-    title: 'Inviertes en publicidad pero tu sitio no convierte ese tráfico en ventas',
-    description: 'Atraer visitantes es solo la mitad del trabajo. Sin una estrategia de conversión clara, el presupuesto publicitario se pierde.',
-    solution: 'Diseñamos cada página con un objetivo: que el visitante actúe',
-    iconClass: 'pain-icon--purple',
-    colorClass: 'text-purple',
+    title: 'Horas semanales copiando datos a mano entre formularios, Excel y PDF',
+    description: 'Reescribir solicitudes técnicas, armar cotizaciones repetitivas o confirmar horas manualmente consume tiempo que debería estar en ventas o producción.',
+    solution: 'Automatizamos flujos acotados sobre hosting cPanel para que tu operación corra sin servidores caros en dólares.'
   },
   {
     id: 3,
-    icon: Layers,
-    title: 'Tu plataforma actual ya no da abasto con el crecimiento de tu empresa',
-    description: 'Lo que funcionó al principio tiene un límite. Cuando tu negocio crece, tu tecnología debe crecer con él — no frenarlo.',
-    solution: 'Arquitecturas flexibles que evolucionan con tu negocio',
-    iconClass: 'pain-icon--cyan',
-    colorClass: 'text-accent',
+    title: 'Un sitio lento o desactualizado que no refleja el nivel real de tu empresa',
+    description: 'En rubros B2B, maestranzas y clínicas privadas, un sitio roto en móvil o sin llamado a la acción claro hace que el cliente cotice con la competencia.',
+    solution: 'Diseñamos recorridos claros orientados a captación, velocidad real en celular y SEO técnico verificado.'
   }
 ]
 </script>
 
 <style scoped>
-/* ── Layout ─────────────────────────────── */
 .problems-section {
   position: relative;
-  padding: 4rem 0 5rem;
-  overflow: hidden;
+  padding: clamp(4.5rem, 8vw, 7rem) 0;
+  border-bottom: 1px solid var(--border);
 }
 
 .section-container {
-  position: relative;
-  z-index: 10;
   width: 90%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
-/* ── Título ──────────────────────────────── */
+.problems-header {
+  display: grid;
+  gap: 1.25rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
 .problems-title {
   max-width: 24ch;
-  margin: 0 auto;
 }
 
-/* ── Pain card ───────────────────────────── */
-.pain-card {
-  padding: 1.75rem 2rem;
-  border-radius: var(--radius-lg);
-  transition: border-color 0.25s ease, background-color 0.25s ease;
+.problems-ledger {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border);
 }
 
-.pain-card:hover {
-  border-color: var(--border-accent);
-  background: var(--bg-elevated);
+.ledger-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: clamp(1.75rem, 3vw, 2.5rem) 0;
+  border-bottom: 1px solid var(--border);
 }
 
-/* ── Ícono de pain (colores por variante) ── */
-.pain-icon--cyan {
-  background: rgba(var(--decoration-rgb), 0.08);
-  border: 1px solid rgba(var(--decoration-rgb), 0.2);
+.ledger-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 1.08rem + 0.35vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.28;
+  color: var(--text-main);
+  margin: 0 0 0.6rem;
+  text-wrap: balance;
 }
 
-.pain-icon--purple {
-  background: rgba(var(--decoration-rgb), 0.08);
-  border: 1px solid rgba(var(--decoration-rgb), 0.2);
+.ledger-problem .card-text {
+  max-width: 60ch;
+  margin: 0;
 }
 
-.text-purple { color: var(--purple); }
+.ledger-resolution {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+}
+
+.ledger-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+.ledger-solution {
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.problems-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 960px) {
+  .problems-header {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: end;
+    gap: 3rem;
+  }
+  .ledger-row {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.95fr);
+    align-items: center;
+    gap: 3rem;
+  }
+}
 </style>

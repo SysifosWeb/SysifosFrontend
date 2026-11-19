@@ -82,10 +82,48 @@ body {
 
 html {
   scroll-padding-bottom: calc(var(--floating-control-size) + 3rem);
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--button-text);
 }
 
 input, textarea, select {
   font-family: var(--font-family);
+  caret-color: var(--accent);
+}
+
+a {
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: from-font;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom subtle scrollbars themed from palette */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+  border: 2px solid var(--bg-dark);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }
 
 /* ============================================
@@ -593,12 +631,9 @@ input, textarea, select {
   border: 1px solid var(--border);
 }
 
-/* Gradiente de texto */
+/* Acento sólido para texto destacado (reemplaza gradiente decorativo) */
 .text-gradient {
-  background: linear-gradient(135deg, var(--text-main) 0%, var(--heading-gradient-end) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent);
 }
 
 /* Borde de acento sutil */
