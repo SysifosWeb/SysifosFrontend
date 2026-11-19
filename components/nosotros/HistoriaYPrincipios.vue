@@ -26,7 +26,7 @@ import { Medal } from "lucide-vue-next";
               SysifosWeb partió en 2024 en Coquimbo con una idea simple: las pymes y empresas regionales necesitan sitios web y herramientas internas bien construidas, sin pagar presupuestos de gran corporación ni servidores innecesarios.
             </p>
             <p class="text-body text-subdued">
-              El nombre viene del mito de Sísifo, llevado a lo cotidiano de la ingeniería: trabajo constante, iteración ordenada y foco en resolver problemas concretos de captación, cotizaciones y operación diaria.
+              El nombre viene del mito de Sísifo, llevado a lo cotidiano de la ingeniería: trabajo constante, iteración ordenada y foco en resolver problemas concretos de sitios web, cotizaciones y operación diaria.
             </p>
           </div>
 
@@ -67,7 +67,7 @@ import { Medal } from "lucide-vue-next";
         <div class="principle-panel" v-reveal data-delay="0">
           <div>
             <h3 class="text-h3 text-content mb-3">Misión</h3>
-            <p class="text-body text-subdued">Construir sitios web, flujos comerciales y automatizaciones que ayuden a empresas chilenas a captar mejores clientes y ahorrar horas de trabajo manual.</p>
+            <p class="text-body text-subdued">Construir sitios web, flujos comerciales y automatizaciones que ayuden a empresas chilenas a conseguir mejores clientes y ahorrar horas de trabajo manual.</p>
           </div>
         </div>
 

@@ -8,7 +8,7 @@
         Hablemos de tu <span>próximo proyecto.</span>
       </h1>
       <p class="bold-hero__lead" v-reveal data-delay="70">
-        Cuéntanos qué quieres mejorar en captación, cotizaciones o automatización. Evaluamos tu caso con honestidad técnica y alcance claro.
+        Cuéntanos qué quieres mejorar en tu sitio web, cotizaciones o automatización. Evaluamos tu caso con honestidad técnica y alcance claro.
       </p>
     </div>
   </section>

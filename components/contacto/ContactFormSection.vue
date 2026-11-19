@@ -7,7 +7,7 @@ const route = useRoute()
 
 const planLabels = {
   'landing-express': 'Cotización: Landing Express (desde $200.000 + IVA)',
-  'captacion-web': 'Cotización: Sistema de Captación Web (desde $350.000 + IVA)',
+  'captacion-web': 'Cotización: Sitio Web Comercial + Panel de Consultas (desde $350.000 + IVA)',
   'web-flujo-comercial': 'Cotización: Web + Flujo Comercial / Agenda ($590.000 - $650.000 + IVA)',
   'automatizacion-flujo': 'Evaluación: Automatización e Integraciones (desde $450.000 + IVA)',
   'ecommerce-estandar': 'Cotización: E-commerce Estándar (desde $650.000 + IVA)',
@@ -178,7 +178,7 @@ const submitForm = async (event) => {
               </div>
               <div class="space-y-2">
                 <label for="contact-subject" class="field-label">Asunto *</label>
-                <input id="contact-subject" name="subject" minlength="5" maxlength="255" v-model="form.subject" type="text" required placeholder="Ej. Sistema de Captación Web"
+                <input id="contact-subject" name="subject" minlength="5" maxlength="255" v-model="form.subject" type="text" required placeholder="Ej. Sitio Web Comercial + Panel de Consultas"
                   class="field-input">
               </div>
             </div>

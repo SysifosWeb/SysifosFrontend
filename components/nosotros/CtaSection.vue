@@ -8,7 +8,7 @@ import { ArrowRight } from 'lucide-vue-next'
       <div class="cta-panel">
         <div class="cta-copy">
           <h2 id="cta-closing-title" class="cta-title" v-reveal data-delay="0">
-            Ordena tu captación y ahorra horas operativas.
+            Ordena tus consultas web y ahorra horas operativas.
           </h2>
           <p class="cta-subtitle" v-reveal data-delay="80">
             Cuéntanos cómo llegan tus consultas o cotizaciones hoy. En 15 minutos te decimos qué conviene construir primero y cuánto cuesta sin letra chica.

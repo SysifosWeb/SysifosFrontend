@@ -365,7 +365,7 @@ const relatedPosts = computed(() => {
                     <p class="text-[0.65rem] font-bold uppercase tracking-widest text-accent mb-1">Escrito por</p>
                     <h4 class="text-lg font-bold text-content mb-2">{{ post.author.name }}</h4>
                     <p class="text-sm text-subdued leading-relaxed">Equipo de desarrollo de SysifosWeb en Coquimbo.
-                        Escribimos sobre captación web, automatización de procesos y decisiones técnicas prácticas para
+                        Escribimos sobre desarrollo web, automatización de procesos y decisiones técnicas prácticas para
                         empresas en Chile.</p>
                 </div>
             </div>

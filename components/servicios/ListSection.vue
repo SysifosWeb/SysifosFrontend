@@ -21,19 +21,19 @@ const corePackages = [
   {
     slug: 'captacion-web',
     featured: true,
-    title: 'Sistema de Captación Web',
+    title: 'Sitio Web Comercial + Panel de Consultas',
     audience: 'Entrada recomendada para PYMEs',
     price: '$350.000',
     priceMeta: 'Desde · CLP neto + IVA',
-    description: 'Sitio orientado a conversión con respaldo en base de datos para no perder ningún contacto aunque falle el correo.',
+    description: 'Tu sitio web comercial con respaldo automático en base de datos para que ninguna cotización o consulta se pierda aunque falle el correo.',
     icon: TrendingUp,
     features: [
-      'Estructura comercial enfocada en conversión y SEO técnico base.',
-      'Respaldo automático de cada lead en panel administrativo.',
-      'Medición real de envíos de formulario y clics a WhatsApp.',
+      'Diseño comercial enfocado en consultas reales y SEO técnico base.',
+      'Panel privado donde queda guardada cada consulta con fecha y estado.',
+      'Medición real de formularios enviados y clics a WhatsApp.',
       'Aviso por correo al equipo ante cada nueva solicitud.'
     ],
-    ctaText: 'Solicitar Captación Web'
+    ctaText: 'Cotizar Sitio Web Comercial'
   },
   {
     slug: 'web-flujo-comercial',
@@ -102,7 +102,7 @@ const specializedOffers = [
 
       <!-- Band 1: Core implementation packages -->
       <div class="band-head">
-        <h2 class="bold-band-title">Implementación web y captación</h2>
+        <h2 class="bold-band-title">Páginas web comerciales y canales de consulta</h2>
         <p class="bold-band-lead">
           Tres niveles con alcance cerrado para que pagues exactamente por la capacidad operativa que tu empresa necesita hoy.
         </p>

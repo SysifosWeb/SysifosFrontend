@@ -19,10 +19,10 @@ const followPointer = (event) => {
     <div class="site-container hero-content">
       <div class="hero-copy">
         <h1 id="home-title">
-          Captación web, flujos comerciales <span>y automatización práctica.</span>
+          Sitios web comerciales, cotizadores <span>y automatización práctica.</span>
         </h1>
         <p class="hero-description">
-          Diseñamos y construimos sitios de conversión, cotizadores B2B, flujos de agenda y automatizaciones para empresas en Coquimbo y todo Chile, sin servidores cloud inflados.
+          Diseñamos y construimos páginas web comerciales, cotizadores B2B, flujos de agenda y automatizaciones para empresas en Coquimbo y todo Chile, sin servidores cloud inflados.
         </p>
 
         <div class="hero-actions">
@@ -64,7 +64,7 @@ const followPointer = (event) => {
             <figcaption>
               <div>
                 <h2>Maestranza Faremin</h2>
-                <p class="hero-project__caption">Sitio corporativo y captación técnica para proveedores mineros.</p>
+                <p class="hero-project__caption">Sitio corporativo y solicitudes técnicas para proveedores mineros.</p>
               </div>
               <NuxtLink to="/portfolio" class="hero-project__link">
                 Ver portfolio

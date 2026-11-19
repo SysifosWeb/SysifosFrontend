@@ -20,7 +20,7 @@
             <BrandLogo class="h-12 md:h-20 w-auto aspect-[403/80]" />
           </NuxtLink>
           <p class="text-sm leading-relaxed max-w-xs" style="color: var(--text-muted);">
-            Sitios de captación, flujos comerciales y automatizaciones para empresas en Coquimbo y todo Chile.
+            Sitios web comerciales, flujos de venta y automatizaciones para empresas en Coquimbo y todo Chile.
           </p>
 
           <!-- Redes sociales -->

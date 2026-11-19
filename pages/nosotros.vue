@@ -11,7 +11,7 @@ const { setMeta, setSchema } = useSEO()
 
 setMeta({
   title: 'Nosotros | Equipo de Desarrollo Web y Software en Chile | SysifosWeb',
-  description: 'Somos SysifosWeb, un equipo de desarrollo web y software en Coquimbo, Chile. Diseñamos sitios de captación, flujos comerciales y automatizaciones para empresas.',
+  description: 'Somos SysifosWeb, un equipo de desarrollo web y software en Coquimbo, Chile. Diseñamos sitios web comerciales, flujos de venta y automatizaciones para empresas.',
   keywords: 'equipo desarrollo software chile, agencia desarrollo web coquimbo, empresa desarrollo software chile, desarrolladores full stack chile, quiénes somos sysifosweb',
   image: '/img/og-nosotros.webp'
 })

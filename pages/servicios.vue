@@ -9,9 +9,9 @@ definePageMeta({
 const { setMeta, setSchema } = useSEO()
 
 setMeta({
-  title: 'Servicios de Captación Web, Automatización y Software | SysifosWeb Chile',
-  description: 'Sistemas de captación web, flujos comerciales para B2B y clínicas, automatización de procesos, ecommerce y software a medida en Coquimbo y todo Chile. Cotiza tu diagnóstico.',
-  keywords: 'sistemas captacion web chile, automatizacion procesos pymes chile, desarrollo web coquimbo, software a medida b2b, tienda online chile, mantenimiento web cpanel',
+  title: 'Servicios de Desarrollo Web, Automatización y Software | SysifosWeb Chile',
+  description: 'Sitios web comerciales con panel de consultas, flujos para B2B y clínicas, automatización de procesos, ecommerce y software a medida en Coquimbo y todo Chile. Cotiza tu diagnóstico.',
+  keywords: 'sitio web comercial chile, desarrollo web coquimbo, automatizacion procesos pymes chile, software a medida b2b, tienda online chile, mantenimiento web cpanel',
   image: '/img/og-servicios.webp'
 })
 
@@ -25,9 +25,9 @@ setSchema({
         serviceType: 'Desarrollo de Landing Page'
       },
       {
-        name: 'Sistema de Captación Web',
-        description: 'Sitio orientado a conversión con respaldo automático de contactos en base de datos, medición de WhatsApp y alertas al equipo desde $350.000 + IVA.',
-        serviceType: 'Sistemas de Captación Web'
+        name: 'Sitio Web Comercial + Panel de Consultas',
+        description: 'Sitio web comercial con respaldo automático de consultas en base de datos, medición de WhatsApp y alertas al equipo desde $350.000 + IVA.',
+        serviceType: 'Desarrollo de Sitios Web Comerciales'
       },
       {
         name: 'Web + Flujo Comercial / Agenda',

@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-vue-next'
   <section class="bold-hero">
     <div class="bold-hero__inner">
       <h1 class="bold-hero__title" v-reveal data-delay="0">
-        Captación web, automatización <span>y&nbsp;software práctico.</span>
+        Sitios web comerciales, automatización <span>y&nbsp;software práctico.</span>
       </h1>
       <p class="bold-hero__lead" v-reveal data-delay="70">
         Infraestructura digital que ordena tus cotizaciones, evita que se pierdan clientes y automatiza trabajo manual sin costos inflados de servidores.

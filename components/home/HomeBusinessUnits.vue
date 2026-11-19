@@ -4,7 +4,7 @@
       <div class="services-header">
         <div>
           <h2 id="home-services-title" class="section-title max-w-[22ch]" v-reveal data-delay="0">
-            Soluciones diseñadas para captar y ahorrar trabajo.
+            Sitios web, automatización y orden comercial.
           </h2>
         </div>
         <div class="services-header__aside" v-reveal data-delay="80">
@@ -57,14 +57,14 @@ const services = [
     featured: true,
     icon: TrendingUp,
     price: 'Desde $350.000 + IVA',
-    title: 'Sistema de Captación Web',
-    description: 'Sitio enfocado en conversión con respaldo automático de cada contacto en base de datos para no perder leads aunque falle el correo.',
+    title: 'Sitio Web Comercial + Panel de Consultas',
+    description: 'Tu página web comercial conectada a un panel donde quedan respaldadas todas las cotizaciones y consultas, incluso si falla el correo.',
     features: [
-      'Panel de registros y alerta inmediata al equipo',
-      'Medición real de formularios y clics a WhatsApp',
-      'SEO técnico base y carga veloz en móvil'
+      'Panel de consultas guardadas y alerta por correo al equipo',
+      'Medición real de formularios enviados y clics a WhatsApp',
+      'SEO técnico base y carga rápida en celular'
     ],
-    cta: 'Solicitar Captación Web'
+    cta: 'Cotizar Sitio Web Comercial'
   },
   {
     slug: 'web-flujo-comercial',

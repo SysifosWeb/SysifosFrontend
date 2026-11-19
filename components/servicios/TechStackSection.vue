@@ -26,7 +26,7 @@ const backendSpecs = [
   {
     name: 'MariaDB / PostgreSQL',
     role: 'Respaldo y trazabilidad de datos',
-    detail: 'Cada lead, cotización y evento queda guardado con respaldos periódicos y control de acceso.'
+    detail: 'Cada consulta, cotización y evento queda guardado con respaldos periódicos y control de acceso.'
   },
   {
     name: 'TypeScript y pruebas automatizadas',

@@ -4,7 +4,7 @@
       <div class="closing-panel">
         <div class="closing-copy">
           <h2 id="home-closing-title" class="closing-title" v-reveal data-delay="0">
-            Conversemos 15 minutos sobre cómo captar y ordenar más clientes.
+            Conversemos 15 minutos sobre cómo recibir y ordenar más cotizaciones.
           </h2>
           <p class="closing-description" v-reveal data-delay="80">
             Revisamos tu sitio actual, formularios y procesos manuales sin compromiso. Si no necesitas un desarrollo a medida, te lo decimos directo.

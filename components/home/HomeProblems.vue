@@ -55,7 +55,7 @@ const pains = [
     num: '03',
     title: 'Un sitio lento que no refleja el nivel de tu empresa',
     description: 'En maestranzas, B2B y clínicas privadas, un sitio desactualizado en celular hace que el cliente cotice con otro proveedor.',
-    solution: 'Diseño veloz en móvil, SEO técnico y trazabilidad real de leads.'
+    solution: 'Diseño rápido en celular, SEO técnico y registro real de cada consulta.'
   }
 ]
 </script>
