@@ -19,7 +19,7 @@ const followPointer = (event) => {
     <div class="site-container hero-content">
       <div class="hero-copy">
         <h1 id="home-title">
-          Sitios web comerciales, cotizadores <span>y automatización práctica.</span>
+          <span class="hero-title-line">Sitios web comerciales,</span> cotizadores <span class="hero-title-accent">y&nbsp;automatización práctica.</span>
         </h1>
         <p class="hero-description">
           Diseñamos y construimos páginas web comerciales, cotizadores B2B, flujos de agenda y automatizaciones para empresas en Coquimbo y todo Chile, sin servidores cloud inflados.
@@ -97,21 +97,27 @@ const followPointer = (event) => {
 .hero-copy {
   position: relative;
   min-width: 0;
-  max-width: 40rem;
+  max-width: 42rem;
+  container-type: inline-size;
 }
 
 h1 {
   font-family: var(--font-heading);
   margin: 0 0 1.5rem;
-  font-size: clamp(2.35rem, 1.5rem + 3vw, 3.85rem);
+  font-size: clamp(1.45rem, 7.5cqi, 3.25rem);
   font-weight: 800;
-  line-height: 1.06;
+  line-height: 1.08;
   letter-spacing: -0.035em;
   color: var(--text-main);
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
-h1 span {
+.hero-title-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.hero-title-accent {
   color: var(--accent);
 }
 
@@ -260,7 +266,7 @@ figcaption h2 {
 
 @media (min-width: 1024px) {
   .hero-content {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.96fr);
     align-items: center;
   }
   .hero-copy {
