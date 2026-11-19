@@ -2,7 +2,11 @@
 import { computed, ref } from 'vue'
 
 definePageMeta({
-    layout: 'hero'
+    layout: 'hero',
+    validate: (route) => {
+        const param = String(route.params.slug || '')
+        return param.length > 0 && !param.startsWith('_') && !param.endsWith('.json')
+    }
 })
 
 const route = useRoute()

@@ -34,7 +34,9 @@ export default defineNuxtConfig({
         '/contacto': { prerender: true },
         '/sinapsys': { prerender: true },
         '/privacidad': { prerender: true },
-        '/blog': { swr: 300 },
+        // Blog es contenido dinámico servido por la API: renderizado SSR sin caché ni payload JSON
+        // para que los posts nuevos aparezcan al instante y nunca dispare _payload.json hacia [slug].
+        '/blog': { ssr: true },
         '/blog/**': { ssr: true },
         '/admin': { ssr: true, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
         '/admin/**': { ssr: true, headers: { 'X-Robots-Tag': 'noindex, nofollow' } }
