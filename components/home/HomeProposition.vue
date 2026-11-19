@@ -1,35 +1,27 @@
 <template>
-  <section class="proposition-section bg-section-surface" aria-labelledby="proposition-title">
+  <section class="bold-prop bg-section-surface" aria-labelledby="proposition-title">
     <div class="section-container">
-      <div class="proposition-grid">
-        <!-- Left: Value claim + architectural stack blueprint -->
-        <div class="proposition-lead">
-          <h2 id="proposition-title" class="section-title proposition-title" v-reveal data-delay="0">
+      <div class="bold-prop__layout">
+        <div class="bold-prop__lead">
+          <h2 id="proposition-title" class="bold-prop__title" v-reveal data-delay="0">
             Ingeniería práctica que ordena tu negocio sin servidores caros.
           </h2>
-          <p class="section-subtitle proposition-copy" v-reveal data-delay="70">
-            Combinamos diseño de conversión con backend Laravel, automatizaciones y respaldo en base de datos optimizados para correr de forma estable en cPanel.
+          <p class="bold-prop__copy" v-reveal data-delay="70">
+            Combinamos diseño de conversión con backend Laravel, automatizaciones y respaldo en base de datos optimizados para operar rápido y a bajo costo en cPanel.
           </p>
-
-          <div class="mt-7 flex flex-wrap gap-3" v-reveal data-delay="120">
-            <NuxtLink to="/contacto" class="btn btn-primary">
+          <div class="mt-8" v-reveal data-delay="120">
+            <NuxtLink to="/contacto" class="btn btn-primary px-8 py-4">
               Agendar diagnóstico sin costo
               <ArrowRight class="w-4 h-4" aria-hidden="true" />
             </NuxtLink>
           </div>
         </div>
 
-        <!-- Right: 2x2 Architectural Capability Modules -->
-        <div class="modules-grid">
-          <article v-for="(diff, index) in differentiators" :key="diff.title" v-reveal :data-delay="index * 70" class="module-tile">
-            <div class="module-tile__head">
-              <div class="module-tile__icon">
-                <component :is="diff.icon" class="w-5 h-5" aria-hidden="true" />
-              </div>
-              <span class="module-tile__tag">{{ diff.tag }}</span>
-            </div>
-            <h3 class="module-tile__title">{{ diff.title }}</h3>
-            <p class="module-tile__desc">{{ diff.description }}</p>
+        <div class="bold-prop__blocks">
+          <article v-for="(item, index) in differentiators" :key="item.title" v-reveal :data-delay="index * 70" class="color-block">
+            <p class="color-block__stat tabular-nums">{{ item.stat }}</p>
+            <h3 class="color-block__title">{{ item.title }}</h3>
+            <p class="color-block__desc">{{ item.description }}</p>
           </article>
         </div>
       </div>
@@ -38,40 +30,35 @@
 </template>
 
 <script setup>
-import { ArrowRight, Handshake, LockKeyhole, Server, Zap } from 'lucide-vue-next'
+import { ArrowRight } from 'lucide-vue-next'
 
 const differentiators = [
   {
-    icon: Zap,
-    tag: '2–4 semanas',
-    title: 'Avances verificables rápidos',
-    description: 'Alcance acotado y entregas visibles desde las primeras semanas, sin proyectos eternos ni sorpresas.'
+    stat: '2–4 sem',
+    title: 'Avances visibles desde el inicio',
+    description: 'Trabajamos con alcance cerrado y entregas probadas en pocas semanas, sin meses de espera.'
   },
   {
-    icon: Server,
-    tag: 'cPanel-ready',
+    stat: 'cPanel',
     title: 'Infraestructura frugal',
     description: 'Sistemas y automatizaciones diseñados para hosting estándar sin cuentas cloud infladas cada mes.'
   },
   {
-    icon: LockKeyhole,
-    tag: 'Sin amarras',
-    title: 'Código y datos bajo tu control',
-    description: 'Tu sitio, formularios y base de datos son propiedad de tu empresa y escalan cuando los necesites.'
+    stat: '100%',
+    title: 'Código y datos tuyos',
+    description: 'Tu sitio, formularios y base de datos crecen contigo sin licencias ni bloqueos ocultos.'
   },
   {
-    icon: Handshake,
-    tag: 'Coquimbo · Chile',
+    stat: '< 24 h',
     title: 'Trato directo con ingeniería',
-    description: 'Conversas directamente con quienes diseñan y programan tu proyecto, sin ejecutivos intermediarios.'
+    description: 'Conversas directamente con quienes diseñan y programan desde Coquimbo para todo Chile.'
   }
 ]
 </script>
 
 <style scoped>
-.proposition-section {
-  padding: clamp(4.5rem, 8vw, 7rem) 0;
-  border-bottom: 1px solid var(--border);
+.bold-prop {
+  padding: clamp(5rem, 9vw, 8rem) 0;
 }
 
 .section-container {
@@ -80,74 +67,65 @@ const differentiators = [
   margin: 0 auto;
 }
 
-.proposition-grid {
+.bold-prop__layout {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(2.5rem, 5vw, 4.5rem);
+  gap: clamp(2.5rem, 5vw, 5rem);
   align-items: center;
 }
 
-.proposition-title {
-  max-width: 19ch;
-  margin-bottom: 1.15rem;
+.bold-prop__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.15rem, 1.35rem + 2.8vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  color: var(--text-main);
+  max-width: 16ch;
+  margin: 0 0 1.25rem;
+  text-wrap: balance;
 }
 
-.proposition-copy {
-  max-width: 46ch;
+.bold-prop__copy {
   font-size: var(--fs-lead);
   line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 46ch;
   margin: 0;
 }
 
-.modules-grid {
+.bold-prop__blocks {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
 }
 
-.module-tile {
-  padding: 1.5rem;
-  border-radius: var(--radius-lg);
-  background: var(--bg-dark);
-  border: 1px solid var(--border);
-  transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+.color-block {
+  padding: clamp(1.5rem, 3vw, 2.15rem);
+  border-radius: 1.25rem;
+  background: var(--bg-elevated);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.module-tile__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.module-tile__icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 0.625rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  color: var(--accent);
-  display: grid;
-  place-items: center;
-}
-
-.module-tile__tag {
+.color-block__stat {
   font-family: var(--font-heading);
-  font-size: 0.8125rem;
-  font-weight: 700;
+  font-size: clamp(1.75rem, 1.45rem + 1vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
   color: var(--accent);
+  margin: 0 0 0.75rem;
 }
 
-.module-tile__title {
+.color-block__title {
   font-family: var(--font-heading);
   font-size: 1.125rem;
   font-weight: 700;
   color: var(--text-main);
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.4rem;
 }
 
-.module-tile__desc {
+.color-block__desc {
   font-size: var(--fs-small);
   line-height: 1.55;
   color: var(--text-secondary);
@@ -155,20 +133,19 @@ const differentiators = [
 }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .module-tile:hover {
-    transform: translateY(-2px);
-    border-color: var(--border-accent);
+  .color-block:hover {
+    transform: translateY(-3px);
   }
 }
 
 @media (min-width: 640px) {
-  .modules-grid {
+  .bold-prop__blocks {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 1024px) {
-  .proposition-grid {
+  .bold-prop__layout {
     grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
   }
 }

@@ -1,64 +1,33 @@
 <template>
-  <section class="problems-section bg-section-dark" aria-labelledby="problems-title">
+  <section class="bold-problems impulso-closing bg-section-dark" aria-labelledby="problems-title">
     <div class="section-container">
-      <div class="problems-header">
-        <h2 id="problems-title" class="section-title max-w-[24ch] mx-auto" v-reveal data-delay="0">
+      <div class="bold-problems__head">
+        <h2 id="problems-title" class="bold-section-title" v-reveal data-delay="0">
           Dónde se escapan clientes y horas todos los meses.
         </h2>
-        <p class="section-subtitle max-w-[58ch] mx-auto mt-4 mb-0" v-reveal data-delay="70">
-          Compara cómo opera una web informativa desconectada frente a un flujo conectado y medible construido por SysifosWeb.
+        <p class="bold-section-lead" v-reveal data-delay="70">
+          Una web informativa suelta no resuelve el cuello de botella comercial. Estos son los tres puntos que corregimos desde el primer día.
         </p>
       </div>
 
-      <div class="compare-grid">
-        <!-- Left: Disconnected manual operation -->
-        <div class="compare-panel compare-panel--before" v-reveal data-delay="80">
-          <div class="compare-panel__head">
-            <AlertTriangle class="w-5 h-5 text-subdued shrink-0" aria-hidden="true" />
-            <h3>Operación desconectada</h3>
-          </div>
-
-          <ol class="compare-list">
-            <li v-for="item in brokenFlow" :key="item.title" class="compare-item">
-              <XCircle class="w-5 h-5 compare-icon-bad shrink-0 mt-0.5" aria-hidden="true" />
-              <div>
-                <h4>{{ item.title }}</h4>
-                <p>{{ item.desc }}</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-
-        <!-- Right: SysifosWeb Blueprint Flow -->
-        <div class="compare-panel compare-panel--blueprint" v-reveal data-delay="140">
-          <div class="compare-panel__head compare-panel__head--dark">
-            <CheckCircle2 class="w-5 h-5 text-[#9DCBF5] shrink-0" aria-hidden="true" />
-            <h3>Flujo conectado SysifosWeb</h3>
-          </div>
-
-          <ol class="blueprint-flow">
-            <li v-for="(step, idx) in connectedFlow" :key="step.title" class="blueprint-flow__item">
-              <div class="blueprint-flow__node">
-                <div class="blueprint-flow__icon">
-                  <component :is="step.icon" class="w-4 h-4" aria-hidden="true" />
-                </div>
-                <div class="blueprint-flow__text">
-                  <h4>{{ step.title }}</h4>
-                  <p>{{ step.desc }}</p>
-                </div>
-              </div>
-              <ArrowDown v-if="idx < connectedFlow.length - 1" class="blueprint-flow__arrow w-4 h-4" aria-hidden="true" />
-            </li>
-          </ol>
-        </div>
+      <div class="bold-problems__grid">
+        <article v-for="(pain, index) in pains" :key="pain.num" v-reveal :data-delay="index * 80" class="bold-pain-block">
+          <span class="bold-pain-block__num tabular-nums">{{ pain.num }}</span>
+          <h3 class="bold-pain-block__title">{{ pain.title }}</h3>
+          <p class="bold-pain-block__desc">{{ pain.description }}</p>
+          <p class="bold-pain-block__fix">
+            <CheckCircle2 class="w-4 h-4 shrink-0 mt-0.5" aria-hidden="true" />
+            <span>{{ pain.solution }}</span>
+          </p>
+        </article>
       </div>
 
-      <div class="problems-footer" v-reveal data-delay="180">
-        <NuxtLink to="/contacto?plan=captacion-web" class="btn btn-primary">
-          Auditar mi flujo actual en 15 minutos
+      <div class="bold-problems__cta" v-reveal data-delay="180">
+        <NuxtLink to="/contacto?plan=captacion-web" class="btn btn-primary px-8 py-4">
+          Revisar mi caso en 15 minutos
           <ArrowRight class="w-4 h-4" aria-hidden="true" />
         </NuxtLink>
-        <NuxtLink to="/servicios" class="btn btn-secondary">
+        <NuxtLink to="/servicios" class="bold-problems__link">
           Ver paquetes y valores
         </NuxtLink>
       </div>
@@ -67,51 +36,33 @@
 </template>
 
 <script setup>
-import { AlertTriangle, XCircle, CheckCircle2, ArrowDown, ArrowRight, Globe, Database, BellRing, Cpu } from 'lucide-vue-next'
+import { CheckCircle2, ArrowRight } from 'lucide-vue-next'
 
-const brokenFlow = [
+const pains = [
   {
-    title: 'Consultas perdidas entre WhatsApp y correo',
-    desc: 'Cuando un formulario falla en silencio o un mensaje queda enterrado en un chat personal, la cotización se enfría.'
+    num: '01',
+    title: 'Cotizaciones perdidas entre WhatsApp y correo',
+    description: 'Cuando un formulario falla en silencio o un mensaje queda enterrado en un chat personal, la venta se enfría antes de responder.',
+    solution: 'Respaldo automático en base de datos + alerta inmediata al equipo.'
   },
   {
-    title: 'Horas copiando datos a mano en Excel y PDF',
-    desc: 'Transcribir planos, solicitudes técnicas o confirmar horas manualmente consume tiempo operativo cada semana.'
+    num: '02',
+    title: 'Horas copiando datos entre Excel, formularios y PDF',
+    description: 'Transcribir planos, solicitudes técnicas o confirmar horas a mano consume tiempo que debería estar en producción o ventas.',
+    solution: 'Flujos automatizados sobre hosting cPanel sin servidores caros.'
   },
   {
-    title: 'Sitio lento o desactualizado sin medición real',
-    desc: 'Sin velocidad móvil ni trazabilidad de clics y formularios, no sabes qué canal trae clientes ni cuántos se pierden.'
-  }
-]
-
-const connectedFlow = [
-  {
-    icon: Globe,
-    title: '1. Captura orientada a conversión',
-    desc: 'Sitio rápido en móvil con formulario por servicio/plan y botón WhatsApp medido.'
-  },
-  {
-    icon: Database,
-    title: '2. Respaldo automático en base de datos',
-    desc: 'Cada lead queda registrado en tu panel administrativo aunque falle el servidor de correo.'
-  },
-  {
-    icon: BellRing,
-    title: '3. Alerta inmediata y seguimiento',
-    desc: 'Aviso directo al equipo comercial para responder cotizaciones y horas en menos de 24 h.'
-  },
-  {
-    icon: Cpu,
-    title: '4. Automatización frugal en cPanel',
-    desc: 'Flujos de PDF, agenda o consolidación sin pagar infraestructura cloud cara en dólares.'
+    num: '03',
+    title: 'Un sitio lento que no refleja el nivel de tu empresa',
+    description: 'En maestranzas, B2B y clínicas privadas, un sitio desactualizado en celular hace que el cliente cotice con otro proveedor.',
+    solution: 'Diseño veloz en móvil, SEO técnico y trazabilidad real de leads.'
   }
 ]
 </script>
 
 <style scoped>
-.problems-section {
-  padding: clamp(4.5rem, 8vw, 7rem) 0;
-  border-bottom: 1px solid var(--border);
+.bold-problems {
+  padding: clamp(5rem, 9vw, 8rem) 0;
 }
 
 .section-container {
@@ -120,180 +71,116 @@ const connectedFlow = [
   margin: 0 auto;
 }
 
-.problems-header {
+.bold-problems__head {
   text-align: center;
-  margin-bottom: clamp(2.5rem, 5vw, 3.75rem);
+  max-width: 46rem;
+  margin: 0 auto clamp(3rem, 6vw, 4.5rem);
 }
 
-.compare-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  align-items: stretch;
-}
-
-.compare-panel {
-  border-radius: 1.25rem;
-  padding: clamp(1.75rem, 3.5vw, 2.5rem);
-  display: flex;
-  flex-direction: column;
-}
-
-.compare-panel--before {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-}
-
-.compare-panel--blueprint {
-  background-color: #102B46;
-  background-image:
-    linear-gradient(to right, rgba(157, 203, 245, 0.065) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(157, 203, 245, 0.065) 1px, transparent 1px);
-  background-size: 32px 32px;
-  border: 1px solid #244A70;
-  color: #F5F9FD;
-  box-shadow: 0 20px 48px rgba(16, 43, 70, 0.16);
-}
-
-.compare-panel__head {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding-bottom: 1.25rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.compare-panel__head--dark {
-  border-bottom-color: rgba(184, 207, 229, 0.2);
-}
-
-.compare-panel__head h3 {
+.bold-section-title {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: clamp(2.15rem, 1.35rem + 2.8vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
   color: var(--text-main);
-  margin: 0;
+  margin: 0 0 1.25rem;
+  text-wrap: balance;
 }
 
-.compare-panel__head--dark h3 {
-  color: #F5F9FD;
-}
-
-.compare-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  flex: 1;
-  justify-content: center;
-}
-
-.compare-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-}
-
-.compare-icon-bad {
-  color: #b91c1c;
-}
-
-.compare-item h4 {
-  font-family: var(--font-heading);
-  font-size: 1.0625rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin: 0 0 0.3rem;
-}
-
-.compare-item p {
-  font-size: var(--fs-body);
+.bold-section-lead {
+  font-size: var(--fs-lead);
   line-height: 1.5;
   color: var(--text-secondary);
   margin: 0;
 }
 
-.blueprint-flow {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
+.bold-problems__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
 }
 
-.blueprint-flow__item {
+.bold-pain-block {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.45rem;
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  border-radius: 1.25rem;
+  background: var(--bg-surface);
 }
 
-.blueprint-flow__node {
-  width: 100%;
+.bold-pain-block__num {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 1.6rem + 1.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+}
+
+.bold-pain-block__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 1.1rem + 0.3vw, 1.375rem);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-main);
+  margin: 0 0 0.75rem;
+}
+
+.bold-pain-block__desc {
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin: 0 0 1.5rem;
+  flex: 1;
+}
+
+.bold-pain-block__fix {
   display: flex;
   align-items: flex-start;
-  gap: 0.85rem;
-  padding: 0.95rem 1.1rem;
-  border-radius: 0.75rem;
-  background: rgba(22, 54, 83, 0.92);
-  border: 1px solid rgba(157, 203, 245, 0.25);
-}
-
-.blueprint-flow__icon {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.5rem;
-  background: rgba(157, 203, 245, 0.14);
-  color: #9DCBF5;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-
-.blueprint-flow__text h4 {
+  gap: 0.55rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid rgba(184, 207, 229, 0.2);
   font-family: var(--font-heading);
-  font-size: 0.96875rem;
-  font-weight: 700;
-  color: #F5F9FD;
-  margin: 0 0 0.2rem;
-}
-
-.blueprint-flow__text p {
   font-size: var(--fs-small);
+  font-weight: 700;
   line-height: 1.45;
-  color: #B8CFE5;
+  color: var(--accent);
   margin: 0;
 }
 
-.blueprint-flow__arrow {
-  color: #9DCBF5;
-}
-
-.problems-footer {
+.bold-problems__cta {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: 0.875rem;
-  margin-top: 2.5rem;
+  gap: 1.5rem;
+  margin-top: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+.bold-problems__link {
+  font-family: var(--font-heading);
+  font-size: var(--fs-body);
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.bold-problems__link:hover {
+  text-decoration: underline;
 }
 
 @media (min-width: 960px) {
-  .compare-grid {
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-    gap: 2rem;
+  .bold-problems__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 640px) {
-  .problems-footer {
+  .bold-problems__cta {
     flex-direction: column;
   }
-  .problems-footer .btn {
+  .bold-problems__cta .btn {
     width: 100%;
     justify-content: center;
   }

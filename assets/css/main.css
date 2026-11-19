@@ -127,149 +127,108 @@ a {
 }
 
 /* ============================================
-   BLUEPRINT ARQUITECTÓNICO — Cabeceras y Diagramas
+   ESTUDIO DIGITAL BOLD — Cabeceras Monumentales y Bloques de Color
    ============================================ */
-.blueprint-hero-wrap {
-  padding: clamp(7.75rem, 10vw, 9.75rem) 0 clamp(2.5rem, 4.5vw, 3.75rem);
-}
-
-.blueprint-hero {
-  position: relative;
-  overflow: hidden;
-  border-radius: 1.5rem;
-  background-color: #102B46;
-  background-image:
-    linear-gradient(to right, rgba(157, 203, 245, 0.065) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(157, 203, 245, 0.065) 1px, transparent 1px);
-  background-size: 36px 36px;
-  border: 1px solid #244A70;
-  color: #F5F9FD;
-  padding: clamp(2.5rem, 5.5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
-  box-shadow: 0 24px 56px rgba(16, 43, 70, 0.16);
-}
-
-.blueprint-hero__content {
-  position: relative;
-  z-index: 1;
-  max-width: 48rem;
-  margin: 0 auto;
+.bold-hero {
+  background-color: var(--bg-elevated);
+  padding: clamp(9.25rem, 12vw, 12.5rem) 0 clamp(4rem, 7vw, 6rem);
   text-align: center;
 }
 
-.blueprint-hero__title {
+.bold-hero__inner {
+  width: 90%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.bold-hero__title {
   font-family: var(--font-heading);
-  font-size: clamp(2.15rem, 1.35rem + 3vw, 3.65rem);
+  font-size: clamp(2.5rem, 1.4rem + 4.1vw, 4.65rem);
   font-weight: 800;
-  line-height: 1.07;
-  letter-spacing: -0.035em;
-  color: #F5F9FD;
-  margin: 0 auto 1.25rem;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--text-main);
+  max-inline-size: 16ch;
+  margin: 0 auto 1.5rem;
   text-wrap: balance;
 }
 
-.blueprint-hero__title span {
-  color: #9DCBF5;
+.bold-hero__title span {
+  color: var(--accent);
 }
 
-.blueprint-hero__lead {
-  font-size: var(--fs-lead);
-  line-height: 1.55;
-  color: #B8CFE5;
-  max-width: 58ch;
+.bold-hero__lead {
+  font-size: clamp(1.125rem, 1.02rem + 0.45vw, 1.375rem);
+  line-height: 1.5;
+  color: var(--text-secondary);
+  max-width: 54ch;
   margin: 0 auto;
   text-wrap: pretty;
 }
 
-.blueprint-hero__actions {
+.bold-hero__actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.875rem;
-  margin-top: 2rem;
+  margin-top: 2.25rem;
 }
 
-.blueprint-hero__btn-primary {
-  background: #9DCBF5;
-  color: #102B46;
-  border: 1px solid #9DCBF5;
-  font-weight: 700;
-}
-
-.blueprint-hero__btn-primary:hover {
-  background: #F5F9FD;
-  border-color: #F5F9FD;
-  color: #102B46;
-}
-
-.blueprint-hero__btn-secondary {
-  background: rgba(245, 249, 253, 0.06);
-  color: #F5F9FD;
-  border: 1px solid rgba(184, 207, 229, 0.28);
-  font-weight: 600;
-}
-
-.blueprint-hero__btn-secondary:hover {
-  background: rgba(245, 249, 253, 0.14);
-  border-color: #9DCBF5;
-  color: #F5F9FD;
-}
-
-.blueprint-spec-strip {
-  position: relative;
-  z-index: 1;
+.bold-hero__metrics {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-  margin-top: clamp(2rem, 4vw, 3rem);
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(184, 207, 229, 0.2);
+  max-width: 56rem;
+  margin: clamp(2.5rem, 5vw, 3.75rem) auto 0;
 }
 
-.blueprint-spec {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  text-align: left;
+.bold-hero__metrics--two {
+  max-width: 38rem;
 }
 
-.blueprint-spec dt {
+.bold-metric {
+  background: var(--bg-surface);
+  border-radius: 1rem;
+  padding: 1.35rem 1.5rem;
+  text-align: center;
+}
+
+.bold-metric dt {
   font-family: var(--font-heading);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  color: #9DCBF5;
+  font-size: clamp(1.35rem, 1.15rem + 0.6vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text-main);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.2rem;
 }
 
-.blueprint-spec dd {
+.bold-metric dd {
   margin: 0;
   font-size: var(--fs-small);
-  line-height: 1.45;
-  color: #F5F9FD;
+  color: var(--text-secondary);
+  line-height: 1.4;
 }
 
 @media (min-width: 768px) {
-  .blueprint-spec-strip {
+  .bold-hero__metrics {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
-  .blueprint-spec-strip--two {
+  .bold-hero__metrics--two {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 44rem;
-    margin-inline: auto;
-  }
-  .blueprint-spec {
-    text-align: center;
   }
 }
 
 @media (max-width: 640px) {
-  .blueprint-hero {
-    border-radius: 1.125rem;
+  .bold-hero__title {
+    max-inline-size: none;
   }
-  .blueprint-hero__actions {
+  .bold-hero__actions {
     flex-direction: column;
     align-items: stretch;
   }
-  .blueprint-hero__actions .btn {
+  .bold-hero__actions .btn {
     width: 100%;
     justify-content: center;
   }

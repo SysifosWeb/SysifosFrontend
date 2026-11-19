@@ -61,7 +61,7 @@ const specializedOffers = [
     price: 'Desde $450.000 + IVA',
     summary: 'Conecta formularios, WhatsApp, correos y planillas sin pagar servidores cloud caros en dólares.',
     bullets: [
-      '1 flujo acotado de alto impacto (PDF de cotización, alertas o consolidación de leads).',
+      '1 flujo acotado de alto impacto (PDF de cotización, alertas o consolidación).',
       'Arquitectura compatible con cPanel y colas persistentes.',
       'Integraciones múltiples o APIs complejas: $900.000+ según alcance.'
     ],
@@ -76,7 +76,7 @@ const specializedOffers = [
     bullets: [
       'Catálogo estándar autoadministrable y carrito optimizado en móvil.',
       'Integración con Webpay, Flow o MercadoPago.',
-      'Integraciones con ERP, facturación SII o inventario avanzado se cotizan aparte.'
+      'Integraciones con ERP, SII o inventario avanzado se cotizan aparte.'
     ],
     ctaText: 'Cotizar Tienda Online'
   },
@@ -84,11 +84,11 @@ const specializedOffers = [
     slug: 'continuidad-mensual',
     icon: ShieldCheck,
     title: 'Plan Continuidad & Soporte',
-    price: '$49.000 – $89.000 / mes + IVA',
-    summary: 'Mantén tu sitio, correos y formularios funcionando sin caídas ni sorpresas técnicas mes a mes.',
+    price: '$49.000 – $89.000 / mes',
+    summary: 'Mantén tu sitio, correos y formularios funcionando sin caídas ni sorpresas técnicas mes a mes (+ IVA).',
     bullets: [
-      'Plan Base ($49.000/mes): hosting cPanel, SSL, respaldos, monitoreo de formularios + 1 h/mes ajustes.',
-      'Plan Crecimiento ($89.000/mes): incluye reporte mensual de contactos + 2 a 3 h/mes de mejoras.',
+      'Plan Base ($49.000/mes): hosting cPanel, SSL, respaldos, monitoreo + 1 h/mes ajustes.',
+      'Plan Crecimiento ($89.000/mes): incluye reporte mensual de contactos + 2 a 3 h/mes mejoras.',
       'Soporte directo sin tickets interminables.'
     ],
     ctaText: 'Activar Continuidad'
@@ -97,13 +97,13 @@ const specializedOffers = [
 </script>
 
 <template>
-  <section id="paquetes" class="catalog-section bg-section-dark">
+  <section id="paquetes" class="catalog-section bg-section-surface">
     <div class="section-container">
 
       <!-- Band 1: Core implementation packages -->
       <div class="band-head">
-        <h2 class="section-title m-0">Implementación web y captación</h2>
-        <p class="section-subtitle m-0 max-w-[52ch]">
+        <h2 class="bold-band-title">Implementación web y captación</h2>
+        <p class="bold-band-lead">
           Tres niveles con alcance cerrado para que pagues exactamente por la capacidad operativa que tu empresa necesita hoy.
         </p>
       </div>
@@ -135,7 +135,7 @@ const specializedOffers = [
 
           <div class="tier-cta-wrap">
             <NuxtLink :to="`/contacto?plan=${item.slug}`" class="btn w-full justify-center py-3.5"
-              :class="item.featured ? 'tier-btn-featured' : 'btn-secondary hover:bg-accent hover:text-action hover:border-accent'">
+              :class="item.featured ? 'tier-btn-featured' : 'btn-primary'">
               {{ item.ctaText }}
               <ArrowRight class="w-4 h-4" aria-hidden="true" />
             </NuxtLink>
@@ -143,53 +143,50 @@ const specializedOffers = [
         </article>
       </div>
 
-      <!-- Band 2: Specialized automation, ecommerce & monthly continuity (hairline ledger, not another card wall) -->
+      <!-- Band 2: Bold Color-Blocked Modules -->
       <div class="specialized-block">
         <div class="band-head">
-          <h2 class="section-title m-0">Automatización, ventas y continuidad mensual</h2>
-          <p class="section-subtitle m-0 max-w-[52ch]">
-            Servicios modulares para ahorrar horas manuales, cobrar online o mantener tu plataforma monitoreada mes a mes.
+          <h2 class="bold-band-title">Automatización, ventas y continuidad</h2>
+          <p class="bold-band-lead">
+            Módulos independientes para ahorrar horas manuales, cobrar online o mantener tu plataforma monitoreada mes a mes.
           </p>
         </div>
 
-        <div class="specialized-ledger">
+        <div class="specialized-grid">
           <article v-for="(offer, index) in specializedOffers" :key="offer.slug" v-reveal :data-delay="index * 70"
-            class="ledger-item">
-            <div class="ledger-item__meta">
-              <div class="ledger-item__title-row">
-                <component :is="offer.icon" class="w-5 h-5 text-accent shrink-0" aria-hidden="true" />
-                <h3 class="ledger-item__title">{{ offer.title }}</h3>
-              </div>
-              <p class="ledger-item__price tabular-nums">{{ offer.price }}</p>
-              <p class="ledger-item__summary">{{ offer.summary }}</p>
+            class="spec-tile">
+            <div class="spec-tile__top">
+              <component :is="offer.icon" class="w-6 h-6 text-accent shrink-0" aria-hidden="true" />
+              <h3 class="spec-tile__title">{{ offer.title }}</h3>
             </div>
 
-            <ul class="ledger-item__bullets">
+            <p class="spec-tile__price tabular-nums">{{ offer.price }}</p>
+            <p class="spec-tile__summary">{{ offer.summary }}</p>
+
+            <ul class="spec-tile__bullets">
               <li v-for="bullet in offer.bullets" :key="bullet">
                 <CheckCircle2 class="w-4 h-4 text-accent shrink-0 mt-0.5" aria-hidden="true" />
                 <span>{{ bullet }}</span>
               </li>
             </ul>
 
-            <div class="ledger-item__action">
-              <NuxtLink :to="`/contacto?plan=${offer.slug}`" class="btn btn-secondary py-3 px-5 hover:bg-accent hover:text-action hover:border-accent">
-                {{ offer.ctaText }}
-                <ArrowRight class="w-4 h-4" aria-hidden="true" />
-              </NuxtLink>
-            </div>
+            <NuxtLink :to="`/contacto?plan=${offer.slug}`" class="btn btn-secondary w-full justify-center py-3.5">
+              {{ offer.ctaText }}
+              <ArrowRight class="w-4 h-4" aria-hidden="true" />
+            </NuxtLink>
           </article>
         </div>
       </div>
 
-      <!-- Band 3: Custom software & attendance pilot -->
-      <div class="custom-band" v-reveal data-delay="120">
+      <!-- Band 3: Bold Deep Navy Custom Banner -->
+      <div class="custom-band impulso-closing" v-reveal data-delay="120">
         <div class="custom-band__copy">
           <h3 class="custom-band__title">Software a medida y Piloto Control de Asistencia</h3>
           <p class="custom-band__desc">
             Si necesitas portales internos, integraciones con sistemas propios o evaluar un piloto de control de asistencia y turnos en terreno, definimos alcance, plazos y presupuesto tras una reunión de diagnóstico.
           </p>
         </div>
-        <NuxtLink to="/contacto?plan=software-a-medida" class="btn btn-primary shrink-0 py-3.5 px-6">
+        <NuxtLink to="/contacto?plan=software-a-medida" class="btn tier-btn-featured shrink-0 py-4 px-7">
           Solicitar Diagnóstico
           <ArrowRight class="w-4 h-4" aria-hidden="true" />
         </NuxtLink>
@@ -201,8 +198,7 @@ const specializedOffers = [
 
 <style scoped>
 .catalog-section {
-  padding: clamp(3.5rem, 6vw, 5.5rem) 0 clamp(4rem, 7vw, 6rem);
-  border-bottom: 1px solid var(--border);
+  padding: clamp(4.5rem, 8vw, 7rem) 0;
 }
 
 .section-container {
@@ -212,10 +208,27 @@ const specializedOffers = [
 }
 
 .band-head {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin-bottom: 2.25rem;
+  text-align: center;
+  max-width: 44rem;
+  margin: 0 auto clamp(2.5rem, 5vw, 3.75rem);
+}
+
+.bold-band-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 1.35rem + 2.4vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: var(--text-main);
+  margin: 0 0 1rem;
+  text-wrap: balance;
+}
+
+.bold-band-lead {
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
 }
 
 .core-grid {
@@ -228,17 +241,15 @@ const specializedOffers = [
   display: flex;
   flex-direction: column;
   padding: clamp(1.75rem, 3vw, 2.25rem);
-  border-radius: var(--radius-lg);
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  transition: border-color 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 1.25rem;
+  background: var(--bg-dark);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .tier-card--featured {
   background: #102B46;
-  border-color: #244A70;
   color: #F5F9FD;
-  box-shadow: 0 20px 44px rgba(16, 43, 70, 0.16);
+  box-shadow: 0 24px 52px rgba(16, 43, 70, 0.18);
 }
 
 .tier-head {
@@ -279,10 +290,10 @@ const specializedOffers = [
 
 .tier-price {
   font-family: var(--font-heading);
-  font-size: clamp(1.65rem, 1.4rem + 0.7vw, 2rem);
+  font-size: clamp(1.75rem, 1.45rem + 0.8vw, 2.2rem);
   font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.1;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
   color: var(--text-main);
   margin: 0 0 0.25rem;
 }
@@ -325,7 +336,6 @@ const specializedOffers = [
   margin-top: 0.15rem;
 }
 
-/* Featured navy contrast overrides (works in both light & dark themes) */
 .tier-card--featured .tier-title,
 .tier-card--featured .tier-price {
   color: #F5F9FD;
@@ -355,127 +365,118 @@ const specializedOffers = [
   color: #102B46;
 }
 
-/* Band 2: Specialized hairline ledger */
+/* Band 2: Solid color-blocked modules */
 .specialized-block {
-  margin-top: clamp(4rem, 7vw, 6rem);
+  margin-top: clamp(4.5rem, 8vw, 6.5rem);
 }
 
-.specialized-ledger {
-  border-top: 1px solid var(--border);
-}
-
-.ledger-item {
+.specialized-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
-  padding: clamp(1.75rem, 3vw, 2.5rem) 0;
-  border-bottom: 1px solid var(--border);
 }
 
-.ledger-item__title-row {
+.spec-tile {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  border-radius: 1.25rem;
+  background: var(--bg-elevated);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spec-tile__top {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  margin-bottom: 0.35rem;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
 }
 
-.ledger-item__title {
+.spec-tile__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.2rem, 1.1rem + 0.3vw, 1.4rem);
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-main);
   margin: 0;
 }
 
-.ledger-item__price {
+.spec-tile__price {
   font-family: var(--font-heading);
-  font-size: 1.125rem;
+  font-size: clamp(1.4rem, 1.2rem + 0.5vw, 1.75rem);
   font-weight: 800;
+  letter-spacing: -0.025em;
   color: var(--accent);
-  margin: 0 0 0.65rem;
+  margin: 0 0 0.75rem;
 }
 
-.ledger-item__summary {
+.spec-tile__summary {
   font-size: var(--fs-body);
   line-height: 1.55;
   color: var(--text-secondary);
-  margin: 0;
-  max-width: 44ch;
+  margin: 0 0 1.25rem;
 }
 
-.ledger-item__bullets {
+.spec-tile__bullets {
   list-style: none;
-  margin: 0;
+  margin: 0 0 1.75rem;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.6rem;
+  flex: 1;
 }
 
-.ledger-item__bullets li {
+.spec-tile__bullets li {
   display: flex;
   align-items: flex-start;
-  gap: 0.65rem;
+  gap: 0.6rem;
   font-size: var(--fs-small);
   line-height: 1.45;
   color: var(--text-main);
 }
 
-.ledger-item__action {
-  display: flex;
-  align-items: center;
-}
-
-/* Band 3: Custom software */
+/* Band 3: Deep navy statement banner */
 .custom-band {
   margin-top: clamp(3rem, 5vw, 4.5rem);
-  padding: clamp(1.75rem, 3.5vw, 2.75rem);
-  border-radius: var(--radius-lg);
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
+  padding: clamp(2rem, 4vw, 3.25rem);
+  border-radius: 1.5rem;
+  background: #102B46;
+  color: #F5F9FD;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
 .custom-band__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.25rem, 1.15rem + 0.35vw, 1.55rem);
-  font-weight: 700;
-  color: var(--text-main);
-  margin: 0 0 0.5rem;
+  font-size: clamp(1.4rem, 1.2rem + 0.6vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #F5F9FD;
+  margin: 0 0 0.6rem;
 }
 
 .custom-band__desc {
   font-size: var(--fs-body);
   line-height: 1.55;
-  color: var(--text-secondary);
-  max-width: 62ch;
+  color: #B8CFE5;
+  max-width: 60ch;
   margin: 0;
 }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .tier-card:hover {
+  .tier-card:hover,
+  .spec-tile:hover {
     transform: translateY(-3px);
-    border-color: var(--border-accent);
   }
 }
 
 @media (min-width: 960px) {
-  .band-head {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: end;
-    gap: 3rem;
-  }
-  .core-grid {
+  .core-grid,
+  .specialized-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  .ledger-item {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.25fr) auto;
-    align-items: center;
-    gap: 2.5rem;
   }
   .custom-band {
     flex-direction: row;
