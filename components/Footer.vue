@@ -53,7 +53,7 @@
               </svg>
             </a>
             <!-- TikTok -->
-            <a href="https://www.tiktok.com/@sysifosweb" target="_blank" aria-label="TikTok"
+            <a href="https://www.tiktok.com/@sysifosweb_" target="_blank" aria-label="TikTok"
               class="social-icon w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
               style="background: var(--bg-elevated); border: 1px solid var(--border);">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" style="color: var(--text-muted);">
