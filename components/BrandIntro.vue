@@ -39,7 +39,7 @@ onUnmounted(() => clearTimeout(timer))
 </template>
 
 <style scoped>
-.brand-intro { position: fixed; inset: 0; z-index: 5000; display: grid; place-items: center; overflow: hidden; background: #F7F8FB; color: #102B46; animation: intro-exit 3s ease both; }
+.brand-intro { position: fixed; inset: 0; z-index: 5000; display: grid; place-items: center; overflow: hidden; background: #F7F8FB; color: #102B46; --logo-light-display: block; --logo-dark-display: none; animation: intro-exit 3s ease both; }
 .intro-composition { position: relative; width: min(78vw, 360px); height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .intro-halo { position: absolute; width: min(95vw, 620px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(157,203,245,.34), rgba(157,203,245,0) 66%); animation: intro-halo 2.7s ease-out both; }
 .intro-symbol { width: 120px; height: 120px; overflow: visible; animation: intro-symbol 2.7s cubic-bezier(.2,.7,.2,1) both; }
@@ -47,6 +47,8 @@ onUnmounted(() => clearTimeout(timer))
 .intro-sphere { transform-box: fill-box; transform-origin: center; animation: intro-sphere 1.1s cubic-bezier(.22,1,.36,1) .15s both; }
 .intro-lockup { position: absolute; top: 96px; width: 100%; animation: intro-lockup 2.7s ease both; }
 .intro-lockup :deep(.brand-logo) { display: block; width: 100%; }
+.intro-lockup :deep(.brand-logo__light) { display: block; }
+.intro-lockup :deep(.brand-logo__dark) { display: none; }
 .intro-tagline { position: absolute; top: 180px; font-family: var(--font-heading); font-size: clamp(.875rem, 3.5vw, 1rem); letter-spacing: .04em; color: #52677F; animation: intro-tagline 2.7s ease both; }
 @keyframes intro-ramp { from { opacity: 0; transform: translate(-28px,28px) scale(.9); } to { opacity: 1; transform: translate(0,0) scale(1); } }
 @keyframes intro-sphere { 0% { opacity: 0; transform: translate(28px,34px) scale(.65); } 65% { opacity: 1; transform: translate(-2px,-5px) scale(1); } 100% { opacity: 1; transform: translate(0,0) scale(1); } }
