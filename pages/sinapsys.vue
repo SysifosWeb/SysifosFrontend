@@ -67,11 +67,13 @@ setSchema({ type: 'WebPage', data: { name: 'Sinapsys · Enlaces de SysifosWeb', 
 </template>
 
 <style scoped>
-.sinapsys { min-height: 100svh; background: #F7F8FB; color: #102B46; font-family: var(--font-family); padding: clamp(1.25rem, 4vw, 3rem) 0; background-image: radial-gradient(ellipse at 10% 0%, rgba(157,203,245,.23), transparent 55%); }
+.sinapsys { min-height: 100svh; background: #F7F8FB; color: #102B46; --logo-light-display: block; --logo-dark-display: none; font-family: var(--font-family); padding: clamp(1.25rem, 4vw, 3rem) 0; background-image: radial-gradient(ellipse at 10% 0%, rgba(157,203,245,.23), transparent 55%); }
 .sinapsys-container { width: min(1120px, 90%); margin-inline: auto; }
 .sinapsys-header { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding-bottom: 2rem; border-bottom: 1px solid #D9E3EF; }
 .sinapsys-brand { display: block; width: clamp(180px, 21vw, 240px); flex-shrink: 0; }
 .sinapsys-brand :deep(.brand-logo) { display: block; width: 100%; }
+.sinapsys-brand :deep(.brand-logo__light) { display: block; }
+.sinapsys-brand :deep(.brand-logo__dark) { display: none; }
 .sinapsys-label { display: inline-flex; align-items: center; gap: .5rem; color: #52677F; font-size: var(--fs-small); }
 .sinapsys-label > span { width: 6px; height: 6px; border-radius: 50%; background: #1D5FA6; }
 .sinapsys-main { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; margin-block: clamp(2rem, 5vw, 4rem); }
